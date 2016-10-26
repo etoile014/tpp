@@ -1,6 +1,5 @@
-<<<<<<< HEAD
 # Enviroment
-Ubuntu 14.04
+'Ubuntu 14.04'
 
 # Language
 ## Frontend
@@ -11,10 +10,11 @@ Ubuntu 14.04
 ### Node.js
 
 # Contributers
+Team TpP
 
 # License
 None, just for educational use only!
-=======
-# tpp
+
+# service
 Twins like credit management system
->>>>>>> 2a5e2b9cd2aa953ab77af7d305d77cc72c2c0d91
+
