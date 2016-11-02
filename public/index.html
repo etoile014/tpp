@@ -1,10 +1,58 @@
-<!DOCTYPE HTML>
-<html lang="ja">
-  <head>
-    <title>TPP</title>
-    <link href="style.css" rel="stylesheet" type="text/css">
-  </head>
-  <body>
-    <p class="test1">Hello!!</p>
-  </body>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link href="css/base.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript" src="js/base.js"></script>
+</head>
+<body>
+	<header id="page-header" role="banner">
+		<div id="header-logo">
+			<img src="img/TopLink.png">
+		</div>
+		<div id="header-menu">
+			<div id="header-menu-inside">
+				<div class="menu-interval"><p class="onbar"></p><span>|</span></div>
+				<div class="menu-item"><p class="onbar"></p><a href="#TOP">トップ</a><p class="underbar"></p></div>
+				<div class="menu-interval"><p class="onbar"></p><span>|</span></div>
+				<div class="menu-item"><p class="onbar"></p><a href="#ABOUT_USAGE">概要・使い方</a><p class="underbar"></p></div>
+				<div class="menu-interval"><p class="onbar"></p><span>|</span></div>
+				<div class="menu-item"><p class="onbar"></p><a href="#QA">よくある質問</a><p class="underbar"></p></div>
+				<div class="menu-interval"><p class="onbar"></p><span>|</span></div>
+				<div class="menu-item"><p class="onbar"></p><a href="#UPDATE_INFO">更新・お知らせ</a><p class="underbar"></p></div>
+				<div class="menu-interval"><p class="onbar"></p><span>|</span></div>
+			</div>
+		</div>
+	</header>
+
+	<div id="page-main" role="main">
+		<div id="page-main-inside">
+			<div id="TOP">
+				<img id="topback" src="img/TOP.png">
+				<img id="toplogo" src="img/logo.png">
+				<img id="foryou" src="img/for_you.png">
+				<img id="explain" src="img/CSV_explain.png">
+				<form>
+					<input id="upload" type="file" name="datafile">
+					<img id="upload_dummy" src="img/CSV_upload.png">
+					<input id="submit" type="image" src="img/CSV_submit.png" alt="upload">
+				</form>
+				<a href="#ABOUT_USAGE"><img id="scroll" src="img/scroll.png"></a>
+			</div>
+			<div id="ABOUT_USAGE">
+				<img src="img/ABOUT_USAGE.png">
+			</div>
+			<div id="QA">
+				<img src="img/QA.png">
+			</div>
+			<div id="UPDATE_INFO">
+				<img src="img/UPDATE_INFO.png">
+			</div>
+			<div id="FOOTER">
+				<p id="COPYRIGHT">Copyright ©︎2016 TPP</p>
+			</div>
+		</div>
+	</div>
+</body>
 </html>
