@@ -33,9 +33,10 @@
 				<img id="toplogo" src="img/logo.png">
 				<img id="foryou" src="img/for_you.png">
 				<img id="explain" src="img/CSV_explain.png">
+				<img id="upload_area" src="img/CSV_upload.png" onclick="tapped()">
+				<p id="filename" onclick="tapped()">ファイルをアップロード</p>
 				<form>
-					<input id="upload" type="file" name="datafile">
-					<img id="upload_dummy" src="img/CSV_upload.png">
+					<input id="upload" type="file" onchange="fileUpload()">
 					<input id="submit" type="image" src="img/CSV_submit.png" alt="upload">
 				</form>
 				<a href="#ABOUT_USAGE"><img id="scroll" src="img/scroll.png"></a>

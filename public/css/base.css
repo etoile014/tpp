@@ -182,29 +182,46 @@ input#upload {
 	top: 60%;
 	left: 0px;
 	right: 0px;
-	width: 20vw;
-	min-width: 170px;
+	width: 24vw;
+	min-width: 204px;
 	height: 3vw;
 	min-height: 25.5px;
-	z-index: 2;
-	/*opacity: 0;*/
+	z-index: 1;
+	display: none;
 }
 
-input#upload:hover {
-	cursor: pointer;
-}
-
-img#upload_dummy {
+img#upload_area {
 	position: absolute;
 	margin: auto;
 	top: 60%;
 	left: 0px;
 	right: 0px;
-	width: 20vw;
-	min-width: 170px;
+	width: 24vw;
+	min-width: 204px;
 	height: 3vw;
 	min-height: 25.5px;
-	z-index: 1;
+	z-index: 2;
+}
+
+img#upload_area:hover {
+	cursor: pointer;
+}
+
+p#filename {
+	position: absolute;
+	margin: auto;
+	top: 60%;
+	left: 5vw;
+	right: 0px;
+	width: 19vw;
+	font-size: 1.5vw;
+	font-weight: bold;
+	color: #FFFFFF;
+	z-index: 3;
+}
+
+p#filename:hover {
+	cursor: pointer;
 }
 
 input#submit {
@@ -213,8 +230,8 @@ input#submit {
 	top: 70%;
 	left: 0px;
 	right: 0px;
-	width: 20vw;
-	min-width: 170px;
+	width: 24vw;
+	min-width: 204px;
 	height: 3vw;
 	min-height: 25.5px;
 	z-index: 1;
