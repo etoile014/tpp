@@ -129,7 +129,7 @@ div#TOP {
 	position: relative;
 }
 
-img#topback {
+img#topBack {
 	width: 100vw;
 	min-width: 850px;
 	height: 56vw;
@@ -137,7 +137,7 @@ img#topback {
 	z-index: 0;
 }
 
-img#toplogo {
+img#topLogo {
 	position: absolute;
 	margin: auto;
 	top: 10%;
@@ -150,7 +150,7 @@ img#toplogo {
 	z-index: 1;
 }
 
-img#foryou {
+img#forYou {
 	position: absolute;
 	margin: auto;
 	top: 40%;
@@ -163,7 +163,7 @@ img#foryou {
 	z-index: 1;
 }
 
-img#explain {
+img#topExplain {
 	position: absolute;
 	margin: auto;
 	top: 50%;
@@ -174,6 +174,40 @@ img#explain {
 	height: 3vw;
 	min-height: 25.5px;
 	z-index: 1;
+}
+
+img#uploadArea {
+	position: absolute;
+	margin: auto;
+	top: 60%;
+	left: 0px;
+	right: 0px;
+	width: 24vw;
+	min-width: 204px;
+	height: 3vw;
+	min-height: 25.5px;
+	z-index: 2;
+}
+
+img#uploadArea:hover {
+	cursor: pointer;
+}
+
+p#fileName {
+	position: absolute;
+	margin: auto;
+	top: 60%;
+	left: 5vw;
+	right: 0px;
+	width: 19vw;
+	font-size: 1.5vw;
+	font-weight: bold;
+	color: #FFFFFF;
+	z-index: 3;
+}
+
+p#fileName:hover {
+	cursor: pointer;
 }
 
 input#upload {
@@ -188,40 +222,6 @@ input#upload {
 	min-height: 25.5px;
 	z-index: 1;
 	display: none;
-}
-
-img#upload_area {
-	position: absolute;
-	margin: auto;
-	top: 60%;
-	left: 0px;
-	right: 0px;
-	width: 24vw;
-	min-width: 204px;
-	height: 3vw;
-	min-height: 25.5px;
-	z-index: 2;
-}
-
-img#upload_area:hover {
-	cursor: pointer;
-}
-
-p#filename {
-	position: absolute;
-	margin: auto;
-	top: 60%;
-	left: 5vw;
-	right: 0px;
-	width: 19vw;
-	font-size: 1.5vw;
-	font-weight: bold;
-	color: #FFFFFF;
-	z-index: 3;
-}
-
-p#filename:hover {
-	cursor: pointer;
 }
 
 input#submit {
@@ -258,14 +258,41 @@ div#ABOUT_USAGE {
 	height: 56vw;
 	min-height: 476px;
 	background-color: #97ECED;
+	position: relative;
 }
 
-div#ABOUT_USAGE > img {
+img#about_usageBack {
 	width: 100vw;
 	min-width: 850px;
 	height: 56vw;
 	min-height: 476px;
 	z-index: 0;
+}
+
+img#about_usageExplain {
+	position: absolute;
+	margin: auto;
+	top: 5%;
+	left: 0px;
+	right: 0px;
+	width: 60vw;
+	min-width: 510px;
+	height: 24vw;
+	min-height: 204px;
+	z-index: 1;
+}
+
+img#steps {
+	position: absolute;
+	margin: auto;
+	top: 55%;
+	left: 0px;
+	right: 0px;
+	width: 60vw;
+	min-width: 510px;
+	height: 25vw;
+	min-height: 212.5px;
+	z-index: 1;
 }
 
 div#QA {
@@ -276,9 +303,23 @@ div#QA {
 	height: 56vw;
 	min-height: 476px;
 	background-color: #F1ADB7;
+	position: relative;
 }
 
-div#QA > img {
+img#faq {
+	position: absolute;
+	margin: auto;
+	top: 5%;
+	left: 0px;
+	right: 0px;
+	width: 20vw;
+	min-width: 170px;
+	height: 3vw;
+	min-height: 25.5px;
+	z-index: 1;
+}
+
+img#qaBack {
 	width: 100vw;
 	min-width: 850px;
 	height: 56vw;
@@ -294,14 +335,41 @@ div#UPDATE_INFO {
 	height: 56vw;
 	min-height: 476px;
 	background-color: #FFFFFF;
+	position: relative;
 }
 
-div#UPDATE_INFO > img {
+img#update_infoBack {
 	width: 100vw;
 	min-width: 850px;
 	height: 56vw;
 	min-height: 476px;
 	z-index: 0;
+}
+
+img#update {
+	position: absolute;
+	margin: auto;
+	top: 5%;
+	left: 0px;
+	right: 0px;
+	width: 10vw;
+	min-width: 85px;
+	height: 3vw;
+	min-height: 25.5px;
+	z-index: 1;
+}
+
+img#news {
+	position: absolute;
+	margin: auto;
+	top: 50%;
+	left: 0px;
+	right: 0px;
+	width: 10vw;
+	min-width: 85px;
+	height: 3vw;
+	min-height: 25.5px;
+	z-index: 1;
 }
 
 div#FOOTER {
