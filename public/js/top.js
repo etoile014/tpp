@@ -1,12 +1,19 @@
 var formData = new FormData();
 
 $(function(){
+    $(window).resize(function(){
+        var w = $(window).width();
+        if (w > 850) {
+            $("#fileName").css("fontSize", "1.5vw");
+        } else {
+            $("#fileName").css("fontSize", "12.75px");
+        }
+    });
     $("a[href^='#']").on("click", function(){
         var top_ = 0;
         var about_usage_ = top_ + $("#TOP").height();
         var qa_ = about_usage_ + $("#ABOUT_USAGE").height();
         var update_info_ = qa_ + $("#QA").height();
-        var footer = update_info_ + $("#UPDATE_INFO").height();
 
         var speed = 500;
         var href = $(this).attr("href");
@@ -19,8 +26,6 @@ $(function(){
             position = qa_;
         } else if (href == "#UPDATE_INFO") {
             position = update_info_;
-        } else if (href == "#footer") {
-            position = footer;
         }
         $("#page-main-inside").animate({scrollTop : position}, speed, "swing");
         return false;
@@ -72,17 +77,21 @@ function tapped() {
 }
 
 function fileUpload() {
-    if($("#upload").val() !== ''){
+    if ($("#upload").val() !== '') {
         var file = $("#upload").prop("files")[0];
         handleFileUpload(file);
     }
 }
 
 function handleFileUpload(file){
-    if(file.name.match(/^(gakusei_)(\d{8}).+\.csv/)){
+    if (file.name.match(/^(gakusei_)(\d{8}).+\.csv/)) {
         formData = new FormData();
         formData.append("file", file);
         // alert(file.name);
         $("#filename").text(file.name);
     }
+}
+
+function jumpTOP() {
+    window.location.href = "./index.html";
 }
