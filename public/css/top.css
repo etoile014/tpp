@@ -196,14 +196,19 @@ img#uploadArea:hover {
 p#fileName {
 	position: absolute;
 	margin: auto;
+	padding-left: 5vw;
 	top: 60%;
-	left: 5vw;
+	left:0px;
 	right: 0px;
 	width: 19vw;
+	min-width: 161.5px;
+	height: 3vw;
+	min-height: 25.5px;
 	font-size: 1.5vw;
 	font-weight: bold;
 	color: #FFFFFF;
 	z-index: 3;
+	/*background-color: #c97d4e;*/
 }
 
 p#fileName:hover {

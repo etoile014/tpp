@@ -2,14 +2,14 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<link href="css/base.css" rel="stylesheet" type="text/css">
+	<link href="css/top.css" rel="stylesheet" type="text/css">
 	<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
-	<script type="text/javascript" src="js/base.js"></script>
+	<script type="text/javascript" src="js/top.js"></script>
 </head>
 <body>
 	<header id="page-header" role="banner">
 		<div id="header-logo">
-			<img src="img/TopLink.png">
+			<img src="img/top/TopLink.png" onclick="jumpTOP()">
 		</div>
 		<div id="header-menu">
 			<div id="header-menu-inside">
@@ -29,31 +29,31 @@
 	<div id="page-main" role="main">
 		<div id="page-main-inside">
 			<div id="TOP">
-				<img id="topBack" src="img/TOP.png">
-				<img id="topLogo" src="img/logo.png">
-				<img id="forYou" src="img/for_you.png">
-				<img id="topExplain" src="img/CSV_explain.png">
-				<img id="uploadArea" src="img/CSV_upload.png" onclick="tapped()">
+				<img id="topBack" src="img/top/TOP.png">
+				<img id="topLogo" src="img/top/logo.png">
+				<img id="forYou" src="img/top/for_you.png">
+				<img id="topExplain" src="img/top/CSV_explain.png">
+				<img id="uploadArea" src="img/top/CSV_upload.png" onclick="tapped()">
 				<p id="fileName" onclick="tapped()">ファイルをアップロード</p>
-				<form>
+				<form action="./main.html">
 					<input id="upload" type="file" onchange="fileUpload()">
-					<input id="submit" type="image" src="img/CSV_submit.png" alt="upload">
+					<input id="submit" type="image" src="img/top/CSV_submit.png" alt="upload">
 				</form>
-				<a href="#ABOUT_USAGE"><img id="scroll" src="img/scroll.png"></a>
+				<a href="#ABOUT_USAGE"><img id="scroll" src="img/top/scroll.png"></a>
 			</div>
 			<div id="ABOUT_USAGE">
-				<img id="about_usageBack" src="img/ABOUT_USAGE.png">
-				<img id="about_usageExplain" src="img/ABOUT_USAGE_explain.png">
-				<img id="steps" src="img/STEP.png">
+				<img id="about_usageBack" src="img/top/ABOUT_USAGE.png">
+				<img id="about_usageExplain" src="img/top/ABOUT_USAGE_explain.png">
+				<img id="steps" src="img/top/STEP.png">
 			</div>
 			<div id="QA">
-				<img id="qaBack" src="img/QA.png">
-				<img id="faq" src="img/FAQ.png">
+				<img id="qaBack" src="img/top/QA.png">
+				<img id="faq" src="img/top/FAQ.png">
 			</div>
 			<div id="UPDATE_INFO">
-				<img id="update_infoBack" src="img/UPDATE_INFO.png">
-				<img id="update" src="img/update.png">
-				<img id="news" src="img/news.png">
+				<img id="update_infoBack" src="img/top/UPDATE_INFO.png">
+				<img id="update" src="img/top/update.png">
+				<img id="news" src="img/top/news.png">
 			</div>
 			<div id="FOOTER">
 				<p id="COPYRIGHT">Copyright ©︎2016 TPP</p>
