@@ -106,41 +106,48 @@ function TwinsPlanningParser(textData) {
 
     var count = 0;
     for (var i = 0; i < linage; i++) {
-        var row = Line[i].split(",");
-        if (row[3] != '\"\"') {
+        var row = Line[i].split("\",\"");
+        for (var j = 0; j < row.length; j++) {
+            row[j].replace("\"", "");
+        }
+        if (row[3] != "") {
             dataArray[count] = new Array();
             dataArray[count][0] = row[1];
             dataArray[count][1] = row[3];
-            dataArray[count][2] = row[6];
+            dataArray[count][2] = (row[6] != "") ? row[6] : "X";
             count += 1;
         }
     }
-    printArray(dataArray);
+    convertJsonText(dataArray);
+    // postData(dataArray);
 }
 
-function postData(txt) {
-    console.log("今から送る");
+function postData(jsontext) {
     $.ajax({
         type: "POST",
         url: "http://104.198.209.156:4000/api/csv",
-        data: txt,
-        success: function(data)　{
-            console.log("送ったはず");
-        },error: function()　{
-
+        data: jsontext,
+        contentType: "application/json",
+        success: function(data) {
+            console.log(data);
+        },
+        error: function() {
+            console.log("Error");
         }
     });
 }
 
-function printArray(dataArray) {
+function convertJsonText(dataArray) {
     var length = dataArray.length;
-    var txt = "";
-
+    var txt = "{\n";
     for (var i = 0; i < length; i++) {
-        txt += dataArray[i][0] + "  ,  ";
-        txt += dataArray[i][1] + "  ,  ";
-        txt += dataArray[i][2] + "\n";
+        txt += '\t\"' + i + '\": {\n';
+        txt += '\t\t\"year\": \"' + dataArray[i][0] + '\",\n';
+        txt += '\t\t\"subject\": \"' + dataArray[i][1] + '\",\n';
+        txt += '\t\t\"grade\": \"' + dataArray[i][2] + '\"\n';
+        txt += '\t}' + ((i < length - 1) ? ',' : '' ) + '\n';
     }
+    txt += '}';
     postData(txt);
     alert(txt);
 }
