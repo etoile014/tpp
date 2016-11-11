@@ -122,7 +122,7 @@ function postData(txt) {
     console.log("今から送る");
     $.ajax({
         type: "POST",
-        url: "http://104.198.209.156:4000",
+        url: "http://104.198.209.156:4000/api/csv",
         data: txt,
         success: function(data)　{
             console.log("送ったはず");
