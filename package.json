@@ -1,0 +1,16 @@
+{
+    "name": "tpp",
+    "version": "0.0.1",
+    "description": "for twins",
+    "author": "Yuki Koyama <je6hbc@d-io.com>",
+    "main": "server.js",
+    "scripts": {
+	"start": "node server/http.js && node server/api.js"
+    },
+    "dependencies": {
+	"node":"^7.0.0",
+	"express": "^4.13.3",
+	"body-parser": "latest",
+	"pm2": "latest"
+    }
+}

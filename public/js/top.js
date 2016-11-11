@@ -125,7 +125,7 @@ function TwinsPlanningParser(textData) {
 function postData(jsontext) {
     $.ajax({
         type: "POST",
-        url: "http://104.198.209.156:4000/api/csv",
+        url: "http://104.198.209.156/api/csv",
         data: jsontext,
         contentType: "application/json",
         success: function(data) {
@@ -141,7 +141,7 @@ function convertJsonText(dataArray) {
     var length = dataArray.length;
     var txt = "{\n";
     for (var i = 0; i < length; i++) {
-        txt += '\t\"' + i + '\": {\n';
+        txt += '\t\"line' + i + '\": {\n';
         txt += '\t\t\"year\": \"' + dataArray[i][0] + '\",\n';
         txt += '\t\t\"subject\": \"' + dataArray[i][1] + '\",\n';
         txt += '\t\t\"grade\": \"' + dataArray[i][2] + '\"\n';

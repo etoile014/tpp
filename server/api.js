@@ -14,6 +14,7 @@ var server = app.listen(80, function(){
     console.log("Node.js is running to listen port: " + server.address().port + "(in container)");
 });
 
+//api get method
 app.get("/api/csv", function(req, res, next){
     res.writeHead(200, {'Content-Type': 'text/html'});
     res.write("hello guys! I got post methot!!");
@@ -21,11 +22,12 @@ app.get("/api/csv", function(req, res, next){
     console.log("app.get launch.");
 });
 
+//api post method
 app.post("/api/csv", function(req, res, next){
     var str = req;
     res.setHeader('Content-Type', 'text/plain');
     //res.writeHead(200, {'Content-Type': 'text/html'});
-    res.send("Hello! Success Upload!" + str.body.line1.a);
+    res.send("Hello! Success Upload!" + str.body.line0.subject );
 
     //res.end();
     console.log(str.body);
