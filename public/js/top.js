@@ -40,7 +40,7 @@ $(function(){
         $(this).parents('.menu-item').children('.underbar').stop().animate({ 'width' : '0px'}, 500, 'swing');
     });
 
-    var obj = $("#upload_area, #filename");
+    var obj = $("#uploadArea, #fileName");
 
     obj.on('dragenter', function(e){
         e.stopPropagation();
@@ -83,13 +83,66 @@ function fileUpload() {
     }
 }
 
-function handleFileUpload(file){
-    if (file.name.match(/^(gakusei_)(\d{8}).+\.csv/)) {
-        formData = new FormData();
-        formData.append("file", file);
-        // alert(file.name);
-        $("#filename").text(file.name);
+function handleFileUpload(file) {
+    if (file.name.match(/^(gakusei_)(\d{9}).*\.csv/)) {
+        $("#fileName").text(file.name);
+        // formData = new FormData();
+        // formData.append("file", file);
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var txtData = e.target.result;
+            TwinsPlanningParser(txtData);
+        }
+        reader.readAsText(file);
     }
+}
+
+function TwinsPlanningParser(textData) {
+    textData = textData.trim();
+    var data = textData.split("\r\n");
+    var Line = data[1].split("\r");
+    var linage = Line.length;
+    var dataArray = new Array();
+
+    var count = 0;
+    for (var i = 0; i < linage; i++) {
+        var row = Line[i].split(",");
+        if (row[3] != '\"\"') {
+            dataArray[count] = new Array();
+            dataArray[count][0] = row[1];
+            dataArray[count][1] = row[3];
+            dataArray[count][2] = row[6];
+            count += 1;
+        }
+    }
+    printArray(dataArray);
+}
+
+function postData(txt) {
+    console.log("今から送る");
+    $.ajax({
+        type: "POST",
+        url: "http://104.198.209.156:4000",
+        data: txt,
+        success: function(data)　{
+            console.log("送ったはず");
+        },error: function()　{
+
+        }
+    });
+}
+
+function printArray(dataArray) {
+    var length = dataArray.length;
+    var txt = "";
+
+    for (var i = 0; i < length; i++) {
+        txt += dataArray[i][0] + "  ,  ";
+        txt += dataArray[i][1] + "  ,  ";
+        txt += dataArray[i][2] + "\n";
+    }
+    postData(txt);
+    alert(txt);
 }
 
 function jumpTOP() {
