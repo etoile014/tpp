@@ -119,7 +119,6 @@ function TwinsPlanningParser(textData) {
         }
     }
     convertJsonText(dataArray);
-    // postData(dataArray);
 }
 
 function postData(jsontext) {
