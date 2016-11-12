@@ -4,9 +4,9 @@ $(function(){
     $(window).resize(function(){
         var w = $(window).width();
         if (w > 850) {
-            $("#fileName").css("fontSize", "1.5vw");
+            $("#fileName").css("fontSize", "1.4vw");
         } else {
-            $("#fileName").css("fontSize", "12.75px");
+            $("#fileName").css("fontSize", "12.25px");
         }
     });
     $("a[href^='#']").on("click", function(){
