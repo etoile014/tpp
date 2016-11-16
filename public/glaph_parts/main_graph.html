@@ -1,0 +1,155 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>D3.js</title>
+        <link rel="shortcut icon" type="image/x-icon" href="./assets/FAVICON_32x32.ico">
+        <link rel="icon" type="image/icon" href="./assets/FAVICON_32x32.ico" sizes="32x32">
+        <link rel="icon" type="image/icon" href="./assets/FAVICON_64x64_SQUERE.png" sizes="64x64">
+
+		<link type="text/css" rel="stylesheet" href="./css/graph_style.css"/>
+		<link type="text/css" rel="stylesheet" href="./css/fluidity.min.css"/>
+        
+		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+		<style type="text/css">
+        #rabbitGraph{
+            
+	   mask:url(./assets/rabbit.svg);
+	   -webkit-mask:url(./assets/rabbit.svg);
+       
+	   mask-mode:alpha;
+       -webkit-mask-mode:alpha;
+       -moz-mask-mode:alpha;
+			
+	   -webkit-mask-repeat:no-repeat;
+	   mask-repeat:no-repeat;
+	
+	   -webkit-mask-position:center center;
+	   mask-position:center center;
+        }
+        </style>
+        
+	</head>
+	<body>
+       
+		<div id="block1">
+            <p class=TITLE>Graduation Requirements</p>
+            <p class=SUBTITLE>あなたも"ぴょんぴょん"してますか？</p>
+			
+            <div id="BLOCK1_GRAPH">
+            <svg id="barGraph"></svg>
+			<svg id="rabbitGraph"></svg>
+			<img id="barScale" src="./assets/line.png"/>
+            
+            <script src="js/drawGRbarRabbit.js"></script>
+            <script src="js/drawGRbar.js"></script>
+            </div>
+            
+            
+            <div id="NEED_CREDIT" class="CreditBlock">
+                <div class="CreditClassElement">卒業必須単位</div><br/>
+                <div class="CvalueElement">124.5</div>
+                <div class="CreditElement">単位</div>
+            </div>
+            <div class="CreditBlock">
+                <p class="CreditOperator" id="#CreditOperatorSMALL">−</p>
+            </div>
+            <div class="CreditBlock">
+                <p class="CreditOperator" id="#CreditOperatorLARGE">（</p>
+            </div>
+            <div id="GET_CREDIT" class="CreditBlock">
+                <div class="CreditClassElement">取得単位</div><br/>
+                <div class="CvalueElement">98.0</div>
+                <div class="CreditElement">単位</div>
+            </div>
+             <div class="CreditBlock">
+                <p class="CreditOperator" id="#CreditOperatorSMALL">＋</p>
+            </div>
+            <div id="NOW_CREDIT" class="CreditBlock">
+                <div class="CreditClassElement">履修中単位</div><br/>
+                <div class="CvalueElement">26.5</div>
+                <div class="CreditElement">単位</div>
+            </div>
+             <div class="CreditBlock">
+                <p class="CreditOperator" id="#CreditOperatorSMALL">＋</p>
+            </div>
+             <div id="PRE_CREDIT" class="CreditBlock">
+                <div class="CreditClassElement">履修予定単位</div><br/>
+                <div class="CvalueElement">2.5</div>
+                <div class="CreditElement">単位</div>
+            </div>
+             <div class="CreditBlock">
+                <p class="CreditOperator" id="#CreditOperatorLARGE">）</p>
+            </div>
+             <div class="CreditBlock">
+                <p class="CreditOperator" id="#CreditOperatorSMALL">＝</p>
+            </div>
+             <div id="REFT_CREDIT" class="CreditBlock">
+                <div class="CreditClassElement">卒業まで残り</div><br/>
+                <div class="CvalueElement">2.5</div>
+                <div class="CreditElement">単位</div>
+            </div>
+            
+            
+            
+		</div>
+        
+        
+        <div id = "block2">
+            <p class=TITLE>Your Credits Detail</p>
+            <p class=DESCRIPTION>単位詳細を見たいものを12種類の科目区分から選ぼう<br/>
+                              卒業までに必要な単位数や今までに取得した単位を確認できます<br/>
+                              これから履修予定の科目を入力して卒業シミュレーションも！</p>
+		    <svg id="GetCreditGraph" width="500" height="400" viewBox="0 0 500 400" preserveAspectRatio="xMidYMid meet"></svg>
+		    <script src="js/drawGetCredit.js"></script>
+            <svg id="GradeAGraph" width="500" height="400" viewBox="0 0 500 400" preserveAspectRatio="xMidYMid meet"></svg>
+            <script src="js/drawGradeA.js"></script>  
+        </div>
+        
+        <div id=block3>
+            <p class=TITLE>Your Marks and GPA</p>
+            <p class=SUBTITLE>今までのあなたは"ぴょんぴょん"してますか？</p>
+        <div class="center">
+            <div class="CreditCountbox">
+                <div class="CountSub">
+                    <p><img src="assets/Paper_A+.png" alt="A+"/></p>
+                    <p><div class="MultElement">×</div><div class="CvalueElement">50.0</div><div class="CreditElement">単位</div></p>
+                </div>
+                <div class="CountSub">
+                    <p><img src="assets/Paper_C.png" alt="C"/><p>
+                    <p><div class="MultElement">×</div><div class="CvalueElement">50.5</div><div class="CreditElement">単位</div></p>
+                </div>
+            </div>
+            <div class="CreditCountbox">
+                <div class="CountSub">
+                    <p><img src="assets/Paper_A.png" alt="A"/><p>
+                    <p><div class="MultElement">×</div><div class="CvalueElement">90.5</div><div class="CreditElement">単位</div></p>
+                </div>                     
+                <div class="CountSub">
+                    <p><img src="assets/Paper_D.png" alt="D"/><p>
+                    <p><div class="MultElement">×</div><div class="CvalueElement">300.5</div><div class="CreditElement">単位</div></p>
+                </div>
+            </div>
+            <div class="CreditCountbox">
+                <div class="CountSub">
+                    <p><img src="assets/Paper_B.png" alt="B"/><p>
+                    <p><div class="MultElement">×</div><div class="CvalueElement">100.5</div><div class="CreditElement">単位</div></p>
+                </div>
+                <div class="CountSub">
+                    <p><img src="assets/Paper_Others.png" alt="Ohters"/><p>
+                    <p><div class="MultElement">×</div><div class="CvalueElement">2.5</div><div class="CreditElement">単位</div></p>
+                </div>
+            </div>
+        
+            <svg id="GradeRate" width="500" height="400" viewBox="0 0 500 400" preserveAspectRatio="xMidYMid meet"></svg>
+            <script src="js/drawGradeRate.js"></script>
+
+        <p>ここに折れ線グラフ(２つ)</p>
+        <li>drawCreditTransition("#CreditTransition",dataset)</li>
+        <li>drawGPATransition("#GPATransition",dataset)</li>
+        <p>参考</p>
+        <a href="http://blog.aagata.ciao.jp/?eid=113" target="_blank">複数折れ線、軸文字回転(-45度)</a>
+        <a href="http://blog.qaramell.com/hunzy/12911" target="_blank">グリッド</a>
+		</div>
+        </div>
+	</body>
+</html>
