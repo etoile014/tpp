@@ -124,7 +124,7 @@ function TwinsPlanningParser(textData) {
 function postData(jsontext) {
     $.ajax({
         type: "POST",
-        url: "http://104.198.209.156/api/csv",
+        url: "https://tpp.d-io.com/api/csv",
         data: jsontext,
         contentType: "application/json",
         success: function(data) {
