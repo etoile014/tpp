@@ -10,6 +10,7 @@
     "dependencies": {
 	"node":"^7.0.0",
 	"express": "^4.13.3",
+	"ejs": "^1.0.0",
 	"body-parser": "latest",
 	"pm2": "latest"
     }
