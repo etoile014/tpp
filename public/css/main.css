@@ -1,30 +1,34 @@
+@import url(http://fonts.googleapis.com/earlyaccess/notosansjapanese.css);
+
 html, body{
 	margin: 0;
 	padding: 0;
-	width: 100vw;
-	height: 100vh;
+	width: 100%;
+	height: 100%;
 	text-align: center;
-	font-family: "小塚ゴシック Pro", ​sans-serif;
+	font-family: "Noto Sans Japanese", ​sans-serif;
 }
 
 #page-header {
 	margin: 0;
 	padding: 0;
-	width: 100vw;
+	width: 100%;
 	min-width: 850px;
 	height: 50px;
+	position: fixed !important;
 	top: 0px;
 	left: 0px;
-	position: fixed !important;
 	background-color: #464646;
 }
 
 #header-logo {
+	position: absolute;
+	top: 0px;
+	left: 0px;
 	margin: 0;
 	padding: 5px 0px;
 	width: 150px;
 	height: 50px;
-	float : left;
 }
 
 #header-logo img {
@@ -33,17 +37,20 @@ html, body{
 }
 
 #header-menu {
+	position: absolute;
+	top: 0px;
+	left: 150px;
 	margin: 0;
 	padding: 0;
-	width: calc(100vw - 300px);
+	width: calc(100% - 300px);
 	min-width: 700px;
 	height: 50px;
-	float : left;
 }
 
 #header-menu-inside {
-	width: 700px;
-	min-width: 700px;
+	width: 580px;
+	min-width: 580px;
+	height: 50px;
 	margin: auto;
 }
 
@@ -67,7 +74,6 @@ div.menu-item {
 	padding: 0;
 	width: auto;
 	height: 50px;
-	display: inline-block;
 	color: #FFFFFF;
 	float : left;
 }
@@ -104,16 +110,12 @@ p.underbar {
 div#page-main {
 	margin: 0;
 	padding: 0;
-	width: 100vw;
+	width: 100%;
 	min-width: 850px;
-	height: calc(100vh - 50px);
+	height: calc(100% - 50px);
+	position: fixed !important;
 	top: 50px;
 	left: 0px;
-	position: fixed !important;
-}
-
-div#page-main-inside {
-	height: calc(100vh - 50px);
 	overflow: auto;
 	text-align: left;
 }
@@ -121,10 +123,9 @@ div#page-main-inside {
 div.INTERVAL {
 	margin: 0;
 	padding: 0;
-	width: 100vw;
+	width: 100%;
 	min-width: 850px;
-	height: 1vw;
-	min-height: 8.5px;
+	height: 10px;
 	background-color: #F7F8F7;
 	position: relative;
 }
@@ -134,19 +135,19 @@ img.INTERVAL_IMG {
 	margin: auto;
 	left: 0px;
 	right: 0px;
-	width: 90vw;
-	min-width: 765px;
-	height: 4.25px;
+	width: 850px;
+	height: auto;
 	z-index: 1;
 }
+
+/* First Block */
 
 div#REQUIRMENT {
 	margin: 0;
 	padding: 0;
-	width: 100vw;
+	width: 100%;
 	min-width: 850px;
-	height: 56vw;
-	min-height: 476px;
+	height: 650px;
 	background-color: #F7F8F7;
 	position: relative;
 	text-align: center;
@@ -158,11 +159,9 @@ p#REQUIRMENT_TITLE {
 	top: 0%;
 	left: 0px;
 	right: 0px;
-	width: 90vw;
-	min-width: 765px;
-	height: 7vw;
-	min-height: 42.5px;
-	font-size: 4vw;
+	width: 850px;
+	height: 80px;
+	font-size: 3em;
 	color: #474747;
 	z-index: 1;
 }
@@ -170,14 +169,12 @@ p#REQUIRMENT_TITLE {
 p#REQUIRMENT_SUBTITLE {
 	position: absolute;
 	margin: auto;
-	top: 13%;
+	top: 80px;
 	left: 0px;
 	right: 0px;
-	width: 90vw;
-	min-width: 765px;
-	height: 3vw;
-	min-height: 25.5px;
-	font-size: 1.5vw;
+	width: 850px;
+	height: 30px;
+	font-size: 1em;
 	color: #474747;
 	z-index: 1;
 }
@@ -185,26 +182,129 @@ p#REQUIRMENT_SUBTITLE {
 div#REQUIRMENT_BOX {
 	position: absolute;
 	margin: auto;
-	top: 20%;
+	top: 120px;
 	left: 0px;
 	right: 0px;
-	width: 90vw;
-	min-width: 765px;
-	height: 35vw;
-	min-height: 297.5px;
-	font-size: 1.5vw;
+	width: 850px;
+	height: 500px;
 	color: #474747;
 	z-index: 1;
 	background-color: #FFFFFF;
 }
 
+#BLOCK1_GRAPH{
+	position: relative;
+	margin: 0;
+	padding: 0;
+	width: 850px;
+	height: 320px;
+}
+
+#barGraph {
+	position: absolute;
+	top: 0px;
+	left: 50px;
+	margin: 0;
+	padding: 0;
+	width: 350px;
+	height: 320px;
+}
+
+#rabbitGraph {
+	position: absolute;
+	top: 0px;
+	left: 400px;
+	margin: 0;
+	padding: 0;
+	width: 250px;
+	height: 320px;
+}
+
+#overray {
+	position: absolute;
+	top: 0px;
+	left: 400px;
+	margin: 0;
+	padding: 0;
+	width: 250px;
+	height: 320px;
+}
+
+#barScale {
+	position: absolute;
+	top: 0px;
+	left: 650px;
+	margin: 5px;
+	padding: 0px;
+	width: 140px;
+	height: 310px;
+}
+
+#CREDIT_LABEL {
+	margin: 40px auto;
+	width: 785px;
+	height: 88px;
+	z-index: 3;
+}
+
+.CreditItem {
+	width: 120px;
+	height: 25px;
+	font-size: 15px;
+}
+
+.CreditNumber {
+	width: 80px;
+	height: 50px;
+	font-size: 30px;
+}
+
+.CreditUnit {
+	width: 40px;
+	height: 25px;
+	font-size: 15px;
+}
+
+.CreditSign {
+	width: 20px;
+	height: 25px;
+	font-size: 15px;
+}
+
+.CreditBracket {
+	width: 20px;
+	height: 75px;
+	font-size: 50px;
+}
+
+.OTHER_CREDIT {
+	color: #474747;
+}
+
+.GET_CREDIT {
+	color: #96d946;
+}
+
+.NOW_CREDIT {
+	color: #e9d848;
+}
+
+.PRE_CREDIT{
+	color: #85d0f6;
+}
+
+.REFT_CREDIT{
+	color: #e95956;
+}
+
+/* Second Block */
 
 div#CREDIT {
 	margin: 0;
 	padding: 0;
-	width: 100vw;
+	width: 100%;
 	min-width: 850px;
-	height: 100vw;
+	height: 730px;
 	background-color: #F7F8F7;
 	position: relative;
 	text-align: center;
@@ -216,74 +316,97 @@ p#CREDIT_TITLE {
 	top: 0%;
 	left: 0px;
 	right: 0px;
-	width: 90vw;
-	min-width: 765px;
-	height: 7vw;
-	min-height: 42.5px;
-	font-size: 4vw;
+	width: 850px;
+	height: 80px;
+	font-size: 3em;
 	color: #474747;
-	/*z-index: 1;*/
+	z-index: 1;
 }
 
 p#CREDIT_SUBTITLE {
 	position: absolute;
 	margin: auto;
-	top: 13%;
+	top: 80px;
 	left: 0px;
 	right: 0px;
-	width: 90vw;
-	min-width: 765px;
-	height: 6vw;
-	min-height: 51px;
-	font-size: 1vw;
+	width: 850px;
+	height: 70px;
+	font-size: 0.8em;
 	color: #474747;
-	/*z-index: 1;*/
+	z-index: 1;
 }
 
 button#CREDIT_PULLDOWN {
 	position: absolute;
 	margin: auto;
-	top: 25%;
+	top: 150px;
 	left: 0px;
 	right: 0px;
-	width: 20vw;
-	min-width: 170px;
-	height: 4vw;
-	min-height: 34px;
-	text-decoration: none;
-	border: 1px;
-	border-radius: 15px;
-	font-size: 2vw;
+	width: 170px;
+	height: 35px;
+	border-style: solid;
+	border-color: #bbbbbb;
+	border-width: 1px;
+	border-radius: 10px;
+	font-size: 1em;
 	color: #474747;
-	/*z-index: 1;*/
+	z-index: 1;
 	background-color: #ffffff;
+}
+
+button#CREDIT_PULLDOWN:active {
+	background-color: #e2e2e2;
 }
 
 div#CREDIT_BOX {
 	position: absolute;
 	margin: auto;
-	top: 35%;
+	top: 200px;
 	left: 0px;
 	right: 0px;
-	width: 90vw;
-	min-width: 765px;
-	height: 45vw;
-	min-height: 382.5px;
+	width: 850px;
+	height: 500px;
 	font-size: 1.5vw;
 	color: #474747;
-	/*z-index: 1;*/
+	z-index: 1;
 	background-color: #FFFFFF;
 }
 
+#CreditGraph{
+	position: relative;
+	margin: 0;
+	padding: 0;
+	width: 850px;
+	height: 200px;
+	min-width: 765px;
+}
 
+#GetCreditGraph {
+	position: absolute;
+	top: 0;
+	left: 25px;
+	margin: 0;
+	width: 400px;
+	height: 200px;
+}
+
+#GradeAGraph {
+	position: absolute;
+	top: 0;
+	left: 425px;
+	margin: 0;
+	width: 400px;
+	height: 200px;
+}
+
+/* Third Block */
 
 div#GRADE_GPA {
 	margin: 0;
 	padding: 0;
-	width: 100vw;
+	width: 100%;
 	min-width: 850px;
-	height: 100vw;
-	min-height: 850px;
+	height: 1000px;
 	background-color: #F7F8F7;
 	position: relative;
 	text-align: center;
@@ -295,11 +418,9 @@ p#GRADE_GPA_TITLE {
 	top: 0%;
 	left: 0px;
 	right: 0px;
-	width: 90vw;
-	min-width: 765px;
-	height: 7vw;
-	min-height: 42.5px;
-	font-size: 4vw;
+	width: 850px;
+	height: 80px;
+	font-size: 3em;
 	color: #474747;
 	z-index: 1;
 }
@@ -307,14 +428,12 @@ p#GRADE_GPA_TITLE {
 p#GRADE_GPA_SUBTITLE {
 	position: absolute;
 	margin: auto;
-	top: 8%;
+	top: 80px;
 	left: 0px;
 	right: 0px;
-	width: 90vw;
-	min-width: 765px;
-	height: 3vw;
-	min-height: 25.5px;
-	font-size: 1.5vw;
+	width: 850px;
+	height: 30px;
+	font-size: 1em;
 	color: #474747;
 	z-index: 1;
 }
@@ -322,27 +441,71 @@ p#GRADE_GPA_SUBTITLE {
 div#GRADE_GPA_BOX {
 	position: absolute;
 	margin: auto;
-	top: 15%;
+	top: 120px;
 	left: 0px;
 	right: 0px;
-	width: 90vw;
-	min-width: 765px;
-	height: 75vw;
-	min-height: 637.5px;
-	font-size: 1.5vw;
+	width: 850px;
+	height: 850px;
+
 	color: #474747;
-	/*z-index: 1;*/
+	z-index: 1;
 	background-color: #FFFFFF;
 }
 
+table#PAPERS {
+	margin: auto;
+}
+
+.CREDIT_IMG {
+	width: 80px;
+	height: 100px;
+}
+
+img.Paper {
+	width: 57px;
+	height: 75px;
+}
+
+.CROSS {
+	width: 20px;
+	height: 100px;
+	color: #474747;
+	font-size: 1em;
+}
+
+.CREDIT_NUM {
+	width: 90px;
+	height: 100px;
+	color: #474747;
+	font-size: 2em;
+}
+
+.UNIT {
+	width: 40px;
+	height: 100px;
+	color: #474747;
+}
+
+#GradeRate {
+	width: 400px;
+	height: 300px;
+}
+
+div#ORESEN {
+	margin: auto;
+	width: 450px;
+	height: 60px;
+	text-align: left;
+}
+
+/* Fourth Block */
 
 div#SCHEDULE {
 	margin: 0;
 	padding: 0;
-	width: 100vw;
+	width: 100%;
 	min-width: 850px;
-	height: 70vw;
-	min-height: 595px;
+	height: 800px;
 	background-color: #F7F8F7;
 	position: relative;
 	text-align: center;
@@ -354,11 +517,9 @@ p#SCHEDULE_TITLE {
 	top: 0%;
 	left: 0px;
 	right: 0px;
-	width: 90vw;
-	min-width: 765px;
-	height: 7vw;
-	min-height: 42.5px;
-	font-size: 4vw;
+	width: 850px;
+	height: 80px;
+	font-size: 3em;
 	color: #474747;
 	z-index: 1;
 }
@@ -366,14 +527,12 @@ p#SCHEDULE_TITLE {
 p#SCHEDULE_SUBTITLE {
 	position: absolute;
 	margin: auto;
-	top: 8%;
+	top: 80px;
 	left: 0px;
 	right: 0px;
-	width: 90vw;
-	min-width: 765px;
-	height: 3vw;
-	min-height: 25.5px;
-	font-size: 1.5vw;
+	width: 850px;
+	height: 30px;
+	font-size: 1em;
 	color: #474747;
 	z-index: 1;
 }
@@ -381,28 +540,22 @@ p#SCHEDULE_SUBTITLE {
 div#SCHEDULE_BOX {
 	position: absolute;
 	margin: auto;
-	top: 15%;
+	top: 120px;
 	left: 0px;
 	right: 0px;
-	width: 90vw;
-	min-width: 765px;
-	height: 55vw;
-	min-height: 467.5px;
-	font-size: 1.5vw;
+	width: 850px;
+	height: 640px;
 	color: #474747;
-	/*z-index: 1;*/
+	z-index: 1;
 	background-color: #FFFFFF;
 }
-
-
 
 div#FOOTER {
 	margin: 0;
 	padding: 0;
-	width: 100vw;
+	width: 100%;
 	min-width: 850px;
 	height: 50px;
-	min-height: 50px;
 	background-color: #464646;
 }
 

@@ -4,9 +4,12 @@ $(function(){
     $(window).resize(function(){
         var w = $(window).width();
         if (w > 850) {
-            $("#fileName").css("fontSize", "1.4vw");
+            var h = $("#uploadArea").height();
+            var size = (h / 2) + "px";
+            var calcs = "calc(62.5% - " + size + ")";
+            $("#fileName").css({"fontSize":size, "top":calcs});
         } else {
-            $("#fileName").css("fontSize", "12.25px");
+            $("#fileName").css({"fontSize":"12px", "top":"calc(62.5% - 12px)"});
         }
     });
     $("a[href^='#']").on("click", function(){
@@ -27,7 +30,7 @@ $(function(){
         } else if (href == "#UPDATE_INFO") {
             position = update_info_;
         }
-        $("#page-main-inside").animate({scrollTop : position}, speed, "swing");
+        $("#page-main").animate({scrollTop : position}, speed, "swing");
         return false;
     });
 
@@ -45,14 +48,10 @@ $(function(){
     obj.on('dragenter', function(e){
         e.stopPropagation();
         e.preventDefault();
-        // $(this).css('border', '2px solid #0B85A1');
-    });
-    obj.on('dragover', function (e){
+    }).on('dragover', function (e){
         e.stopPropagation();
         e.preventDefault();
-    });
-    obj.on('drop', function (e){
-        //  $(this).css('border', '2px dotted #0B85A1');
+    }).on('drop', function (e){
         e.preventDefault();
         var files = e.originalEvent.dataTransfer.files;
         handleFileUpload(files[0]);
@@ -61,12 +60,10 @@ $(function(){
     $(document).on('dragenter', function (e){
         e.stopPropagation();
         e.preventDefault();
-    });
-    $(document).on('dragover', function (e){
+    }).on('dragover', function (e){
         e.stopPropagation();
         e.preventDefault();
-    });
-    $(document).on('drop', function (e){
+    }).on('drop', function (e){
         e.stopPropagation();
         e.preventDefault();
     });
@@ -86,8 +83,6 @@ function fileUpload() {
 function handleFileUpload(file) {
     if (file.name.match(/^(gakusei_)(\d{9}).*\.csv/)) {
         $("#fileName").text(file.name);
-        // formData = new FormData();
-        // formData.append("file", file);
         var reader = new FileReader();
         reader.onload = function(e) {
             var txtData = e.target.result;
@@ -121,21 +116,6 @@ function TwinsPlanningParser(textData) {
     convertJsonText(dataArray);
 }
 
-function postData(jsontext) {
-    $.ajax({
-        type: "POST",
-        url: "http://104.198.209.156/api/csv",
-        data: jsontext,
-        contentType: "application/json",
-        success: function(data) {
-            console.log(data);
-        },
-        error: function() {
-            console.log("Error");
-        }
-    });
-}
-
 function convertJsonText(dataArray) {
     var length = dataArray.length;
     var txt = "{\n";
@@ -149,6 +129,21 @@ function convertJsonText(dataArray) {
     txt += '}';
     postData(txt);
     alert(txt);
+}
+
+function postData(jsontext) {
+    $.ajax({
+        type: "POST",
+        url: "http://104.198.209.156/api/csv",
+        data: jsontext,
+        contentType: "application/json",
+        success: function(data) {
+            console.log(data);
+        },
+        error: function() {
+            console.log("Error");
+        }
+    });
 }
 
 function jumpTOP() {
