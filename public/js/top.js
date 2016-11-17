@@ -1,5 +1,3 @@
-var formData = new FormData();
-
 $(function(){
     $(window).resize(function(){
         var w = $(window).width();
