@@ -2,9 +2,27 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>TPP_Main</title>
+	<!-- <link rel="shortcut icon" type="image/x-icon" href="./img/graph_img/FAVICON_32x32.ico"> -->
+	<link rel="icon" type="image/icon" href="img/FAVICON_32x32.ico" sizes="32x32">
+	<link rel="icon" type="image/icon" href="img/FAVICON_64x64.ico" sizes="64x64">
+	<!-- CSS -->
 	<link href="css/main.css" rel="stylesheet" type="text/css">
+	<!-- JavaScript -->
 	<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript" src="js/jquery.inview.min.js"></script>
+	<script type="text/javascript" src="js/d3.v3.min.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
+	<!--REQUIRMENT-->
+	<script type="text/javascript" src="js/graph/drawGRbarRabbit.js"></script>
+	<script type="text/javascript" src="js/graph/drawGRbar.js"></script>
+	<!--CREDIT-->
+	<script type="text/javascript" src="js/graph/drawGetCredit.js"></script>
+	<script type="text/javascript" src="js/graph/drawGradeA.js"></script>
+	<!--GRADE_GPA-->
+	<script type="text/javascript" src="js/graph/drawGradeRate.js"></script>
+	<!--ANIMATE-->
+	<script type="text/javascript" src="js/graph/animate.js"></script>
 </head>
 <body>
 	<header id="page-header" role="banner">
@@ -27,45 +45,151 @@
 	</header>
 
 	<div id="page-main" role="main">
-		<div id="page-main-inside">
-			<div id="REQUIRMENT">
-				<p id="REQUIRMENT_TITLE">Graduation Requirments</p>
-				<p id="REQUIRMENT_SUBTITLE">あなたも"ぴょんぴょん"してますか？</p>
-				<div id="REQUIRMENT_BOX"></div>
-			</div>
-			<div class="INTERVAL">
-				<img class="INTERVAL_IMG" src="img/main/StripeLine.png">
-			</div>
-			<div id="CREDIT">
-				<p id="CREDIT_TITLE">Your Credits Detail</p>
-				<p id="CREDIT_SUBTITLE">
-					単位詳細を見たいものを12種類の科目区分から選ぼう<br>
-					卒業までに必要な単位数や今までに取得した単位を確認できます<br>
-					これから履修予定の科目を入力して卒業シミュレーションも！
-				</p>
-				<button id="CREDIT_PULLDOWN">専門・必修 v</button>
-				<div id="CREDIT_BOX"></div>
-			</div>
-			<div class="INTERVAL">
-				<img class="INTERVAL_IMG" src="img/main/StripeLine.png">
-			</div>
-			<div id="GRADE_GPA">
-				<p id="GRADE_GPA_TITLE">Your Marks and GPA</p>
-				<p id="GRADE_GPA_SUBTITLE">今までのあなたは"ぴょんぴょん"してますか？</p>
-				<div id="GRADE_GPA_BOX"></div>
-			</div>
-			<div class="INTERVAL">
-				<img class="INTERVAL_IMG" src="img/main/StripeLine.png">
-			</div>
-			<div id="SCHEDULE">
-				<p id="SCHEDULE_TITLE">Your 4 years Time Tables</p>
-				<p id="SCHEDULE_SUBTITLE">あなたの４年間は"ぴょんぴょん"してますか？</p>
-				<div id="SCHEDULE_BOX"></div>
-			</div>
-			<div id="FOOTER">
-				<p id="COPYRIGHT">Copyright ©︎2016 TPP</p>
+
+		<div id="REQUIRMENT">
+			<p id="REQUIRMENT_TITLE">Graduation Requirments</p>
+			<p id="REQUIRMENT_SUBTITLE">あなたも"ぴょんぴょん"してますか？</p>
+			<div id="REQUIRMENT_BOX">
+				<div id="BLOCK1_GRAPH">
+					<svg id="barGraph"></svg>
+					<svg id="rabbitGraph"></svg>
+					<img id="overray" src="img/graph_img/Rabbit_Mask.png">
+					<img id="barScale" src="img/graph_img/line.png"/>
+				</div>
+				<div id="CREDIT_LABEL">
+					<table border="0">
+						<tr>
+							<td colspan="2" class="CreditItem OTHER_CREDIT">卒業必須単位</td>
+							<td> </td>
+							<td rowspan="3" class="CreditBracket OTHER_CREDIT">(</td>
+							<td colspan="2" class="CreditItem GET_CREDIT">取得単位</td>
+							<td> </td>
+							<td colspan="2" class="CreditItem NOW_CREDIT">履修中単位</td>
+							<td> </td>
+							<td colspan="2" class="CreditItem PRE_CREDIT">履修予定単位</td>
+							<td rowspan="3" class="CreditBracket OTHER_CREDIT">)</td>
+							<td> </td>
+							<td colspan="2" class="CreditItem REFT_CREDIT">卒業まで残り</td>
+						</tr>
+						<tr>
+							<td rowspan="2" class="CreditNumber OTHER_CREDIT">124.5</td>
+							<td> </td>
+							<td class="CreditSign OTHER_CREDIT">ー</td>
+							<td rowspan="2" class="CreditNumber GET_CREDIT">98.0</td>
+							<td> </td>
+							<td class="CreditSign OTHER_CREDIT">＋</td>
+							<td rowspan="2" class="CreditNumber NOW_CREDIT">26.5</td>
+							<td> </td>
+							<td class="CreditSign OTHER_CREDIT">＋</td>
+							<td rowspan="2" class="CreditNumber PRE_CREDIT">2.5</td>
+							<td> </td>
+							<td class="CreditSign OTHER_CREDIT">＝</td>
+							<td rowspan="2" class="CreditNumber REFT_CREDIT">2.5</td>
+							<td> </td>
+						</tr>
+						<tr>
+							<td class="CreditUnit OTHER_CREDIT">単位</td>
+							<td> </td>
+							<td class="CreditUnit GET_CREDIT">単位</td>
+							<td> </td>
+							<td class="CreditUnit NOW_CREDIT">単位</td>
+							<td> </td>
+							<td class="CreditUnit PRE_CREDIT">単位</td>
+							<td> </td>
+							<td class="CreditUnit REFT_CREDIT">単位</td>
+						</tr>
+					</table>
+				</div>
 			</div>
 		</div>
+
+		<div class="INTERVAL">
+			<img class="INTERVAL_IMG" src="img/main/StripeLine.png">
+		</div>
+
+		<div id="CREDIT">
+			<p id="CREDIT_TITLE">Your Credits Detail</p>
+			<p id="CREDIT_SUBTITLE">
+				<text>単位詳細を見たいものを12種類の科目区分から選ぼう</text><br>
+				<text>卒業までに必要な単位数や今までに取得した単位を確認できます</text><br>
+				<text>これから履修予定の科目を入力して卒業シミュレーションも！</text>
+			</p>
+			<button id="CREDIT_PULLDOWN">専門・必修</button>
+			<div id="CREDIT_BOX">
+				<div id="CreditGraph">
+					<svg id="GetCreditGraph"></svg>
+					<svg id="GradeAGraph"></svg>
+				</div>
+			</div>
+		</div>
+
+		<div class="INTERVAL">
+			<img class="INTERVAL_IMG" src="img/main/StripeLine.png">
+		</div>
+
+		<div id="GRADE_GPA">
+			<p id="GRADE_GPA_TITLE">Your Marks and GPA</p>
+			<p id="GRADE_GPA_SUBTITLE">今までのあなたは"ぴょんぴょん"してますか？</p>
+			<div id="GRADE_GPA_BOX">
+				<br>
+				<table border="0" id="PAPERS">
+					<tr>
+						<td class="CREDIT_IMG"><img src="img/graph_img/Paper_A+.png" class="Paper"></td>
+						<td class="CROSS">×</td>
+						<td class="CREDIT_NUM">50.0</td>
+						<td class="UNIT">単位</td>
+						<td width="10px"></td>
+						<td class="CREDIT_IMG"><img src="img/graph_img/Paper_A.png" class="Paper"></td>
+						<td class="CROSS">×</td>
+						<td class="CREDIT_NUM">90.5</td>
+						<td class="UNIT">単位</td>
+						<td width="10px"></td>
+						<td class="CREDIT_IMG"><img src="img/graph_img/Paper_B.png" class="Paper"></td>
+						<td class="CROSS">×</td>
+						<td class="CREDIT_NUM">100.5</td>
+						<td class="UNIT">単位</td>
+					</tr>
+					<tr>
+						<td class="CREDIT_IMG"><img src="img/graph_img/Paper_C.png" class="Paper"></td>
+						<td class="CROSS">×</td>
+						<td class="CREDIT_NUM">50.5</td>
+						<td class="UNIT">単位</td>
+						<td width="10px"></td>
+						<td class="CREDIT_IMG"><img src="img/graph_img/Paper_D.png" class="Paper"></td>
+						<td class="CROSS">×</td>
+						<td class="CREDIT_NUM">300.5</td>
+						<td class="UNIT">単位</td>
+						<td width="10px"></td>
+						<td class="CREDIT_IMG"><img src="img/graph_img/Paper_Others.png" class="Paper"></td>
+						<td class="CROSS">×</td>
+						<td class="CREDIT_NUM">2.5</td>
+						<td class="UNIT">単位</td>
+					</tr>
+				</table>
+				<svg id="GradeRate"></svg>
+
+				<p>ここに折れ線グラフ(２つ)</p>
+				<div id="ORESEN">
+					<li>drawCreditTransition("#CreditTransition",dataset)</li>
+					<li>drawGPATransition("#GPATransition",dataset)</li>
+				</div>
+			</div>
+		</div>
+
+		<div class="INTERVAL">
+			<img class="INTERVAL_IMG" src="img/main/StripeLine.png">
+		</div>
+
+		<div id="SCHEDULE">
+			<p id="SCHEDULE_TITLE">Your 4 years Time Tables</p>
+			<p id="SCHEDULE_SUBTITLE">あなたの４年間は"ぴょんぴょん"してますか？</p>
+			<div id="SCHEDULE_BOX"></div>
+		</div>
+
+		<div id="FOOTER">
+			<p id="COPYRIGHT">Copyright ©︎2016 TPP</p>
+		</div>
+
 	</div>
 </body>
 </html>

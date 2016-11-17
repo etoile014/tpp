@@ -1,40 +1,35 @@
 //第3ブロックのアーチグラフ
 
 //入力データ（CSVから数える）
-var CountAplus = 50.0,
-    CountA = 90.5,
-    CountB = 100.5,
-    CountC = 50.5,
-    CountD = 300.5,
-    CountOther = 2.5;
+var CountAplus = 50.0;
+var CountA = 90.5;
+var CountB = 100.5;
+var CountC = 50.5;
+var CountD = 300.5;
+var CountOther = 2.5;
 
 var CountSub=594.5;//本来ならデータベースから取得
-var rateAplus=((CountAplus/CountSub)*100).toFixed(1),
-    rateA=((CountA/CountSub)*100).toFixed(1),
-    rateB=((CountB/CountSub)*100).toFixed(1),
-    rateC=((CountC/CountSub)*100).toFixed(1),
-    rateD=((CountD/CountSub)*100).toFixed(1),
-    rateOhter=((CountOther/CountSub)*100).toFixed(1),
-    rateSUM = (((CountAplus+CountA)/CountSub)*100).toFixed(1);
-
+var rateAplus=((CountAplus/CountSub)*100).toFixed(1);
+var rateA=((CountA/CountSub)*100).toFixed(1);
+var rateB=((CountB/CountSub)*100).toFixed(1);
+var rateC=((CountC/CountSub)*100).toFixed(1);
+var rateD=((CountD/CountSub)*100).toFixed(1);
+var rateOhter=((CountOther/CountSub)*100).toFixed(1);
+var rateSUM = (((CountAplus+CountA)/CountSub)*100).toFixed(1);
 
 // 半ドーナツグラフの表示データ
-var data = [CountAplus,CountA,CountB,CountC,CountD,CountOther];
+var grade_rate_data = [CountAplus,CountA,CountB,CountC,CountD,CountOther];
 
-drawGetCredit("#GradeRate", data); 
-
-
-function drawGetCredit(id, dataset) {
+function drawGradeRate(id, dataset) {
     // コンテナ
-	
 
-    //表示サイズを設定	
-    var width = 500,//変更
-        height = 400;//変更     
-    
+    //表示サイズを設定
+    var width = 400;//変更
+    var height = 350;//変更
+
     var  radius = Math.min(width, height)/2;
-  
-    var p=Math.PI;
+
+    var p = Math.PI;
     var svg = d3.select(id)
             .attr({
                 width : width,
@@ -59,8 +54,8 @@ function drawGetCredit(id, dataset) {
             .attr("class", "arc");
 
     // 円弧の設定
-    g.append("path").attr("d", arc); 
-  
+    g.append("path").attr("d", arc);
+
     // テキスト
     g.append("text")
         .text(rateSUM+"％")
@@ -99,8 +94,8 @@ function drawGetCredit(id, dataset) {
     	.attr("fill","#464646")
     	.attr("font-size","10px")
     	.attr("stroke-width",0.1);
-    	
-        
+
+
     // スタイル
     var colorArr = ['#e95956','#ee8434','#3aa8ed','#fbd12d',"#61e86d","#e6e6e6"];
     g.attr("stroke", "none")    // 円グラフの区切り線をなしに//変更
@@ -109,7 +104,7 @@ function drawGetCredit(id, dataset) {
                 return colorArr[i];
             }
         });
-    
+
     //凡例
     var legend = d3.select(id)
             .attr({
@@ -118,7 +113,7 @@ function drawGetCredit(id, dataset) {
             })
             .selectAll("rect")
             .data(dataset);
-	
+
 	var textArr = ["A+ "+rateAplus+"%","A "+rateA+"%","B "+rateB+"%","C "+rateC+"%","D "+rateD+"%","その他 "+rateOhter+"%"];
 
 	legend.enter()
@@ -127,17 +122,17 @@ function drawGetCredit(id, dataset) {
 	.attr("x",function(d,i){return 30+i*80})
 	.attr("y",261)
 	.attr("font-size","10px");
-     
-     var g2 =legend.append("g");   
-	
+
+     var g2 =legend.append("g");
+
     legend.enter().append("rect")
 	.attr("x",function(d,i){return 10+i*80})
 	.attr("y",250)
 	.attr("width",15)
 	.attr("height",15)
 	.attr("fill",function(d,i){return colorArr[i]});
-    
-    
+
+
     //アニメーション
     svg.selectAll("path")
         .transition()   // トランジション開始
