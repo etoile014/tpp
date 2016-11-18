@@ -42,47 +42,30 @@ var qpa_transition_data = [3.5, 2.3, 1.5, 0.8, 3.0, 4.3];
 
 $(function(){
     //第一ブロック
-    $("#barGraph").on("inview", function() {
+    $("#BLOCK1_GRAPH").on('inview', function(e) {
+        // alert(ばか);
         if (animated1 == false) {
-            // animated1 = true;
+            animated1 = true;
             drawGRbar("#barGraph", rabbit_data);
-        }
-    });
-    $("#rabbitGraph").on("inview", function() {
-        if (animated2 == false) {
-            // animated2 = true;
             drawGRrabbit("#rabbitGraph",rabbit_data);
         }
     });
+
     //第二ブロック
-    $("#GetCreditGraph").on("inview", function() {
-        if (animated3 == false) {
-            // animated3 = true;
+    $("#CREDIT_BOX").on("inview", function() {
+        if (animated2 == false) {
+            animated2 = true;
             drawGetCredit("#GetCreditGraph", get_credit_data);
-        }
-    });
-    $("#GradeAGraph").on("inview", function() {
-        if (animated4 == false) {
-            // animated4 = true;
             drawGradeA("#GradeAGraph", grade_A_data);
         }
     });
+
     //第三ブロック
-    $("#GradeRate").on("inview", function() {
-        if (animated5 == false) {
-            // animated5 = true;
+    $("#GRADE_GPA_BOX").on("inview", function() {
+        if (animated3 == false) {
+            animated3 = true;
             drawGradeRate("#GradeRate", grade_rate_data);
-        }
-    });
-    $("#CreditTransition").on("inview", function() {
-        if (animated6 == false) {
-            // animated6 = true;
             drawCreditTransition("#CreditTransition", credit_transition_data);
-        }
-    });
-    $("#GPATransition").on("inview", function() {
-        if (animated7 == false) {
-            // animated7 = true;
             drawGPATransition("#GPATransition", qpa_transition_data);
         }
     });
