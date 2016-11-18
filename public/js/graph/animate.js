@@ -25,7 +25,8 @@ var CountA = 3.0;//該当科目区分のA,A+単位数
 var CountSub = 15.0;//該当科目区分のA,A+以外単位数
 var grade_A_data = [CountA,CountSub];
 
-//GradeRatevar CountAplus = 50.0;
+//GradeRate
+var CountAplus = 50.0;
 var CountA = 90.5;
 var CountB = 100.5;
 var CountC = 50.5;
@@ -43,45 +44,45 @@ $(function(){
     //第一ブロック
     $("#barGraph").on("inview", function() {
         if (animated1 == false) {
-            animated1 = true;
+            // animated1 = true;
             drawGRbar("#barGraph", rabbit_data);
         }
     });
     $("#rabbitGraph").on("inview", function() {
         if (animated2 == false) {
-            animated2 = true;
+            // animated2 = true;
             drawGRrabbit("#rabbitGraph",rabbit_data);
         }
     });
     //第二ブロック
     $("#GetCreditGraph").on("inview", function() {
         if (animated3 == false) {
-            animated3 = true;
+            // animated3 = true;
             drawGetCredit("#GetCreditGraph", get_credit_data);
         }
     });
     $("#GradeAGraph").on("inview", function() {
         if (animated4 == false) {
-            animated4 = true;
+            // animated4 = true;
             drawGradeA("#GradeAGraph", grade_A_data);
         }
     });
     //第三ブロック
     $("#GradeRate").on("inview", function() {
         if (animated5 == false) {
-            animated5 = true;
+            // animated5 = true;
             drawGradeRate("#GradeRate", grade_rate_data);
         }
     });
     $("#CreditTransition").on("inview", function() {
         if (animated6 == false) {
-            animated6 = true;
+            // animated6 = true;
             drawCreditTransition("#CreditTransition", credit_transition_data);
         }
     });
     $("#GPATransition").on("inview", function() {
         if (animated7 == false) {
-            animated7 = true;
+            // animated7 = true;
             drawGPATransition("#GPATransition", qpa_transition_data);
         }
     });
