@@ -1,10 +1,8 @@
-function drawGPATransition(id,dataset) {
+function drawGPATransition(id,start,dataset) {
 
     var margin = {top: 20, right: 50, bottom: 40, left: 50};
     var width = 320 - margin.left - margin.right;
     var height = 200 - margin.top - margin.bottom;
-
-    var start = 2014;
 
     var xScale = d3.scale.linear()
     .domain([0, d3.max(dataset, function(d,i){ return i; })])

@@ -377,7 +377,7 @@ div#CREDIT_BOX {
 	margin: 0;
 	padding: 0;
 	width: 850px;
-	height: 200px;
+	height: 260px;
 	min-width: 765px;
 }
 
@@ -387,7 +387,7 @@ div#CREDIT_BOX {
 	left: 25px;
 	margin: 0;
 	width: 400px;
-	height: 200px;
+	height: 260px;
 }
 
 #GradeAGraph {
@@ -396,7 +396,7 @@ div#CREDIT_BOX {
 	left: 425px;
 	margin: 0;
 	width: 400px;
-	height: 200px;
+	height: 260px;
 }
 
 /* Third Block */
@@ -488,7 +488,7 @@ img.Paper {
 
 #GradeRate {
 	width: 400px;
-	height: 300px;
+	height: 260px;
 }
 
 div#ORESEN {
