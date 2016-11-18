@@ -16,16 +16,15 @@ function drawGRrabbit(id,dataset){
     }
     var datasetRate = [RgetGRCourse, RnowGRCourse, RpreGRCourse, RrestGRCourse];
 
+    var stacked = 0;
     var svg = d3.select(id)
     .attr({
         width : svgWidth,
         height : svgHeight
     })
     .selectAll("rect")
-    .data(datasetRate);
-    var stacked = 0;
-
-    svg.enter()
+    .data(datasetRate)
+    .enter()
     .append("rect")
     .attr("class","fillPink")
     .attr("height",function(d) {return 0})
@@ -47,7 +46,5 @@ function drawGRrabbit(id,dataset){
     .attr("height",function(d,i){
         return d*2.96;
     })
-
     .style("opacity",1);
-
 }
