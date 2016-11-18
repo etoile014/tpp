@@ -1,14 +1,21 @@
+function fileNameResize() {
+    var w = $(window).width();
+    if (w > 850) {
+        var h = $("#uploadArea").height();
+        var size = (h / 2) + "px";
+        var calcs = "calc(62.5% - " + size + ")";
+        $("#fileName").css({"fontSize":size, "top":calcs});
+    } else {
+        $("#fileName").css({"fontSize":"12px", "top":"calc(62.5% - 12px)"});
+    }
+}
+
 $(function(){
+    $(window).on("load", function() {
+        fileNameResize();
+    });
     $(window).resize(function(){
-        var w = $(window).width();
-        if (w > 850) {
-            var h = $("#uploadArea").height();
-            var size = (h / 2) + "px";
-            var calcs = "calc(62.5% - " + size + ")";
-            $("#fileName").css({"fontSize":size, "top":calcs});
-        } else {
-            $("#fileName").css({"fontSize":"12px", "top":"calc(62.5% - 12px)"});
-        }
+        fileNameResize();
     });
     $("a[href^='#']").on("click", function(){
         var top_ = 0;
