@@ -1,15 +1,3 @@
-//第２ブロックの右側のグラフ
-
-//入力データ（CSVから数える）
-var CountA = 3.0;//該当科目区分のA,A+単位数
-var CountOther = 12.0;//該当科目区分のA,A+以外単位数
-
-var CountSub = 15.0;//該当科目区分の全単位数
-var rate = ((CountA/CountSub)*100).toFixed(1);
-
-// 半ドーナツグラフの表示データ
-var grade_A_data = [CountA,CountOther];
-
 function drawGradeA(id, dataset) {
     // コンテナ
 
@@ -27,6 +15,8 @@ function drawGradeA(id, dataset) {
     })
     .append("g")
     .attr("transform",  "translate(" + width / 2 + "," + height / 2 + ")");
+
+    var rate = ((dataset[0]/dataset[1])*100).toFixed(1);
 
     // パイを定義
     var pie = d3.layout.pie()

@@ -21,6 +21,8 @@
 	<script type="text/javascript" src="js/graph/drawGradeA.js"></script>
 	<!--GRADE_GPA-->
 	<script type="text/javascript" src="js/graph/drawGradeRate.js"></script>
+	<script type="text/javascript" src="js/graph/drawCreditTransition.js"></script>
+	<script type="text/javascript" src="js/graph/drawGPATransition.js"></script>
 	<!--ANIMATE-->
 	<script type="text/javascript" src="js/graph/animate.js"></script>
 </head>
@@ -167,11 +169,9 @@
 					</tr>
 				</table>
 				<svg id="GradeRate"></svg>
-
-				<p>ここに折れ線グラフ(２つ)</p>
 				<div id="ORESEN">
-					<li>drawCreditTransition("#CreditTransition",dataset)</li>
-					<li>drawGPATransition("#GPATransition",dataset)</li>
+					<svg id="CreditTransition"></svg>
+					<svg id="GPATransition"></svg>
 				</div>
 			</div>
 		</div>

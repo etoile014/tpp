@@ -7,13 +7,22 @@ function drawGRbar(id,dataset){
 	var barMargin = 15;
 	var colorArr = ['#96d946','#e9d848','#85d0f6','#e95956'];
 
+	var RgetGRCourse = parseFloat(((dataset[1]/dataset[0])*100).toFixed(1));//取得済み単位(CSV)
+    var RnowGRCourse = parseFloat(((dataset[2]/dataset[0])*100).toFixed(1));//履修中単位(CSV)
+    var RpreGRCourse = parseFloat(((dataset[3]/dataset[0])*100).toFixed(1));//履修予定単位(シミュレーション)
+    var RrestGRCourse = parseFloat(0.0);
+    if(dataset[1]+dataset[2]+dataset[3] <= dataset[0]){
+        RrestGRCourse = parseFloat((((dataset[0]-(dataset[1]+dataset[2]+dataset[3]))/dataset[0])*100).toFixed(1));
+    }
+    var datasetRate = [RgetGRCourse, RnowGRCourse, RpreGRCourse, RrestGRCourse];
+
 	var svg = d3.select(id)
 	.attr({
 		width : svgWidth,
 		height : svgHeight
 	})
 	.selectAll("rect")
-	.data(dataset);
+	.data(datasetRate);
 
 	svg.enter()
 	.append("rect")

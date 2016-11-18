@@ -1,21 +1,3 @@
-var needGRCourse = 124.5;//卒業必要単位(データベース)
-var getGRCourse = 98.0;//取得済み単位(CSV)
-var nowGRCourse = 20.5;//履修中単位(CSV)
-var preGRCourse = 2.5;//履修予定単位(シミュレーション)
-var restGRCourse = needGRCourse - (getGRCourse + nowGRCourse + preGRCourse);
-var RgetGRCourse = ((getGRCourse/needGRCourse)*100).toFixed(1);//取得済み単位(CSV)
-var RnowGRCourse = ((nowGRCourse/needGRCourse)*100).toFixed(1);//履修中単位(CSV)
-var RpreGRCourse = ((preGRCourse/needGRCourse)*100).toFixed(1);//履修予定単位(シミュレーション)
-var RrestGRCourse = (100.0- RgetGRCourse-RnowGRCourse-RpreGRCourse);//計算結果が必ず100%になるように(計算値はアバウトになるけど)
-
-//alert(RgetGRCourse+"% "+RnowGRCourse+"% "+RpreGRCourse+"% "+floatFormat(RrestGRCourse,1)+"% ");
-rabbit_data = [parseFloat(RgetGRCourse),parseFloat(RnowGRCourse),parseFloat(RpreGRCourse),floatFormat(RrestGRCourse,1)];
-
-function floatFormat(number,n){
-    var pow = Math.pow(10,n);
-    return Math.round(number*pow)/pow;
-}
-
 function drawGRrabbit(id,dataset){
     var svgWidth  = 250.0  //svg要素の幅
     var svgHeight = 320.0; //svg要素の高さ
@@ -25,6 +7,14 @@ function drawGRrabbit(id,dataset){
     var barMargin = 0;
     var colorArr = ['#96d946','#e9d848','#85d0f6','#e95956'];
 
+    var RgetGRCourse = parseFloat(((dataset[1]/dataset[0])*100).toFixed(1));//取得済み単位(CSV)
+    var RnowGRCourse = parseFloat(((dataset[2]/dataset[0])*100).toFixed(1));//履修中単位(CSV)
+    var RpreGRCourse = parseFloat(((dataset[3]/dataset[0])*100).toFixed(1));//履修予定単位(シミュレーション)
+    var RrestGRCourse = parseFloat(0.0);
+    if(dataset[1]+dataset[2]+dataset[3] <= dataset[0]){
+        RrestGRCourse = parseFloat((((dataset[0]-(dataset[1]+dataset[2]+dataset[3]))/dataset[0])*100).toFixed(1));
+    }
+    var datasetRate = [RgetGRCourse, RnowGRCourse, RpreGRCourse, RrestGRCourse];
 
     var svg = d3.select(id)
     .attr({
@@ -32,7 +22,7 @@ function drawGRrabbit(id,dataset){
         height : svgHeight
     })
     .selectAll("rect")
-    .data(dataset);
+    .data(datasetRate);
     var stacked = 0;
 
     svg.enter()
