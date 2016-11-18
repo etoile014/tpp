@@ -1,31 +1,18 @@
-//第3ブロックのアーチグラフ
-
-//入力データ（CSVから数える）
-var CountAplus = 50.0;
-var CountA = 90.5;
-var CountB = 100.5;
-var CountC = 50.5;
-var CountD = 300.5;
-var CountOther = 2.5;
-
-var CountSub=594.5;//本来ならデータベースから取得
-var rateAplus=((CountAplus/CountSub)*100).toFixed(1);
-var rateA=((CountA/CountSub)*100).toFixed(1);
-var rateB=((CountB/CountSub)*100).toFixed(1);
-var rateC=((CountC/CountSub)*100).toFixed(1);
-var rateD=((CountD/CountSub)*100).toFixed(1);
-var rateOhter=((CountOther/CountSub)*100).toFixed(1);
-var rateSUM = (((CountAplus+CountA)/CountSub)*100).toFixed(1);
-
-// 半ドーナツグラフの表示データ
-var grade_rate_data = [CountAplus,CountA,CountB,CountC,CountD,CountOther];
-
 function drawGradeRate(id, dataset) {
     // コンテナ
 
     //表示サイズを設定
     var width = 400;//変更
     var height = 350;//変更
+
+    var CountSub = dataset[0]+dataset[1]+dataset[2]+dataset[3]+dataset[4]+dataset[5];//本来ならデータベースから取得
+    var rateAplus = ((dataset[0]/CountSub)*100).toFixed(1);
+    var rateA = ((dataset[1]/CountSub)*100).toFixed(1);
+    var rateB = ((dataset[2]/CountSub)*100).toFixed(1);
+    var rateC = ((dataset[3]/CountSub)*100).toFixed(1);
+    var rateD = ((dataset[4]/CountSub)*100).toFixed(1);
+    var rateOhter = ((dataset[5]/CountSub)*100).toFixed(1);
+    var rateSUM = (((dataset[0]+dataset[1])/CountSub)*100).toFixed(1);
 
     var  radius = Math.min(width, height)/2;
 
@@ -73,7 +60,7 @@ function drawGradeRate(id, dataset) {
     	.attr("font-size","12px")
     	.attr("stroke-width",0.1);
     g.append("text")
-        .text("("+CountA+"/"+CountSub+"単位)")
+        .text("("+dataset[0]+dataset[1]+"/"+CountSub+"単位)")
     	.attr("dy","20")
     	.attr("dx","-40")
 	.attr("class","under_rate")
@@ -114,7 +101,7 @@ function drawGradeRate(id, dataset) {
             .selectAll("rect")
             .data(dataset);
 
-	var textArr = ["A+ "+rateAplus+"%","A "+rateA+"%","B "+rateB+"%","C "+rateC+"%","D "+rateD+"%","その他 "+rateOhter+"%"];
+	var textArr = ["A+ "+dataset[0]+"%","A "+dataset[1]+"%","B "+dataset[2]+"%","C "+dataset[3]+"%","D "+dataset[4]+"%","その他 "+dataset[5]+"%"];
 
 	legend.enter()
 	.append("text")
