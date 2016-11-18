@@ -6,13 +6,16 @@ function drawGradeRate(id, dataset) {
     var height = 350;//変更
 
     var CountSub = dataset[0]+dataset[1]+dataset[2]+dataset[3]+dataset[4]+dataset[5];//本来ならデータベースから取得
+
     var rateAplus = ((dataset[0]/CountSub)*100).toFixed(1);
     var rateA = ((dataset[1]/CountSub)*100).toFixed(1);
     var rateB = ((dataset[2]/CountSub)*100).toFixed(1);
     var rateC = ((dataset[3]/CountSub)*100).toFixed(1);
     var rateD = ((dataset[4]/CountSub)*100).toFixed(1);
-    var rateOhter = ((dataset[5]/CountSub)*100).toFixed(1);
+    var rateOther = ((dataset[5]/CountSub)*100).toFixed(1);
     var rateSUM = (((dataset[0]+dataset[1])/CountSub)*100).toFixed(1);
+
+    var datasetRate = [rateAplus, rateA, rateB, rateC, rateD, rateOther];
 
     var  radius = Math.min(width, height)/2;
 
@@ -35,7 +38,7 @@ function drawGradeRate(id, dataset) {
 
     // データバインド
     var g = svg.selectAll("path")
-            .data(pie(dataset))
+            .data(pie(datasetRate))
             .enter()
             .append("g")
             .attr("class", "arc");
@@ -60,7 +63,7 @@ function drawGradeRate(id, dataset) {
     	.attr("font-size","12px")
     	.attr("stroke-width",0.1);
     g.append("text")
-        .text("("+dataset[0]+dataset[1]+"/"+CountSub+"単位)")
+        .text("("+(dataset[0]+dataset[1])+"/"+CountSub+"単位)")
     	.attr("dy","20")
     	.attr("dx","-40")
 	.attr("class","under_rate")
