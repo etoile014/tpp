@@ -12,6 +12,7 @@
 	"express": "^4.13.3",
 	"ejs": "^1.0.0",
 	"body-parser": "latest",
-	"pm2": "latest"
+	"pm2": "latest",
+	"sqlite3": "latest"
     }
 }
