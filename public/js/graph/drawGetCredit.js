@@ -1,17 +1,3 @@
-//第２ブロックの左側のグラフ
-
-//入力データ（CSVから数える）
-var getCourse = 3.0;//履修済み単位
-var nowCourse = 2.0;//履修中単位
-var preCourse = 1.0;//履修予定単位
-var otherCourse = 6.0;//（指定科目群の必要単位数-getCourse-nowCourse,otherCourse）
-
-var sumCourse=getCourse+nowCourse+preCourse+otherCourse;//本来ならデータベースから取得
-var rate=((getCourse/sumCourse)*100).toFixed(1);
-
-// 半ドーナツグラフの表示データ
-var get_credit_data = [getCourse*2,nowCourse*2,preCourse*2,otherCourse];
-
 function drawGetCredit(id, dataset) {
     // コンテナ
 
@@ -29,6 +15,9 @@ function drawGetCredit(id, dataset) {
     })
     .append("g")
     .attr("transform",  "translate(" + width / 2 + "," + height / 2 + ")");
+
+    var sumCourse=getCourse+nowCourse+preCourse+otherCourse;//本来ならデータベースから取得
+    var rate=((getCourse/sumCourse)*100).toFixed(1);
 
     // パイを定義
     var pie = d3.layout.pie()
