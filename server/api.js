@@ -57,14 +57,22 @@ app.post("/api/csv", function(req, res, next){
 	if(eval("req.body.line" + i + ".grade") == "P"){totalP++}
 	if(eval("req.body.line" + i + ".grade") == "F"){totalF++}
     }
-/*
+
     db.each("SELECT min, max from common_compulsory, department where subject = '総合1' and department.departmentID=common_compulsory.departmentID and department.department_name like '%創成%'", function(err, row) {
 	var x = 0, y = 0;
 	if(row.min == row.max) {
 	    x = row.min;
-	)
-*/
-    console.log("-analyzed")
+	    for (var i=0; eval("req.body.line" + i) != undefined ; i++){
+		var str = eval("req.body.line" + i + ".subject");
+		if( str.match(/1119/) || str.match(/1319/) || str.match(/12/)){
+		    y++;
+		}
+	    }
+	}
+    }
+	   )
+
+    console.log("-analyzed");
     
     var resData = [
 	{'name': 'A+', 'data': totalAA},
