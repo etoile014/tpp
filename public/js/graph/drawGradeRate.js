@@ -1,13 +1,14 @@
 function drawGradeRate(id, dataset) {
     var CountSub = dataset[0]+dataset[1]+dataset[2]+dataset[3]+dataset[4]+dataset[5];
-    var rateAplus = ((dataset[0]/CountSub)*100).toFixed(1);
-    var rateA = ((dataset[1]/CountSub)*100).toFixed(1);
-    var rateB = ((dataset[2]/CountSub)*100).toFixed(1);
-    var rateC = ((dataset[3]/CountSub)*100).toFixed(1);
-    var rateD = ((dataset[4]/CountSub)*100).toFixed(1);
-    var rateOther = ((dataset[5]/CountSub)*100).toFixed(1);
-    var rateSUM = (((dataset[0]+dataset[1])/CountSub)*100).toFixed(1);
+    var rateAplus = ((dataset[0]/CountSub)*100);
+    var rateA = ((dataset[1]/CountSub)*100);
+    var rateB = ((dataset[2]/CountSub)*100);
+    var rateC = ((dataset[3]/CountSub)*100);
+    var rateD = ((dataset[4]/CountSub)*100);
+    var rateOther = ((dataset[5]/CountSub)*100);
+    var rateSUM = (((dataset[0]+dataset[1])/CountSub)*100);
     var datasetRate = [rateAplus, rateA, rateB, rateC, rateD, rateOther];
+    var textArr = ["A+ "+rateAplus.toFixed(1)+"%","A "+rateA.toFixed(1)+"%","B "+rateB.toFixed(1)+"%","C "+rateC.toFixed(1)+"%","D "+rateD.toFixed(1)+"%","その他 "+rateOther.toFixed(1)+"%"];
 
     //表示サイズを設定
     var width = 400;//変更
@@ -49,7 +50,7 @@ function drawGradeRate(id, dataset) {
 
     texts.enter().append("text")
     .attr("transform",  "translate(" + width / 2 + "," + height / 2 + ")")
-    .text(rateSUM+"％")
+    .text(rateSUM.toFixed(1)+"％")
     .attr("dy","0")
     .attr("dx","-60")
     .attr("fill","#464646")
@@ -66,7 +67,7 @@ function drawGradeRate(id, dataset) {
     .attr("stroke-width",0.1);
     texts.enter().append("text")
     .attr("transform",  "translate(" + width / 2 + "," + height / 2 + ")")
-    .text("("+(dataset[0]+dataset[1])+"/"+CountSub+"単位)")
+    .text("("+(dataset[0]+dataset[1]).toFixed(1)+"/"+CountSub.toFixed(1)+"単位)")
     .attr("dy","20")
     .attr("dx","-40")
     .attr("class","under_rate")
@@ -91,7 +92,6 @@ function drawGradeRate(id, dataset) {
     .attr("stroke-width",0.1);
 
     //凡例
-    var textArr = ["A+ "+dataset[0]+"%","A "+dataset[1]+"%","B "+dataset[2]+"%","C "+dataset[3]+"%","D "+dataset[4]+"%","その他 "+dataset[5]+"%"];
     svg.selectAll("rect")
     .data(dataset)
     .enter()
@@ -112,8 +112,9 @@ function drawGradeRate(id, dataset) {
 
     //アニメーション
     svg.selectAll("path")
+    .style("opacity",0)
     .transition()   // トランジション開始
-    .duration(1000) // 1秒間でアニメーションさせる
+    .duration(1500) // 1秒間でアニメーションさせる
     .attrTween("d", function(d){    // 指定した範囲で値を変化させアニメーションさせる
         var interpolate = d3.interpolate(
             { startAngle : -p/2, endAngle : -p/2 },   // 各円グラフの開始角度
@@ -122,5 +123,6 @@ function drawGradeRate(id, dataset) {
         return function(t){
             return arc(interpolate(t)); // 時間に応じて処理
         };
-    });
+    })
+    .style("opacity",1);
 }

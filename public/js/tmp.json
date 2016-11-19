@@ -1,0 +1,28 @@
+{
+    "REQUIRMENT" : {
+        "needGRCourse" : 124.5,
+        "getGRCourse" : 68.0,
+        "nowGRCourse" : 20.5,
+        "preGRCourse" : 8.5
+    },
+    "CREDIT" : {
+        "course" : "専門基礎・必修",
+        "needCourse" : 12.0,
+        "getCourse" : 3.0,
+        "nowCourse" : 2.0,
+        "preCourse" : 1.0,
+        "courseA" : 5.0,
+        "courseSum" : 15.0
+    },
+    "GRADE_GPA" : {
+        "countAplus" : 50.0,
+        "countA" : 90.5,
+        "countB" : 100.5,
+        "countC" : 50.5,
+        "countD" : 300.5,
+        "countOther" : 2.5,
+        "start" : 2014,
+        "creditTransition" : [38, 30, 11, 50, 18, 13],
+        "gpaTransition" : [3.5, 2.3, 1.5, 0.8, 3.0, 4.3]
+    }
+}
