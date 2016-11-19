@@ -1,6 +1,6 @@
 function drawGetCredit(id, dataset) {
-    var sumCourse = dataset[0] + dataset[1] + dataset[2] + dataset[3];//本来ならデータベースから取得
-    var rate = ((dataset[0]/sumCourse)*100).toFixed(1);
+    var rate = ((dataset[1]/dataset[0])*100);
+    var path_data = [dataset[1],dataset[2],dataset[3],dataset[4]];
 
     // 表示サイズを設定
     var width = 400;//変更
@@ -24,7 +24,7 @@ function drawGetCredit(id, dataset) {
 
     // 円弧
     var path = svg.selectAll("path")
-    .data(pie(dataset))
+    .data(pie(path_data))
     .enter()
     .append("path")
     .attr("transform",  "translate(" + width / 2 + "," + height / 2 + ")")
@@ -42,7 +42,7 @@ function drawGetCredit(id, dataset) {
 
     texts.enter().append("text")
     .attr("transform",  "translate(" + width / 2 + "," + height / 2 + ")")
-    .text(rate+"％")
+    .text(rate.toFixed(1)+"％")
     .attr("dy","0")
     .attr("dx","-60")
     .attr("fill","#464646")
@@ -59,7 +59,7 @@ function drawGetCredit(id, dataset) {
     .attr("stroke-width",0.1);
     texts.enter().append("text")
     .attr("transform",  "translate(" + width / 2 + "," + height / 2 + ")")
-    .text("("+getCourse+"/"+sumCourse+"単位)")
+    .text("("+dataset[1].toFixed(1)+"/"+dataset[0].toFixed(1)+"単位)")
     .attr("dy","20")
     .attr("dx","-30")
     .attr("class","under_rate")
@@ -86,7 +86,7 @@ function drawGetCredit(id, dataset) {
     //凡例
     var textArr = ["履修済み","履修中","履修予定","未履修"];
     svg.selectAll("rect")
-    .data(dataset)
+    .data(path_data)
     .enter()
     .append("text")
     .text(function(d,i){return textArr[i]})
@@ -94,7 +94,7 @@ function drawGetCredit(id, dataset) {
     .attr("y",240)
     .attr("font-size","10px");
     svg.selectAll("rect")
-    .data(dataset)
+    .data(path_data)
     .enter()
     .append("rect")
     .attr("x",function(d,i){return 50+i*80})
@@ -105,8 +105,9 @@ function drawGetCredit(id, dataset) {
 
     //アニメーション
     svg.selectAll("path")
+    .style("opacity",0)
     .transition()   // トランジション開始
-    .duration(1000) // 1秒間でアニメーションさせる
+    .duration(1500) // 1秒間でアニメーションさせる
     .attrTween("d", function(d){    // 指定した範囲で値を変化させアニメーションさせる
         var interpolate = d3.interpolate(
             { startAngle : -p/2, endAngle : -p/2 },   // 各円グラフの開始角度
@@ -115,5 +116,6 @@ function drawGetCredit(id, dataset) {
         return function(t){
             return arc(interpolate(t)); // 時間に応じて処理
         };
-    });
+    })
+    .style("opacity",1);
 }
