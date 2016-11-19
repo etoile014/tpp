@@ -1,12 +1,12 @@
 {
     "REQUIRMENT" : {
         "needGRCourse" : 124.5,
-        "getGRCourse" : 68.0,
+        "getGRCourse" : 78.0,
         "nowGRCourse" : 20.5,
         "preGRCourse" : 8.5
     },
     "CREDIT" : {
-        "course" : "専門基礎・必修",
+        "course" : "専門・必修",
         "needCourse" : 12.0,
         "getCourse" : 3.0,
         "nowCourse" : 2.0,

@@ -212,7 +212,9 @@ function postData(jsontext) {
 }
 
 function getData() {
+    console.log("読んだ!？");
     $.getJSON("js/tmp.json" , function(data) {
+        console.log("読んだ？");
         var needGRCourse = data.REQUIRMENT.needGRCourse;
         var getGRCourse = data.REQUIRMENT.getGRCourse;
         var nowGRCourse = data.REQUIRMENT.nowGRCourse;
