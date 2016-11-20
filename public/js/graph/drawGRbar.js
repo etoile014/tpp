@@ -1,4 +1,4 @@
-function drawGRbar(id,dataset){
+function drawGRBar(id,dataset){
 	var svgWidth  = 350
 	var svgHeight = 320;
 	var xOffset = 150;
@@ -7,13 +7,10 @@ function drawGRbar(id,dataset){
 	var barMargin = 15;
 	var colorArr = ['#96d946','#e9d848','#85d0f6','#e95956'];
 
-	var RgetGRCourse = parseFloat(((dataset[1]/dataset[0])*100).toFixed(1));//取得済み単位(CSV)
-    var RnowGRCourse = parseFloat(((dataset[2]/dataset[0])*100).toFixed(1));//履修中単位(CSV)
-    var RpreGRCourse = parseFloat(((dataset[3]/dataset[0])*100).toFixed(1));//履修予定単位(シミュレーション)
-    var RrestGRCourse = parseFloat(0.0);
-    if(dataset[1]+dataset[2]+dataset[3] <= dataset[0]){
-        RrestGRCourse = parseFloat((((dataset[0]-(dataset[1]+dataset[2]+dataset[3]))/dataset[0])*100).toFixed(1));
-    }
+	var RgetGRCourse = (dataset[1]/dataset[0])*100;//取得済み単位(CSV)
+    var RnowGRCourse = (dataset[2]/dataset[0])*100;//履修中単位(CSV)
+    var RpreGRCourse = (dataset[3]/dataset[0])*100;//履修予定単位(シミュレーション)
+    var RrestGRCourse = (dataset[4]/dataset[0])*100;//未履修単位
     var datasetRate = [RgetGRCourse, RnowGRCourse, RpreGRCourse, RrestGRCourse];
 
 	var svg = d3.select(id)
@@ -36,8 +33,9 @@ function drawGRbar(id,dataset){
 	.attr("fill",function(d,i){
 		return colorArr[i];
 	})
+	.style("opacity",0)
 	.transition()
-	.duration(1200)
+	.duration(1500)
 	.delay(function(d,i){
 		return i * 120;
 	})
@@ -46,13 +44,14 @@ function drawGRbar(id,dataset){
 	})
 	.attr("height",function(d,i){
 		return d*2.96;
-	});
+	})
+	.style("opacity",1);
 
 	svg.enter()
 	.append("text")
 	.attr("class","barRate")
 	.attr("fill","#464646")
-	.text(function(d){return d+"%";})
+	.text(function(d){return d.toFixed(1)+"%";})
 	.attr("x",function(d,i){
 		return i * (barWidth + barMargin) + xOffset-2.96;
 	})
