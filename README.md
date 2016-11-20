@@ -1,27 +1,38 @@
 # Enviroment
-*Docker Container `node`(official)
+* Docker Container `node`(official)
 (no dockerfile included)
-*nginx server
+* nginx server
 (https reverse proxy required)
 
 # Language
 ## Frontend
-*html
-*css
-*js
-*jquery
+* html
+* css
+* js
+* jquery
 ## Backend
-*js
-*Node.js
+* js
+* Node.js
+## Database
+* sqlite3 (3.8.7.1-1)
 
-# Contributers
-Team TpP
+# Initial contributers
+Team TpP from enpit2 program, University of Tsukuba.
 
 # Dependencies
-*node
-*express
-*pm2
-*body-parser
+* node
+* express
+* pm2
+* body-parser
+* sqlite3
+
+# Usage
+## temp or debug
+`$ npm install`
+`$ npm start server/api.js`
+## production
+`$ npm install`
+`$ pm2 start server/api.js`
 
 # Security
 Required CSV file contains important personal information.
