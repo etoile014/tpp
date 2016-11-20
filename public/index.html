@@ -1,62 +1,232 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<link href="css/top.css" rel="stylesheet" type="text/css">
-	<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
-	<script type="text/javascript" src="js/top.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>TPP</title>
+    <link rel="icon" type="image/icon" href="img/FAVICON_32x32.ico" sizes="32x32">
+    <link rel="icon" type="image/icon" href="img/FAVICON_64x64.ico" sizes="64x64">
+    <!-- CSS -->
+    <link href="css/master.css" rel="stylesheet" type="text/css">
+    <!-- Javascript -->
+    <!-- Javascript Library -->
+    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="js/jquery.inview.min.js"></script>
+    <script type="text/javascript" src="js/d3.v3.min.js"></script>
+    <!-- Javascript Master -->
+    <script type="text/javascript" src="js/master.js"></script>
+    <!-- Javascript Graph -->
+    <!-- REQUIRMENT -->
+    <script type="text/javascript" src="js/graph/drawGRBar.js"></script>
+    <script type="text/javascript" src="js/graph/drawGRRabbit.js"></script>
+    <!-- CREDIT -->
+    <script type="text/javascript" src="js/graph/drawGetCredit.js"></script>
+    <script type="text/javascript" src="js/graph/drawGradeA.js"></script>
+    <!-- GRADE_GPA -->
+    <script type="text/javascript" src="js/graph/drawGradeRate.js"></script>
+    <script type="text/javascript" src="js/graph/drawCreditTransition.js"></script>
+    <script type="text/javascript" src="js/graph/drawGPATransition.js"></script>
 </head>
 <body>
-	<header id="page-header" role="banner">
-		<div id="header-logo">
-			<img src="img/top/TopLink.png" onclick="jumpTOP()">
-		</div>
-		<div id="header-menu">
-			<div id="header-menu-inside">
-				<div class="menu-interval"><p class="onbar"></p><span>|</span></div>
-				<div class="menu-item"><p class="onbar"></p><a href="#TOP">トップ</a><p class="underbar"></p></div>
-				<div class="menu-interval"><p class="onbar"></p><span>|</span></div>
-				<div class="menu-item"><p class="onbar"></p><a href="#ABOUT_USAGE">概要・使い方</a><p class="underbar"></p></div>
-				<div class="menu-interval"><p class="onbar"></p><span>|</span></div>
-				<div class="menu-item"><p class="onbar"></p><a href="#QA">よくある質問</a><p class="underbar"></p></div>
-				<div class="menu-interval"><p class="onbar"></p><span>|</span></div>
-				<div class="menu-item"><p class="onbar"></p><a href="#UPDATE_INFO">更新・お知らせ</a><p class="underbar"></p></div>
-				<div class="menu-interval"><p class="onbar"></p><span>|</span></div>
-			</div>
-		</div>
-	</header>
+    <header id="PAGE_HEADER" role="banner">
+        <div class="header-logo">
+            <img class="logo" src="img/top/Top_Link.png" onclick="reloadTop()">
+        </div>
+        <div class="header-menu">
+            <div id="HEADER_MENU_INSIDE1">
+                <div class="menu-interval"><p class="onbar"></p><span>|</span></div>
+                <div class="menu-item"><p class="onbar"></p><a href="#TOP">トップ</a><p class="underbar"></p></div>
+                <div class="menu-interval"><p class="onbar"></p><span>|</span></div>
+                <div class="menu-item"><p class="onbar"></p><a href="#ABOUT_USAGE">概要・使い方</a><p class="underbar"></p></div>
+                <div class="menu-interval"><p class="onbar"></p><span>|</span></div>
+                <div class="menu-item"><p class="onbar"></p><a href="#QA">よくある質問</a><p class="underbar"></p></div>
+                <div class="menu-interval"><p class="onbar"></p><span>|</span></div>
+                <div class="menu-item"><p class="onbar"></p><a href="#UPDATE_INFO">更新・お知らせ</a><p class="underbar"></p></div>
+                <div class="menu-interval"><p class="onbar"></p><span>|</span></div>
+            </div>
+            <div id="HEADER_MENU_INSIDE2">
+                <div class="menu-interval"><p class="onbar"></p><span>|</span></div>
+                <div class="menu-item"><p class="onbar"></p><a href="#REQUIRMENT">卒業要件</a><p class="underbar"></p></div>
+                <div class="menu-interval"><p class="onbar"></p><span>|</span></div>
+                <div class="menu-item"><p class="onbar"></p><a href="#CREDIT">単位詳細</a><p class="underbar"></p></div>
+                <div class="menu-interval"><p class="onbar"></p><span>|</span></div>
+                <div class="menu-item"><p class="onbar"></p><a href="#GRADE_GPA">成績・ GPA</a><p class="underbar"></p></div>
+                <div class="menu-interval"><p class="onbar"></p><span>|</span></div>
+                <div class="menu-item"><p class="onbar"></p><a href="#SCHEDULE">時間割</a><p class="underbar"></p></div>
+                <div class="menu-interval"><p class="onbar"></p><span>|</span></div>
+            </div>
+        </div>
+    </header>
+    <!-- トップページ -->
+    <div id="PAGE_MAIN1" role="main">
+        <div id="TOP">
+            <img id="TOP_BACK" src="img/top/Top.png">
+            <img id="TOP_LOGO" src="img/top/Logo.png">
+            <img id="TOP_FOR_YOU" src="img/top/For_You.png">
+            <img id="TOP_EXPLAIN" src="img/top/CSV_Explain.png">
+            <img id="TOP_UPLOAD_AREA" src="img/top/CSV_Upload.png" onclick="tapped()">
+            <p id="TOP_FILE_NAME" onclick="tapped()">ファイルをアップロード</p>
+            <form onsubmit="return jumpMain()">
+                <input id="UPLOAD" type="file" onchange="fileUpload()">
+                <input id="SUBMIT" type="image" src="img/top/CSV_Submit.png" alt="upload">
+            </form>
+            <a href="#ABOUT_USAGE"><img id="TOP_SCROLL" src="img/top/Scroll.png"></a>
+        </div>
+        <div id="ABOUT_USAGE">
+            <img id="ABOUT_USAGE_BACK" src="img/top/About_Usage.png">
+            <img id="ABOUT_USAGE_EXPLAIN" src="img/top/About_Usage_Explain.png">
+            <img id="ABOUT_USAGE_STEPS" src="img/top/Step.png">
+        </div>
+        <div id="QA">
+            <img id="QA_BACK" src="img/top/QA.png">
+            <img id="QA_FAQ" src="img/top/FAQ.png">
+        </div>
+        <div id="UPDATE_INFO">
+            <img id="UPDATE_INFO_BACK" src="img/top/Update_Info.png">
+            <img id="UPDATE_INFO_UPDATE" src="img/top/Update.png">
+            <img id="UPDATE_INFO_INFO" src="img/top/Info.png">
+        </div>
+        <div id="FOOTER">
+            <p id="COPYRIGHT">Copyright ©︎2016 TPP</p>
+        </div>
+    </div>
 
-	<div id="page-main" role="main">
-		<div id="TOP">
-			<img id="topBack" src="img/top/TOP.png">
-			<img id="topLogo" src="img/top/logo.png">
-			<img id="forYou" src="img/top/for_you.png">
-			<img id="topExplain" src="img/top/CSV_explain.png">
-			<img id="uploadArea" src="img/top/CSV_upload.png" onclick="tapped()">
-			<p id="fileName" onclick="tapped()">ファイルをアップロード</p>
-			<form action="./main.html">
-				<input id="upload" type="file" onchange="fileUpload()">
-				<input id="submit" type="image" src="img/top/CSV_submit.png" alt="upload">
-			</form>
-			<a href="#ABOUT_USAGE"><img id="scroll" src="img/top/scroll.png"></a>
-		</div>
-		<div id="ABOUT_USAGE">
-			<img id="about_usageBack" src="img/top/ABOUT_USAGE.png">
-			<img id="about_usageExplain" src="img/top/ABOUT_USAGE_explain.png">
-			<img id="steps" src="img/top/STEP.png">
-		</div>
-		<div id="QA">
-			<img id="qaBack" src="img/top/QA.png">
-			<img id="faq" src="img/top/FAQ.png">
-		</div>
-		<div id="UPDATE_INFO">
-			<img id="update_infoBack" src="img/top/UPDATE_INFO.png">
-			<img id="update" src="img/top/update.png">
-			<img id="news" src="img/top/news.png">
-		</div>
-		<div id="FOOTER">
-			<p id="COPYRIGHT">Copyright ©︎2016 TPP</p>
-		</div>
-	</div>
+    <!-- メインページ -->
+    <div id="PAGE_MAIN2" role="main">
+        <div id="REQUIRMENT">
+            <p id="REQUIRMENT_TITLE">Graduation Requirments</p>
+            <p id="REQUIRMENT_SUBTITLE">あなたも"ぴょんぴょん"してますか？</p>
+            <div id="REQUIRMENT_BOX">
+                <div id="REQUIRMENT_GRAPH">
+                    <svg id="BAR_GRAPH"></svg>
+                    <svg id="RABBIT_GRAPH"></svg>
+                    <img id="OVERRAY" src="img/graph_img/Rabbit_Mask.png">
+                    <img id="SCALE" src="img/graph_img/Scale.png"/>
+                </div>
+                <div id="CREDIT_LABEL">
+                    <table border="0">
+                        <tr>
+                            <td colspan="2" class="credit-item other-credit">卒業必須単位</td>
+                            <td> </td>
+                            <td rowspan="3" class="credit-bracket other-credit">(</td>
+                            <td colspan="2" class="credit-item get-credit">取得単位</td>
+                            <td> </td>
+                            <td colspan="2" class="credit-item now-credit">履修中単位</td>
+                            <td> </td>
+                            <td colspan="2" class="credit-item pre-credit">履修予定単位</td>
+                            <td rowspan="3" class="credit-bracket other-credit">)</td>
+                            <td> </td>
+                            <td colspan="2" class="credit-item rest-credit">卒業まで残り</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2" class="credit-number other-credit" id="NEED_COURSE">0</td>
+                            <td> </td>
+                            <td class="credit-sign other-credit">ー</td>
+                            <td rowspan="2" class="credit-number get-credit" id="GET_COURSE">0</td>
+                            <td> </td>
+                            <td class="credit-sign other-credit">＋</td>
+                            <td rowspan="2" class="credit-number now-credit" id="NOW_COURSE">0</td>
+                            <td> </td>
+                            <td class="credit-sign other-credit">＋</td>
+                            <td rowspan="2" class="credit-number pre-credit" id="PRE_COURSE">0</td>
+                            <td> </td>
+                            <td class="credit-sign other-credit">＝</td>
+                            <td rowspan="2" class="credit-number rest-credit" id="REST_COURSE">0</td>
+                            <td> </td>
+                        </tr>
+                        <tr>
+                            <td class="credit-unit other-credit">単位</td>
+                            <td> </td>
+                            <td class="credit-unit get-credit">単位</td>
+                            <td> </td>
+                            <td class="credit-unit now-credit">単位</td>
+                            <td> </td>
+                            <td class="credit-unit pre-credit">単位</td>
+                            <td> </td>
+                            <td class="credit-unit rest-credit">単位</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="interval">
+            <img class="interval-image" src="img/main/Stripe_Line.png">
+        </div>
+        <div id="CREDIT">
+            <p id="CREDIT_TITLE">Your Credits Detail</p>
+            <p id="CREDIT_SUBTITLE">
+                <text>単位詳細を見たいものを12種類の科目区分から選ぼう</text><br>
+                <text>卒業までに必要な単位数や今までに取得した単位を確認できます</text><br>
+                <text>これから履修予定の科目を入力して卒業シミュレーションも！</text>
+            </p>
+            <button id="CREDIT_PULLDOWN">科目名</button>
+            <div id="CREDIT_BOX">
+                <div id="CREDIT_GRAPH">
+                    <svg id="GET_CREDIT_GRAPH"></svg>
+                    <svg id="GRADE_A_GRAPH"></svg>
+                </div>
+            </div>
+        </div>
+        <div class="interval">
+            <img class="interval-image" src="img/main/Stripe_Line.png">
+        </div>
+        <div id="GRADE_GPA">
+            <p id="GRADE_GPA_TITLE">Your Marks and GPA</p>
+            <p id="GRADE_GPA_SUBTITLE">今までのあなたは"ぴょんぴょん"してますか？</p>
+            <div id="GRADE_GPA_BOX">
+                <br>
+                <table border="0" id="GRADE_PAPERS">
+                    <tr>
+                        <td class="paper-td"><img class="paper-image" src="img/main/Paper_A+.png"></td>
+                        <td class="cross-td">×</td>
+                        <td class="credit-number-td" id="CREDIT_APLUS">0</td>
+                        <td class="unit-td">単位</td>
+                        <td width="10px"></td>
+                        <td class="paper-td"><img class="paper-image" src="img/main/Paper_A.png"></td>
+                        <td class="cross-td">×</td>
+                        <td class="credit-number-td" id="CREDIT_A">0</td>
+                        <td class="unit-td">単位</td>
+                        <td width="10px"></td>
+                        <td class="paper-td"><img class="paper-image" src="img/main/Paper_B.png"></td>
+                        <td class="cross-td">×</td>
+                        <td class="credit-number-td" id="CREDIT_B">0</td>
+                        <td class="unit-td">単位</td>
+                    </tr>
+                    <tr>
+                        <td class="paper-td"><img class="paper-image" src="img/main/Paper_C.png"></td>
+                        <td class="cross-td">×</td>
+                        <td class="credit-number-td" id="CREDIT_C">0</td>
+                        <td class="unit-td">単位</td>
+                        <td width="10px"></td>
+                        <td class="paper-td"><img class="paper-image" src="img/main/Paper_D.png"></td>
+                        <td class="cross-td">×</td>
+                        <td class="credit-number-td" id="CREDIT_D">0</td>
+                        <td class="unit-td">単位</td>
+                        <td width="10px"></td>
+                        <td class="paper-td"><img class="paper-image" src="img/main/Paper_Others.png"></td>
+                        <td class="cross-td">×</td>
+                        <td class="credit-number-td" id="CREDIT_OTHERS">0</td>
+                        <td class="unit-td">単位</td>
+                    </tr>
+                </table>
+                <div id="GRADE_GPA_GRAPH">
+                    <svg id="GRADE_RATE"></svg>
+                    <svg id="CREDIT_TRANSITION"></svg>
+                    <svg id="GPA_TRANSITION"></svg>
+                </div>
+            </div>
+        </div>
+        <div class="interval">
+            <img class="interval-image" src="img/main/Stripe_Line.png">
+        </div>
+        <div id="SCHEDULE">
+            <p id="SCHEDULE_TITLE">Your 4 years Time Tables</p>
+            <p id="SCHEDULE_SUBTITLE">あなたの４年間は"ぴょんぴょん"してますか？</p>
+            <div id="SCHEDULE_BOX"></div>
+        </div>
+        <div id="FOOTER">
+            <p id="COPYRIGHT">Copyright ©︎2016 TPP</p>
+        </div>
+    </div>
+
 </body>
 </html>
