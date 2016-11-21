@@ -270,7 +270,7 @@ var qpa_transition_data = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
 
 $(function() {
     //第一ブロック
-    $("#REQUIRMENT_BOX").on("inview", function() {
+    $("#REQUIRMENT_GRAPH").on("inview", function() {
         if (animated1 == false) {
             animated1 = true;
             drawGRBar("#BAR_GRAPH", rabbit_data);
@@ -285,7 +285,7 @@ $(function() {
     });
 
     //第二ブロック
-    $("#CREDIT_BOX").on("inview", function() {
+    $("#CREDIT_GRAPH").on("inview", function() {
         if (animated2 == false) {
             animated2 = true;
             $("#CREDIT_PULLDOWN").text(course);
@@ -295,7 +295,7 @@ $(function() {
     });
 
     //第三ブロック
-    $("#GRADE_GPA_BOX").on("inview", function() {
+    $("#GRADE_GPA_GRAPH").on("inview", function() {
         if (animated3 == false) {
             animated3 = true;
             drawGradeRate("#GRADE_RATE", grade_rate_data);
