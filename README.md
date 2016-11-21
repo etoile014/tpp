@@ -19,12 +19,14 @@
 # Initial contributers
 Team TpP from enpit2 program, University of Tsukuba.
 
-# Dependencies
+# Dependencies(npm)
 * node
 * express
 * pm2
 * body-parser
 * sqlite3
+* co
+* sleep-async
 
 # Usage
 ## temp or debug
