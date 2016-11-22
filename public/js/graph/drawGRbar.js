@@ -1,5 +1,5 @@
 function drawGRBar(id,dataset){
-	var svgWidth  = 350
+	var svgWidth  = 350;
 	var svgHeight = 320;
 	var xOffset = 150;
 	var yOffset = 10;
