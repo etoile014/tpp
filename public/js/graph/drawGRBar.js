@@ -7,10 +7,10 @@ function drawGRBar(id,dataset){
 	var barMargin = 15;
 	var colorArr = ['#96d946','#e9d848','#85d0f6','#e95956'];
 
-	var RgetGRCourse = (dataset[1]/dataset[0])*100;//取得済み単位(CSV)
-    var RnowGRCourse = (dataset[2]/dataset[0])*100;//履修中単位(CSV)
-    var RpreGRCourse = (dataset[3]/dataset[0])*100;//履修予定単位(シミュレーション)
-    var RrestGRCourse = (dataset[4]/dataset[0])*100;//未履修単位
+	var RgetGRCourse = (dataset[1]/(dataset[0]>0?dataset[0]:1))*100;//取得済み単位(CSV)
+    var RnowGRCourse = (dataset[2]/(dataset[0]>0?dataset[0]:1))*100;//履修中単位(CSV)
+    var RpreGRCourse = (dataset[3]/(dataset[0]>0?dataset[0]:1))*100;//履修予定単位(シミュレーション)
+    var RrestGRCourse = (dataset[4]/(dataset[0]>0?dataset[0]:1))*100;//未履修単位
     var datasetRate = [RgetGRCourse, RnowGRCourse, RpreGRCourse, RrestGRCourse];
 
 	var svg = d3.select(id)

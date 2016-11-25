@@ -1,5 +1,5 @@
 function drawGetCredit(id, dataset) {
-    var rate = ((dataset[1]/dataset[0])*100);
+    var rate = ((dataset[1]/(dataset[0]>0?dataset[0]:1))*100);
     var path_data = [dataset[1],dataset[2],dataset[3],dataset[4]];
 
     // 表示サイズを設定

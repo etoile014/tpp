@@ -1,5 +1,6 @@
 function drawGradeRate(id, dataset) {
     var CountSub = dataset[0]+dataset[1]+dataset[2]+dataset[3]+dataset[4]+dataset[5];
+    CountSub = CountSub>0?CountSub:1;
     var rateAplus = ((dataset[0]/CountSub)*100);
     var rateA = ((dataset[1]/CountSub)*100);
     var rateB = ((dataset[2]/CountSub)*100);
