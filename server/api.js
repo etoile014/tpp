@@ -15,29 +15,18 @@ var courseDB = new sqlite3.Database(process.cwd() + '/database/kdb.db');
 
 app.set('views', process.cwd()+ '/views');
 var ejsEngine = require('ejs');
-app.engine('ejs', ejsEngine.renderFile);
-app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
 
-//test sqlite serverconnection
-console.log(db.run('select *  from department'));
-/*
-courseDB.get("select * from course", function(err, row) {
-    console.log(row.name);
-}
-);
-*/
-
 //Server for lisning socket.
 var server = app.listen(80, function(){
     console.log("Node.js is running to listen port: " + server.address().port + "(in container)");
 });
 
-//api get method
+//api get method for testing server
 app.get("/api/csv", function(req, res, next){
     var temp;
     var temp2;
@@ -60,67 +49,94 @@ app.post("/api/csv", function(req, res, next){
     var total = [0,0,0,0,0,0,0,0,0,0,0];//a+,a,b,c,d,x,p,f
     var semesterTotal = [0,0,0,0,0,0,0];
     var semesterGPA = [0,0,0,0,0,0,0];
+    var sogo1 = 0;
+    var graduation = 1;      //if there is any problem, this will turns 0.
 
-    console.log("GOT JSON!!");
+    var subjectTemp;
+    var gradeTemp;
+    
+    console.log("I GOT JSON!!");
     
     res.contentType('application/json');
     db.serialize(function () {
 	co(function *() {
 	    for (var i=0; eval("req.body.line" + i) != undefined ; i++){
-		
+		subjectTemp = eval("req.body.line" + i + ".subject");
+		gradeTemp = eval("req.body.line" + i + ".grade");
 		console.log(eval("req.body.line" + i + ".year"));
 		switch(eval("req.body.line" + i + ".year")) {
 		case "2013":
-		    check2013(i, eval("req.body.line" + i + ".subject"), eval("req.body.line" + i + ".grade"), total);
+		    check2013(i, subjectTemp, gradeTemp, total);
 		    break;
 		case "2014":
-		    check2014(i, eval("req.body.line" + i + ".subject"), eval("req.body.line" + i + ".grade"), total);
+		    check2014(i, subjectTemp, gradeTemp, total);
 		    break;
 		case "2015":
-		    check2015(i, eval("req.body.line" + i + ".subject"), eval("req.body.line" + i + ".grade"), total);
+		    check2015(i, subjectTemp, gradeTemp, total);
 		    break;
 		case "2016":
-		    check2016(i, eval("req.body.line" + i + ".subject"), eval("req.body.line" + i + ".grade"), total);
+		    check2016(i, subjectTemp, gradeTemp, total);
 		    break;
 		}
-		
 	    }
 	    });
     });
-		 
-	db.each("SELECT min, max from common_compulsory, department where subject = '総合1' and department.departmentID=common_compulsory.departmentID and department.department_name like '%創成%'", function(err, row) {
-	    var x = 0, y = 0;
-	    if(row.min == row.max) {
-		x = row.min;
-		for (var i=0; eval("req.body.line" + i) != undefined ; i++){
-		    var str = eval("req.body.line" + i + ".subject");
-		    if( str.match(/1119/) || str.match(/1319/) || str.match(/12/)){
-			y++;
-		    }
+    
+    //Analyze
+    db.each("SELECT min, max from common_compulsory, department where subject = '総合1' and department.departmentID=common_compulsory.departmentID and department.department_name like '%創成%'", function(err, row) {
+	var x = 0, y = 0;
+	if(row.min == row.max) {
+	    x = row.min;
+	    for (var i=0; eval("req.body.line" + i) != undefined ; i++){
+		var str = eval("req.body.line" + i + ".subject");
+		if( str.match(/1119.+?/) || str.match(/1319.+?/) || str.match(/12.+?/)){
+		    y++;
 		}
 	    }
+	    if(x > y) {graduation = 1}else{sogo1 = y}
 	}
-	       )
-	    
-	    console.log("-analyzed");
-	
-    sleep.sleep(3000, function(){
-	var resData = [
-	    {'GRADE_GPA':{
-		'countAplus': total[0],
-		'countA': total[1],
-		'countB': total[2],
-		'countC': total[3],
-		'countD': total[4],
-		'countX': total[5],
-		'countP': total[6],
-		'countF': total[7],
-		'countOther': (total[5] + total[6] + total[7]),
-		'completed': (total[0] + total[1] + total[2] + total[3])
-	    }
-	    }
-	];
-	var resDataJSON = JSON.stringify(resData);
+    });
+    
+    console.log("-analyzed");
+    
+    sleep.sleep(2000, function(){
+	var resData = 
+	    {'REQUIREMENT': {
+		'needGRCourse': 124.5,
+		'getGRCourse': 68,
+		'nowGRCourse': 20.5,
+		'preGRCourse': 8.5
+	    },
+	     'CREDIT': [{
+		 'course': "Senmon",
+		 'needCourse': 12,
+		 'getCourse': 3,
+		 'nowCourse': 2,
+		 'preCourse': 1,
+		 'courseA': 5,
+		 'courseSum': 15
+	     },{
+		 'course': "sogo1",
+		 'getCourse': sogo1,
+	     }],
+	     'GRADE_GPA':{
+		 'countAplus': total[0],
+		 'countA': total[1],
+		 'countB': total[2],
+		 'countC': total[3],
+		 'countD': total[4],
+		 'countX': total[5],
+		 'countP': total[6],
+		 'countF': total[7],
+		 'countOther': (total[5] + total[6] + total[7]),
+		 'completed': (total[0] + total[1] + total[2] + total[3]),
+		 'start': "2014",
+		 'creditTransition': [2,3,4,5,6,7],
+		 'gpaTransition': [3,2,3,4,3,3]
+	    },
+	     "sogo1": sogo1
+	    };
+	var resDataJSON = JSON.stringify(resData ,null, ' ');
 	res.send(resDataJSON);
 	res.end();
 	console.log("-JSON submitted to host!");
@@ -128,12 +144,16 @@ app.post("/api/csv", function(req, res, next){
     //});
 });
 
+/*
+Function List
+*/
+
 function check2013(i, subject, grade, total) {
     courseDB.get('select credit,id from course2013 where id = ?',[subject],function (err, row){
 	if (err) {console.log(err)}
 	else {
 	    console.log(row);
-	    console.log("2013  " + i + grade);
+	    console.log("2013  " + i + ":" + grade);
 	    if(grade == "A+"){total[0] += row.credit}
 	    if(grade == "A"){total[1] += row.credit}
 	    if(grade == "B"){total[2] += row.credit}
@@ -150,7 +170,7 @@ function check2014(i, subject, grade, total) {
 	if (err) {console.log(err)}
 	else {
 	    console.log(row);
-	    console.log("2014  " + i + grade);
+	    console.log("2014  " + i + ":" + grade);
 	    if(grade == "A+"){total[0] += row.credit}
 	    if(grade == "A"){total[1] += row.credit}
 	    if(grade == "B"){total[2] += row.credit}
@@ -167,7 +187,7 @@ function check2015(i, subject, grade, total) {
 	if (err) {console.log(err)}
 	else {
 	    console.log(row);
-	    console.log("2015  " + i + grade);
+	    console.log("2015  " + i + ":" + grade);
 	    if(grade == "A+"){total[0] += row.credit}
 	    if(grade == "A"){total[1] += row.credit}
 	    if(grade == "B"){total[2] += row.credit}
@@ -184,7 +204,7 @@ function check2016(i, subject, grade, total) {
 	if (err) {console.log(err)}
 	else {
 	    console.log(row);
-	    console.log("2016  " + i + grade);
+	    console.log("2016  " + i + ":" + grade);
 	    if(grade == "A+"){total[0] += row.credit}
 	    if(grade == "A"){total[1] += row.credit}
 	    if(grade == "B"){total[2] += row.credit}

@@ -10,9 +10,11 @@
 * css
 * js
 * jquery
+
 ## Backend
 * js
 * Node.js
+
 ## Database
 * sqlite3 (3.8.7.1-1)
 
@@ -27,6 +29,7 @@ Team TpP from enpit2 program, University of Tsukuba.
 * sqlite3
 * co
 * sleep-async
+* jschardet
 
 # Usage
 ## temp or debug
