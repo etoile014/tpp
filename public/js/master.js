@@ -219,10 +219,11 @@ function convertJsonText(dataArray) {
     alert(txt);
 }
 
-function postData(jsontext) {
+function postData(json) {
     $.ajax({
         type: "POST",
         url: "https://tpp.d-io.com/api/csv",
+        data: json,
         contentType: "application/json",
         success: function(data) {
             console.log(data);
