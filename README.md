@@ -39,6 +39,9 @@ Team TpP from enpit2 program, University of Tsukuba.
 `$ npm install`
 `$ pm2 start server/api.js`
 
+# deploy including env
+`docker run -it -d -p 5000:80 -p 5002:12000 -v /home/*****/:/share/ node`
+
 # Security
 Required CSV file contains important personal information.
 Do not expose server at plane/http socket when it comes to be production!
