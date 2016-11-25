@@ -1,5 +1,5 @@
 function drawGRRabbit(id,dataset){
-    var svgWidth  = 250  //svg要素の幅
+    var svgWidth  = 250;  //svg要素の幅
     var svgHeight = 320; //svg要素の高さ
     var xOffset = 10;    //Ｘ座標のずれ具合
     var yOffset = 10;    //Ｙ座標のずれ具合
