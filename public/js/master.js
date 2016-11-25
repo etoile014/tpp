@@ -224,6 +224,7 @@ function postData(json) {
         type: "POST",
         data: json,
         url: "https://tpp.d-io.com/api/csv",
+        data: json,
         contentType: "application/json",
         success: function(data) {
             console.log(data);
