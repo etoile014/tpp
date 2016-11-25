@@ -2,8 +2,8 @@
 @import url(https://fonts.googleapis.com/earlyaccess/notosansjapanese.css);
 
 html, body{
-	margin: 0;
-	padding: 0;
+	margin: 0px;
+	padding: 0px;
 	width: 100%;
 	height: 100%;
 	text-align: center;
@@ -11,8 +11,8 @@ html, body{
 }
 
 header#PAGE_HEADER {
-	margin: 0;
-	padding: 0;
+	margin: 0px;
+	padding: 0px;
 	width: 100%;
 	min-width: 850px;
 	height: 50px;
@@ -26,7 +26,7 @@ div.header-logo {
 	position: absolute;
 	top: 0;
 	left: 0;
-	margin: 0;
+	margin: 0px;
 	padding: 5px 0px;
 	width: 150px;
 	height: 50px;
@@ -41,8 +41,8 @@ div.header-menu {
 	position: absolute;
 	top: 0px;
 	left: 150px;
-	margin: 0;
-	padding: 0;
+	margin: 0px;
+	padding: 0px;
 	width: calc(100% - 300px);
 	min-width: 700px;
 	height: 50px;
@@ -61,8 +61,8 @@ div#HEADER_MENU_INSIDE2 {
 }
 
 div.menu-interval {
-	margin: 0;
-	padding: 0;
+	margin: 0px;
+	padding: 0px;
 	width: 50px;
 	height: 50px;
 	color: #FFFFFF;
@@ -76,8 +76,8 @@ div.menu-interval span {
 }
 
 div.menu-item {
-	margin: 0;
-	padding: 0;
+	margin: 0px;
+	padding: 0px;
 	width: auto;
 	height: 50px;
 	color: #FFFFFF;
@@ -117,8 +117,8 @@ p.underbar {
 /*　↓↓↓↓　トップページ　↓↓↓↓　*/
 
 div#PAGE_MAIN1 {
-	margin: 0;
-	padding: 0;
+	margin: 0px;
+	padding: 0px;
 	width: 100%;
 	min-width: 850px;
 	height: calc(100% - 50px);
@@ -130,8 +130,8 @@ div#PAGE_MAIN1 {
 }
 
 div#TOP {
-	margin: 0;
-	padding: 0;
+	margin: 0px;
+	padding: 0px;
 	width: 100%;
 	min-width: 850px;
 	height: auto;
@@ -140,6 +140,8 @@ div#TOP {
 }
 
 img#TOP_BACK {
+	margin: 0px;
+	padding: 0px;
 	width: 100%;
 	min-width: 850px;
 	height: auto;
@@ -255,16 +257,17 @@ img#TOP_SCROLL {
 }
 
 div#ABOUT_USAGE {
-	margin: 0;
-	padding: 0;
+	margin: 0px;
+	padding: 0px;
 	width: 100%;
 	min-width: 850px;
 	height: auto;
-	background-color: #97ECED;
+	background-color: #97D9F6;
 	position: relative;
 }
 
 img#ABOUT_USAGE_BACK {
+	margin: 0px;
 	width: 100%;
 	min-width: 850px;
 	height: auto;
@@ -296,8 +299,8 @@ img#ABOUT_USAGE_STEPS {
 }
 
 div#QA {
-	margin: 0;
-	padding: 0;
+	margin: 0px;
+	padding: 0px;
 	width: 100%;
 	min-width: 850px;
 	height: auto;
@@ -306,6 +309,7 @@ div#QA {
 }
 
 img#QA_BACK {
+	margin: 0px;
 	width: 100%;
 	min-width: 850px;
 	height: auto;
@@ -325,8 +329,8 @@ img#QA_FAQ {
 }
 
 div#UPDATE_INFO {
-	margin: 0;
-	padding: 0;
+	margin: 0px;
+	padding: 0px;
 	width: 100%;
 	min-width: 850px;
 	height: auto;
@@ -335,6 +339,7 @@ div#UPDATE_INFO {
 }
 
 img#UPDATE_INFO_BACK {
+	margin: 0px;
 	width: 100%;
 	min-width: 850px;
 	height: auto;
@@ -369,8 +374,8 @@ img#UPDATE_INFO_INFO {
 /*　↓↓↓↓　メインページ　↓↓↓↓　*/
 
 div#PAGE_MAIN2 {
-	margin: 0;
-	padding: 0;
+	margin: 0px;
+	padding: 0px;
 	width: 100%;
 	min-width: 850px;
 	height: calc(100% - 50px);
@@ -382,8 +387,8 @@ div#PAGE_MAIN2 {
 }
 
 div.interval {
-	margin: 0;
-	padding: 0;
+	margin: 0px;
+	padding: 0px;
 	width: 100%;
 	min-width: 850px;
 	height: 10px;
@@ -403,9 +408,9 @@ img.interval-image {
 
 /* First Block */
 
-div#REQUIRMENT {
-	margin: 0;
-	padding: 0;
+div#REQUIREMENT {
+	margin: 0px;
+	padding: 0px;
 	width: 100%;
 	min-width: 850px;
 	height: 650px;
@@ -414,7 +419,7 @@ div#REQUIRMENT {
 	text-align: center;
 }
 
-p#REQUIRMENT_TITLE {
+p#REQUIREMENT_TITLE {
 	position: absolute;
 	margin: auto;
 	top: 0%;
@@ -427,7 +432,7 @@ p#REQUIRMENT_TITLE {
 	z-index: 1;
 }
 
-p#REQUIRMENT_SUBTITLE {
+p#REQUIREMENT_SUBTITLE {
 	position: absolute;
 	margin: auto;
 	top: 80px;
@@ -440,7 +445,7 @@ p#REQUIRMENT_SUBTITLE {
 	z-index: 1;
 }
 
-div#REQUIRMENT_BOX {
+div#REQUIREMENT_BOX {
 	position: absolute;
 	margin: auto;
 	top: 120px;
@@ -453,10 +458,10 @@ div#REQUIRMENT_BOX {
 	background-color: #FFFFFF;
 }
 
-div#REQUIRMENT_GRAPH {
+div#REQUIREMENT_GRAPH {
 	position: relative;
-	margin: 0;
-	padding: 0;
+	margin: 0px;
+	padding: 0px;
 	width: 850px;
 	height: 320px;
 }
@@ -465,8 +470,8 @@ svg#BAR_GRAPH {
 	position: absolute;
 	top: 0px;
 	left: 50px;
-	margin: 0;
-	padding: 0;
+	margin: 0px;
+	padding: 0px;
 	width: 350px;
 	height: 320px;
 }
@@ -475,8 +480,8 @@ svg#RABBIT_GRAPH {
 	position: absolute;
 	top: 0px;
 	left: 400px;
-	margin: 0;
-	padding: 0;
+	margin: 0px;
+	padding: 0px;
 	width: 250px;
 	height: 320px;
 }
@@ -485,8 +490,8 @@ img#OVERRAY {
 	position: absolute;
 	top: 0px;
 	left: 400px;
-	margin: 0;
-	padding: 0;
+	margin: 0px;
+	padding: 0px;
 	width: 250px;
 	height: 320px;
 }
@@ -561,8 +566,8 @@ td.left-credit {
 /* Second Block */
 
 div#CREDIT {
-	margin: 0;
-	padding: 0;
+	margin: 0px;
+	padding: 0px;
 	width: 100%;
 	min-width: 850px;
 	height: 730px;
@@ -635,8 +640,8 @@ div#CREDIT_BOX {
 
 div#CREDIT_GRAPH {
 	position: relative;
-	margin: 0;
-	padding: 0;
+	margin: 0px;
+	padding: 0px;
 	width: 850px;
 	height: 260px;
 	min-width: 765px;
@@ -646,7 +651,7 @@ div#GET_CREDIT_GRAPH {
 	position: absolute;
 	top: 0;
 	left: 25px;
-	margin: 0;
+	margin: 0px;
 	width: 400px;
 	height: 260px;
 }
@@ -655,7 +660,7 @@ div#GRADE_A_GRAPH {
 	position: absolute;
 	top: 0;
 	left: 425px;
-	margin: 0;
+	margin: 0px;
 	width: 400px;
 	height: 260px;
 }
@@ -663,8 +668,8 @@ div#GRADE_A_GRAPH {
 /* Third Block */
 
 div#GRADE_GPA {
-	margin: 0;
-	padding: 0;
+	margin: 0px;
+	padding: 0px;
 	width: 100%;
 	min-width: 850px;
 	height: 1000px;
@@ -758,7 +763,7 @@ svg#GRADE_RATE {
 	position: absolute;
 	top: 0px;
 	left: 120px;
-	margin: 0;
+	margin: 0px;
 	width: 400px;
 	height: 260px;
 }
@@ -767,7 +772,7 @@ svg#CREDIT_TRANSITION {
 	position: absolute;
 	top: 260px;
 	left: 0px;
-	margin: 0;
+	margin: 0px;
 	width: 320px;
 	height: 200px;
 }
@@ -776,7 +781,7 @@ svg#GPA_TRANSITION {
 	position: absolute;
 	top: 260px;
 	left: 320px;
-	margin: 0;
+	margin: 0px;
 	width: 320px;
 	height: 200px;
 }
@@ -784,8 +789,8 @@ svg#GPA_TRANSITION {
 /* Fourth Block */
 
 div#SCHEDULE {
-	margin: 0;
-	padding: 0;
+	margin: 0px;
+	padding: 0px;
 	width: 100%;
 	min-width: 850px;
 	height: 800px;
@@ -837,8 +842,8 @@ div#SCHEDULE_BOX {
 /*　↓↓↓↓　トップメイン共通　↓↓↓↓　*/
 
 div#FOOTER {
-	margin: 0;
-	padding: 0;
+	margin: 0px;
+	padding: 0px;
 	width: 100%;
 	min-width: 850px;
 	height: 50px;
