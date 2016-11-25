@@ -202,11 +202,11 @@ function TwinsPlanningParser(textData) {
 function convertJsonText(dataArray) {
     var length = dataArray.length;
     var txt = "{\n";
-    // txt += '\t\"student\": {\n';
-    // txt += '\t\t\"year\": '+2014+',\n';
-    // txt += '\t\t\"major\": \"'+"Sousei"+'\",\n';
-    // txt += '\t\t\"part3\": '+false+',\n';
-    // txt += '\t},\n';
+    txt += '\t\"student\": {\n';
+    txt += '\t\t\"year\": '+2014+',\n';
+    txt += '\t\t\"major\": \"'+"Sousei"+'\",\n';
+    txt += '\t\t\"part3\": '+false+'\n';
+    txt += '\t},\n';
     for (var i = 0; i < length; i++) {
         txt += '\t\"line' + i + '\": {\n';
         txt += '\t\t\"year\": \"' + dataArray[i][0] + '\",\n';
@@ -215,8 +215,8 @@ function convertJsonText(dataArray) {
         txt += '\t}' + ((i < length - 1) ? ',' : '' ) + '\n';
     }
     txt += '}';
+    // alert(txt);
     postData(txt);
-    alert(txt);
 }
 
 function postData(json) {
