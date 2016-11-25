@@ -63,7 +63,6 @@ app.post("/api/csv", function(req, res, next){
 	    for (var i=0; eval("req.body.line" + i) != undefined ; i++){
 		subjectTemp = eval("req.body.line" + i + ".subject");
 		gradeTemp = eval("req.body.line" + i + ".grade");
-		console.log(eval("req.body.line" + i + ".year"));
 		switch(eval("req.body.line" + i + ".year")) {
 		case "2013":
 		    check2013(i, subjectTemp, gradeTemp, total);
@@ -101,40 +100,39 @@ app.post("/api/csv", function(req, res, next){
     
     sleep.sleep(2000, function(){
 	var resData = 
-	    {'REQUIREMENT': {
-		'needGRCourse': 124.5,
-		'getGRCourse': 68,
-		'nowGRCourse': 20.5,
-		'preGRCourse': 8.5
+	    {"REQUIREMENT": {
+		"needGRCourse": 124.5,
+		"getGRCourse": 68,
+		"nowGRCourse": 20.5,
+		"preGRCourse": 8.5
 	    },
-	     'CREDIT': [{
-		 'course': "Senmon",
-		 'needCourse': 12,
-		 'getCourse': 3,
-		 'nowCourse': 2,
-		 'preCourse': 1,
-		 'courseA': 5,
-		 'courseSum': 15
+	     "CREDIT": [{
+		 "course": "Senmon",
+		 "needCourse": 12,
+		 "getCourse": 3,
+		 "nowCourse": 2,
+		 "preCourse": 1,
+		 "courseA": 5,
+		 "courseSum": 15
 	     },{
-		 'course': "sogo1",
-		 'getCourse': sogo1,
+		 "course": "sogo1",
+		 "getCourse": sogo1,
 	     }],
-	     'GRADE_GPA':{
-		 'countAplus': total[0],
-		 'countA': total[1],
-		 'countB': total[2],
-		 'countC': total[3],
-		 'countD': total[4],
-		 'countX': total[5],
-		 'countP': total[6],
-		 'countF': total[7],
-		 'countOther': (total[5] + total[6] + total[7]),
-		 'completed': (total[0] + total[1] + total[2] + total[3]),
-		 'start': "2014",
-		 'creditTransition': [2,3,4,5,6,7],
-		 'gpaTransition': [3,2,3,4,3,3]
-	    },
-	     "sogo1": sogo1
+	     "GRADE_GPA":{
+		 "countAplus": total[0],
+		 "countA": total[1],
+		 "countB": total[2],
+		 "countC": total[3],
+		 "countD": total[4],
+		 "countX": total[5],
+		 "countP": total[6],
+		 "countF": total[7],
+		 "countOther": (total[5] + total[6] + total[7]),
+		 "completed": (total[0] + total[1] + total[2] + total[3] + total[6]),
+		 "start": "2014",
+		 "creditTransition": [2,3,4,5,6,7],
+		 "gpaTransition": [3,2,3,4,3,3]
+	     }
 	    };
 	var resDataJSON = JSON.stringify(resData ,null, ' ');
 	res.send(resDataJSON);
