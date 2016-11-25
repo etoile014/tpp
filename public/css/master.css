@@ -403,7 +403,7 @@ img.interval-image {
 
 /* First Block */
 
-div#REQUIRMENT {
+div#REQUIREMENT {
 	margin: 0;
 	padding: 0;
 	width: 100%;
@@ -414,7 +414,7 @@ div#REQUIRMENT {
 	text-align: center;
 }
 
-p#REQUIRMENT_TITLE {
+p#REQUIREMENT_TITLE {
 	position: absolute;
 	margin: auto;
 	top: 0%;
@@ -427,7 +427,7 @@ p#REQUIRMENT_TITLE {
 	z-index: 1;
 }
 
-p#REQUIRMENT_SUBTITLE {
+p#REQUIREMENT_SUBTITLE {
 	position: absolute;
 	margin: auto;
 	top: 80px;
@@ -440,7 +440,7 @@ p#REQUIRMENT_SUBTITLE {
 	z-index: 1;
 }
 
-div#REQUIRMENT_BOX {
+div#REQUIREMENT_BOX {
 	position: absolute;
 	margin: auto;
 	top: 120px;
@@ -453,7 +453,7 @@ div#REQUIRMENT_BOX {
 	background-color: #FFFFFF;
 }
 
-div#REQUIRMENT_GRAPH {
+div#REQUIREMENT_GRAPH {
 	position: relative;
 	margin: 0;
 	padding: 0;

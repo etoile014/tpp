@@ -1,5 +1,5 @@
 function drawGradeA(id, dataset) {
-    var rate = ((dataset[0]/dataset[1])*100);
+    var rate = ((dataset[0]/(dataset[1]>0?dataset[1]:1))*100);
     var path_data = [dataset[0], (dataset[1]-dataset[0])];
 
     // 表示サイズを設定

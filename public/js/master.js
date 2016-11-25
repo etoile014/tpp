@@ -4,6 +4,25 @@ var animated1 = false;
 var animated2 = false;
 var animated3 = false;
 
+//Graphアニメーション
+//Rabbit & Bar
+var rabbit_data = [0.0, 0.0, 0.0, 0.0, 0.0];
+// getCredit用
+var course = "";
+var get_credit_data = [0.0, 0.0, 0.0, 0.0, 0.0];
+//GradeA&A+
+var grade_A_data = [0.0, 0.0];
+//GradeRate
+var grade_rate_data = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
+//折れ線グラフ
+var start = 0;
+//CreditTransition
+var credit_transition_data = [0, 0, 0, 0, 0, 0];
+//GPATransition
+var qpa_transition_data = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
+
+var genre = { "Senmon":"専門科目", "SenmonKiso":"専門基礎科目", "Kiso":"基礎科目" };
+
 $(window).load(function() {
     $("#HEADER_MENU_INSIDE1, #PAGE_MAIN1").css({
         opacity: 1,
@@ -78,12 +97,12 @@ $(function() {
         } else if (mode == 1) {
             var interval_ = $(".INTERVAL").height();
             var first_ = 0;
-            var second_ = first_ + $("#REQUIRMENT").height() + interval_;
+            var second_ = first_ + $("#REQUIREMENT").height() + interval_;
             var third_ = second_ + $("#CREDIT").height() + interval_;
             var fourth_ = third_ + $("#GRADE_GPA").height() + interval_;
             var href = $(this).attr("href");
             var position = 0;
-            if (href == "#REQUIRMENT") {
+            if (href == "#REQUIREMENT") {
                 position = first_;
             } else if (href == "#CREDIT") {
                 position = second_;
@@ -183,6 +202,11 @@ function TwinsPlanningParser(textData) {
 function convertJsonText(dataArray) {
     var length = dataArray.length;
     var txt = "{\n";
+    txt += '\t\"student\": {\n';
+    txt += '\t\t\"year\": '+2014+',\n';
+    txt += '\t\t\"major\": \"'+"Sousei"+'\",\n';
+    txt += '\t\t\"part3\": '+false+',\n';
+    txt += '\t},\n';
     for (var i = 0; i < length; i++) {
         txt += '\t\"line' + i + '\": {\n';
         txt += '\t\t\"year\": \"' + dataArray[i][0] + '\",\n';
@@ -199,79 +223,59 @@ function postData(jsontext) {
     $.ajax({
         type: "POST",
         url: "https://tpp.d-io.com/api/csv",
-        data: jsontext,
         contentType: "application/json",
         success: function(data) {
             console.log(data);
+            getData(data);
         },
         error: function() {
             console.log("Error");
         }
     });
-    getData();
 }
 
-function getData() {
-    console.log("読んだ!？");
-    $.getJSON("js/tmp.json" , function(data) {
-        console.log("読んだ？");
-        var needGRCourse = data.REQUIRMENT.needGRCourse;
-        var getGRCourse = data.REQUIRMENT.getGRCourse;
-        var nowGRCourse = data.REQUIRMENT.nowGRCourse;
-        var preGRCourse = data.REQUIRMENT.preGRCourse;
-        var restGRCourse = needGRCourse-(getGRCourse+nowGRCourse+preGRCourse);
-        restGRCourse = restGRCourse > 0 ? restGRCourse : 0.0;
-        rabbit_data = [needGRCourse, getGRCourse, nowGRCourse, preGRCourse, restGRCourse];
+function getData(data) {
+    //$.getJSON("js/tmp.json" , function(data) {} );
+    var needGRCourse = data.REQUIREMENT.needGRCourse;
+    var getGRCourse = data.REQUIREMENT.getGRCourse;
+    var nowGRCourse = data.REQUIREMENT.nowGRCourse;
+    var preGRCourse = data.REQUIREMENT.preGRCourse;
+    var restGRCourse = needGRCourse-(getGRCourse+nowGRCourse+preGRCourse);
+    restGRCourse = restGRCourse > 0 ? restGRCourse : 0.0;
+    rabbit_data = [needGRCourse, getGRCourse, nowGRCourse, preGRCourse, restGRCourse];
 
-        course = data.CREDIT.course;
-        var needCourse = data.CREDIT.needCourse;
-        var getCourse = data.CREDIT.getCourse;
-        var nowCourse = data.CREDIT.nowCourse;
-        var preCourse = data.CREDIT.preCourse;
-        var courseA = data.CREDIT.courseA;
-        var courseSum = data.CREDIT.courseSum;
-        var otherCourse = (needCourse-(getCourse+nowCourse+preCourse));
-        get_credit_data = [needCourse, getCourse, nowCourse, preCourse, otherCourse];
-        grade_A_data = [courseA, courseSum];
+    course = genre[data.CREDIT[0].course];
+    $("#CREDIT_PULLDOWN").text(course);
+    var needCourse = data.CREDIT[0].needCourse;
+    var getCourse = data.CREDIT[0].getCourse;
+    var nowCourse = data.CREDIT[0].nowCourse;
+    var preCourse = data.CREDIT[0].preCourse;
+    var courseA = data.CREDIT[0].courseA;
+    var courseSum = data.CREDIT[0].courseSum;
+    var otherCourse = (needCourse-(getCourse+nowCourse+preCourse));
+    get_credit_data = [needCourse, getCourse, nowCourse, preCourse, otherCourse];
+    grade_A_data = [courseA, courseSum];
 
-        var countAplus = data.GRADE_GPA.countAplus;
-        var countA = data.GRADE_GPA.countA;
-        var countB = data.GRADE_GPA.countB;
-        var countC = data.GRADE_GPA.countC;
-        var countD = data.GRADE_GPA.countD;
-        var countOther = data.GRADE_GPA.countOther;
-        grade_rate_data = [countAplus, countA, countB, countC, countD, countOther];
-        start = data.GRADE_GPA.start;
-        credit_transition_data = data.GRADE_GPA.creditTransition;
-        qpa_transition_data = data.GRADE_GPA.gpaTransition;
-    });
+    var countAplus = data.GRADE_GPA.countAplus;
+    var countA = data.GRADE_GPA.countA;
+    var countB = data.GRADE_GPA.countB;
+    var countC = data.GRADE_GPA.countC;
+    var countD = data.GRADE_GPA.countD;
+    var countOther = data.GRADE_GPA.countOther;
+    grade_rate_data = [countAplus, countA, countB, countC, countD, countOther];
+    start = data.GRADE_GPA.start;
+    credit_transition_data = data.GRADE_GPA.creditTransition;
+    qpa_transition_data = data.GRADE_GPA.gpaTransition;
 }
 
 function reloadTop() {
     window.location.href = "./index.html";
 }
 
-//Graphアニメーション
-//Rabbit & Bar
-var rabbit_data = [0.0, 0.0, 0.0, 0.0, 0.0];
-// getCredit用
-var course = "";
-var get_credit_data = [0.0, 0.0, 0.0, 0.0, 0.0];
-//GradeA&A+
-var grade_A_data = [0.0, 0.0];
-//GradeRate
-var grade_rate_data = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
-//折れ線グラフ
-var start = 0;
-//CreditTransition
-var credit_transition_data = [0, 0, 0, 0, 0, 0];
-//GPATransition
-var qpa_transition_data = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
-
 $(function() {
     //第一ブロック
-    $("#REQUIRMENT_GRAPH").on("inview", function() {
-        if (animated1 == false) {
+    $("#REQUIREMENT_GRAPH").on("inview", function() {
+        if (mode == 1 && animated1 == false) {
             animated1 = true;
             drawGRBar("#BAR_GRAPH", rabbit_data);
             drawGRRabbit("#RABBIT_GRAPH",rabbit_data);
@@ -286,9 +290,8 @@ $(function() {
 
     //第二ブロック
     $("#CREDIT_GRAPH").on("inview", function() {
-        if (animated2 == false) {
+        if (mode == 1 && animated2 == false) {
             animated2 = true;
-            $("#CREDIT_PULLDOWN").text(course);
             drawGetCredit("#GET_CREDIT_GRAPH", get_credit_data);
             drawGradeA("#GRADE_A_GRAPH", grade_A_data);
         }
@@ -296,7 +299,7 @@ $(function() {
 
     //第三ブロック
     $("#GRADE_GPA_GRAPH").on("inview", function() {
-        if (animated3 == false) {
+        if (mode == 1 && animated3 == false) {
             animated3 = true;
             drawGradeRate("#GRADE_RATE", grade_rate_data);
             drawCreditTransition("#CREDIT_TRANSITION", start, credit_transition_data);
