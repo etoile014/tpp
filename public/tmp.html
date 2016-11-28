@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TPP</title>
+    <link rel="icon" type="image/icon" href="img/FAVICON_32x32.ico" sizes="32x32">
+    <link rel="icon" type="image/icon" href="img/FAVICON_64x64.ico" sizes="64x64">
+    <!-- CSS -->
+    <link href="css/master.css" rel="stylesheet" type="text/css">
+    <!-- fontawesome Stylesheet -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Javascript -->
+    <!-- Javascript Library -->
+    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="js/jquery.inview.min.js"></script>
+    <script type="text/javascript" src="js/d3.v3.min.js"></script>
+    <script type="text/javascript" src="js/jquery.center.min.js"></script>
+    <!-- Javascript Master -->
+    <script type="text/javascript" src="js/master.js"></script>
+    <!-- Javascript Graph -->
+    <!-- REQUIREMENT -->
+    <script type="text/javascript" src="js/graph/drawGRBar.js"></script>
+    <script type="text/javascript" src="js/graph/drawGRRabbit.js"></script>
+    <!-- CREDIT -->
+    <script type="text/javascript" src="js/graph/drawGetCredit.js"></script>
+    <script type="text/javascript" src="js/graph/drawGradeA.js"></script>
+    <!-- GRADE_GPA -->
+    <script type="text/javascript" src="js/graph/drawGradeRate.js"></script>
+    <script type="text/javascript" src="js/graph/drawCreditTransition.js"></script>
+    <script type="text/javascript" src="js/graph/drawGPATransition.js"></script>
+</head>
+<body>
+
+
+
+              <div id="INPUT_AFFILIATION_MODAL_CONTENTS">
+                  <img id="INPUT_MODAL_CONTENTS_TOP" src="img/top_input_modal/INPUT_MODAL_TOP.png" />
+                  <select id="GAKUGUN_SELECT" class="input_affiliation_pulldown">
+
+                 <option value="1">人文・文化学群</option>
+                 <option value="2">社会・国際学群</option>
+                 <option value="3">人間学群</option>
+                 <option value="4">生命環境学群</option>
+                 <option value="5">理工学群</option>
+                 <option value="6">情報学群</option>
+                 <option value="7">医学群</option>
+                 <option value="8">体育専門学群</option>
+                 <option value="9">芸術専門学群</option>
+               </select>
+                  <img id="GAKUGUN_LABEL_ARROW" src="./img/top_input_modal/PULLDOWN_ARROW.svg" />
+                  <select id="GAKURUI_SELECT" class="input_affiliation_pulldown"></select>
+                  <img id="GAKURUI_LABEL_ARROW" src="./img/top_input_modal/PULLDOWN_ARROW.svg" />
+                  <select id="SENKOU_SELECT" class="input_affiliation_pulldown"></select>
+                  <img id="SENKOU_LABEL_ARROW" src="./img/top_input_modal/PULLDOWN_ARROW.svg" />
+                  <img id="INPUT_MODAL_CONTENTS_BOTTOM" src="./img/top_input_modal/INPUT_MODAL_BOTTOM.png" />
+                  <img id="INPUT_MODAL_CANCEL_BUTTOM" src="./img/top_input_modal/CANCEL_BUTTON_OFF.png" onclick="closeInputModal()" />
+                  <img id="INPUT_MODAL_OK_BUTTOM" src="./img/top_input_modal/OK_BUTTON_OFF.png" onclick="submitAffiliationData()" />
+              </div>
+
+              <div id="SHOW_SUB_DETAIL_MODAL_CONTENTS">
+                  <img id="SHOW_SUB_DETAIL_MODAL_CLOSE_BUTTON" src="./img/main_show_sub_modal/CLOSE_MODAL.svg" onclick="closeShowSubModal()" />
+                  <div id="ID_NAME_LABEL" class="text-center"></div>
+                  <hr class="show-sub-detail-modal" />
+                  <div class="text-left">
+                      <div id="CREDIT_VALUE_LABEL"></div>
+                      <div id="SCHOOL_GRADE_LABEL"></div>
+                      <div id="SUB_CLASS_LABEL"></div>
+                      <div id="LESSON_TIME_LABEL"></div>
+                      <div id="CLASS_ROOM_LABEL"></div>
+                      <div id="TEATURE_LABEL"></div>
+                      <div id="STATE_LABEL"></div>
+                  </div>
+                  <hr class="show-sub-detail-modal" />
+                  <div class="text-left">
+                      <div id="DESCRIPTION_LABEL"></div>
+                  </div>
+                  <hr class="show-sub-detail-modal" />
+                  <div class="text-left">
+                      <div id="REMARKS_LABEL"></div>
+                  </div>
+                  <hr class="show-sub-detail-modal" />
+                  <div class="text-center" id="DEGITAL_SYRABAS_BOX">
+                  </div>
+              </div>
+
+  <div id="INPUT_AFFILIATION_MODAL_OPEN">クリックで所属選択モーダル開く</div>
+  <br/>
+  <div id="SHOW_SUB_DETAIL_MODAL_OPEN">クリックで科目詳細表示モーダルを開く</div>
+
+  <table class="credit-table" border="0" rules="rows">
+      <thead>
+          <tr>
+              <th>科目番号</th>
+              <th>科目名</th>
+              <th>単位数</th>
+              <th>成績</th>
+              <th>状態</th>
+          </tr>
+      </thead>
+      <tr>
+          <td>GC54401</td>
+          <td>映像メディア論</td>
+          <td>1.0単位</td>
+          <td>A</td>
+          <td>履修済み</td>
+      </tr>
+  </table>
+
+
+</body>
+</html>
