@@ -361,14 +361,10 @@ function TwinsPlanningParser(textData) {
     }
 }
 
-function convertJsonText(dataArray) {
+function convertJsonText(dataArray, Aff) {
     var length = dataArray.length;
     var txt = "{\n";
-    txt += '\t\"student\": {\n';
-    txt += '\t\t\"year\": '+2014+',\n';
-    txt += '\t\t\"major\": \"'+"Sousei"+'\",\n';
-    txt += '\t\t\"part3\": '+false+'\n';
-    txt += '\t},\n';
+    txt += '\t\"affiliation\": '+Aff+',\n';
     for (var i = 0; i < length; i++) {
         txt += '\t\"line' + i + '\": {\n';
         txt += '\t\t\"year\": \"' + dataArray[i][0] + '\",\n';
@@ -378,6 +374,7 @@ function convertJsonText(dataArray) {
     }
     txt += '}';
     JsonText = txt;
+    alert(txt);
 }
 
 function postData() {
@@ -516,7 +513,7 @@ function submitAffiliationData() {
     console.log("所属ID:"+AffiliationValue);
     closeInputModal();
     // ここでサーバーに情報を送る
-    convertJsonText(dataArray);
+    convertJsonText(dataArray, AffiliationValue);
 }
 
 $(document).ready( function() {
