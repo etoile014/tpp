@@ -35,11 +35,19 @@ db.serialize(function(){
  if(row.min==row.max){
     x=row.min;
     console.log("総合科目1:"+x);
+<<<<<<< HEAD
+    //履修データから科目番号1119***の単位数の合計をyに格納
+    //if(y==0){
+    //graduation=0;
+    //}
+    //履修データから科目番号1319***,12*****の単位数をyにプラス
+=======
     //履修データから科目番号11*****の単位数の合計をyに格納
     //if(y==0){
     //graduation=0;
     //}
     //履修データから科目番号12*****,13*****の単位数をyにプラス
+>>>>>>> 6ec1aad33d30ada0302fb990739a8a5cb941f88a
     //if(x>y){
     //graduation=0;
     //}else{
@@ -130,6 +138,8 @@ db.serialize(function(){
   //}
 //履修データから科目番号28*****の単位数をsubject[4]に格納
  });
+<<<<<<< HEAD
+=======
 //国語の処理
   db.each("SELECT min, max from common_compulsory where subject = '国語' and depart = 621 and enter = 2014", function(err, row){
     var x=0, y=0;
@@ -164,6 +174,7 @@ db.serialize(function(){
       subject[5]=SUM(lang)-x+z;
     }
 
+>>>>>>> 6ec1aad33d30ada0302fb990739a8a5cb941f88a
 //必修の処理ここまで
 //ここから共通選択
 var Xmax=0, Xmin=0, Y=0, Z=0;

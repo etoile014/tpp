@@ -676,3 +676,24 @@ $(function() {
 
 
 /*科目追加モーダル(シミュレーション)*/
+$(function(){
+    $("#SUB_ADD_MODAL_OPEN").click(function(){
+        //$("body").append('<div id="MODAL_BACKGROUND"></div>');
+        if(!($('#MODAL_BACKGROUND').length)){
+        $('<div id="MODAL_BACKGROUND"></div>').insertAfter('#FOOTER');
+        }
+
+        $("#MODAL_BACKGROUND").fadeIn("1200");
+        $("#SUB_ADD_MODAL_CONTENTS").center().fadeIn("1500");
+
+        $("#MODAL_BACKGROUND,#SUB_ADD_MODAL_CONTENTS").click(function(){
+          if (!$(this).closest('#SUB_ADD_MODAL_CONTENTS').length) {
+
+            $("#SUB_ADD_MODAL_CONTENTS").center().fadeOut("1000",function(){
+            $('#MODAL_BACKGROUND').remove();
+              })
+            }
+        });
+
+    });
+});
