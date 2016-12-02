@@ -323,7 +323,7 @@ $(function(){
         if(!($('#MODAL_BACKGROUND').length)){
         $('<div id="MODAL_BACKGROUND"></div>').insertAfter('#FOOTER');
         }
-        
+
         $("#MODAL_BACKGROUND").fadeIn("1200");
         $("#INPUT_AFFILIATION_MODAL_CONTENTS").center().fadeIn("1500");
 
@@ -629,7 +629,7 @@ function setShowSubModalData(){
     履修予定：シミュレーションしている科目に該当
     未履修　：シュミレーションしている科目に該当しない
   */
-  var state_frag = 3;//サーバーから受信(CSVとシミュレーションの結果から値を計算)
+  var state_frag = 0;//サーバーから受信(CSVとシミュレーションの結果から値を計算)
   var stateHash = {0:"履修済み", 1:"履修中", 2:"履修予定", 3:"未履修"};
   var state = stateHash[state_frag];
   if(state_frag == 0) var grade = "A";//サーバーから受信(CSV)
@@ -666,3 +666,20 @@ function setShowSubModalData(){
       $('<hr class="show-sub-detail-modal"/><div class="text-center" id="DEGITAL_SYRABAS_BOX"><a id="DEGITAL_SYRABAS_LABEL" target="_blank" href="'+url+'">'+syrabasHash[degital_syrabas_frag]+"</a></div>").insertAfter('#REMARKS_LABEL');
     }
 }
+
+/*
+$(function() {
+  $('#CREDIT_TABLE').tablesorter();
+});
+*/
+
+$(function(){
+           $("#CREDIT_TABLE").dataTable({
+            lengthChange: false,
+            displayLength: 5,
+            info: false,
+           });
+});
+
+
+/*科目追加モーダル(シミュレーション)*/

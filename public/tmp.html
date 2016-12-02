@@ -8,15 +8,19 @@
     <link rel="icon" type="image/icon" href="img/FAVICON_32x32.ico" sizes="32x32">
     <link rel="icon" type="image/icon" href="img/FAVICON_64x64.ico" sizes="64x64">
     <!-- CSS -->
+    <!--link href="css/jquery.dataTables.css" rel="stylesheet" type="text/css"-->
     <link href="css/master.css" rel="stylesheet" type="text/css">
     <!-- fontawesome Stylesheet -->
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <!-- Javascript -->
     <!-- Javascript Library -->
     <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" src="js/jquery.inview.min.js"></script>
     <script type="text/javascript" src="js/d3.v3.min.js"></script>
     <script type="text/javascript" src="js/jquery.center.min.js"></script>
+    <!--<script type="text/javascript" src="js/jquery.tablesorter.min.js"></script>-->
+    <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+
     <!-- Javascript Master -->
     <script type="text/javascript" src="js/master.js"></script>
     <!-- Javascript Graph -->
@@ -31,13 +35,14 @@
     <script type="text/javascript" src="js/graph/drawCreditTransition.js"></script>
     <script type="text/javascript" src="js/graph/drawGPATransition.js"></script>
 </head>
+
 <body>
 
 
 
-              <div id="INPUT_AFFILIATION_MODAL_CONTENTS">
-                  <img id="INPUT_MODAL_CONTENTS_TOP" src="img/top_input_modal/INPUT_MODAL_TOP.png" />
-                  <select id="GAKUGUN_SELECT" class="input_affiliation_pulldown">
+    <div id="INPUT_AFFILIATION_MODAL_CONTENTS">
+        <img id="INPUT_MODAL_CONTENTS_TOP" src="img/top_input_modal/INPUT_MODAL_TOP.png" />
+        <select id="GAKUGUN_SELECT" class="input_affiliation_pulldown">
 
                  <option value="1">人文・文化学群</option>
                  <option value="2">社会・国際学群</option>
@@ -49,65 +54,251 @@
                  <option value="8">体育専門学群</option>
                  <option value="9">芸術専門学群</option>
                </select>
-                  <img id="GAKUGUN_LABEL_ARROW" src="./img/top_input_modal/PULLDOWN_ARROW.svg" />
-                  <select id="GAKURUI_SELECT" class="input_affiliation_pulldown"></select>
-                  <img id="GAKURUI_LABEL_ARROW" src="./img/top_input_modal/PULLDOWN_ARROW.svg" />
-                  <select id="SENKOU_SELECT" class="input_affiliation_pulldown"></select>
-                  <img id="SENKOU_LABEL_ARROW" src="./img/top_input_modal/PULLDOWN_ARROW.svg" />
-                  <img id="INPUT_MODAL_CONTENTS_BOTTOM" src="./img/top_input_modal/INPUT_MODAL_BOTTOM.png" />
-                  <img id="INPUT_MODAL_CANCEL_BUTTOM" src="./img/top_input_modal/CANCEL_BUTTON_OFF.png" onclick="closeInputModal()" />
-                  <img id="INPUT_MODAL_OK_BUTTOM" src="./img/top_input_modal/OK_BUTTON_OFF.png" onclick="submitAffiliationData()" />
-              </div>
+        <img id="GAKUGUN_LABEL_ARROW" src="./img/top_input_modal/PULLDOWN_ARROW.svg" />
+        <select id="GAKURUI_SELECT" class="input_affiliation_pulldown"></select>
+        <img id="GAKURUI_LABEL_ARROW" src="./img/top_input_modal/PULLDOWN_ARROW.svg" />
+        <select id="SENKOU_SELECT" class="input_affiliation_pulldown"></select>
+        <img id="SENKOU_LABEL_ARROW" src="./img/top_input_modal/PULLDOWN_ARROW.svg" />
+        <img id="INPUT_MODAL_CONTENTS_BOTTOM" src="./img/top_input_modal/INPUT_MODAL_BOTTOM.png" />
+        <img id="INPUT_MODAL_CANCEL_BUTTOM" src="./img/top_input_modal/CANCEL_BUTTON_OFF.png" onclick="closeInputModal()" />
+        <img id="INPUT_MODAL_OK_BUTTOM" src="./img/top_input_modal/OK_BUTTON_OFF.png" onclick="submitAffiliationData()" />
+    </div>
 
-              <div id="SHOW_SUB_DETAIL_MODAL_CONTENTS">
-                  <img id="SHOW_SUB_DETAIL_MODAL_CLOSE_BUTTON" src="./img/main_show_sub_modal/CLOSE_MODAL.svg" onclick="closeShowSubModal()" />
-                  <div id="ID_NAME_LABEL" class="text-center"></div>
-                  <hr class="show-sub-detail-modal" />
-                  <div class="text-left">
-                      <div id="CREDIT_VALUE_LABEL"></div>
-                      <div id="SCHOOL_GRADE_LABEL"></div>
-                      <div id="SUB_CLASS_LABEL"></div>
-                      <div id="LESSON_TIME_LABEL"></div>
-                      <div id="CLASS_ROOM_LABEL"></div>
-                      <div id="TEATURE_LABEL"></div>
-                      <div id="STATE_LABEL"></div>
-                  </div>
-                  <hr class="show-sub-detail-modal" />
-                  <div class="text-left">
-                      <div id="DESCRIPTION_LABEL"></div>
-                  </div>
-                  <hr class="show-sub-detail-modal" />
-                  <div class="text-left">
-                      <div id="REMARKS_LABEL"></div>
-                  </div>
-                  <hr class="show-sub-detail-modal" />
-                  <div class="text-center" id="DEGITAL_SYRABAS_BOX">
-                  </div>
-              </div>
+    <div id="SHOW_SUB_DETAIL_MODAL_CONTENTS">
+        <img id="SHOW_SUB_DETAIL_MODAL_CLOSE_BUTTON" src="./img/main_show_sub_modal/CLOSE_MODAL.svg" onclick="closeShowSubModal()" />
+        <div id="ID_NAME_LABEL" class="text-center"></div>
+        <hr class="show-sub-detail-modal" />
+        <div class="text-left">
+            <div id="CREDIT_VALUE_LABEL"></div>
+            <div id="SCHOOL_GRADE_LABEL"></div>
+            <div id="SUB_CLASS_LABEL"></div>
+            <div id="LESSON_TIME_LABEL"></div>
+            <div id="CLASS_ROOM_LABEL"></div>
+            <div id="TEATURE_LABEL"></div>
+            <div id="STATE_LABEL"></div>
+        </div>
+        <hr class="show-sub-detail-modal" />
+        <div class="text-left">
+            <div id="DESCRIPTION_LABEL"></div>
+        </div>
+        <hr class="show-sub-detail-modal" />
+        <div class="text-left">
+            <div id="REMARKS_LABEL"></div>
+        </div>
+        <hr class="show-sub-detail-modal" />
+        <div class="text-center" id="DEGITAL_SYRABAS_BOX">
+        </div>
+    </div>
 
-  <div id="INPUT_AFFILIATION_MODAL_OPEN">クリックで所属選択モーダル開く</div>
-  <br/>
-  <div id="SHOW_SUB_DETAIL_MODAL_OPEN">クリックで科目詳細表示モーダルを開く</div>
+    <div id="INPUT_AFFILIATION_MODAL_OPEN">クリックで所属選択モーダル開く</div>
+    <br/>
+    <!--<div id="SHOW_SUB_DETAIL_MODAL_OPEN">クリックで科目詳細表示モーダルを開く</div>-->
+    <!-- メインページ -->
+    <div id="PAGE_MAIN1" role="main">
+        <div id="REQUIREMENT">
+            <p id="REQUIREMENT_TITLE">Graduation Requirments</p>
+            <p id="REQUIREMENT_SUBTITLE">あなたも"ぴょんぴょん"してますか？</p>
+            <div id="REQUIREMENT_BOX">
+                <div id="REQUIREMENT_GRAPH">
+                    <svg id="BAR_GRAPH"></svg>
+                    <svg id="RABBIT_GRAPH"></svg>
+                    <img id="OVERRAY" src="img/graph_img/Rabbit_Mask.png">
+                    <img id="SCALE" src="img/graph_img/Scale.png" />
+                </div>
+                <div id="CREDIT_LABEL">
+                    <table border="0">
+                        <tr>
+                            <td colspan="2" class="credit-item other-credit">卒業必須単位</td>
+                            <td> </td>
+                            <td rowspan="3" class="credit-bracket other-credit">(</td>
+                            <td colspan="2" class="credit-item get-credit">取得単位</td>
+                            <td> </td>
+                            <td colspan="2" class="credit-item now-credit">履修中単位</td>
+                            <td> </td>
+                            <td colspan="2" class="credit-item pre-credit">履修予定単位</td>
+                            <td rowspan="3" class="credit-bracket other-credit">)</td>
+                            <td> </td>
+                            <td colspan="2" class="credit-item rest-credit">卒業まで残り</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2" class="credit-number other-credit" id="NEED_COURSE">0</td>
+                            <td> </td>
+                            <td class="credit-sign other-credit">ー</td>
+                            <td rowspan="2" class="credit-number get-credit" id="GET_COURSE">0</td>
+                            <td> </td>
+                            <td class="credit-sign other-credit">＋</td>
+                            <td rowspan="2" class="credit-number now-credit" id="NOW_COURSE">0</td>
+                            <td> </td>
+                            <td class="credit-sign other-credit">＋</td>
+                            <td rowspan="2" class="credit-number pre-credit" id="PRE_COURSE">0</td>
+                            <td> </td>
+                            <td class="credit-sign other-credit">＝</td>
+                            <td rowspan="2" class="credit-number rest-credit" id="REST_COURSE">0</td>
+                            <td> </td>
+                        </tr>
+                        <tr>
+                            <td class="credit-unit other-credit">単位</td>
+                            <td> </td>
+                            <td class="credit-unit get-credit">単位</td>
+                            <td> </td>
+                            <td class="credit-unit now-credit">単位</td>
+                            <td> </td>
+                            <td class="credit-unit pre-credit">単位</td>
+                            <td> </td>
+                            <td class="credit-unit rest-credit">単位</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="interval">
+            <img class="interval-image" src="img/main/Stripe_Line.png">
+        </div>
 
-  <table class="credit-table" border="0" rules="rows">
-      <thead>
-          <tr>
-              <th>科目番号</th>
-              <th>科目名</th>
-              <th>単位数</th>
-              <th>成績</th>
-              <th>状態</th>
-          </tr>
-      </thead>
-      <tr>
-          <td>GC54401</td>
-          <td>映像メディア論</td>
-          <td>1.0単位</td>
-          <td>A</td>
-          <td>履修済み</td>
-      </tr>
-  </table>
+    <div id="CREDIT">
+        <p id="CREDIT_TITLE">Your Credits Detail</p>
+        <p id="CREDIT_SUBTITLE">
+            <text>単位詳細を見たいものを４種類の科目区分から選ぼう</text><br>
+            <text>卒業までに必要な単位数や今までに取得した単位を確認できます</text><br>
+            <text>これから履修予定の科目を入力して卒業シミュレーションも！</text>
+        </p>
+        <select id="CREDIT_PULLDOWN">
+            <option>専門科目</option>
+            <option>専門基礎科目</option>
+            <option>基礎科目</option>
+            <option>基礎科目(GPA対象外)</option>
+        </select>
+        <img id="CREDIT_PULLDOWN_ARROW" src="./img/main/CREDIT_PULLDOWN_ARROW.svg" />
 
-
+        <div id="CREDIT_BOX">
+            <div id="CREDIT_GRAPH">
+                <svg id="GET_CREDIT_GRAPH"></svg>
+                <svg id="GRADE_A_GRAPH"></svg>
+            </div>
+            <table id="CREDIT_TABLE" class="credit-detail-table">
+                <thead>
+                    <tr>
+                        <th>科目番号</th>
+                        <th>科目名</th>
+                        <th>単位数</th>
+                        <th>成績</th>
+                        <th>状態</th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td id="SHOW_SUB_DETAIL_MODAL_OPEN">GC54401</td>
+                    <td>映像メディア論</td>
+                    <td>1.0</td>
+                    <td>A</td>
+                    <td>履修済み</td>
+                </tr>
+                <tr>
+                    <td>GC54402</td>
+                    <td>hoge</td>
+                    <td>2.0</td>
+                    <td>ー</td>
+                    <td>未履修</td>
+                </tr>
+                <tr>
+                    <td>GC54400</td>
+                    <td>fuga</td>
+                    <td>0.5</td>
+                    <td>C</td>
+                    <td>履修済み</td>
+                </tr>
+                <tr>
+                    <td>GC54400</td>
+                    <td>fuga</td>
+                    <td>0.5</td>
+                    <td>C</td>
+                    <td>履修済み</td>
+                </tr>
+                <tr>
+                    <td>GC54400</td>
+                    <td>fuga</td>
+                    <td>0.5</td>
+                    <td>C</td>
+                    <td>履修済み</td>
+                </tr>
+                <tr>
+                    <td>GC54400</td>
+                    <td>fuga</td>
+                    <td>0.5</td>
+                    <td>C</td>
+                    <td>履修済み</td>
+                </tr>
+                <tr>
+                    <td>GC54400</td>
+                    <td>fuga</td>
+                    <td>0.5</td>
+                    <td>C</td>
+                    <td>履修済み</td>
+                </tr>
+            </table>
+            <div id="SUB_ADD_MODAL_OPEN">追加</div>
+        </div>
+    </div>
+    <div class="interval">
+        <img class="interval-image" src="img/main/Stripe_Line.png">
+    </div>
+    <div id="GRADE_GPA">
+        <p id="GRADE_GPA_TITLE">Your Marks and GPA</p>
+        <p id="GRADE_GPA_SUBTITLE">今までのあなたは"ぴょんぴょん"してますか？</p>
+        <div id="GRADE_GPA_BOX">
+            <br>
+            <table border="0" id="GRADE_PAPERS">
+                <tr>
+                    <td class="paper-td"><img class="paper-image" src="img/main/Paper_A+.png"></td>
+                    <td class="cross-td">×</td>
+                    <td class="credit-number-td" id="CREDIT_APLUS">0</td>
+                    <td class="unit-td">単位</td>
+                    <td width="10px"></td>
+                    <td class="paper-td"><img class="paper-image" src="img/main/Paper_A.png"></td>
+                    <td class="cross-td">×</td>
+                    <td class="credit-number-td" id="CREDIT_A">0</td>
+                    <td class="unit-td">単位</td>
+                    <td width="10px"></td>
+                    <td class="paper-td"><img class="paper-image" src="img/main/Paper_B.png"></td>
+                    <td class="cross-td">×</td>
+                    <td class="credit-number-td" id="CREDIT_B">0</td>
+                    <td class="unit-td">単位</td>
+                </tr>
+                <tr>
+                    <td class="paper-td"><img class="paper-image" src="img/main/Paper_C.png"></td>
+                    <td class="cross-td">×</td>
+                    <td class="credit-number-td" id="CREDIT_C">0</td>
+                    <td class="unit-td">単位</td>
+                    <td width="10px"></td>
+                    <td class="paper-td"><img class="paper-image" src="img/main/Paper_D.png"></td>
+                    <td class="cross-td">×</td>
+                    <td class="credit-number-td" id="CREDIT_D">0</td>
+                    <td class="unit-td">単位</td>
+                    <td width="10px"></td>
+                    <td class="paper-td"><img class="paper-image" src="img/main/Paper_Others.png"></td>
+                    <td class="cross-td">×</td>
+                    <td class="credit-number-td" id="CREDIT_OTHERS">0</td>
+                    <td class="unit-td">単位</td>
+                </tr>
+            </table>
+            <div id="GRADE_GPA_GRAPH">
+                <svg id="GRADE_RATE"></svg>
+                <svg id="CREDIT_TRANSITION"></svg>
+                <svg id="GPA_TRANSITION"></svg>
+            </div>
+        </div>
+    </div>
+    <div class="interval">
+        <img class="interval-image" src="img/main/Stripe_Line.png">
+    </div>
+    <div id="SCHEDULE">
+        <p id="SCHEDULE_TITLE">Your 4 years Time Tables</p>
+        <p id="SCHEDULE_SUBTITLE">あなたの４年間は"ぴょんぴょん"してますか？</p>
+        <div id="SCHEDULE_BOX"></div>
+    </div>
+    <div id="FOOTER">
+        <p id="COPYRIGHT">Copyright ©︎2016 TPP</p>
+    </div>
+</div>
 </body>
+
 </html>
