@@ -1365,12 +1365,15 @@ table.credit-detail-table td:nth-child(5){
   width: 110px;
 }
 
+
+
 div#SUB_ADD_MODAL_OPEN{
   position: relative;
+  cursor: pointer;
   top:-20px;
   left:-300px;
   font-size: 18px;
-  z-index: 1;
+  z-index: 10;
 }
 
 div#SUB_ADD_MODAL_OPEN:before {
@@ -1379,6 +1382,44 @@ div#SUB_ADD_MODAL_OPEN:before {
   content: "\f055";
 }
 
+
+div#SUB_ADD_MODAL_CONTENTS {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    max-width: 800px;
+    max-height: 500px;
+    background-color: #FFFFFF;
+    color: #666666;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    border-color: #bbbbbb;
+    border-width: 1px;
+    border-radius: 10px;
+    z-index: 15;
+}
+
+input#INPUT_COURSE_ID_TEXT{
+  position: absolute;
+  margin: auto;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance:none;
+  top: 230px;
+  left: 0px;
+  right: 0px;
+  width: 250px;
+  height: 30px;
+  border-style: solid;
+  border-color: rgba(67, 82, 106, 0.5);
+  border-width: 1px;
+  border-radius: 5px;
+  font-size: 1em;
+  color: #43526A;
+  background-color: #E8E8F1;
+}
 
 /*　↑↑↑↑　メインページ　↑↑↑↑　*/
 
