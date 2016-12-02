@@ -1,6 +1,77 @@
 /*　↓↓↓↓　トップメイン共通　↓↓↓↓　*/
 
-@import url(https://fonts.googleapis.com/earlyaccess/notosansjapanese.css);
+/*@import url(https://fonts.googleapis.com/earlyaccess/notosansjapanese.css);*/
+
+/*Thin*/
+@font-face {
+    font-family: 'Noto Sans Japanese';
+    src: url('../fonts/NotoSansCJKjp-Thin-Subset.woff') format('woff'),
+         url('../fonts/NotoSansCJKjp-Thin-Subset.woff2') format('woff2'),
+         url('../fonts/NotoSansCJKjp-Thin-Subset.otf') format('opentype');
+    font-style: normal;
+    font-weight: 100;
+}
+
+/*Light*/
+@font-face {
+    font-family: 'Noto Sans Japanese';
+    src: url('../fonts/NotoSansCJKjp-Light-Subset.woff') format('woff'),
+         url('../fonts/NotoSansCJKjp-Light-Subset.woff2') format('woff2'),
+         url('../fonts/NotoSansCJKjp-Light-Subset.otf') format('opentype');
+    font-style: normal;
+    font-weight: 200;
+}
+
+/*DemiLight*/
+@font-face {
+    font-family: 'Noto Sans Japanese';
+    src: url('../fonts/NotoSansCJKjp-DemiLight-Subset.woff') format('woff'),
+         url('../fonts/NotoSansCJKjp-DemiLight-Subset.woff2') format('woff2'),
+         url('../fonts/NotoSansCJKjp-DemiLight-Subset.otf') format('opentype');
+    font-style: normal;
+    font-weight: 300;
+}
+
+/*Regular*/
+@font-face {
+    font-family: 'Noto Sans Japanese';
+    src: url('../fonts/NotoSansCJKjp-Regular-Subset.woff') format('woff'),
+         url('../fonts/NotoSansCJKjp-Regular-Subset.woff2') format('woff2'),
+         url('../fonts/NotoSansCJKjp-Regular-Subset.otf') format('opentype');
+    font-style: normal;
+    font-weight: 400;
+}
+
+/*Medium*/
+@font-face {
+    font-family: 'Noto Sans Japanese';
+    src: url('../fonts/NotoSansCJKjp-Medium-Subset.woff') format('woff'),
+         url('../fonts/NotoSansCJKjp-Medium-Subset.woff2') format('woff2'),
+         url('../fonts/NotoSansCJKjp-Medium-Subset.otf') format('opentype');
+    font-style: normal;
+    font-weight: 500;
+}
+
+/*Bold*/
+@font-face {
+    font-family: 'Noto Sans Japanese';
+    src: url('../fonts/NotoSansCJKjp-Bold-Subset.woff') format('woff'),
+         url('../fonts/NotoSansCJKjp-Bold-Subset.woff2') format('woff2'),
+         url('../fonts/NotoSansCJKjp-Bold-Subset.otf') format('opentype');
+    font-style: normal;
+    font-weight: 700;
+}
+
+/*Black*/
+@font-face {
+    font-family: 'Noto Sans Japanese';
+    src: url('../fonts/NotoSansCJKjp-Black-Subset.woff') format('woff'),
+         url('../fonts/NotoSansCJKjp-Black-Subset.woff2') format('woff2'),
+         url('../fonts/NotoSansCJKjp-Black-Subset.otf') format('opentype');
+    font-style: normal;
+    font-weight: 900;
+}
+
 html, body {
     margin: 0px;
     padding: 0px;
@@ -447,6 +518,7 @@ select.input_affiliation_pulldown {
     margin: auto;
     appearance: none;
     -webkit-appearance: none;
+    -moz-appearance:none;
     top: 230px;
     left: 0px;
     right: 0px;
@@ -459,7 +531,12 @@ select.input_affiliation_pulldown {
     font-size: 1em;
     color: #43526A;
     background-color: #E8E8F1;
-    text-indent: 20px;
+    text-indent: 0.8em;
+}
+@-moz-document url-prefix() {
+  select.input_affiliation_pulldown {
+    text-indent: 0.2em;
+  }
 }
 
 select#GAKUGUN_SELECT {
@@ -485,7 +562,8 @@ img#GAKUGUN_LABEL_ARROW {
     width: 20px;
     height: 10px;
     left: 260px;
-    top: 240px;
+    top: 225px;
+    padding: 15px 0 15px 0;
     z-index: 15;
     opacity: 0.8;
 }
@@ -495,7 +573,8 @@ img#GAKURUI_LABEL_ARROW {
     width: 20px;
     height: 10px;
     left: 260px;
-    top: 300px;
+    top: 285px;
+    padding: 15px 0 15px 0;
     z-index: 15;
     opacity: 0.8;
 }
@@ -505,7 +584,8 @@ img#SENKOU_LABEL_ARROW {
     width: 20px;
     height: 10px;
     left: 260px;
-    top: 360px;
+    top: 345px;
+    padding: 15px 0 15px 0;
     z-index: 15;
     opacity: 0.8;
 }
@@ -711,14 +791,19 @@ td.left-credit {
 /* Second Block */
 
 div#CREDIT {
-    margin: 0px;
-    padding: 0px;
+    margin:0px;
+    padding: 0px 0px 50px 0px;
     width: 100%;
     min-width: 850px;
+    text-align: center;
+    /*
+    min-height: 730px;
+    height: auto !important;
+    */
     height: 730px;
     background-color: #F7F8F7;
     position: relative;
-    text-align: center;
+
 }
 
 p#CREDIT_TITLE {
@@ -745,38 +830,68 @@ p#CREDIT_SUBTITLE {
     font-size: 0.8em;
     color: #474747;
     z-index: 1;
+    font-weight: 300;
 }
 
-button#CREDIT_PULLDOWN {
+select#CREDIT_PULLDOWN {
     position: absolute;
     margin: auto;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance:none;
     top: 150px;
     left: 0px;
     right: 0px;
-    width: 170px;
+    width: 225px;
     height: 35px;
     border-style: solid;
     border-color: #bbbbbb;
     border-width: 1px;
-    border-radius: 10px;
+    border-radius: 5px;
     font-size: 1em;
     color: #474747;
-    z-index: 1;
+    z-index: 2;
+    text-align:left;
+    text-indent: 1.5em;
     background-color: #ffffff;
 }
 
-button#CREDIT_PULLDOWN:active {
+/*firefoxは挙動が異なるのでtext-indentを上書き*/
+@-moz-document url-prefix() {
+  select#CREDIT_PULLDOWN {
+    text-indent: 0.5em;
+  }
+}
+
+/*
+select#CREDIT_PULLDOWN:active {
     background-color: #e2e2e2;
+}*/
+
+img#CREDIT_PULLDOWN_ARROW {
+    position: relative;
+    width: 20px;
+    height: 10px;
+    left: 80px;
+    padding:12.5px 0 12.5px 0;
+    top: 150px;
+    z-index: 2;
+    opacity: 0.8;
 }
 
 div#CREDIT_BOX {
-    position: absolute;
+    position: relative;
     margin: auto;
     top: 200px;
     left: 0px;
     right: 0px;
     width: 850px;
+  /*
+    min-height: 500px;
+    height: auto !important;
+  */
     height: 500px;
+
     font-size: 1.5vw;
     color: #474747;
     z-index: 1;
@@ -1114,22 +1229,157 @@ img#BUTTON_LABEL {
     margin: 0 25px 0 25px;
 }
 
-table.credit-table{
+table.credit-detail-table{
+  position: relative;
 	border:none;
+  border-collapse: collapse;
+  text-align: center;
+  margin: auto;
+  width:750px;
+  margin:0 50px 0 50px;
+  font-size: 15px;
+  z-index: 0;
 }
 
-table.credit-table thead {
+table.credit-detail-table td{
+  max-height:10px;
+}
+
+table.credit-detail-table thead {
 	background-color: #f5f5f5
 }
 
-table.credit-table tr:nth-child(odd) td {
-	background-color: #ffffff
+table.credit-detail-table th{
+  padding: 0;
+}
+
+div.datatables-filter{
+  position: relative;
+  font-size: 15px;
+  left:270px;
+  margin: 10px 0 10px 0;
+}
+
+div.datatables-info{
+  position: relative;
+  font-size: 15px;
+  left: 270px;
+  margin: 10px 0 10px 0;
+}
+
+.datatables-paginate .paginate-button {
+  position: relative;
+  display: inline-block;
+  top:10px;
+  font-size: 15px;
+  padding: 5px 10px 5px 10px;
+  margin: 0 1px 0 1px;
+  text-align: center;
+  text-decoration: none !important;
+  cursor: pointer;
+  color: #474747 !important;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  z-index: 2;
+}
+.datatables-paginate .paginate-button.current, .datatables-wrapper .dataTables_paginate .paginate-button.current:hover {
+  border: 1px solid #979797;
+  background-color: #ffffff;
+}
+.datatables-paginate .paginate-button.disabled, .datatables-wrapper .dataTables_paginate .paginate-button.disabled:hover, .datatables-wrapper .dataTables_paginate .paginate-button.disabled:active {
+  cursor: default;
+  color: #474747 !important;
+  border: 1px solid transparent;
+  background: transparent;
+  box-shadow: none;
+}
+
+div.datatables-filter label{
+  font-family: FontAwesome;
+}
+
+div.datatables-filter label:before{
+  content: "\f002";
+}
+
+div.datatables-filter input{
+  width: 180px;
+  height: 20px;
+  margin: 0 0 0 10px;
+}
+
+a#CREDIT_TABLE_previous:before{
+  font-family: FontAwesome;
+  padding: 0 10px 0 10px;
+  content:"\f104";
+}
+
+a#CREDIT_TABLE_next:after{
+  font-family: FontAwesome;
+  padding: 0 10px 0 10px;
+  content:"\f105";
 }
 
 
-table.credit-table tr:nth-child(even) td {
+table.credit-detail-table thead th.sorting:after,
+table.credit-detail-table thead th.sorting-asc:after,
+table.credit-detail-table thead th.sorting-desc:after {
+  font-family: FontAwesome;
+  padding: 0 0 0 5px;
+}
+
+table.credit-detail-table  thead th.sorting:after{
+  content: "\f0dc";
+}
+
+table.credit-detail-table thead th.sorting-asc:after{
+  content: "\f0de";
+}
+
+table.credit-detail-table thead th.sorting-desc:after{
+  content: "\f0dd";
+}
+
+table.credit-detail-table tr:nth-child(even) td {
 	background-color: #f5f5f5
 }
+
+table.credit-detail-table td:nth-child(1){
+  width: 170px;
+  cursor: pointer;
+}
+
+table.credit-detail-table td:nth-child(2){
+  width: 250px;
+}
+
+table.credit-detail-table td:nth-child(3){
+  width: 110px;
+}
+
+table.credit-detail-table td:nth-child(4){
+  width: 110px;
+}
+
+table.credit-detail-table td:nth-child(5){
+  width: 110px;
+}
+
+div#SUB_ADD_MODAL_OPEN{
+  position: relative;
+  top:-20px;
+  left:-300px;
+  font-size: 18px;
+  z-index: 1;
+}
+
+div#SUB_ADD_MODAL_OPEN:before {
+  font-family: FontAwesome;
+  padding: 0 5px 0 5px;
+  content: "\f055";
+}
+
+
 /*　↑↑↑↑　メインページ　↑↑↑↑　*/
 
 

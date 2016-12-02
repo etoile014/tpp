@@ -10,13 +10,14 @@
     <!-- CSS -->
     <link href="css/master.css" rel="stylesheet" type="text/css">
     <!-- fontawesome Stylesheet -->
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <!-- Javascript -->
     <!-- Javascript Library -->
     <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" src="js/jquery.inview.min.js"></script>
     <script type="text/javascript" src="js/d3.v3.min.js"></script>
     <script type="text/javascript" src="js/jquery.center.min.js"></script>
+    <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
     <!-- Javascript Master -->
     <script type="text/javascript" src="js/master.js"></script>
     <!-- Javascript Graph -->
@@ -240,17 +241,23 @@
         <div id="CREDIT">
             <p id="CREDIT_TITLE">Your Credits Detail</p>
             <p id="CREDIT_SUBTITLE">
-                <text>単位詳細を見たいものを12種類の科目区分から選ぼう</text><br>
+                <text>単位詳細を見たいものを４種類の科目区分から選ぼう</text><br>
                 <text>卒業までに必要な単位数や今までに取得した単位を確認できます</text><br>
                 <text>これから履修予定の科目を入力して卒業シミュレーションも！</text>
             </p>
-            <button id="CREDIT_PULLDOWN">科目名</button>
+            <select id="CREDIT_PULLDOWN">
+                <option>専門科目</option>
+                <option>専門基礎科目</option>
+                <option>基礎科目</option>
+                <option>基礎科目(GPA対象外)</option>
+            </select>
+            <img id="CREDIT_PULLDOWN_ARROW" src="./img/main/CREDIT_PULLDOWN_ARROW.svg" />
             <div id="CREDIT_BOX">
                 <div id="CREDIT_GRAPH">
                     <svg id="GET_CREDIT_GRAPH"></svg>
                     <svg id="GRADE_A_GRAPH"></svg>
                 </div>
-                <table class="credit-table" border="0" rules="rows">
+                <table id="CREDIT_TABLE" class="credit-detail-table">
                     <thead>
                         <tr>
                             <th>科目番号</th>
@@ -261,13 +268,56 @@
                         </tr>
                     </thead>
                     <tr>
-                        <td>GC54401</td>
+                        <td id="SHOW_SUB_DETAIL_MODAL_OPEN">GC54401</td>
                         <td>映像メディア論</td>
-                        <td>1.0単位</td>
+                        <td>1.0</td>
                         <td>A</td>
                         <td>履修済み</td>
                     </tr>
+                    <tr>
+                        <td>GC54402</td>
+                        <td>hoge</td>
+                        <td>2.0</td>
+                        <td>ー</td>
+                        <td>未履修</td>
+                    </tr>
+                    <tr>
+                        <td>GC54400</td>
+                        <td>fuga</td>
+                        <td>0.5</td>
+                        <td>C</td>
+                        <td>履修済み</td>
+                    </tr>
+                    <tr>
+                        <td>GC54400</td>
+                        <td>fuga</td>
+                        <td>0.5</td>
+                        <td>C</td>
+                        <td>履修済み</td>
+                    </tr>
+                    <tr>
+                        <td>GC54400</td>
+                        <td>fuga</td>
+                        <td>0.5</td>
+                        <td>C</td>
+                        <td>履修済み</td>
+                    </tr>
+                    <tr>
+                        <td>GC54400</td>
+                        <td>fuga</td>
+                        <td>0.5</td>
+                        <td>C</td>
+                        <td>履修済み</td>
+                    </tr>
+                    <tr>
+                        <td>GC54400</td>
+                        <td>fuga</td>
+                        <td>0.5</td>
+                        <td>C</td>
+                        <td>履修済み</td>
+                    </tr>
                 </table>
+                <div id="SUB_ADD_MODAL_OPEN">追加</div>
             </div>
         </div>
         <div class="interval">
