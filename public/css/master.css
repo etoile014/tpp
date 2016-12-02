@@ -6,8 +6,8 @@
 @font-face {
     font-family: 'Noto Sans Japanese';
     src: url('../fonts/NotoSansCJKjp-Thin-Subset.woff') format('woff'),
-         url('../fonts/NotoSansCJKjp-Thin-Subset.woff2') format('woff2'),
-         url('../fonts/NotoSansCJKjp-Thin-Subset.otf') format('opentype');
+    url('../fonts/NotoSansCJKjp-Thin-Subset.woff2') format('woff2'),
+    url('../fonts/NotoSansCJKjp-Thin-Subset.otf') format('opentype');
     font-style: normal;
     font-weight: 100;
 }
@@ -16,8 +16,8 @@
 @font-face {
     font-family: 'Noto Sans Japanese';
     src: url('../fonts/NotoSansCJKjp-Light-Subset.woff') format('woff'),
-         url('../fonts/NotoSansCJKjp-Light-Subset.woff2') format('woff2'),
-         url('../fonts/NotoSansCJKjp-Light-Subset.otf') format('opentype');
+    url('../fonts/NotoSansCJKjp-Light-Subset.woff2') format('woff2'),
+    url('../fonts/NotoSansCJKjp-Light-Subset.otf') format('opentype');
     font-style: normal;
     font-weight: 200;
 }
@@ -26,8 +26,8 @@
 @font-face {
     font-family: 'Noto Sans Japanese';
     src: url('../fonts/NotoSansCJKjp-DemiLight-Subset.woff') format('woff'),
-         url('../fonts/NotoSansCJKjp-DemiLight-Subset.woff2') format('woff2'),
-         url('../fonts/NotoSansCJKjp-DemiLight-Subset.otf') format('opentype');
+    url('../fonts/NotoSansCJKjp-DemiLight-Subset.woff2') format('woff2'),
+    url('../fonts/NotoSansCJKjp-DemiLight-Subset.otf') format('opentype');
     font-style: normal;
     font-weight: 300;
 }
@@ -36,8 +36,8 @@
 @font-face {
     font-family: 'Noto Sans Japanese';
     src: url('../fonts/NotoSansCJKjp-Regular-Subset.woff') format('woff'),
-         url('../fonts/NotoSansCJKjp-Regular-Subset.woff2') format('woff2'),
-         url('../fonts/NotoSansCJKjp-Regular-Subset.otf') format('opentype');
+    url('../fonts/NotoSansCJKjp-Regular-Subset.woff2') format('woff2'),
+    url('../fonts/NotoSansCJKjp-Regular-Subset.otf') format('opentype');
     font-style: normal;
     font-weight: 400;
 }
@@ -46,8 +46,8 @@
 @font-face {
     font-family: 'Noto Sans Japanese';
     src: url('../fonts/NotoSansCJKjp-Medium-Subset.woff') format('woff'),
-         url('../fonts/NotoSansCJKjp-Medium-Subset.woff2') format('woff2'),
-         url('../fonts/NotoSansCJKjp-Medium-Subset.otf') format('opentype');
+    url('../fonts/NotoSansCJKjp-Medium-Subset.woff2') format('woff2'),
+    url('../fonts/NotoSansCJKjp-Medium-Subset.otf') format('opentype');
     font-style: normal;
     font-weight: 500;
 }
@@ -56,8 +56,8 @@
 @font-face {
     font-family: 'Noto Sans Japanese';
     src: url('../fonts/NotoSansCJKjp-Bold-Subset.woff') format('woff'),
-         url('../fonts/NotoSansCJKjp-Bold-Subset.woff2') format('woff2'),
-         url('../fonts/NotoSansCJKjp-Bold-Subset.otf') format('opentype');
+    url('../fonts/NotoSansCJKjp-Bold-Subset.woff2') format('woff2'),
+    url('../fonts/NotoSansCJKjp-Bold-Subset.otf') format('opentype');
     font-style: normal;
     font-weight: 700;
 }
@@ -66,8 +66,8 @@
 @font-face {
     font-family: 'Noto Sans Japanese';
     src: url('../fonts/NotoSansCJKjp-Black-Subset.woff') format('woff'),
-         url('../fonts/NotoSansCJKjp-Black-Subset.woff2') format('woff2'),
-         url('../fonts/NotoSansCJKjp-Black-Subset.otf') format('opentype');
+    url('../fonts/NotoSansCJKjp-Black-Subset.woff2') format('woff2'),
+    url('../fonts/NotoSansCJKjp-Black-Subset.otf') format('opentype');
     font-style: normal;
     font-weight: 900;
 }
@@ -446,18 +446,7 @@ img#UPDATE_INFO_INFO {
     z-index: 1;
 }
 
-
-/*所属入力モーダル*/
-div #INPUT_AFFILIATION_MODAL_OPEN {
-		position: relative;
-    z-index: 5;
-}
-
-div#SHOW_SUB_DETAIL_MODAL_OPEN{
-	position: relative;
-	z-index: 5;
-}
-
+/*Top Modal*/
 div#INPUT_AFFILIATION_MODAL_CONTENTS {
     display: none;
     position: fixed;
@@ -484,36 +473,7 @@ img#INPUT_MODAL_CONTENTS_TOP {
     padding: 0 50 0 50;
 }
 
-img#INPUT_MODAL_CONTENTS_BOTTOM {
-    position: relative;
-    width: 100%;
-    top: 70px;
-    max-width: 300px;
-    max-height: 200px;
-    padding: 0 50 0 50;
-}
-
-img#INPUT_MODAL_CANCEL_BUTTOM {
-    position: absolute;
-    width: 100%;
-    max-width: 170px;
-    max-height: 55px;
-    top: 452px;
-    left: 0px;
-    cursor: pointer;
-}
-
-img#INPUT_MODAL_OK_BUTTOM {
-    position: absolute;
-    width: 100%;
-    max-width: 170px;
-    max-height: 55px;
-    top: 452px;
-    left: 170px;
-    cursor: pointer;
-}
-
-select.input_affiliation_pulldown {
+select.input-affiliation-pulldown {
     position: absolute;
     margin: auto;
     appearance: none;
@@ -534,30 +494,18 @@ select.input_affiliation_pulldown {
     text-indent: 0.8em;
 }
 @-moz-document url-prefix() {
-  select.input_affiliation_pulldown {
-    text-indent: 0.2em;
-  }
+    select.input_affiliation_pulldown {
+        text-indent: 0.2em;
+    }
 }
 
-select#GAKUGUN_SELECT {
+select#FACULTY_SELECT {
     position: relative;
     top: 20px;
     margin: 10 0 10 0;
 }
 
-select#GAKURUI_SELECT {
-    position: relative;
-    top: 40px;
-    margin: 10 0 10 0;
-}
-
-select#SENKOU_SELECT {
-    position: relative;
-    top: 60px;
-    margin: 10 0 10 0;
-}
-
-img#GAKUGUN_LABEL_ARROW {
+img#FACULTY_LABEL_ARROW {
     position: absolute;
     width: 20px;
     height: 10px;
@@ -568,7 +516,13 @@ img#GAKUGUN_LABEL_ARROW {
     opacity: 0.8;
 }
 
-img#GAKURUI_LABEL_ARROW {
+select#DEPART_SELECT {
+    position: relative;
+    top: 40px;
+    margin: 10 0 10 0;
+}
+
+img#DEPART_LABEL_ARROW {
     position: absolute;
     width: 20px;
     height: 10px;
@@ -579,7 +533,13 @@ img#GAKURUI_LABEL_ARROW {
     opacity: 0.8;
 }
 
-img#SENKOU_LABEL_ARROW {
+select#MAJOR_SELECT {
+    position: relative;
+    top: 60px;
+    margin: 10 0 10 0;
+}
+
+img#MAJOR_LABEL_ARROW {
     position: absolute;
     width: 20px;
     height: 10px;
@@ -590,7 +550,34 @@ img#SENKOU_LABEL_ARROW {
     opacity: 0.8;
 }
 
+img#INPUT_MODAL_CONTENTS_BUTTON {
+    position: relative;
+    width: 100%;
+    top: 70px;
+    max-width: 300px;
+    max-height: 200px;
+    padding: 0 50 0 50;
+}
 
+img#INPUT_MODAL_CANCEL_BUTTON {
+    position: absolute;
+    width: 100%;
+    max-width: 170px;
+    max-height: 55px;
+    top: 452px;
+    left: 0px;
+    cursor: pointer;
+}
+
+img#INPUT_MODAL_OK_BUTTON {
+    position: absolute;
+    width: 100%;
+    max-width: 170px;
+    max-height: 55px;
+    top: 452px;
+    left: 170px;
+    cursor: pointer;
+}
 /*　↑↑↑↑　トップページ　↑↑↑↑　*/
 
 
@@ -796,10 +783,6 @@ div#CREDIT {
     width: 100%;
     min-width: 850px;
     text-align: center;
-    /*
-    min-height: 730px;
-    height: auto !important;
-    */
     height: 730px;
     background-color: #F7F8F7;
     position: relative;
@@ -858,15 +841,10 @@ select#CREDIT_PULLDOWN {
 
 /*firefoxは挙動が異なるのでtext-indentを上書き*/
 @-moz-document url-prefix() {
-  select#CREDIT_PULLDOWN {
-    text-indent: 0.5em;
-  }
+    select#CREDIT_PULLDOWN {
+        text-indent: 0.5em;
+    }
 }
-
-/*
-select#CREDIT_PULLDOWN:active {
-    background-color: #e2e2e2;
-}*/
 
 img#CREDIT_PULLDOWN_ARROW {
     position: relative;
@@ -886,10 +864,6 @@ div#CREDIT_BOX {
     left: 0px;
     right: 0px;
     width: 850px;
-  /*
-    min-height: 500px;
-    height: auto !important;
-  */
     height: 500px;
 
     font-size: 1.5vw;
@@ -1101,20 +1075,25 @@ div#SCHEDULE_BOX {
 
 
 /*科目詳細表示モーダル*/
+div#SHOW_SUB_DETAIL_MODAL_OPEN{
+    position: relative;
+    z-index: 5;
+}
+
 div#SHOW_SUB_DETAIL_MODAL_CONTENTS {
     display: none;
     position: fixed;
     width: 100%;
     height: 100%;
     max-width: 340px;
-		max-height: 680px;
+    max-height: 680px;
     margin: 0;
     padding: 0;
     border-color: #bbbbbb;
     border-width: 1px;
     border-radius: 10px;
     z-index: 10;
-		background-color: #ffffff;
+    background-color: #ffffff;
     background-image: url(../img/main_show_sub_modal/SENMON_SENTAKU.svg);
     background-repeat: no-repeat;
     background-position: 30% 60%;
@@ -1230,153 +1209,153 @@ img#BUTTON_LABEL {
 }
 
 table.credit-detail-table{
-  position: relative;
-	border:none;
-  border-collapse: collapse;
-  text-align: center;
-  margin: auto;
-  width:750px;
-  margin:0 50px 0 50px;
-  font-size: 15px;
-  z-index: 0;
+    position: relative;
+    border:none;
+    border-collapse: collapse;
+    text-align: center;
+    margin: auto;
+    width:750px;
+    margin:0 50px 0 50px;
+    font-size: 15px;
+    z-index: 0;
 }
 
 table.credit-detail-table td{
-  max-height:10px;
+    max-height:10px;
 }
 
 table.credit-detail-table thead {
-	background-color: #f5f5f5
+    background-color: #f5f5f5
 }
 
 table.credit-detail-table th{
-  padding: 0;
+    padding: 0;
 }
 
 div.datatables-filter{
-  position: relative;
-  font-size: 15px;
-  left:270px;
-  margin: 10px 0 10px 0;
+    position: relative;
+    font-size: 15px;
+    left:270px;
+    margin: 10px 0 10px 0;
 }
 
 div.datatables-info{
-  position: relative;
-  font-size: 15px;
-  left: 270px;
-  margin: 10px 0 10px 0;
+    position: relative;
+    font-size: 15px;
+    left: 270px;
+    margin: 10px 0 10px 0;
 }
 
 .datatables-paginate .paginate-button {
-  position: relative;
-  display: inline-block;
-  top:10px;
-  font-size: 15px;
-  padding: 5px 10px 5px 10px;
-  margin: 0 1px 0 1px;
-  text-align: center;
-  text-decoration: none !important;
-  cursor: pointer;
-  color: #474747 !important;
-  border: 1px solid transparent;
-  border-radius: 2px;
-  z-index: 2;
+    position: relative;
+    display: inline-block;
+    top:10px;
+    font-size: 15px;
+    padding: 5px 10px 5px 10px;
+    margin: 0 1px 0 1px;
+    text-align: center;
+    text-decoration: none !important;
+    cursor: pointer;
+    color: #474747 !important;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    z-index: 2;
 }
 .datatables-paginate .paginate-button.current, .datatables-wrapper .dataTables_paginate .paginate-button.current:hover {
-  border: 1px solid #979797;
-  background-color: #ffffff;
+    border: 1px solid #979797;
+    background-color: #ffffff;
 }
 .datatables-paginate .paginate-button.disabled, .datatables-wrapper .dataTables_paginate .paginate-button.disabled:hover, .datatables-wrapper .dataTables_paginate .paginate-button.disabled:active {
-  cursor: default;
-  color: #474747 !important;
-  border: 1px solid transparent;
-  background: transparent;
-  box-shadow: none;
+    cursor: default;
+    color: #474747 !important;
+    border: 1px solid transparent;
+    background: transparent;
+    box-shadow: none;
 }
 
 div.datatables-filter label{
-  font-family: FontAwesome;
+    font-family: FontAwesome;
 }
 
 div.datatables-filter label:before{
-  content: "\f002";
+    content: "\f002";
 }
 
 div.datatables-filter input{
-  width: 180px;
-  height: 20px;
-  margin: 0 0 0 10px;
+    width: 180px;
+    height: 20px;
+    margin: 0 0 0 10px;
 }
 
 a#CREDIT_TABLE_previous:before{
-  font-family: FontAwesome;
-  padding: 0 10px 0 10px;
-  content:"\f104";
+    font-family: FontAwesome;
+    padding: 0 10px 0 10px;
+    content:"\f104";
 }
 
 a#CREDIT_TABLE_next:after{
-  font-family: FontAwesome;
-  padding: 0 10px 0 10px;
-  content:"\f105";
+    font-family: FontAwesome;
+    padding: 0 10px 0 10px;
+    content:"\f105";
 }
 
 
 table.credit-detail-table thead th.sorting:after,
 table.credit-detail-table thead th.sorting-asc:after,
 table.credit-detail-table thead th.sorting-desc:after {
-  font-family: FontAwesome;
-  padding: 0 0 0 5px;
+    font-family: FontAwesome;
+    padding: 0 0 0 5px;
 }
 
 table.credit-detail-table  thead th.sorting:after{
-  content: "\f0dc";
+    content: "\f0dc";
 }
 
 table.credit-detail-table thead th.sorting-asc:after{
-  content: "\f0de";
+    content: "\f0de";
 }
 
 table.credit-detail-table thead th.sorting-desc:after{
-  content: "\f0dd";
+    content: "\f0dd";
 }
 
 table.credit-detail-table tr:nth-child(even) td {
-	background-color: #f5f5f5
+    background-color: #f5f5f5
 }
 
 table.credit-detail-table td:nth-child(1){
-  width: 170px;
-  cursor: pointer;
+    width: 170px;
+    cursor: pointer;
 }
 
 table.credit-detail-table td:nth-child(2){
-  width: 250px;
+    width: 250px;
 }
 
 table.credit-detail-table td:nth-child(3){
-  width: 110px;
+    width: 110px;
 }
 
 table.credit-detail-table td:nth-child(4){
-  width: 110px;
+    width: 110px;
 }
 
 table.credit-detail-table td:nth-child(5){
-  width: 110px;
+    width: 110px;
 }
 
 div#SUB_ADD_MODAL_OPEN{
-  position: relative;
-  top:-20px;
-  left:-300px;
-  font-size: 18px;
-  z-index: 1;
+    position: relative;
+    top:-20px;
+    left:-300px;
+    font-size: 18px;
+    z-index: 1;
 }
 
 div#SUB_ADD_MODAL_OPEN:before {
-  font-family: FontAwesome;
-  padding: 0 5px 0 5px;
-  content: "\f055";
+    font-family: FontAwesome;
+    padding: 0 5px 0 5px;
+    content: "\f055";
 }
 
 

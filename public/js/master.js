@@ -4,6 +4,9 @@ var animated1 = false;
 var animated2 = false;
 var animated3 = false;
 
+var dataArray = new Array();
+var JsonText = "";
+
 //Graphアニメーション
 //Rabbit & Bar
 var rabbit_data = [0.0, 0.0, 0.0, 0.0, 0.0];
@@ -21,345 +24,9 @@ var credit_transition_data = [0, 0, 0, 0, 0, 0];
 //GPATransition
 var qpa_transition_data = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
 
-var genre = { "Senmon":"専門科目", "SenmonKiso":"専門基礎科目", "Kiso":"基礎科目" };
+//var genre = { "Senmon":"専門科目", "SenmonKiso":"専門基礎科目", "Kiso":"基礎科目" };
 
-$(window).load(function() {
-    $("#HEADER_MENU_INSIDE1, #PAGE_MAIN1").css({
-        opacity: 1,
-        display: "block"
-    });
-    $("#HEADER_MENU_INSIDE2, #PAGE_MAIN2").css({
-        opacity: 0,
-        display: "none"
-    });
-});
-
-function jumpMain() {
-    if (csvFileFlag == 1) {
-        mode = 1;
-        $("#HEADER_MENU_INSIDE1, #PAGE_MAIN1").animate({
-            opacity: 0,
-        }, 700, function(){
-            $("#HEADER_MENU_INSIDE1, #PAGE_MAIN1").css({
-                display: "none"
-            });
-            $("#HEADER_MENU_INSIDE2, #PAGE_MAIN2").css({
-                display: "block"
-            }).animate({
-                opacity: 1
-            }, 700);
-        });
-    }
-    return false;
-}
-
-function fileNameResize() {
-    var w = $(window).width();
-    if (w > 850) {
-        var h = $("#TOP_UPLOAD_AREA").height();
-        var size = (h / 2) + "px";
-        var calcs = "calc(62.5% - " + size + ")";
-        $("#TOP_FILE_NAME").css({"fontSize":size, "top":calcs});
-    } else {
-        $("#TOP_FILE_NAME").css({"fontSize":"12px", "top":"calc(62.5% - 12px)"});
-    }
-}
-
-$(function() {
-    //ファイルネームのリサイズ
-    $(window).on("load", function() {
-        fileNameResize();
-    });
-    $(window).resize(function() {
-        fileNameResize();
-    });
-
-    //ページスクロール遷移
-    $("a[href^='#']").on("click", function() {
-        var speed = 500;
-        if (mode == 0) {
-            var top_ = 0;
-            var about_usage_ = top_ + $("#TOP").height();
-            var qa_ = about_usage_ + $("#ABOUT_USAGE").height();
-            var update_info_ = qa_ + $("#QA").height();
-            var href = $(this).attr("href");
-            var position = 0;
-            if (href == "#TOP") {
-                position = top_;
-            } else if (href == "#ABOUT_USAGE") {
-                position = about_usage_;
-            } else if (href == "#QA") {
-                position = qa_;
-            } else if (href == "#UPDATE_INFO") {
-                position = update_info_;
-            }
-            $("#PAGE_MAIN1").animate({scrollTop : position}, speed, "swing");
-        } else if (mode == 1) {
-            var interval_ = $(".INTERVAL").height();
-            var first_ = 0;
-            var second_ = first_ + $("#REQUIREMENT").height() + interval_;
-            var third_ = second_ + $("#CREDIT").height() + interval_;
-            var fourth_ = third_ + $("#GRADE_GPA").height() + interval_;
-            var href = $(this).attr("href");
-            var position = 0;
-            if (href == "#REQUIREMENT") {
-                position = first_;
-            } else if (href == "#CREDIT") {
-                position = second_;
-            } else if (href == "#GRADE_GPA") {
-                position = third_;
-            } else if (href == "#SCHEDULE") {
-                position = fourth_;
-            }
-            $("#PAGE_MAIN2").animate({scrollTop : position}, speed, "swing");
-        }
-        return false;
-    });
-
-    //ヘッダーメニューの白い横棒
-    $(".menu-item").children("a")
-    .on('mouseover', function() {
-        var w = $(this).css('width');
-        $(this).parents('.menu-item').children('.underbar').stop().animate({ 'width' : w}, 500, 'swing');
-    })
-    .on('mouseout', function() {
-        $(this).parents('.menu-item').children('.underbar').stop().animate({ 'width' : '0px'}, 500, 'swing');
-    });
-
-    //ドラッグ&ドロップの設定
-    var obj = $("#TOP_UPLOAD_AREA, #TOP_FILE_NAME");
-    obj.on('dragenter', function(e) {
-        e.stopPropagation();
-        e.preventDefault();
-    }).on('dragover', function(e) {
-        e.stopPropagation();
-        e.preventDefault();
-    }).on('drop', function(e) {
-        e.preventDefault();
-        var files = e.originalEvent.dataTransfer.files;
-        handleFileUpload(files[0]);
-    });
-    $(document).on('dragenter', function(e) {
-        e.stopPropagation();
-        e.preventDefault();
-    }).on('dragover', function(e) {
-        e.stopPropagation();
-        e.preventDefault();
-    }).on('drop', function(e) {
-        e.stopPropagation();
-        e.preventDefault();
-    });
-});
-
-function tapped() {
-    $("#UPLOAD").click();
-}
-
-function fileUpload() {
-    if ($("#UPLOAD").val() !== '') {
-        var file = $("#UPLOAD").prop("files")[0];
-        handleFileUpload(file);
-    }
-}
-
-function handleFileUpload(file) {
-    if (file.name.match(/^(gakusei_)(\d{9}).*\.csv/)) {
-        csvFileFlag = 1;
-        $("#TOP_FILE_NAME").text(file.name);
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            var txtData = e.target.result;
-            TwinsPlanningParser(txtData);
-        }
-        reader.readAsText(file);
-    }
-}
-
-function TwinsPlanningParser(textData) {
-    textData = textData.trim();
-    var data = textData.split("\r\n");
-    var Line = data[1].split("\r");
-    var linage = Line.length;
-    var dataArray = new Array();
-
-    var count = 0;
-    for (var i = 0; i < linage; i++) {
-        var row = Line[i].split("\",\"");
-        for (var j = 0; j < row.length; j++) {
-            row[j].replace("\"", "");
-        }
-        if (row[3] != "") {
-            dataArray[count] = new Array();
-            dataArray[count][0] = row[1];
-            dataArray[count][1] = row[3];
-            dataArray[count][2] = (row[6] != "") ? row[6] : "X";
-            count += 1;
-        }
-    }
-    convertJsonText(dataArray);
-}
-
-function convertJsonText(dataArray) {
-    var length = dataArray.length;
-    var txt = "{\n";
-    txt += '\t\"student\": {\n';
-    txt += '\t\t\"year\": '+2014+',\n';
-    txt += '\t\t\"major\": \"'+"Sousei"+'\",\n';
-    txt += '\t\t\"part3\": '+false+'\n';
-    txt += '\t},\n';
-    for (var i = 0; i < length; i++) {
-        txt += '\t\"line' + i + '\": {\n';
-        txt += '\t\t\"year\": \"' + dataArray[i][0] + '\",\n';
-        txt += '\t\t\"subject\": \"' + dataArray[i][1] + '\",\n';
-        txt += '\t\t\"grade\": \"' + dataArray[i][2] + '\"\n';
-        txt += '\t}' + ((i < length - 1) ? ',' : '' ) + '\n';
-    }
-    txt += '}';
-    // alert(txt);
-    postData(txt);
-}
-
-function postData(json) {
-    $.ajax({
-        type: "POST",
-        data: json,
-        url: "https://tpp.d-io.com/api/csv",
-        contentType: "application/json",
-        success: function(data) {
-            console.log(data);
-            getData(data);
-        },
-        error: function() {
-            console.log("Error");
-        }
-    });
-}
-
-function getData(data) {
-    //$.getJSON("js/tmp.json" , function(data) {} );
-    var needGRCourse = data.REQUIREMENT.needGRCourse;
-    var getGRCourse = data.REQUIREMENT.getGRCourse;
-    var nowGRCourse = data.REQUIREMENT.nowGRCourse;
-    var preGRCourse = data.REQUIREMENT.preGRCourse;
-    var restGRCourse = needGRCourse-(getGRCourse+nowGRCourse+preGRCourse);
-    restGRCourse = restGRCourse > 0 ? restGRCourse : 0.0;
-    rabbit_data = [needGRCourse, getGRCourse, nowGRCourse, preGRCourse, restGRCourse];
-
-    course = genre[data.CREDIT[0].course];
-    $("#CREDIT_PULLDOWN").text(course);
-    var needCourse = data.CREDIT[0].needCourse;
-    var getCourse = data.CREDIT[0].getCourse;
-    var nowCourse = data.CREDIT[0].nowCourse;
-    var preCourse = data.CREDIT[0].preCourse;
-    var courseA = data.CREDIT[0].courseA;
-    var courseSum = data.CREDIT[0].courseSum;
-    var otherCourse = (needCourse-(getCourse+nowCourse+preCourse));
-    get_credit_data = [needCourse, getCourse, nowCourse, preCourse, otherCourse];
-    grade_A_data = [courseA, courseSum];
-
-    var countAplus = data.GRADE_GPA.countAplus;
-    var countA = data.GRADE_GPA.countA;
-    var countB = data.GRADE_GPA.countB;
-    var countC = data.GRADE_GPA.countC;
-    var countD = data.GRADE_GPA.countD;
-    var countOther = data.GRADE_GPA.countOther;
-    grade_rate_data = [countAplus, countA, countB, countC, countD, countOther];
-    start = data.GRADE_GPA.start;
-    credit_transition_data = data.GRADE_GPA.creditTransition;
-    qpa_transition_data = data.GRADE_GPA.gpaTransition;
-}
-
-function reloadTop() {
-    window.location.href = "./index.html";
-}
-
-$(function() {
-    //第一ブロック
-    $("#REQUIREMENT_GRAPH").on("inview", function() {
-        if (mode == 1 && animated1 == false) {
-            animated1 = true;
-            drawGRBar("#BAR_GRAPH", rabbit_data);
-            drawGRRabbit("#RABBIT_GRAPH",rabbit_data);
-
-            $("#NEED_COURSE").text(rabbit_data[0].toFixed(1));
-            $("#GET_COURSE").text(rabbit_data[1].toFixed(1));
-            $("#NOW_COURSE").text(rabbit_data[2].toFixed(1));
-            $("#PRE_COURSE").text(rabbit_data[3].toFixed(1));
-            $("#REST_COURSE").text(rabbit_data[4].toFixed(1));
-        }
-    });
-
-    //第二ブロック
-    $("#CREDIT_GRAPH").on("inview", function() {
-        if (mode == 1 && animated2 == false) {
-            animated2 = true;
-            drawGetCredit("#GET_CREDIT_GRAPH", get_credit_data);
-            drawGradeA("#GRADE_A_GRAPH", grade_A_data);
-        }
-    });
-
-    //第三ブロック
-    $("#GRADE_GPA_GRAPH").on("inview", function() {
-        if (mode == 1 && animated3 == false) {
-            animated3 = true;
-            drawGradeRate("#GRADE_RATE", grade_rate_data);
-            drawCreditTransition("#CREDIT_TRANSITION", start, credit_transition_data);
-            drawGPATransition("#GPA_TRANSITION", start, qpa_transition_data);
-
-            $("#CREDIT_APLUS").text(grade_rate_data[0].toFixed(1));
-            $("#CREDIT_A").text(grade_rate_data[1].toFixed(1));
-            $("#CREDIT_B").text(grade_rate_data[2].toFixed(1));
-            $("#CREDIT_C").text(grade_rate_data[3].toFixed(1));
-            $("#CREDIT_D").text(grade_rate_data[4].toFixed(1));
-            $("#CREDIT_OTHERS").text(grade_rate_data[5].toFixed(1));
-        }
-    });
-});
-
-/*所属入力モーダル*/
-$(function(){
-    $("#INPUT_AFFILIATION_MODAL_OPEN").click(function(){
-        //$("body").append('<div id="MODAL_BACKGROUND"></div>');
-        if(!($('#MODAL_BACKGROUND').length)){
-        $('<div id="MODAL_BACKGROUND"></div>').insertAfter('#FOOTER');
-        }
-
-        $("#MODAL_BACKGROUND").fadeIn("1200");
-        $("#INPUT_AFFILIATION_MODAL_CONTENTS").center().fadeIn("1500");
-
-        $("#MODAL_BACKGROUND,#INPUT_AFFILIATION_MODAL_CONTENTS").click(function(){
-          if (!$(this).closest('#INPUT_AFFILIATION_MODAL_CONTENTS').length) {
-
-            $("#INPUT_AFFILIATION_MODAL_CONTENTS").center().fadeOut("1000",function(){
-            $('#MODAL_BACKGROUND').remove();
-              })
-            }
-        });
-
-    });
-});
-
-$(function(){
-     $("#INPUT_MODAL_CANCEL_BUTTOM,#INPUT_MODAL_OK_BUTTOM").hover(function(){
-        $(this).attr("src", $(this).attr("src").replace("_OFF", "_ON"));
-      }, function(){
-           $(this).attr('src', $(this).attr('src').replace('_ON', '_OFF'));
-   });
-});
-
-function closeInputModal() {
-  $("#INPUT_AFFILIATION_MODAL_CONTENTS").center().fadeOut("1000",function(){
-    $('#MODAL_BACKGROUND').remove();
-  });
-}
-
-function submitAffiliationData(){
-  var AffiliationValue = $("#SENKOU_SELECT").val();
-  alert("所属ID:"+AffiliationValue+"\n※基礎科目データベース設計ver1.2の値(現在情報学群のみ専攻が存在)");
-}
-
-$(document).ready( function() {
-  var gakugun2gakurui = [
+var gakugun2gakurui = [
     {gakugun: '1', gakurui:'人文学類'},
     {gakugun: '1', gakurui:'比較文化学類'},
     {gakugun: '1', gakurui:'日本語・日本文化学類'},
@@ -384,10 +51,10 @@ $(document).ready( function() {
     {gakugun: '7', gakurui:'看護学類'},
     {gakugun: '7', gakurui:'医療科学類'},
     {gakugun: '8', gakurui:'学類なし'},
-    {gakugun: '9', gakurui:'学類なし'},
-  ];
+    {gakugun: '9', gakurui:'学類なし'}
+];
 
-  var gakurui2senkou = [
+var gakurui2senkou = [
     //11:人文学類
     {gakurui: '11', senkou:'哲学'},
     {gakurui: '11', senkou:'倫理学'},
@@ -518,167 +185,493 @@ $(document).ready( function() {
     {gakurui: '91', senkou:'プロダクトデザイン'},
     {gakurui: '91', senkou:'環境デザイン'},
     {gakurui: '91', senkou:'建築デザイン'}
-  ];
+];
 
-  $('#GAKUGUN_SELECT').change(function(){
-    setGakuruiSelect($(this).val());
-  });
+$(window).load(function() {
+    $("#HEADER_MENU_INSIDE1, #PAGE_MAIN1").css({
+        opacity: 1,
+        display: "block"
+    });
+    $("#HEADER_MENU_INSIDE2, #PAGE_MAIN2").css({
+        opacity: 0,
+        display: "none"
+    });
+});
 
-  $('#GAKURUI_SELECT').change(function(){
-    setSenkouSelect($(this).val());
-  });
+function jumpMain() {
+    if (csvFileFlag == 1) {
+        mode = 1;
+        $("#HEADER_MENU_INSIDE1, #PAGE_MAIN1").animate({
+            opacity: 0,
+        }, 700, function() {
+            $("#HEADER_MENU_INSIDE1, #PAGE_MAIN1").css({
+                display: "none"
+            });
+            $("#HEADER_MENU_INSIDE2, #PAGE_MAIN2").css({
+                display: "block"
+            }).animate({
+                opacity: 1
+            }, 700);
+        });
+    }
+}
 
-  function setGakuruiSelect(s){
-    var num = 0;
-    $('#GAKURUI_SELECT').find('option').remove();
-    $(gakugun2gakurui).each(function(i){
-      if(gakugun2gakurui[i].gakugun == s){
-        num = num + 1;
-        $('#GAKURUI_SELECT').append($('<option></option>')
-          .val(String(s)+String(num))
-          .text(gakugun2gakurui[i].gakurui));
-        setSenkouSelect(String(s)+String(num));
+function fileNameResize() {
+    var w = $(window).width();
+    if (w > 850) {
+        var h = $("#TOP_UPLOAD_AREA").height();
+        var size = (h / 2) + "px";
+        var calcs = "calc(62.5% - " + size + ")";
+        $("#TOP_FILE_NAME").css({"fontSize":size, "top":calcs});
+    } else {
+        $("#TOP_FILE_NAME").css({"fontSize":"12px", "top":"calc(62.5% - 12px)"});
+    }
+}
+
+$(function() {
+    //ファイルネームのリサイズ
+    $(window).on("load", function() {
+        fileNameResize();
+    });
+    $(window).resize(function() {
+        fileNameResize();
+    });
+
+    //ページスクロール遷移
+    $("a[href^='#']").on("click", function() {
+        var speed = 500;
+        if (mode == 0) {
+            var top_ = 0;
+            var about_usage_ = top_ + $("#TOP").height();
+            var qa_ = about_usage_ + $("#ABOUT_USAGE").height();
+            var update_info_ = qa_ + $("#QA").height();
+            var href = $(this).attr("href");
+            var position = 0;
+            if (href == "#TOP") {
+                position = top_;
+            } else if (href == "#ABOUT_USAGE") {
+                position = about_usage_;
+            } else if (href == "#QA") {
+                position = qa_;
+            } else if (href == "#UPDATE_INFO") {
+                position = update_info_;
+            }
+            $("#PAGE_MAIN1").animate({scrollTop : position}, speed, "swing");
+        } else if (mode == 1) {
+            var interval_ = $(".INTERVAL").height();
+            var first_ = 0;
+            var second_ = first_ + $("#REQUIREMENT").height() + interval_;
+            var third_ = second_ + $("#CREDIT").height() + interval_;
+            var fourth_ = third_ + $("#GRADE_GPA").height() + interval_;
+            var href = $(this).attr("href");
+            var position = 0;
+            if (href == "#REQUIREMENT") {
+                position = first_;
+            } else if (href == "#CREDIT") {
+                position = second_;
+            } else if (href == "#GRADE_GPA") {
+                position = third_;
+            } else if (href == "#SCHEDULE") {
+                position = fourth_;
+            }
+            $("#PAGE_MAIN2").animate({scrollTop : position}, speed, "swing");
         }
-      }
-    );
-  }
-  function setSenkouSelect(s){
-    var num = 0;
-    $('#SENKOU_SELECT').find('option').remove();
-    $(gakurui2senkou).each(function(i){
-      if(gakurui2senkou[i].gakurui == s){
-        num = num + 1;
-        $('#SENKOU_SELECT').append($('<option></option>')
-          .val(String(s)+String(num))
-          .text(gakurui2senkou[i].senkou));
+        return false;
+    });
+
+    //ヘッダーメニューの白い横棒
+    $(".menu-item").children("a")
+    .on('mouseover', function() {
+        var w = $(this).css('width');
+        $(this).parents('.menu-item').children('.underbar').stop().animate({ 'width' : w}, 500, 'swing');
+    })
+    .on('mouseout', function() {
+        $(this).parents('.menu-item').children('.underbar').stop().animate({ 'width' : '0px'}, 500, 'swing');
+    });
+
+    //ドラッグ&ドロップの設定
+    var obj = $("#TOP_UPLOAD_AREA, #TOP_FILE_NAME");
+    obj.on('dragenter', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+    }).on('dragover', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+    }).on('drop', function(e) {
+        e.preventDefault();
+        var files = e.originalEvent.dataTransfer.files;
+        handleFileUpload(files[0]);
+    });
+    $(document).on('dragenter', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+    }).on('dragover', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+    }).on('drop', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+    });
+});
+
+function tapped() {
+    $("#UPLOAD").click();
+}
+
+function fileUpload() {
+    if ($("#UPLOAD").val() !== '') {
+        var file = $("#UPLOAD").prop("files")[0];
+        handleFileUpload(file);
+    }
+}
+
+function handleFileUpload(file) {
+    if (file.name.match(/^(gakusei_)(\d{9}).*\.csv/)) {
+        csvFileFlag = 1;
+        showInputModal();
+        $("#TOP_FILE_NAME").text(file.name);
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var txtData = e.target.result;
+            TwinsPlanningParser(txtData);
         }
-      }
-    );
-  }
-  setGakuruiSelect('1');
-  setSenkouSelect('11');
+        reader.readAsText(file);
+    }
+}
+
+function TwinsPlanningParser(textData) {
+    textData = textData.trim();
+    var data = textData.split("\r\n");
+    var Line = data[1].split("\r");
+    var linage = Line.length;
+    dataArray = new Array();
+    var count = 0;
+    for (var i = 0; i < linage; i++) {
+        var row = Line[i].split("\",\"");
+        for (var j = 0; j < row.length; j++) {
+            row[j].replace("\"", "");
+        }
+        if (row[3] != "") {
+            dataArray[count] = new Array();
+            dataArray[count][0] = row[1];
+            dataArray[count][1] = row[3];
+            dataArray[count][2] = (row[6] != "") ? row[6] : "X";
+            count += 1;
+        }
+    }
+}
+
+function convertJsonText(dataArray, Aff) {
+    var length = dataArray.length;
+    var txt = "{\n";
+    txt += '\t\"affiliation\": '+Aff+',\n';
+    for (var i = 0; i < length; i++) {
+        txt += '\t\"line' + i + '\": {\n';
+        txt += '\t\t\"year\": \"' + dataArray[i][0] + '\",\n';
+        txt += '\t\t\"subject\": \"' + dataArray[i][1] + '\",\n';
+        txt += '\t\t\"grade\": \"' + dataArray[i][2] + '\"\n';
+        txt += '\t}' + ((i < length - 1) ? ',' : '' ) + '\n';
+    }
+    txt += '}';
+    JsonText = txt;
+    alert(txt);
+}
+
+function postData() {
+    if (csvFileFlag == 1) {
+        $.ajax({
+            type: "POST",
+            data: JsonText,
+            url: "https://tpp.d-io.com/api/csv",
+            contentType: "application/json",
+            success: function(data) {
+                console.log(data);
+                getData(data);
+            },
+            error: function() {
+                console.log("Error");
+            }
+        });
+    }
+    return false;
+}
+
+function getData(data) {
+    //$.getJSON("js/tmp.json" , function(data) {} );
+    var needGRCourse = data.REQUIREMENT.needGRCourse;
+    var getGRCourse = data.REQUIREMENT.getGRCourse;
+    var nowGRCourse = data.REQUIREMENT.nowGRCourse;
+    var preGRCourse = data.REQUIREMENT.preGRCourse;
+    var restGRCourse = needGRCourse-(getGRCourse+nowGRCourse+preGRCourse);
+    restGRCourse = restGRCourse > 0 ? restGRCourse : 0.0;
+    rabbit_data = [needGRCourse, getGRCourse, nowGRCourse, preGRCourse, restGRCourse];
+
+    var needCourse = data.CREDIT[0].needCourse;
+    var getCourse = data.CREDIT[0].getCourse;
+    var nowCourse = data.CREDIT[0].nowCourse;
+    var preCourse = data.CREDIT[0].preCourse;
+    var courseA = data.CREDIT[0].courseA;
+    var courseSum = data.CREDIT[0].courseSum;
+    var otherCourse = (needCourse-(getCourse+nowCourse+preCourse));
+    get_credit_data = [needCourse, getCourse, nowCourse, preCourse, otherCourse];
+    grade_A_data = [courseA, courseSum];
+
+    var countAplus = data.GRADE_GPA.countAplus;
+    var countA = data.GRADE_GPA.countA;
+    var countB = data.GRADE_GPA.countB;
+    var countC = data.GRADE_GPA.countC;
+    var countD = data.GRADE_GPA.countD;
+    var countOther = data.GRADE_GPA.countOther;
+    grade_rate_data = [countAplus, countA, countB, countC, countD, countOther];
+    start = data.GRADE_GPA.start;
+    credit_transition_data = data.GRADE_GPA.creditTransition;
+    qpa_transition_data = data.GRADE_GPA.gpaTransition;
+
+    jumpMain();
+}
+
+function reloadTop() {
+    window.location.href = "./index.html";
+}
+
+$(function() {
+    //第一ブロック
+    $("#REQUIREMENT_GRAPH").on("inview", function() {
+        if (mode == 1 && animated1 == false) {
+            animated1 = true;
+            drawGRBar("#BAR_GRAPH", rabbit_data);
+            drawGRRabbit("#RABBIT_GRAPH",rabbit_data);
+
+            $("#NEED_COURSE").text(rabbit_data[0].toFixed(1));
+            $("#GET_COURSE").text(rabbit_data[1].toFixed(1));
+            $("#NOW_COURSE").text(rabbit_data[2].toFixed(1));
+            $("#PRE_COURSE").text(rabbit_data[3].toFixed(1));
+            $("#REST_COURSE").text(rabbit_data[4].toFixed(1));
+        }
+    });
+
+    //第二ブロック
+    $("#CREDIT_GRAPH").on("inview", function() {
+        if (mode == 1 && animated2 == false) {
+            animated2 = true;
+            drawGetCredit("#GET_CREDIT_GRAPH", get_credit_data);
+            drawGradeA("#GRADE_A_GRAPH", grade_A_data);
+        }
+    });
+
+    //第三ブロック
+    $("#GRADE_GPA_GRAPH").on("inview", function() {
+        if (mode == 1 && animated3 == false) {
+            animated3 = true;
+            drawGradeRate("#GRADE_RATE", grade_rate_data);
+            drawCreditTransition("#CREDIT_TRANSITION", start, credit_transition_data);
+            drawGPATransition("#GPA_TRANSITION", start, qpa_transition_data);
+
+            $("#CREDIT_APLUS").text(grade_rate_data[0].toFixed(1));
+            $("#CREDIT_A").text(grade_rate_data[1].toFixed(1));
+            $("#CREDIT_B").text(grade_rate_data[2].toFixed(1));
+            $("#CREDIT_C").text(grade_rate_data[3].toFixed(1));
+            $("#CREDIT_D").text(grade_rate_data[4].toFixed(1));
+            $("#CREDIT_OTHERS").text(grade_rate_data[5].toFixed(1));
+        }
+    });
+});
+
+/*所属入力モーダル*/
+function showInputModal() {
+    if(!($('#MODAL_BACKGROUND').length)){
+        $('<div id="MODAL_BACKGROUND"></div>').insertAfter('#FOOTER');
+    }
+    $("#MODAL_BACKGROUND").fadeIn("1200");
+    $("#INPUT_AFFILIATION_MODAL_CONTENTS").center().fadeIn("1500");
+
+    $("#MODAL_BACKGROUND,#INPUT_AFFILIATION_MODAL_CONTENTS").click(function() {
+        if (!$(this).closest('#INPUT_AFFILIATION_MODAL_CONTENTS').length) {
+            $("#INPUT_AFFILIATION_MODAL_CONTENTS").center().fadeOut("1000",function() {
+                $('#MODAL_BACKGROUND').remove();
+            });
+        }
+    });
+}
+
+$(function() {
+    $("#INPUT_MODAL_CANCEL_BUTTON,#INPUT_MODAL_OK_BUTTON").hover(function() {
+        $(this).attr("src", $(this).attr("src").replace("_OFF", "_ON"));
+    }, function() {
+        $(this).attr('src', $(this).attr('src').replace('_ON', '_OFF'));
+    });
+});
+
+function closeInputModal() {
+    $("#INPUT_AFFILIATION_MODAL_CONTENTS").center().fadeOut("1000",function() {
+        $('#MODAL_BACKGROUND').remove();
+    });
+}
+
+function submitAffiliationData() {
+    var AffiliationValue = $("#MAJOR_SELECT").val();
+    console.log("所属ID:"+AffiliationValue);
+    closeInputModal();
+    // ここでサーバーに情報を送る
+    convertJsonText(dataArray, AffiliationValue);
+}
+
+$(document).ready( function() {
+    $('#FACULTY_SELECT').change(function() {
+        setDepartSelect($(this).val());
+    });
+
+    $('#DEPART_SELECT').change(function() {
+        setMajorSelect($(this).val());
+    });
+
+    function setDepartSelect(str){
+        var num = 0;
+        $('#DEPART_SELECT').find('option').remove();
+        $(gakugun2gakurui).each(function(i){
+            if(gakugun2gakurui[i].gakugun == str){
+                num = num + 1;
+                $('#DEPART_SELECT').append($('<option></option>')
+                .val(String(str)+String(num))
+                .text(gakugun2gakurui[i].gakurui));
+                setMajorSelect(String(str)+String(num));
+            }
+        });
+    }
+    function setMajorSelect(str){
+        var num = 0;
+        $('#MAJOR_SELECT').find('option').remove();
+        $(gakurui2senkou).each(function(i){
+            if(gakurui2senkou[i].gakurui == str){
+                num = num + 1;
+                $('#MAJOR_SELECT').append($('<option></option>')
+                .val(String(str)+String(num))
+                .text(gakurui2senkou[i].senkou));
+            }
+        });
+    }
+    setDepartSelect('1');
+    setMajorSelect('11');
 });
 
 /*科目詳細モーダル*/
-$(function(){
-    $("#SHOW_SUB_DETAIL_MODAL_OPEN").click(function(){
+$(function() {
+    $("#SHOW_SUB_DETAIL_MODAL_OPEN").click(function() {
         initShowSubModalData();
         setShowSubModalData();
         if(!($('#MODAL_BACKGROUND').length)){
-        $('<div id="MODAL_BACKGROUND"></div>').insertAfter('#FOOTER');
+            $('<div id="MODAL_BACKGROUND"></div>').insertAfter('#FOOTER');
         }
         //$("body").append('<div id="MODAL_BACKGROUND"></div>');
 
         $("#MODAL_BACKGROUND").fadeIn("1200");
         $("#SHOW_SUB_DETAIL_MODAL_CONTENTS").center().fadeIn("1500");
 
-        $("#MODAL_BACKGROUND,#SHOW_SUB_DETAIL_MODAL_CONTENTS").click(function(){
-          if (!$(this).closest('#SHOW_SUB_DETAIL_MODAL_CONTENTS').length) {
-
-            $("#SHOW_SUB_DETAIL_MODAL_CONTENTS").center().fadeOut("1000",function(){
-            $('#MODAL_BACKGROUND').remove();
-              })
+        $("#MODAL_BACKGROUND,#SHOW_SUB_DETAIL_MODAL_CONTENTS").click(function() {
+            if (!$(this).closest('#SHOW_SUB_DETAIL_MODAL_CONTENTS').length) {
+                $("#SHOW_SUB_DETAIL_MODAL_CONTENTS").center().fadeOut("1000",function() {
+                    $('#MODAL_BACKGROUND').remove();
+                });
             }
         });
-
     });
 });
 /*
-$(function(){
-     $("#INPUT_MODAL_CANCEL_BUTTOM,#INPUT_MODAL_OK_BUTTOM").hover(function(){
-        $(this).attr("src", $(this).attr("src").replace("_OFF", "_ON"));
-      }, function(){
-           $(this).attr('src', $(this).attr('src').replace('_ON', '_OFF'));
-   });
+$(function() {
+$("#INPUT_MODAL_CANCEL_BUTTOM,#INPUT_MODAL_OK_BUTTOM").hover(function() {
+$(this).attr("src", $(this).attr("src").replace("_OFF", "_ON"));
+}, function() {
+$(this).attr('src', $(this).attr('src').replace('_ON', '_OFF'));
+});
 });
 */
 function closeShowSubModal() {
-  $("#SHOW_SUB_DETAIL_MODAL_CONTENTS").center().fadeOut("1000",function(){
-    $('#MODAL_BACKGROUND').remove();
-  });
+    $("#SHOW_SUB_DETAIL_MODAL_CONTENTS").center().fadeOut("1000",function() {
+        $('#MODAL_BACKGROUND').remove();
+    });
 }
 
-function initShowSubModalData(){
-  document.getElementById("ID_NAME_LABEL").innerHTML = "";
-  document.getElementById("CREDIT_VALUE_LABEL").innerHTML = "";
-  document.getElementById("SCHOOL_GRADE_LABEL").innerHTML = "";
-  document.getElementById("SUB_CLASS_LABEL").innerHTML = "";
-  document.getElementById("LESSON_TIME_LABEL").innerHTML = "";
-  document.getElementById("CLASS_ROOM_LABEL").innerHTML = "";
-  document.getElementById("TEATURE_LABEL").innerHTML = "";
-  document.getElementById("STATE_LABEL").innerHTML = "";
-  document.getElementById("DESCRIPTION_LABEL").innerHTML = "";
-  document.getElementById("REMARKS_LABEL").innerHTML = "";
+function initShowSubModalData() {
+    document.getElementById("ID_NAME_LABEL").innerHTML = "";
+    document.getElementById("CREDIT_VALUE_LABEL").innerHTML = "";
+    document.getElementById("SCHOOL_GRADE_LABEL").innerHTML = "";
+    document.getElementById("SUB_CLASS_LABEL").innerHTML = "";
+    document.getElementById("LESSON_TIME_LABEL").innerHTML = "";
+    document.getElementById("CLASS_ROOM_LABEL").innerHTML = "";
+    document.getElementById("TEATURE_LABEL").innerHTML = "";
+    document.getElementById("STATE_LABEL").innerHTML = "";
+    document.getElementById("DESCRIPTION_LABEL").innerHTML = "";
+    document.getElementById("REMARKS_LABEL").innerHTML = "";
 }
 
 
-function setShowSubModalData(){
-  var sub_id = "GC54401";//テーブルから取得&サーバー側に送信,履修年度がある
-  var sub_name = "映像メディア論";//サーバーから受信(KdB)
-  var credit = "1.0";//サーバーから受信(KdB)
-  var school_grade = "3・4"//サーバーから受信(KdB)
-  var sub_class = "専門・選択";//サーバーから受信(sub_idから計算)
-  var school_period = "秋AB";//サーバーから受信(KdB)
-  var lesson_period = "水1,2";//サーバーから受信(KdB)
-  var class_room = "7A104";//サーバーから受信(KdB)
-  var teature = "辻 泰明";//サーバーから受信(KdB)
-  /*
+function setShowSubModalData() {
+    var sub_id = "GC54401";//テーブルから取得&サーバー側に送信,履修年度がある
+    var sub_name = "映像メディア論";//サーバーから受信(KdB)
+    var credit = "1.0";//サーバーから受信(KdB)
+    var school_grade = "3・4"//サーバーから受信(KdB)
+    var sub_class = "専門・選択";//サーバーから受信(sub_idから計算)
+    var school_period = "秋AB";//サーバーから受信(KdB)
+    var lesson_period = "水1,2";//サーバーから受信(KdB)
+    var class_room = "7A104";//サーバーから受信(KdB)
+    var teature = "辻 泰明";//サーバーから受信(KdB)
+    /*
     [履修済み,履修中,履修予定,未履修]=[0,1,2,3]
     履修済み：CSVファイルで成績が "X" でない
     履修中  ：CSVファイルで成績が "X"
     履修予定：シミュレーションしている科目に該当
     未履修　：シュミレーションしている科目に該当しない
-  */
-  var state_frag = 0;//サーバーから受信(CSVとシミュレーションの結果から値を計算)
-  var stateHash = {0:"履修済み", 1:"履修中", 2:"履修予定", 3:"未履修"};
-  var state = stateHash[state_frag];
-  if(state_frag == 0) var grade = "A";//サーバーから受信(CSV)
-  var description = 'デジタル化の進展とインターネットの普及によって映像メディアの重要性は、ますます高まっている。今後、盛んになると予想される映像コンテンツの利活用に備え、映像メディアのさまざまな特性を考察する。また、映画からテレビへ、そして、インターネット配信へという映像メディアの発展を通観し、映像メディアおよび映像コンテンツ利活用の現状と課題について講義する。';
-  var remarks = '<i class="fa fa-info-circle" aria-hidden="true"></i>GE82501と同一。情報メディア創成学類生はGC54401を,それ以外の学生はGE82501を履修すること';
-  var url = "https://www.mast.tsukuba.ac.jp/lecture/syllabus/pdf/GC54401.pdf";/*サーバー側でこのURLがあるかどうか訊く*/
-  var degital_syrabas_frag = 0;/*存在:1,存在しない:0*/
-  var syrabasHash = {0:"電子シラバスなし",1:"電子シラバスあり"};
+    */
+    var state_frag = 0;//サーバーから受信(CSVとシミュレーションの結果から値を計算)
+    var stateHash = {0:"履修済み", 1:"履修中", 2:"履修予定", 3:"未履修"};
+    var state = stateHash[state_frag];
+    if(state_frag == 0) var grade = "A";//サーバーから受信(CSV)
+    var description = 'デジタル化の進展とインターネットの普及によって映像メディアの重要性は、ますます高まっている。今後、盛んになると予想される映像コンテンツの利活用に備え、映像メディアのさまざまな特性を考察する。また、映画からテレビへ、そして、インターネット配信へという映像メディアの発展を通観し、映像メディアおよび映像コンテンツ利活用の現状と課題について講義する。';
+    var remarks = '<i class="fa fa-info-circle" aria-hidden="true"></i>GE82501と同一。情報メディア創成学類生はGC54401を,それ以外の学生はGE82501を履修すること';
+    var url = "https://www.mast.tsukuba.ac.jp/lecture/syllabus/pdf/GC54401.pdf";/*サーバー側でこのURLがあるかどうか訊く*/
+    var degital_syrabas_frag = 0;/*存在:1,存在しない:0*/
+    var syrabasHash = {0:"電子シラバスなし",1:"電子シラバスあり"};
 
-  document.getElementById("ID_NAME_LABEL").innerHTML = sub_id+" "+sub_name;
-  document.getElementById("CREDIT_VALUE_LABEL").innerHTML = "単位："+credit+"単位";
-  document.getElementById("SCHOOL_GRADE_LABEL").innerHTML = "年次："+school_grade+"年";
-  document.getElementById("SUB_CLASS_LABEL").innerHTML = "区分："+sub_class;
-  document.getElementById("LESSON_TIME_LABEL").innerHTML = "時限："+school_period+" "+lesson_period;
-  document.getElementById("CLASS_ROOM_LABEL").innerHTML = "教室："+class_room;
-  document.getElementById("TEATURE_LABEL").innerHTML = "担当："+teature;
-  document.getElementById("STATE_LABEL").innerHTML = "状態："+state;
-  if(state_frag==0){
-    if(!($('#GRADE_LABEL').length)){
-      $('<div id="GRADE_LABEL">'+"成績："+grade+'</div>').insertAfter('#STATE_LABEL');
+    document.getElementById("ID_NAME_LABEL").innerHTML = sub_id+" "+sub_name;
+    document.getElementById("CREDIT_VALUE_LABEL").innerHTML = "単位："+credit+"単位";
+    document.getElementById("SCHOOL_GRADE_LABEL").innerHTML = "年次："+school_grade+"年";
+    document.getElementById("SUB_CLASS_LABEL").innerHTML = "区分："+sub_class;
+    document.getElementById("LESSON_TIME_LABEL").innerHTML = "時限："+school_period+" "+lesson_period;
+    document.getElementById("CLASS_ROOM_LABEL").innerHTML = "教室："+class_room;
+    document.getElementById("TEATURE_LABEL").innerHTML = "担当："+teature;
+    document.getElementById("STATE_LABEL").innerHTML = "状態："+state;
+    if(state_frag==0){
+        if(!($('#GRADE_LABEL').length)){
+            $('<div id="GRADE_LABEL">'+"成績："+grade+'</div>').insertAfter('#STATE_LABEL');
+        }
+    }else if(state_frag==2){
+        if(!($('#BUTTON_LABEL').length)){
+            $('<hr class="show-sub-detail-modal"/><img id="BUTTON_LABEL" src="./img/main_show_sub_modal/DELETE_COURSE_BUTTON.svg" onclick="hoge" />').insertAfter('#STATE_LABEL');
+        }
+    }else if(state_frag==3){
+        if(!($('#BUTTON_LABEL').length)){
+            $('<hr class="show-sub-detail-modal"/><img id="BUTTON_LABEL" src="./img/main_show_sub_modal/TAKE_COURSE_BUTTON.svg" onclick="hoge" />').insertAfter('#STATE_LABEL');
+        }
     }
-  }else if(state_frag==2){
-    if(!($('#BUTTON_LABEL').length)){
-      $('<hr class="show-sub-detail-modal"/><img id="BUTTON_LABEL" src="./img/main_show_sub_modal/DELETE_COURSE_BUTTON.svg" onclick="hoge" />').insertAfter('#STATE_LABEL');
-    }
-  }else if(state_frag==3){
-    if(!($('#BUTTON_LABEL').length)){
-      $('<hr class="show-sub-detail-modal"/><img id="BUTTON_LABEL" src="./img/main_show_sub_modal/TAKE_COURSE_BUTTON.svg" onclick="hoge" />').insertAfter('#STATE_LABEL');
-    }
-  }
-  document.getElementById("DESCRIPTION_LABEL").innerHTML = description;
-  document.getElementById("REMARKS_LABEL").innerHTML = remarks;
-  if(!($('#DEGITAL_SYRABAS_LABEL').length)){
-      $('<hr class="show-sub-detail-modal"/><div class="text-center" id="DEGITAL_SYRABAS_BOX"><a id="DEGITAL_SYRABAS_LABEL" target="_blank" href="'+url+'">'+syrabasHash[degital_syrabas_frag]+"</a></div>").insertAfter('#REMARKS_LABEL');
+    document.getElementById("DESCRIPTION_LABEL").innerHTML = description;
+    document.getElementById("REMARKS_LABEL").innerHTML = remarks;
+    if(!($('#DEGITAL_SYRABAS_LABEL').length)){
+        $('<hr class="show-sub-detail-modal"/><div class="text-center" id="DEGITAL_SYRABAS_BOX"><a id="DEGITAL_SYRABAS_LABEL" target="_blank" href="'+url+'">'+syrabasHash[degital_syrabas_frag]+"</a></div>").insertAfter('#REMARKS_LABEL');
     }
 }
 
 /*
 $(function() {
-  $('#CREDIT_TABLE').tablesorter();
+$('#CREDIT_TABLE').tablesorter();
 });
 */
 
-$(function(){
-           $("#CREDIT_TABLE").dataTable({
-            lengthChange: false,
-            displayLength: 5,
-            info: false,
-           });
+$(function() {
+    $("#CREDIT_TABLE").dataTable({
+        lengthChange: false,
+        displayLength: 5,
+        info: false,
+    });
 });
 
 
