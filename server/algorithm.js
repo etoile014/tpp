@@ -35,11 +35,11 @@ db.serialize(function(){
  if(row.min==row.max){
     x=row.min;
     console.log("総合科目1:"+x);
-    //履修データから科目番号1119***の単位数の合計をyに格納
+    //履修データから科目番号11*****の単位数の合計をyに格納
     //if(y==0){
     //graduation=0;
     //}
-    //履修データから科目番号1319***,12*****の単位数をyにプラス
+    //履修データから科目番号12*****,13*****の単位数をyにプラス
     //if(x>y){
     //graduation=0;
     //}else{
@@ -130,6 +130,40 @@ db.serialize(function(){
   //}
 //履修データから科目番号28*****の単位数をsubject[4]に格納
  });
+//国語の処理
+  db.each("SELECT min, max from common_compulsory where subject = '国語' and depart = 621 and enter = 2014", function(err, row){
+    var x=0, y=0;
+    if(row.min==row.max){
+       x=row.min;
+       console.log("国語:"+x);
+    }
+    if(x==0){
+       subject[7] = SUM(/5******/);
+    }
+   });
+//第2外国語の処理
+  db.each("SELECT min, max from common_compulsory where subject = '第2外国語' and depart = 621 and enter = 2014", function(err, row){
+    var x=0, y=0, z=0, lang[8]=0;
+     if(row.min==row.max){
+         x=row.min;
+	 console.log("第2外国語:"+x);
+     }
+    lang[0]=SUM(/32A***2/)+SUM(/32B***2/)+SUM(/32C***2/)+SUM(/32E***2/)+SUM(/329***2/)+SUM(/323***2/);
+    lang[1]=SUM(/33A***2/)+SUM(/33B***2/)+SUM(/33C***2/)+SUM(/33E***2/)+SUM(/339***2/)+SUM(/333***2/);
+    lang[2]=SUM(/34A***2/)+SUM(/34B***2/)+SUM(/34C***2/)+SUM(/34E***2/)+SUM(/349***2/)+SUM(/343***2/);
+    lang[3]=SUM(/35A***2/)+SUM(/35B***2/)+SUM(/35C***2/)+SUM(/35E***2/)+SUM(/359***2/)+SUM(/353***2/);
+    lang[4]=SUM(/36A***2/)+SUM(/36B***2/)+SUM(/36C***2/)+SUM(/36E***2/)+SUM(/369***2/)+SUM(/363***2/);
+    lang[5]=SUM(/37A***2/)+SUM(/37B***2/)+SUM(/37C***2/)+SUM(/37E***2/)+SUM(/379***2/)+SUM(/373***2/);
+    lang[6]=SUM(/38A***2/)+SUM(/38B***2/)+SUM(/38C***2/)+SUM(/38E***2/)+SUM(/389***2/)+SUM(/383***2/);
+    lang[7]=SUM(/39****2/);
+    z=SUM(/324***2/)+SUM(/334***2/)+SUM(/344***2/)+SUM(/354***2/)+SUM(/364***2/)+SUM(/374***2/)+SUM(/384***2/);
+    y = max(lang);
+    if(y<x){
+      graduate=0;
+    }else{
+      subject[5]=SUM(lang)-x+z;
+    }
+
 //必修の処理ここまで
 //ここから共通選択
 var Xmax=0, Xmin=0, Y=0, Z=0;
