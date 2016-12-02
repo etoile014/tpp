@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>TPP</title>
     <link rel="icon" type="image/icon" href="img/FAVICON_32x32.ico" sizes="32x32">
     <link rel="icon" type="image/icon" href="img/FAVICON_64x64.ico" sizes="64x64">
     <!-- CSS -->
     <link href="css/master.css" rel="stylesheet" type="text/css">
+    <!-- fontawesome Stylesheet -->
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <!-- Javascript -->
     <!-- Javascript Library -->
     <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" src="js/jquery.inview.min.js"></script>
     <script type="text/javascript" src="js/d3.v3.min.js"></script>
+    <script type="text/javascript" src="js/jquery.center.min.js"></script>
+    <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
     <!-- Javascript Master -->
     <script type="text/javascript" src="js/master.js"></script>
     <!-- Javascript Graph -->
@@ -26,6 +32,7 @@
     <script type="text/javascript" src="js/graph/drawCreditTransition.js"></script>
     <script type="text/javascript" src="js/graph/drawGPATransition.js"></script>
 </head>
+
 <body>
     <header id="PAGE_HEADER" role="banner">
         <div class="header-logo">
@@ -33,26 +40,60 @@
         </div>
         <div class="header-menu">
             <div id="HEADER_MENU_INSIDE1">
-                <div class="menu-interval"><p class="onbar"></p><span>|</span></div>
-                <div class="menu-item"><p class="onbar"></p><a href="#TOP">トップ</a><p class="underbar"></p></div>
-                <div class="menu-interval"><p class="onbar"></p><span>|</span></div>
-                <div class="menu-item"><p class="onbar"></p><a href="#ABOUT_USAGE">概要・使い方</a><p class="underbar"></p></div>
-                <div class="menu-interval"><p class="onbar"></p><span>|</span></div>
-                <div class="menu-item"><p class="onbar"></p><a href="#QA">よくある質問</a><p class="underbar"></p></div>
-                <div class="menu-interval"><p class="onbar"></p><span>|</span></div>
-                <div class="menu-item"><p class="onbar"></p><a href="#UPDATE_INFO">更新・お知らせ</a><p class="underbar"></p></div>
-                <div class="menu-interval"><p class="onbar"></p><span>|</span></div>
+                <div class="menu-interval">
+                    <p class="onbar"></p><span>|</span></div>
+                <div class="menu-item">
+                    <p class="onbar"></p><a href="#TOP">トップ</a>
+                    <p class="underbar"></p>
+                </div>
+                <div class="menu-interval">
+                    <p class="onbar"></p><span>|</span></div>
+                <div class="menu-item">
+                    <p class="onbar"></p><a href="#ABOUT_USAGE">概要・使い方</a>
+                    <p class="underbar"></p>
+                </div>
+                <div class="menu-interval">
+                    <p class="onbar"></p><span>|</span></div>
+                <div class="menu-item">
+                    <p class="onbar"></p><a href="#QA">よくある質問</a>
+                    <p class="underbar"></p>
+                </div>
+                <div class="menu-interval">
+                    <p class="onbar"></p><span>|</span></div>
+                <div class="menu-item">
+                    <p class="onbar"></p><a href="#UPDATE_INFO">更新・お知らせ</a>
+                    <p class="underbar"></p>
+                </div>
+                <div class="menu-interval">
+                    <p class="onbar"></p><span>|</span></div>
             </div>
             <div id="HEADER_MENU_INSIDE2">
-                <div class="menu-interval"><p class="onbar"></p><span>|</span></div>
-                <div class="menu-item"><p class="onbar"></p><a href="#REQUIREMENT">卒業要件</a><p class="underbar"></p></div>
-                <div class="menu-interval"><p class="onbar"></p><span>|</span></div>
-                <div class="menu-item"><p class="onbar"></p><a href="#CREDIT">単位詳細</a><p class="underbar"></p></div>
-                <div class="menu-interval"><p class="onbar"></p><span>|</span></div>
-                <div class="menu-item"><p class="onbar"></p><a href="#GRADE_GPA">成績・ GPA</a><p class="underbar"></p></div>
-                <div class="menu-interval"><p class="onbar"></p><span>|</span></div>
-                <div class="menu-item"><p class="onbar"></p><a href="#SCHEDULE">時間割</a><p class="underbar"></p></div>
-                <div class="menu-interval"><p class="onbar"></p><span>|</span></div>
+                <div class="menu-interval">
+                    <p class="onbar"></p><span>|</span></div>
+                <div class="menu-item">
+                    <p class="onbar"></p><a href="#REQUIREMENT">卒業要件</a>
+                    <p class="underbar"></p>
+                </div>
+                <div class="menu-interval">
+                    <p class="onbar"></p><span>|</span></div>
+                <div class="menu-item">
+                    <p class="onbar"></p><a href="#CREDIT">単位詳細</a>
+                    <p class="underbar"></p>
+                </div>
+                <div class="menu-interval">
+                    <p class="onbar"></p><span>|</span></div>
+                <div class="menu-item">
+                    <p class="onbar"></p><a href="#GRADE_GPA">成績・ GPA</a>
+                    <p class="underbar"></p>
+                </div>
+                <div class="menu-interval">
+                    <p class="onbar"></p><span>|</span></div>
+                <div class="menu-item">
+                    <p class="onbar"></p><a href="#SCHEDULE">時間割</a>
+                    <p class="underbar"></p>
+                </div>
+                <div class="menu-interval">
+                    <p class="onbar"></p><span>|</span></div>
             </div>
         </div>
     </header>
@@ -79,6 +120,66 @@
         <div id="QA">
             <img id="QA_BACK" src="img/top/QA.png">
             <img id="QA_FAQ" src="img/top/FAQ.png">
+
+
+            <div id="INPUT_AFFILIATION_MODAL_CONTENTS">
+                <img id="INPUT_MODAL_CONTENTS_TOP" src="img/top_input_modal/INPUT_MODAL_TOP.png" />
+                <select id="GAKUGUN_SELECT" class="input_affiliation_pulldown">
+
+               <option value="1">人文・文化学群</option>
+               <option value="2">社会・国際学群</option>
+               <option value="3">人間学群</option>
+               <option value="4">生命環境学群</option>
+               <option value="5">理工学群</option>
+               <option value="6">情報学群</option>
+               <option value="7">医学群</option>
+               <option value="8">体育専門学群</option>
+               <option value="9">芸術専門学群</option>
+             </select>
+                <img id="GAKUGUN_LABEL_ARROW" src="./img/top_input_modal/PULLDOWN_ARROW.svg" />
+                <select id="GAKURUI_SELECT" class="input_affiliation_pulldown"></select>
+                <img id="GAKURUI_LABEL_ARROW" src="./img/top_input_modal/PULLDOWN_ARROW.svg" />
+                <select id="SENKOU_SELECT" class="input_affiliation_pulldown"></select>
+                <img id="SENKOU_LABEL_ARROW" src="./img/top_input_modal/PULLDOWN_ARROW.svg" />
+                <img id="INPUT_MODAL_CONTENTS_BOTTOM" src="./img/top_input_modal/INPUT_MODAL_BOTTOM.png" />
+                <img id="INPUT_MODAL_CANCEL_BUTTOM" src="./img/top_input_modal/CANCEL_BUTTON_OFF.png" onclick="closeInputModal()" />
+                <img id="INPUT_MODAL_OK_BUTTOM" src="./img/top_input_modal/OK_BUTTON_OFF.png" onclick="submitAffiliationData()" />
+            </div>
+
+            <div id="SHOW_SUB_DETAIL_MODAL_CONTENTS">
+                <img id="SHOW_SUB_DETAIL_MODAL_CLOSE_BUTTON" src="./img/main_show_sub_modal/CLOSE_MODAL.svg" onclick="closeShowSubModal()" />
+                <div id="ID_NAME_LABEL" class="text-center"></div>
+                <hr class="show-sub-detail-modal" />
+                <div class="text-left">
+                    <div id="CREDIT_VALUE_LABEL"></div>
+                    <div id="SCHOOL_GRADE_LABEL"></div>
+                    <div id="SUB_CLASS_LABEL"></div>
+                    <div id="LESSON_TIME_LABEL"></div>
+                    <div id="CLASS_ROOM_LABEL"></div>
+                    <div id="TEATURE_LABEL"></div>
+                    <div id="STATE_LABEL"></div>
+                </div>
+                <hr class="show-sub-detail-modal" />
+                <div class="text-left">
+                    <div id="DESCRIPTION_LABEL"></div>
+                </div>
+                <hr class="show-sub-detail-modal" />
+                <div class="text-left">
+                    <div id="REMARKS_LABEL"></div>
+                </div>
+                <hr class="show-sub-detail-modal" />
+                <div class="text-center" id="DEGITAL_SYRABAS_BOX">
+                </div>
+            </div>
+
+
+            <div id="INPUT_AFFILIATION_MODAL_OPEN">クリックで所属選択モーダル開く</div>
+            <br/>
+            <div id="SHOW_SUB_DETAIL_MODAL_OPEN">クリックで科目詳細表示モーダルを開く</div>
+
+
+
+
         </div>
         <div id="UPDATE_INFO">
             <img id="UPDATE_INFO_BACK" src="img/top/Update_Info.png">
@@ -100,7 +201,7 @@
                     <svg id="BAR_GRAPH"></svg>
                     <svg id="RABBIT_GRAPH"></svg>
                     <img id="OVERRAY" src="img/graph_img/Rabbit_Mask.png">
-                    <img id="SCALE" src="img/graph_img/Scale.png"/>
+                    <img id="SCALE" src="img/graph_img/Scale.png" />
                 </div>
                 <div id="CREDIT_LABEL">
                     <table border="0">
@@ -154,16 +255,83 @@
         <div id="CREDIT">
             <p id="CREDIT_TITLE">Your Credits Detail</p>
             <p id="CREDIT_SUBTITLE">
-                <text>単位詳細を見たいものを12種類の科目区分から選ぼう</text><br>
+                <text>単位詳細を見たいものを４種類の科目区分から選ぼう</text><br>
                 <text>卒業までに必要な単位数や今までに取得した単位を確認できます</text><br>
                 <text>これから履修予定の科目を入力して卒業シミュレーションも！</text>
             </p>
-            <button id="CREDIT_PULLDOWN">科目名</button>
+            <select id="CREDIT_PULLDOWN">
+                <option>専門科目</option>
+                <option>専門基礎科目</option>
+                <option>基礎科目</option>
+                <option>基礎科目(GPA対象外)</option>
+            </select>
+            <img id="CREDIT_PULLDOWN_ARROW" src="./img/main/CREDIT_PULLDOWN_ARROW.svg" />
             <div id="CREDIT_BOX">
                 <div id="CREDIT_GRAPH">
                     <svg id="GET_CREDIT_GRAPH"></svg>
                     <svg id="GRADE_A_GRAPH"></svg>
                 </div>
+                <table id="CREDIT_TABLE" class="credit-detail-table">
+                    <thead>
+                        <tr>
+                            <th>科目番号</th>
+                            <th>科目名</th>
+                            <th>単位数</th>
+                            <th>成績</th>
+                            <th>状態</th>
+                        </tr>
+                    </thead>
+                    <tr>
+                        <td id="SHOW_SUB_DETAIL_MODAL_OPEN">GC54401</td>
+                        <td>映像メディア論</td>
+                        <td>1.0</td>
+                        <td>A</td>
+                        <td>履修済み</td>
+                    </tr>
+                    <tr>
+                        <td>GC54402</td>
+                        <td>hoge</td>
+                        <td>2.0</td>
+                        <td>ー</td>
+                        <td>未履修</td>
+                    </tr>
+                    <tr>
+                        <td>GC54400</td>
+                        <td>fuga</td>
+                        <td>0.5</td>
+                        <td>C</td>
+                        <td>履修済み</td>
+                    </tr>
+                    <tr>
+                        <td>GC54400</td>
+                        <td>fuga</td>
+                        <td>0.5</td>
+                        <td>C</td>
+                        <td>履修済み</td>
+                    </tr>
+                    <tr>
+                        <td>GC54400</td>
+                        <td>fuga</td>
+                        <td>0.5</td>
+                        <td>C</td>
+                        <td>履修済み</td>
+                    </tr>
+                    <tr>
+                        <td>GC54400</td>
+                        <td>fuga</td>
+                        <td>0.5</td>
+                        <td>C</td>
+                        <td>履修済み</td>
+                    </tr>
+                    <tr>
+                        <td>GC54400</td>
+                        <td>fuga</td>
+                        <td>0.5</td>
+                        <td>C</td>
+                        <td>履修済み</td>
+                    </tr>
+                </table>
+                <div id="SUB_ADD_MODAL_OPEN">追加</div>
             </div>
         </div>
         <div class="interval">
@@ -228,4 +396,5 @@
         </div>
     </div>
 </body>
+
 </html>

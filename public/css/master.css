@@ -1,859 +1,1420 @@
 /*　↓↓↓↓　トップメイン共通　↓↓↓↓　*/
-@import url(https://fonts.googleapis.com/earlyaccess/notosansjapanese.css);
 
-html, body{
-	margin: 0px;
-	padding: 0px;
-	width: 100%;
-	height: 100%;
-	text-align: center;
-	font-family: "Noto Sans Japanese", ​sans-serif;
+/*@import url(https://fonts.googleapis.com/earlyaccess/notosansjapanese.css);*/
+
+/*Thin*/
+@font-face {
+    font-family: 'Noto Sans Japanese';
+    src: url('../fonts/NotoSansCJKjp-Thin-Subset.woff') format('woff'),
+         url('../fonts/NotoSansCJKjp-Thin-Subset.woff2') format('woff2'),
+         url('../fonts/NotoSansCJKjp-Thin-Subset.otf') format('opentype');
+    font-style: normal;
+    font-weight: 100;
+}
+
+/*Light*/
+@font-face {
+    font-family: 'Noto Sans Japanese';
+    src: url('../fonts/NotoSansCJKjp-Light-Subset.woff') format('woff'),
+         url('../fonts/NotoSansCJKjp-Light-Subset.woff2') format('woff2'),
+         url('../fonts/NotoSansCJKjp-Light-Subset.otf') format('opentype');
+    font-style: normal;
+    font-weight: 200;
+}
+
+/*DemiLight*/
+@font-face {
+    font-family: 'Noto Sans Japanese';
+    src: url('../fonts/NotoSansCJKjp-DemiLight-Subset.woff') format('woff'),
+         url('../fonts/NotoSansCJKjp-DemiLight-Subset.woff2') format('woff2'),
+         url('../fonts/NotoSansCJKjp-DemiLight-Subset.otf') format('opentype');
+    font-style: normal;
+    font-weight: 300;
+}
+
+/*Regular*/
+@font-face {
+    font-family: 'Noto Sans Japanese';
+    src: url('../fonts/NotoSansCJKjp-Regular-Subset.woff') format('woff'),
+         url('../fonts/NotoSansCJKjp-Regular-Subset.woff2') format('woff2'),
+         url('../fonts/NotoSansCJKjp-Regular-Subset.otf') format('opentype');
+    font-style: normal;
+    font-weight: 400;
+}
+
+/*Medium*/
+@font-face {
+    font-family: 'Noto Sans Japanese';
+    src: url('../fonts/NotoSansCJKjp-Medium-Subset.woff') format('woff'),
+         url('../fonts/NotoSansCJKjp-Medium-Subset.woff2') format('woff2'),
+         url('../fonts/NotoSansCJKjp-Medium-Subset.otf') format('opentype');
+    font-style: normal;
+    font-weight: 500;
+}
+
+/*Bold*/
+@font-face {
+    font-family: 'Noto Sans Japanese';
+    src: url('../fonts/NotoSansCJKjp-Bold-Subset.woff') format('woff'),
+         url('../fonts/NotoSansCJKjp-Bold-Subset.woff2') format('woff2'),
+         url('../fonts/NotoSansCJKjp-Bold-Subset.otf') format('opentype');
+    font-style: normal;
+    font-weight: 700;
+}
+
+/*Black*/
+@font-face {
+    font-family: 'Noto Sans Japanese';
+    src: url('../fonts/NotoSansCJKjp-Black-Subset.woff') format('woff'),
+         url('../fonts/NotoSansCJKjp-Black-Subset.woff2') format('woff2'),
+         url('../fonts/NotoSansCJKjp-Black-Subset.otf') format('opentype');
+    font-style: normal;
+    font-weight: 900;
+}
+
+html, body {
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-family: "Noto Sans Japanese", ​sans-serif;
 }
 
 header#PAGE_HEADER {
-	margin: 0px;
-	padding: 0px;
-	width: 100%;
-	min-width: 850px;
-	height: 50px;
-	position: fixed !important;
-	top: 0px;
-	left: 0px;
-	background-color: #464646;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    min-width: 850px;
+    height: 50px;
+    position: fixed !important;
+    top: 0px;
+    left: 0px;
+    background-color: #464646;
 }
 
 div.header-logo {
-	position: absolute;
-	top: 0;
-	left: 0;
-	margin: 0px;
-	padding: 5px 0px;
-	width: 150px;
-	height: 50px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0px;
+    padding: 5px 0px;
+    width: 150px;
+    height: 50px;
 }
 
 img.logo {
-	width: auto;
-	height: 40px;
+    width: auto;
+    height: 40px;
 }
 
 div.header-menu {
-	position: absolute;
-	top: 0px;
-	left: 150px;
-	margin: 0px;
-	padding: 0px;
-	width: calc(100% - 300px);
-	min-width: 700px;
-	height: 50px;
+    position: absolute;
+
+    top: 5px;
+    left: 150px;
+    margin: 0 auto;
+    padding: 0px;
+    width: calc(100% - 300px);
+    min-width: 700px;
+    height: 50px;
 }
 
 div#HEADER_MENU_INSIDE1 {
-	margin: auto;
-	width: 700px;
-	height: 50px;
+    margin: auto;
+    width: 700px;
+    height: 50px;
 }
 
 div#HEADER_MENU_INSIDE2 {
-	margin: auto;
-	width: 580px;
-	height: 50px;
+    margin: auto;
+    width: 580px;
+    height: 50px;
 }
 
 div.menu-interval {
-	margin: 0px;
-	padding: 0px;
-	width: 50px;
-	height: 50px;
-	color: #FFFFFF;
-	float : left;
+    margin: 0px;
+    padding: 0px;
+    width: 50px;
+    height: 50px;
+    color: #FFFFFF;
+    float: left;
 }
 
 div.menu-interval span {
-	width: 50px;
-	font-weight: bold;
-	font-size: 20px;
+    width: 50px;
+    font-weight: bold;
+    font-size: 20px;
 }
 
 div.menu-item {
-	margin: 0px;
-	padding: 0px;
-	width: auto;
-	height: 50px;
-	color: #FFFFFF;
-	float : left;
+    margin: 0 auto;
+    padding: 0px;
+    width: auto;
+    height: 50px;
+    color: #FFFFFF;
+    float: left;
 }
 
 div.menu-item a {
-	width: auto;
-	height: 45px;
-	font-weight: bold;
-	font-size: 20px;
-	text-decoration: none;
+    width: auto;
+    height: 45px;
+    font-weight: bold;
+    font-size: 20px;
+    text-decoration: none;
 }
 
 div.menu-item a:link {
-	color: #FFFFFF;
+    color: #FFFFFF;
 }
 
 div.menu-item a:visited {
-	color: #FFFFFF;
+    color: #FFFFFF;
 }
 
 p.onbar {
-	margin: auto;
-	height: 3px;
-	width: auto;
+    margin: auto;
+    height: 3px;
+    width: auto;
 }
 
 p.underbar {
-	margin: auto;
-	height: 3px;
-	width: 0;
-	background-color: #FFFFFF;
+    margin: auto;
+    height: 3px;
+    width: 0;
+    background-color: #FFFFFF;
 }
 
+
 /*　↑↑↑↑　トップメイン共通　↑↑↑↑　*/
+
+
 /*　↓↓↓↓　トップページ　↓↓↓↓　*/
 
 div#PAGE_MAIN1 {
-	margin: 0px;
-	padding: 0px;
-	width: 100%;
-	min-width: 850px;
-	height: calc(100% - 50px);
-	position: fixed !important;
-	top: 50px;
-	left: 0px;
-	overflow: auto;
-	text-align: left;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    min-width: 850px;
+    height: calc(100% - 50px);
+    position: fixed !important;
+    /*top: 50px;*/
+    top:50px;
+    left: 0px;
+    overflow: auto;
+    text-align: left;
 }
 
 div#TOP {
-	margin: 0px;
-	padding: 0px;
-	width: 100%;
-	min-width: 850px;
-	height: auto;
-	background-color: #949494;
-	position: relative;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    min-width: 850px;
+    height: auto;
+    background-color: #949494;
+    position: relative;
 }
 
 img#TOP_BACK {
-	margin: 0px;
-	padding: 0px;
-	width: 100%;
-	min-width: 850px;
-	height: auto;
-	z-index: 0;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    min-width: 850px;
+    height: auto;
+    z-index: 0;
 }
 
 img#TOP_LOGO {
-	position: absolute;
-	margin: auto;
-	top: 10%;
-	left: 0px;
-	right: 0px;
-	width: 15%;
-	min-width: 127.5px;
-	height: auto;
-	z-index: 1;
+    position: absolute;
+    margin: auto;
+    top: 10%;
+    left: 0px;
+    right: 0px;
+    width: 15%;
+    min-width: 127.5px;
+    height: auto;
+    z-index: 1;
 }
 
 img#TOP_FOR_YOU {
-	position: absolute;
-	margin: auto;
-	top: 40%;
-	left: 0px;
-	right: 0px;
-	width: 40%;
-	min-width: 340px;
-	height: auto;
-	z-index: 1;
+    position: absolute;
+    margin: auto;
+    top: 40%;
+    left: 0px;
+    right: 0px;
+    width: 40%;
+    min-width: 340px;
+    height: auto;
+    z-index: 1;
 }
 
 img#TOP_EXPLAIN {
-	position: absolute;
-	margin: auto;
-	top: 50%;
-	left: 0px;
-	right: 0px;
-	width: 35%;
-	min-width: 212.5px;
-	height: auto;
-	z-index: 1;
+    position: absolute;
+    margin: auto;
+    top: 50%;
+    left: 0px;
+    right: 0px;
+    width: 35%;
+    min-width: 212.5px;
+    height: auto;
+    z-index: 1;
 }
 
 img#TOP_UPLOAD_AREA {
-	position: absolute;
-	margin: auto;
-	top: 60%;
-	left: 0px;
-	right: 0px;
-	width: 24%;
-	min-width: 204px;
-	height: auto;
-	z-index: 1;
+    position: absolute;
+    margin: auto;
+    top: 60%;
+    left: 0px;
+    right: 0px;
+    width: 24%;
+    min-width: 204px;
+    height: auto;
+    z-index: 1;
 }
 
 img#TOP_UPLOAD_AREA:hover {
-	cursor: pointer;
+    cursor: pointer;
 }
 
 p#TOP_FILE_NAME {
-	position: absolute;
-	margin: auto;
-	top: calc(62.5% - 12px);
-	left:5%;
-	right: 0px;
-	width: 19%;
-	min-width: 161.5px;
-	height: auto;
-	font-size: 12px;
-	font-weight: bold;
-	color: #FFFFFF;
-	z-index: 2;
+    position: absolute;
+    margin: auto;
+    top: calc(62.5% - 12px);
+    left: 5%;
+    right: 0px;
+    width: 19%;
+    min-width: 161.5px;
+    height: auto;
+    font-size: 12px;
+    font-weight: bold;
+    color: #FFFFFF;
+    z-index: 2;
 }
 
 p#TOP_FILE_NAME:hover {
-	cursor: pointer;
+    cursor: pointer;
 }
 
 input#UPLOAD {
-	position: absolute;
-	margin: auto;
-	top: 60%;
-	left: 0px;
-	right: 0px;
-	width: 24%;
-	min-width: 204px;
-	height: auto;
-	z-index: 1;
-	display: none;
+    position: absolute;
+    margin: auto;
+    top: 60%;
+    left: 0px;
+    right: 0px;
+    width: 24%;
+    min-width: 204px;
+    height: auto;
+    z-index: 1;
+    display: none;
 }
 
 input#SUBMIT {
-	position: absolute;
-	margin: auto;
-	top: 70%;
-	left: 0px;
-	right: 0px;
-	width: 24%;
-	min-width: 204px;
-	height: auto;
-	z-index: 1;
+    position: absolute;
+    margin: auto;
+    top: 70%;
+    left: 0px;
+    right: 0px;
+    width: 24%;
+    min-width: 204px;
+    height: auto;
+    z-index: 1;
 }
 
 img#TOP_SCROLL {
-	position: absolute;
-	margin: auto;
-	top: 85%;
-	left: 0px;
-	right: 0px;
-	width: 6%;
-	min-width: 51px;
-	height: auto;
-	z-index: 1;
+    position: absolute;
+    margin: auto;
+    top: 85%;
+    left: 0px;
+    right: 0px;
+    width: 6%;
+    min-width: 51px;
+    height: auto;
+    z-index: 1;
 }
 
 div#ABOUT_USAGE {
-	margin: 0px;
-	padding: 0px;
-	width: 100%;
-	min-width: 850px;
-	height: auto;
-	background-color: #97D9F6;
-	position: relative;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    min-width: 850px;
+    height: auto;
+    background-color: #97D9F6;
+    position: relative;
 }
 
 img#ABOUT_USAGE_BACK {
-	margin: 0px;
-	width: 100%;
-	min-width: 850px;
-	height: auto;
-	z-index: 0;
+    margin: 0px;
+    width: 100%;
+    min-width: 850px;
+    height: auto;
+    z-index: 0;
 }
 
 img#ABOUT_USAGE_EXPLAIN {
-	position: absolute;
-	margin: auto;
-	top: 5%;
-	left: 0px;
-	right: 0px;
-	width: 60%;
-	min-width: 510px;
-	height: auto;
-	z-index: 1;
+    position: absolute;
+    margin: auto;
+    top: 5%;
+    left: 0px;
+    right: 0px;
+    width: 60%;
+    min-width: 510px;
+    height: auto;
+    z-index: 1;
 }
 
 img#ABOUT_USAGE_STEPS {
-	position: absolute;
-	margin: auto;
-	top: 55%;
-	left: 0px;
-	right: 0px;
-	width: 60%;
-	min-width: 510px;
-	height: auto;
-	z-index: 1;
+    position: absolute;
+    margin: auto;
+    top: 55%;
+    left: 0px;
+    right: 0px;
+    width: 60%;
+    min-width: 510px;
+    height: auto;
+    z-index: 1;
 }
 
 div#QA {
-	margin: 0px;
-	padding: 0px;
-	width: 100%;
-	min-width: 850px;
-	height: auto;
-	background-color: #F1ADB7;
-	position: relative;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    min-width: 850px;
+    height: auto;
+    background-color: #F1ADB7;
+    position: relative;
 }
 
 img#QA_BACK {
-	margin: 0px;
-	width: 100%;
-	min-width: 850px;
-	height: auto;
-	z-index: 0;
+    margin: 0px;
+    width: 100%;
+    min-width: 850px;
+    height: auto;
+    z-index: 0;
 }
 
 img#QA_FAQ {
-	position: absolute;
-	margin: auto;
-	top: 5%;
-	left: 0px;
-	right: 0px;
-	width: 20%;
-	min-width: 170px;
-	height: auto;
-	z-index: 1;
+    position: absolute;
+    margin: auto;
+    top: 5%;
+    left: 0px;
+    right: 0px;
+    width: 20%;
+    min-width: 170px;
+    height: auto;
+    z-index: 1;
 }
 
 div#UPDATE_INFO {
-	margin: 0px;
-	padding: 0px;
-	width: 100%;
-	min-width: 850px;
-	height: auto;
-	background-color: #FFFFFF;
-	position: relative;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    min-width: 850px;
+    height: auto;
+    background-color: #FFFFFF;
+    position: relative;
 }
 
 img#UPDATE_INFO_BACK {
-	margin: 0px;
-	width: 100%;
-	min-width: 850px;
-	height: auto;
-	z-index: 0;
+    margin: 0px;
+    width: 100%;
+    min-width: 850px;
+    height: auto;
+    z-index: 0;
 }
 
 img#UPDATE_INFO_UPDATE {
-	position: absolute;
-	margin: auto;
-	top: 5%;
-	left: 0px;
-	right: 0px;
-	width: 10%;
-	min-width: 85px;
-	height: auto;
-	z-index: 1;
+    position: absolute;
+    margin: auto;
+    top: 5%;
+    left: 0px;
+    right: 0px;
+    width: 10%;
+    min-width: 85px;
+    height: auto;
+    z-index: 1;
 }
 
 img#UPDATE_INFO_INFO {
-	position: absolute;
-	margin: auto;
-	top: 50%;
-	left: 0px;
-	right: 0px;
-	width: 10%;
-	min-width: 85px;
-	height: auto;
-	z-index: 1;
+    position: absolute;
+    margin: auto;
+    top: 50%;
+    left: 0px;
+    right: 0px;
+    width: 10%;
+    min-width: 85px;
+    height: auto;
+    z-index: 1;
 }
 
+
+/*所属入力モーダル*/
+div #INPUT_AFFILIATION_MODAL_OPEN {
+		position: relative;
+    z-index: 5;
+}
+
+div#SHOW_SUB_DETAIL_MODAL_OPEN{
+	position: relative;
+	z-index: 5;
+}
+
+div#INPUT_AFFILIATION_MODAL_CONTENTS {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    max-width: 340px;
+    max-height: 500px;
+    background-color: #FFFFFF;
+    color: #666666;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    border-color: #bbbbbb;
+    border-width: 1px;
+    border-radius: 10px;
+    z-index: 10;
+}
+
+img#INPUT_MODAL_CONTENTS_TOP {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    max-height: 200px;
+    padding: 0 50 0 50;
+}
+
+img#INPUT_MODAL_CONTENTS_BOTTOM {
+    position: relative;
+    width: 100%;
+    top: 70px;
+    max-width: 300px;
+    max-height: 200px;
+    padding: 0 50 0 50;
+}
+
+img#INPUT_MODAL_CANCEL_BUTTOM {
+    position: absolute;
+    width: 100%;
+    max-width: 170px;
+    max-height: 55px;
+    top: 452px;
+    left: 0px;
+    cursor: pointer;
+}
+
+img#INPUT_MODAL_OK_BUTTOM {
+    position: absolute;
+    width: 100%;
+    max-width: 170px;
+    max-height: 55px;
+    top: 452px;
+    left: 170px;
+    cursor: pointer;
+}
+
+select.input_affiliation_pulldown {
+    position: absolute;
+    margin: auto;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance:none;
+    top: 230px;
+    left: 0px;
+    right: 0px;
+    width: 250px;
+    height: 40px;
+    border-style: solid;
+    border-color: rgba(67, 82, 106, 0.5);
+    border-width: 1px;
+    border-radius: 5px;
+    font-size: 1em;
+    color: #43526A;
+    background-color: #E8E8F1;
+    text-indent: 0.8em;
+}
+@-moz-document url-prefix() {
+  select.input_affiliation_pulldown {
+    text-indent: 0.2em;
+  }
+}
+
+select#GAKUGUN_SELECT {
+    position: relative;
+    top: 20px;
+    margin: 10 0 10 0;
+}
+
+select#GAKURUI_SELECT {
+    position: relative;
+    top: 40px;
+    margin: 10 0 10 0;
+}
+
+select#SENKOU_SELECT {
+    position: relative;
+    top: 60px;
+    margin: 10 0 10 0;
+}
+
+img#GAKUGUN_LABEL_ARROW {
+    position: absolute;
+    width: 20px;
+    height: 10px;
+    left: 260px;
+    top: 225px;
+    padding: 15px 0 15px 0;
+    z-index: 15;
+    opacity: 0.8;
+}
+
+img#GAKURUI_LABEL_ARROW {
+    position: absolute;
+    width: 20px;
+    height: 10px;
+    left: 260px;
+    top: 285px;
+    padding: 15px 0 15px 0;
+    z-index: 15;
+    opacity: 0.8;
+}
+
+img#SENKOU_LABEL_ARROW {
+    position: absolute;
+    width: 20px;
+    height: 10px;
+    left: 260px;
+    top: 345px;
+    padding: 15px 0 15px 0;
+    z-index: 15;
+    opacity: 0.8;
+}
+
+
 /*　↑↑↑↑　トップページ　↑↑↑↑　*/
+
+
 /*　↓↓↓↓　メインページ　↓↓↓↓　*/
 
 div#PAGE_MAIN2 {
-	margin: 0px;
-	padding: 0px;
-	width: 100%;
-	min-width: 850px;
-	height: calc(100% - 50px);
-	position: fixed !important;
-	top: 50px;
-	left: 0px;
-	overflow: auto;
-	text-align: left;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    min-width: 850px;
+    height: calc(100% - 50px);
+    position: fixed !important;
+    top: 50px;
+    left: 0px;
+    overflow: auto;
+    text-align: left;
 }
 
 div.interval {
-	margin: 0px;
-	padding: 0px;
-	width: 100%;
-	min-width: 850px;
-	height: 10px;
-	background-color: #F7F8F7;
-	position: relative;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    min-width: 850px;
+    height: 10px;
+    background-color: #F7F8F7;
+    position: relative;
 }
 
 img.interval-image {
-	position: absolute;
-	margin: auto;
-	left: 0px;
-	right: 0px;
-	width: 850px;
-	height: auto;
-	z-index: 1;
+    position: absolute;
+    margin: auto;
+    left: 0px;
+    right: 0px;
+    width: 850px;
+    height: auto;
+    z-index: 1;
 }
+
 
 /* First Block */
 
 div#REQUIREMENT {
-	margin: 0px;
-	padding: 0px;
-	width: 100%;
-	min-width: 850px;
-	height: 650px;
-	background-color: #F7F8F7;
-	position: relative;
-	text-align: center;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    min-width: 850px;
+    height: 650px;
+    background-color: #F7F8F7;
+    position: relative;
+    text-align: center;
 }
 
 p#REQUIREMENT_TITLE {
-	position: absolute;
-	margin: auto;
-	top: 0%;
-	left: 0px;
-	right: 0px;
-	width: 850px;
-	height: 80px;
-	font-size: 3em;
-	color: #474747;
-	z-index: 1;
+    position: absolute;
+    margin: auto;
+    top: 0%;
+    left: 0px;
+    right: 0px;
+    width: 850px;
+    height: 80px;
+    font-size: 3em;
+    color: #474747;
+    z-index: 1;
 }
 
 p#REQUIREMENT_SUBTITLE {
-	position: absolute;
-	margin: auto;
-	top: 80px;
-	left: 0px;
-	right: 0px;
-	width: 850px;
-	height: 30px;
-	font-size: 1em;
-	color: #474747;
-	z-index: 1;
+    position: absolute;
+    margin: auto;
+    top: 80px;
+    left: 0px;
+    right: 0px;
+    width: 850px;
+    height: 30px;
+    font-size: 1em;
+    color: #474747;
+    z-index: 1;
 }
 
 div#REQUIREMENT_BOX {
-	position: absolute;
-	margin: auto;
-	top: 120px;
-	left: 0px;
-	right: 0px;
-	width: 850px;
-	height: 500px;
-	color: #474747;
-	z-index: 1;
-	background-color: #FFFFFF;
+    position: absolute;
+    margin: auto;
+    top: 120px;
+    left: 0px;
+    right: 0px;
+    width: 850px;
+    height: 500px;
+    color: #474747;
+    z-index: 1;
+    background-color: #FFFFFF;
 }
 
 div#REQUIREMENT_GRAPH {
-	position: relative;
-	margin: 0px;
-	padding: 0px;
-	width: 850px;
-	height: 320px;
+    position: relative;
+    margin: 0px;
+    padding: 0px;
+    width: 850px;
+    height: 320px;
 }
 
 svg#BAR_GRAPH {
-	position: absolute;
-	top: 0px;
-	left: 50px;
-	margin: 0px;
-	padding: 0px;
-	width: 350px;
-	height: 320px;
+    position: absolute;
+    top: 0px;
+    left: 50px;
+    margin: 0px;
+    padding: 0px;
+    width: 350px;
+    height: 320px;
 }
 
 svg#RABBIT_GRAPH {
-	position: absolute;
-	top: 0px;
-	left: 400px;
-	margin: 0px;
-	padding: 0px;
-	width: 250px;
-	height: 320px;
+    position: absolute;
+    top: 0px;
+    left: 400px;
+    margin: 0px;
+    padding: 0px;
+    width: 250px;
+    height: 320px;
 }
 
 img#OVERRAY {
-	position: absolute;
-	top: 0px;
-	left: 400px;
-	margin: 0px;
-	padding: 0px;
-	width: 250px;
-	height: 320px;
+    position: absolute;
+    top: 0px;
+    left: 400px;
+    margin: 0px;
+    padding: 0px;
+    width: 250px;
+    height: 320px;
 }
 
 img#SCALE {
-	position: absolute;
-	top: 0px;
-	left: 650px;
-	margin: 5px;
-	padding: 0px;
-	width: 140px;
-	height: 310px;
+    position: absolute;
+    top: 0px;
+    left: 650px;
+    margin: 5px;
+    padding: 0px;
+    width: 140px;
+    height: 310px;
 }
 
 div#CREDIT_LABEL {
-	margin: 40px auto;
-	width: 785px;
-	height: 88px;
-	z-index: 1;
+    margin: 40px auto;
+    width: 785px;
+    height: 88px;
+    z-index: 1;
 }
 
 td.credit-item {
-	width: 120px;
-	height: 25px;
-	font-size: 15px;
+    width: 120px;
+    height: 25px;
+    font-size: 15px;
 }
 
 td.credit-number {
-	width: 80px;
-	height: 50px;
-	font-size: 30px;
+    width: 80px;
+    height: 50px;
+    font-size: 30px;
 }
 
 td.credit-unit {
-	width: 40px;
-	height: 25px;
-	font-size: 15px;
+    width: 40px;
+    height: 25px;
+    font-size: 15px;
 }
 
 td.credit-sign {
-	width: 20px;
-	height: 25px;
-	font-size: 15px;
+    width: 20px;
+    height: 25px;
+    font-size: 15px;
 }
 
 td.credit-bracket {
-	width: 20px;
-	height: 75px;
-	font-size: 50px;
+    width: 20px;
+    height: 75px;
+    font-size: 50px;
 }
 
 td.other-credit {
-	color: #474747;
+    color: #474747;
 }
 
 td.get-credit {
-	color: #96d946;
+    color: #96d946;
 }
 
 td.now-credit {
-	color: #e9d848;
+    color: #e9d848;
 }
 
 td.pre-credit {
-	color: #85d0f6;
+    color: #85d0f6;
 }
 
 td.left-credit {
-	color: #e95956;
+    color: #e95956;
 }
+
 
 /* Second Block */
 
 div#CREDIT {
-	margin: 0px;
-	padding: 0px;
-	width: 100%;
-	min-width: 850px;
-	height: 730px;
-	background-color: #F7F8F7;
-	position: relative;
-	text-align: center;
+    margin:0px;
+    padding: 0px 0px 50px 0px;
+    width: 100%;
+    min-width: 850px;
+    text-align: center;
+    /*
+    min-height: 730px;
+    height: auto !important;
+    */
+    height: 730px;
+    background-color: #F7F8F7;
+    position: relative;
+
 }
 
 p#CREDIT_TITLE {
-	position: absolute;
-	margin: auto;
-	top: 0%;
-	left: 0px;
-	right: 0px;
-	width: 850px;
-	height: 80px;
-	font-size: 3em;
-	color: #474747;
-	z-index: 1;
+    position: absolute;
+    margin: auto;
+    top: 0%;
+    left: 0px;
+    right: 0px;
+    width: 850px;
+    height: 80px;
+    font-size: 3em;
+    color: #474747;
+    z-index: 1;
 }
 
 p#CREDIT_SUBTITLE {
-	position: absolute;
-	margin: auto;
-	top: 80px;
-	left: 0px;
-	right: 0px;
-	width: 850px;
-	height: 70px;
-	font-size: 0.8em;
-	color: #474747;
-	z-index: 1;
+    position: absolute;
+    margin: auto;
+    top: 80px;
+    left: 0px;
+    right: 0px;
+    width: 850px;
+    height: 70px;
+    font-size: 0.8em;
+    color: #474747;
+    z-index: 1;
+    font-weight: 300;
 }
 
-button#CREDIT_PULLDOWN {
-	position: absolute;
-	margin: auto;
-	top: 150px;
-	left: 0px;
-	right: 0px;
-	width: 170px;
-	height: 35px;
-	border-style: solid;
-	border-color: #bbbbbb;
-	border-width: 1px;
-	border-radius: 10px;
-	font-size: 1em;
-	color: #474747;
-	z-index: 1;
-	background-color: #ffffff;
+select#CREDIT_PULLDOWN {
+    position: absolute;
+    margin: auto;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance:none;
+    top: 150px;
+    left: 0px;
+    right: 0px;
+    width: 225px;
+    height: 35px;
+    border-style: solid;
+    border-color: #bbbbbb;
+    border-width: 1px;
+    border-radius: 5px;
+    font-size: 1em;
+    color: #474747;
+    z-index: 2;
+    text-align:left;
+    text-indent: 1.5em;
+    background-color: #ffffff;
 }
 
-button#CREDIT_PULLDOWN:active {
-	background-color: #e2e2e2;
+/*firefoxは挙動が異なるのでtext-indentを上書き*/
+@-moz-document url-prefix() {
+  select#CREDIT_PULLDOWN {
+    text-indent: 0.5em;
+  }
+}
+
+/*
+select#CREDIT_PULLDOWN:active {
+    background-color: #e2e2e2;
+}*/
+
+img#CREDIT_PULLDOWN_ARROW {
+    position: relative;
+    width: 20px;
+    height: 10px;
+    left: 80px;
+    padding:12.5px 0 12.5px 0;
+    top: 150px;
+    z-index: 2;
+    opacity: 0.8;
 }
 
 div#CREDIT_BOX {
-	position: absolute;
-	margin: auto;
-	top: 200px;
-	left: 0px;
-	right: 0px;
-	width: 850px;
-	height: 500px;
-	font-size: 1.5vw;
-	color: #474747;
-	z-index: 1;
-	background-color: #FFFFFF;
+    position: relative;
+    margin: auto;
+    top: 200px;
+    left: 0px;
+    right: 0px;
+    width: 850px;
+  /*
+    min-height: 500px;
+    height: auto !important;
+  */
+    height: 500px;
+
+    font-size: 1.5vw;
+    color: #474747;
+    z-index: 1;
+    background-color: #FFFFFF;
 }
 
 div#CREDIT_GRAPH {
-	position: relative;
-	margin: 0px;
-	padding: 0px;
-	width: 850px;
-	height: 260px;
-	min-width: 765px;
+    position: relative;
+    margin: 0px;
+    padding: 0px;
+    width: 850px;
+    height: 260px;
+    min-width: 765px;
 }
 
 div#GET_CREDIT_GRAPH {
-	position: absolute;
-	top: 0;
-	left: 25px;
-	margin: 0px;
-	width: 400px;
-	height: 260px;
+    position: absolute;
+    top: 0;
+    left: 25px;
+    margin: 0px;
+    width: 400px;
+    height: 260px;
 }
 
 div#GRADE_A_GRAPH {
-	position: absolute;
-	top: 0;
-	left: 425px;
-	margin: 0px;
-	width: 400px;
-	height: 260px;
+    position: absolute;
+    top: 0;
+    left: 425px;
+    margin: 0px;
+    width: 400px;
+    height: 260px;
 }
+
 
 /* Third Block */
 
 div#GRADE_GPA {
-	margin: 0px;
-	padding: 0px;
-	width: 100%;
-	min-width: 850px;
-	height: 1000px;
-	background-color: #F7F8F7;
-	position: relative;
-	text-align: center;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    min-width: 850px;
+    height: 1000px;
+    background-color: #F7F8F7;
+    position: relative;
+    text-align: center;
 }
 
 p#GRADE_GPA_TITLE {
-	position: absolute;
-	margin: auto;
-	top: 0%;
-	left: 0px;
-	right: 0px;
-	width: 850px;
-	height: 80px;
-	font-size: 3em;
-	color: #474747;
-	z-index: 1;
+    position: absolute;
+    margin: auto;
+    top: 0%;
+    left: 0px;
+    right: 0px;
+    width: 850px;
+    height: 80px;
+    font-size: 3em;
+    color: #474747;
+    z-index: 1;
 }
 
 p#GRADE_GPA_SUBTITLE {
-	position: absolute;
-	margin: auto;
-	top: 80px;
-	left: 0px;
-	right: 0px;
-	width: 850px;
-	height: 30px;
-	font-size: 1em;
-	color: #474747;
-	z-index: 1;
+    position: absolute;
+    margin: auto;
+    top: 80px;
+    left: 0px;
+    right: 0px;
+    width: 850px;
+    height: 30px;
+    font-size: 1em;
+    color: #474747;
+    z-index: 1;
 }
 
 div#GRADE_GPA_BOX {
-	position: absolute;
-	margin: auto;
-	top: 120px;
-	left: 0px;
-	right: 0px;
-	width: 850px;
-	height: 850px;
-
-	color: #474747;
-	z-index: 1;
-	background-color: #FFFFFF;
+    position: absolute;
+    margin: auto;
+    top: 120px;
+    left: 0px;
+    right: 0px;
+    width: 850px;
+    height: 850px;
+    color: #474747;
+    z-index: 1;
+    background-color: #FFFFFF;
 }
 
 table#GRADE_PAPERS {
-	margin: auto;
+    margin: auto;
 }
 
 td.paper-td {
-	width: 80px;
-	height: 100px;
+    width: 80px;
+    height: 100px;
 }
 
 img.paper-image {
-	width: 57px;
-	height: 75px;
+    width: 57px;
+    height: 75px;
 }
 
 td.cross-td {
-	width: 20px;
-	height: 100px;
-	color: #474747;
-	font-size: 1em;
+    width: 20px;
+    height: 100px;
+    color: #474747;
+    font-size: 1em;
 }
 
 td.credit-number-td {
-	width: 90px;
-	height: 100px;
-	color: #474747;
-	font-size: 2em;
+    width: 90px;
+    height: 100px;
+    color: #474747;
+    font-size: 2em;
 }
 
 td.unit-td {
-	width: 40px;
-	height: 100px;
-	color: #474747;
+    width: 40px;
+    height: 100px;
+    color: #474747;
 }
 
 div#GRADE_GPA_GRAPH {
-	margin: auto;
-	width: 640px;
-	height: 460px;
-	position: relative;
+    margin: auto;
+    width: 640px;
+    height: 460px;
+    position: relative;
 }
 
 svg#GRADE_RATE {
-	position: absolute;
-	top: 0px;
-	left: 120px;
-	margin: 0px;
-	width: 400px;
-	height: 260px;
+    position: absolute;
+    top: 0px;
+    left: 120px;
+    margin: 0px;
+    width: 400px;
+    height: 260px;
 }
 
 svg#CREDIT_TRANSITION {
-	position: absolute;
-	top: 260px;
-	left: 0px;
-	margin: 0px;
-	width: 320px;
-	height: 200px;
+    position: absolute;
+    top: 260px;
+    left: 0px;
+    margin: 0px;
+    width: 320px;
+    height: 200px;
 }
 
 svg#GPA_TRANSITION {
-	position: absolute;
-	top: 260px;
-	left: 320px;
-	margin: 0px;
-	width: 320px;
-	height: 200px;
+    position: absolute;
+    top: 260px;
+    left: 320px;
+    margin: 0px;
+    width: 320px;
+    height: 200px;
 }
+
 
 /* Fourth Block */
 
 div#SCHEDULE {
-	margin: 0px;
-	padding: 0px;
-	width: 100%;
-	min-width: 850px;
-	height: 800px;
-	background-color: #F7F8F7;
-	position: relative;
-	text-align: center;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    min-width: 850px;
+    height: 800px;
+    background-color: #F7F8F7;
+    position: relative;
+    text-align: center;
 }
 
 p#SCHEDULE_TITLE {
-	position: absolute;
-	margin: auto;
-	top: 0%;
-	left: 0px;
-	right: 0px;
-	width: 850px;
-	height: 80px;
-	font-size: 3em;
-	color: #474747;
-	z-index: 1;
+    position: absolute;
+    margin: auto;
+    top: 0%;
+    left: 0px;
+    right: 0px;
+    width: 850px;
+    height: 80px;
+    font-size: 3em;
+    color: #474747;
+    z-index: 1;
 }
 
 p#SCHEDULE_SUBTITLE {
-	position: absolute;
-	margin: auto;
-	top: 80px;
-	left: 0px;
-	right: 0px;
-	width: 850px;
-	height: 30px;
-	font-size: 1em;
-	color: #474747;
-	z-index: 1;
+    position: absolute;
+    margin: auto;
+    top: 80px;
+    left: 0px;
+    right: 0px;
+    width: 850px;
+    height: 30px;
+    font-size: 1em;
+    color: #474747;
+    z-index: 1;
 }
 
 div#SCHEDULE_BOX {
-	position: absolute;
-	margin: auto;
-	top: 120px;
-	left: 0px;
-	right: 0px;
-	width: 850px;
-	height: 640px;
-	color: #474747;
-	z-index: 1;
-	background-color: #FFFFFF;
+    position: absolute;
+    margin: auto;
+    top: 120px;
+    left: 0px;
+    right: 0px;
+    width: 850px;
+    height: 640px;
+    color: #474747;
+    z-index: 1;
+    background-color: #FFFFFF;
 }
 
+
+/*科目詳細表示モーダル*/
+div#SHOW_SUB_DETAIL_MODAL_CONTENTS {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    max-width: 340px;
+		max-height: 680px;
+    margin: 0;
+    padding: 0;
+    border-color: #bbbbbb;
+    border-width: 1px;
+    border-radius: 10px;
+    z-index: 10;
+		background-color: #ffffff;
+    background-image: url(../img/main_show_sub_modal/SENMON_SENTAKU.svg);
+    background-repeat: no-repeat;
+    background-position: 30% 60%;
+}
+
+div.text-center {
+    text-align: center;
+    z-index: 20;
+}
+
+div.text-left {
+    text-align: left;
+}
+
+hr.show-sub-detail-modal {
+    border-width: 1px 0px 0px 0px;
+    border-style: solid;
+    border-color: #363636;
+    height: 1px;
+    margin: 5px 30px 5px 30px;
+    opacity: 0.8;
+}
+
+div#ID_NAME_LABEL {
+    margin: 45px 0 0 0;
+    font-size: 16px;
+    z-index: 20;
+}
+
+div#CREDIT_VALUE_LABEL {
+    margin: 0 0 0 30px;
+    font-size: 16px;
+    z-index: 20;
+}
+
+div#SCHOOL_GRADE_LABEL {
+    margin: 0 0 0 30px;
+    font-size: 16px;
+    z-index: 20;
+}
+
+div#SUB_CLASS_LABEL {
+    margin: 0 0 0 30px;
+    font-size: 16px;
+    z-index: 20;
+}
+
+div#LESSON_TIME_LABEL {
+    margin: 0 0 0 30px;
+    font-size: 16px;
+    z-index: 20;
+}
+
+div#CLASS_ROOM_LABEL {
+    margin: 0 0 0 30px;
+    font-size: 16px;
+    z-index: 20;
+}
+
+div#TEATURE_LABEL {
+    margin: 0 0 0 30px;
+    font-size: 16px;
+}
+
+div#STATE_LABEL {
+    margin: 0 0 0 30px;
+    font-size: 16px;
+    z-index: 20;
+}
+
+div#GRADE_LABEL {
+    margin: 0 0 0 30px;
+    font-size: 16px;
+    z-index: 20;
+}
+
+div#DESCRIPTION_LABEL {
+    margin: 0 30px 0 30px;
+    font-size: 14px;
+    z-index: 20;
+}
+
+div#REMARKS_LABEL {
+    margin: 0 30px 0 30px;
+    font-size: 14px;
+    z-index: 20;
+}
+
+div#DEGITAL_SYRABAS_BOX {
+    margin: 10px 0 0 0;
+    z-index: 20;
+}
+
+a#DEGITAL_SYRABAS_LABEL {
+    color: #363636;
+    font-size: 16px;
+    text-decoration: none;
+    border-bottom: 1px #363636 dotted;
+}
+
+img#SHOW_SUB_DETAIL_MODAL_CLOSE_BUTTON {
+    top: 20px;
+    left: 300px;
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    z-index: 25;
+    cursor: pointer;
+}
+
+img#BUTTON_LABEL {
+    margin: 0 25px 0 25px;
+}
+
+table.credit-detail-table{
+  position: relative;
+	border:none;
+  border-collapse: collapse;
+  text-align: center;
+  margin: auto;
+  width:750px;
+  margin:0 50px 0 50px;
+  font-size: 15px;
+  z-index: 0;
+}
+
+table.credit-detail-table td{
+  max-height:10px;
+}
+
+table.credit-detail-table thead {
+	background-color: #f5f5f5
+}
+
+table.credit-detail-table th{
+  padding: 0;
+}
+
+div.datatables-filter{
+  position: relative;
+  font-size: 15px;
+  left:270px;
+  margin: 10px 0 10px 0;
+}
+
+div.datatables-info{
+  position: relative;
+  font-size: 15px;
+  left: 270px;
+  margin: 10px 0 10px 0;
+}
+
+.datatables-paginate .paginate-button {
+  position: relative;
+  display: inline-block;
+  top:10px;
+  font-size: 15px;
+  padding: 5px 10px 5px 10px;
+  margin: 0 1px 0 1px;
+  text-align: center;
+  text-decoration: none !important;
+  cursor: pointer;
+  color: #474747 !important;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  z-index: 2;
+}
+.datatables-paginate .paginate-button.current, .datatables-wrapper .dataTables_paginate .paginate-button.current:hover {
+  border: 1px solid #979797;
+  background-color: #ffffff;
+}
+.datatables-paginate .paginate-button.disabled, .datatables-wrapper .dataTables_paginate .paginate-button.disabled:hover, .datatables-wrapper .dataTables_paginate .paginate-button.disabled:active {
+  cursor: default;
+  color: #474747 !important;
+  border: 1px solid transparent;
+  background: transparent;
+  box-shadow: none;
+}
+
+div.datatables-filter label{
+  font-family: FontAwesome;
+}
+
+div.datatables-filter label:before{
+  content: "\f002";
+}
+
+div.datatables-filter input{
+  width: 180px;
+  height: 20px;
+  margin: 0 0 0 10px;
+}
+
+a#CREDIT_TABLE_previous:before{
+  font-family: FontAwesome;
+  padding: 0 10px 0 10px;
+  content:"\f104";
+}
+
+a#CREDIT_TABLE_next:after{
+  font-family: FontAwesome;
+  padding: 0 10px 0 10px;
+  content:"\f105";
+}
+
+
+table.credit-detail-table thead th.sorting:after,
+table.credit-detail-table thead th.sorting-asc:after,
+table.credit-detail-table thead th.sorting-desc:after {
+  font-family: FontAwesome;
+  padding: 0 0 0 5px;
+}
+
+table.credit-detail-table  thead th.sorting:after{
+  content: "\f0dc";
+}
+
+table.credit-detail-table thead th.sorting-asc:after{
+  content: "\f0de";
+}
+
+table.credit-detail-table thead th.sorting-desc:after{
+  content: "\f0dd";
+}
+
+table.credit-detail-table tr:nth-child(even) td {
+	background-color: #f5f5f5
+}
+
+table.credit-detail-table td:nth-child(1){
+  width: 170px;
+  cursor: pointer;
+}
+
+table.credit-detail-table td:nth-child(2){
+  width: 250px;
+}
+
+table.credit-detail-table td:nth-child(3){
+  width: 110px;
+}
+
+table.credit-detail-table td:nth-child(4){
+  width: 110px;
+}
+
+table.credit-detail-table td:nth-child(5){
+  width: 110px;
+}
+
+div#SUB_ADD_MODAL_OPEN{
+  position: relative;
+  top:-20px;
+  left:-300px;
+  font-size: 18px;
+  z-index: 1;
+}
+
+div#SUB_ADD_MODAL_OPEN:before {
+  font-family: FontAwesome;
+  padding: 0 5px 0 5px;
+  content: "\f055";
+}
+
+
 /*　↑↑↑↑　メインページ　↑↑↑↑　*/
+
+
 /*　↓↓↓↓　トップメイン共通　↓↓↓↓　*/
 
 div#FOOTER {
-	margin: 0px;
-	padding: 0px;
-	width: 100%;
-	min-width: 850px;
-	height: 50px;
-	background-color: #464646;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    min-width: 850px;
+    height: 50px;
+    background-color: #464646;
 }
 
 p#COPYRIGHT {
-	margin: auto;
-	width: 300px;
-	color: #FFFFFF;
-	font-size: 25px;
+    padding: 14px 0 6px 0;
+    margin: auto;
+    text-align: center;
+    width: 300px;
+    color: #FFFFFF;
+    font-size: 15px;
 }
+
+div#MODAL_BACKGROUND {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+    background-color: #000000;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    z-index: 3;
+}
+
 /*　↑↑↑↑　トップメイン共通　↑↑↑↑　*/
