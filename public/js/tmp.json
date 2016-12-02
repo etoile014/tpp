@@ -16,7 +16,16 @@
             "courseSum" : 15.0
         },
         {
-            "course" : "Sogo1",
+            "course" : "SenmonKiso",
+            "needCourse" : 12.0,
+            "getCourse" : 3.0,
+            "nowCourse" : 2.0,
+            "preCourse" : 1.0,
+            "courseA" : 5.0,
+            "courseSum" : 15.0
+        },
+        {
+            "course" : "Kiso",
             "needCourse" : 12.0,
             "getCourse" : 3.0,
             "nowCourse" : 2.0,
