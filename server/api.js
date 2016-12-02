@@ -88,7 +88,7 @@ app.post("/api/csv", function(req, res, next){
 	    x = row.min;
 	    for (var i=0; eval("req.body.line" + i) != undefined ; i++){
 		var str = eval("req.body.line" + i + ".subject");
-		if( str.match(/1119.+?/) || str.match(/1319.+?/) || str.match(/12.+?/)){
+		if( str.match(/1119.+?/) || str.match(/1319.+?/) || str.match(/12.+?/)){//miss
 		    y++;
 		}
 	    }
