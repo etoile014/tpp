@@ -1094,9 +1094,11 @@ div#SHOW_SUB_DETAIL_MODAL_CONTENTS {
     border-radius: 10px;
     z-index: 10;
     background-color: #ffffff;
-    background-image: url(../img/main_show_sub_modal/SENMON_SENTAKU.svg);
+
+    background-image: url(../img/main_show_sub_modal/MODAL_LOGO.svg);
     background-repeat: no-repeat;
     background-position: 30% 60%;
+
 }
 
 div.text-center {
@@ -1259,7 +1261,7 @@ div.datatables-info{
     color: #474747 !important;
     border: 1px solid transparent;
     border-radius: 2px;
-    z-index: 2;
+    z-index: 4;
 }
 .datatables-paginate .paginate-button.current, .datatables-wrapper .dataTables_paginate .paginate-button.current:hover {
     border: 1px solid #979797;
@@ -1330,6 +1332,10 @@ table.credit-detail-table td:nth-child(1){
 
 table.credit-detail-table td:nth-child(2){
     width: 250px;
+    max-width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 table.credit-detail-table td:nth-child(3){
@@ -1351,7 +1357,7 @@ div#SUB_ADD_MODAL_OPEN{
     top:-20px;
     left:-300px;
     font-size: 18px;
-    z-index: 1;
+    z-index: 3;
 }
 
 div#SUB_ADD_MODAL_OPEN:before {

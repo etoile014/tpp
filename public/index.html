@@ -189,11 +189,11 @@
                 <text>卒業までに必要な単位数や今までに取得した単位を確認できます</text><br>
                 <text>これから履修予定の科目を入力して卒業シミュレーションも！</text>
             </p>
-            <select id="CREDIT_PULLDOWN">
-                <option>専門科目</option>
-                <option>専門基礎科目</option>
-                <option>基礎科目</option>
-                <option>基礎科目(GPA対象外)</option>
+            <select name="credit_pulldown" id="CREDIT_PULLDOWN">
+                <option value="A">専門科目</option>
+                <option value="B">専門基礎科目</option>
+                <option value="C">基礎科目</option>
+                <option value="C_0">基礎科目(GPA対象外)</option>
             </select>
             <img id="CREDIT_PULLDOWN_ARROW" src="./img/main/CREDIT_PULLDOWN_ARROW.svg" />
             <div id="CREDIT_BOX">
@@ -211,62 +211,17 @@
                             <th>状態</th>
                         </tr>
                     </thead>
-                    <tr>
-                        <td id="SHOW_SUB_DETAIL_MODAL_OPEN">GC54401</td>
-                        <td>映像メディア論</td>
-                        <td>1.0</td>
-                        <td>A</td>
-                        <td>履修済み</td>
-                    </tr>
-                    <tr>
-                        <td>GC54402</td>
-                        <td>hoge</td>
-                        <td>2.0</td>
-                        <td>ー</td>
-                        <td>未履修</td>
-                    </tr>
-                    <tr>
-                        <td>GC54400</td>
-                        <td>fuga</td>
-                        <td>0.5</td>
-                        <td>C</td>
-                        <td>履修済み</td>
-                    </tr>
-                    <tr>
-                        <td>GC54400</td>
-                        <td>fuga</td>
-                        <td>0.5</td>
-                        <td>C</td>
-                        <td>履修済み</td>
-                    </tr>
-                    <tr>
-                        <td>GC54400</td>
-                        <td>fuga</td>
-                        <td>0.5</td>
-                        <td>C</td>
-                        <td>履修済み</td>
-                    </tr>
-                    <tr>
-                        <td>GC54400</td>
-                        <td>fuga</td>
-                        <td>0.5</td>
-                        <td>C</td>
-                        <td>履修済み</td>
-                    </tr>
-                    <tr>
-                        <td>GC54400</td>
-                        <td>fuga</td>
-                        <td>0.5</td>
-                        <td>C</td>
-                        <td>履修済み</td>
-                    </tr>
+                    <tbody id="CREDIT_TABLE_TBODY">
+                  </tbody>
                 </table>
                 <div id="SUB_ADD_MODAL_OPEN">追加</div>
+
             </div>
         </div>
         <div class="interval">
             <img class="interval-image" src="img/main/Stripe_Line.png">
         </div>
+
         <div id="GRADE_GPA">
             <p id="GRADE_GPA_TITLE">Your Marks and GPA</p>
             <p id="GRADE_GPA_SUBTITLE">今までのあなたは"ぴょんぴょん"してますか？</p>
@@ -376,5 +331,7 @@
         <div class="text-center" id="DEGITAL_SYRABAS_BOX">
         </div>
     </div>
+
+
 </body>
 </html>
