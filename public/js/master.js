@@ -928,6 +928,7 @@ function initShowSubModalData() {
     document.getElementById("STATE_LABEL").innerHTML = "";
     document.getElementById("DESCRIPTION_LABEL").innerHTML = "";
     document.getElementById("REMARKS_LABEL").innerHTML = "";
+    $('#GRADE_LABEL').remove();
     $('#DEGITAL_SYRABAS_BAR').remove();
     $('#DEGITAL_SYRABAS_BOX').remove();
 }
@@ -943,6 +944,12 @@ function setShowSubModalData(data) {
     var lesson_period = data.type; //サーバーから受信(KdB)
     var class_room = data.place; //サーバーから受信(KdB)
     var teature = data.teacher; //サーバーから受信(KdB)
+
+    var state = data.state;//サーバから受信（おうむ返し）
+    var grade = data.score;
+
+    console.log("state: "+data.state);
+    console.log("grade: "+data.score);
     /*
     [履修済み,履修中,履修予定,未履修]=[0,1,2,3]
     履修済み：CSVファイルで成績が "X" でない
@@ -950,15 +957,8 @@ function setShowSubModalData(data) {
     履修予定：シミュレーションしている科目に該当
     未履修　：シュミレーションしている科目に該当しない
     */
-    var state_frag = 0; //サーバーから受信(CSVとシミュレーションの結果から値を計算)
-    var stateHash = {
-        0: "履修済み",
-        1: "履修中",
-        2: "履修予定",
-        3: "未履修"
-    };
-    var state = stateHash[state_frag];
-    if (state_frag == 0) var grade = "A"; //サーバーから受信(CSV)
+
+
 
     var description = data.summery;
     if(data.etc != "") {
@@ -982,15 +982,15 @@ function setShowSubModalData(data) {
     document.getElementById("CLASS_ROOM_LABEL").innerHTML = "教室：" + class_room;
     document.getElementById("TEATURE_LABEL").innerHTML = "担当：" + teature;
     document.getElementById("STATE_LABEL").innerHTML = "状態：" + state;
-    if (state_frag == 0) {
+    if (state == "履修済み") {
         if (!($('#GRADE_LABEL').length)) {
             $('<div id="GRADE_LABEL">' + "成績：" + grade + '</div>').insertAfter('#STATE_LABEL');
         }
-    } else if (state_frag == 2) {
+    } else if (state == "履修予定") {
         if (!($('#BUTTON_LABEL').length)) {
             $('<hr class="show-sub-detail-modal"/><img id="BUTTON_LABEL" src="./img/main_show_sub_modal/DELETE_COURSE_BUTTON.svg" onclick="hoge" />').insertAfter('#STATE_LABEL');
         }
-    } else if (state_frag == 3) {
+    } else if (state == "未履修") {
         if (!($('#BUTTON_LABEL').length)) {
             $('<hr class="show-sub-detail-modal"/><img id="BUTTON_LABEL" src="./img/main_show_sub_modal/TAKE_COURSE_BUTTON.svg" onclick="hoge" />').insertAfter('#STATE_LABEL');
         }
@@ -1104,7 +1104,7 @@ $(function() {
 
 function appendTableData(JsonObject,keyline){
   $("#CREDIT_TABLE tbody").append('<tr>' +
-      '<td value="' + JsonObject[keyline].subject + '_' + JsonObject[keyline].year + '" class="sorting-1" onclick="submitShowsubData()">' + JsonObject[keyline].subject + '</td>' +
+      '<td value="' + JsonObject[keyline].subject + '_' + JsonObject[keyline].year + '_' + JsonObject[keyline].grade +'_' + JsonObject[keyline].state +'" class="sorting-1" onclick="submitShowsubData()">' + JsonObject[keyline].subject + '</td>' +
       '<td>' + JsonObject[keyline].name + '</td>' +
       '<td>' + JsonObject[keyline].credit + '</td>' +
       '<td>' + JsonObject[keyline].grade + '</td>' +
@@ -1147,7 +1147,9 @@ function submitShowsubData(){
   if(Number(data[1])>nowSchoolYear){
     data[1] = nowSchoolYear;//未来のKdBデータは存在しないので最新のものが未来もあると仮定
   }
-  var subjectJson = '{\t' + '\"id\":' + '\"'+data[0]+'\"'+',\t\"year\":' +  '\"'+data[1]+'\"\t}';
+  console.log("data[0]:"+data[0]+" data[1]:"+data[1]+" data[2]:"+data[2]+" data[3]:"+data[3])
+  var subjectJson = '{\t' + '\"id\":' + '\"'+data[0]+'\"'+',\t\"year\":' +  '\"'+data[1]+'\"'+',\t\"score\":'+'\"'+data[2]+'\"'+',\t\"state\":'+'\"'+data[3]+'\"'+'\t}';
+
   console.log(subjectJson);
   $.ajax({
       type: "POST",
