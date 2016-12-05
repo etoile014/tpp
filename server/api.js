@@ -30,10 +30,10 @@ var server = app.listen(80, function(){
 app.get("/api/csv", function(req, res, next){
     var data;
     res.writeHead(200, {'Content-Type': 'text/html'});
-    courseDB.get('select * from course2016 where id = "GC41203"',function (err, row){
+    courseDB.get('select * from course2016 where id = GC41203',function (err, row){
 	console.log("searching.... " + req.body.id);
 	if (err) {console.log(err)}
-	else {data = row}
+	else {data = row.name}
     });
     res.write(data);
     res.end();
