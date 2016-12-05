@@ -130,8 +130,8 @@
                 <div id="REQUIREMENT_GRAPH">
                     <svg id="BAR_GRAPH"></svg>
                     <svg id="RABBIT_GRAPH"></svg>
-                    <img id="OVERRAY" src="img/graph_img/Rabbit_Mask.png">
-                    <img id="SCALE" src="img/graph_img/Scale.png" />
+                    <img id="OVERRAY" src="img/graph_img/Rabbit_Mask.svg">
+                    <img id="SCALE" src="img/graph_img/Scale.svg" />
                 </div>
                 <div id="CREDIT_LABEL">
                     <table border="0">
@@ -185,7 +185,7 @@
         <div id="CREDIT">
             <p id="CREDIT_TITLE">Your Credits Detail</p>
             <p id="CREDIT_SUBTITLE">
-                <text>単位詳細を見たいものを４種類の科目区分から選ぼう</text><br>
+                <text>単位詳細を見たいものを５種類の科目区分から選ぼう</text><br>
                 <text>卒業までに必要な単位数や今までに取得した単位を確認できます</text><br>
                 <text>これから履修予定の科目を入力して卒業シミュレーションも！</text>
             </p>
@@ -194,6 +194,7 @@
                 <option value="B">専門基礎科目</option>
                 <option value="C">基礎科目</option>
                 <option value="C_0">基礎科目(GPA対象外)</option>
+                <option value="D">履修予定科目</option>
             </select>
             <img id="CREDIT_PULLDOWN_ARROW" src="./img/main/CREDIT_PULLDOWN_ARROW.svg" />
             <div id="CREDIT_BOX">
@@ -281,7 +282,7 @@
         </div>
     </div>
 
-    <!-- トップのモーダル -->
+    <!-- トップ(所属入力)モーダル -->
     <div id="INPUT_AFFILIATION_MODAL_CONTENTS">
         <img id="INPUT_MODAL_CONTENTS_TOP" src="img/top_input_modal/INPUT_MODAL_TOP.png" />
         <select id="FACULTY_SELECT" class="input-affiliation-pulldown">
@@ -305,7 +306,15 @@
         <img id="INPUT_MODAL_OK_BUTTON" src="./img/top_input_modal/OK_BUTTON_OFF.png" onclick="submitAffiliationData()"/>
     </div>
 
-    <!-- メインのモーダル -->
+    <!-- トップ(エラー)モーダル -->
+    <div id="TOP_ERROR_MODAL_CONTENTS">
+      <img id="TOP_ERROR_MODAL_ATTENTION_ICON" src="./img/top_error_modal/ATTENTION.svg"/>
+      <img id="TOP_ERROR_MODAL_OK_BUTTON" src="./img/top_error_modal/ERROR_OK_BUTTON_OFF.svg" onclick="closeTopErrorModal()"/>
+      <p id="ERROR_TITLE"></p>
+      <p id="ERROR_MESSAGE"></p>
+    </div>
+
+    <!-- メイン(科目詳細)モーダル -->
     <div id="SHOW_SUB_DETAIL_MODAL_CONTENTS">
         <img id="SHOW_SUB_DETAIL_MODAL_CLOSE_BUTTON" src="./img/main_show_sub_modal/CLOSE_MODAL.svg" onclick="closeShowSubModal()" />
         <div id="ID_NAME_LABEL" class="text-center"></div>
@@ -332,6 +341,29 @@
         </div>
     </div>
 
+    <!-- メイン(科目追加)モーダル -->
+    <div id="SUB_ADD_MODAL_CONTENTS">
+      <img id="ADD_SUB_MODAL_CLOSE_BUTTON" src="./img/main_show_sub_modal/CLOSE_MODAL.svg" onclick="closeAddSubModal()" />
+      <p id="SUB_ADD_MODAL_TITLE">履修予定科目追加</p>
+      <hr class="add-sub-modal">
+      <p id="SUB_ADD_MODAL_DESCRIPTION">履修予定に追加し、卒業までの取得単位をシミュレーションしたい科目を追加します。
+                                        該当科目の科目番号と履修予定年度を入力し、追加ボタンを押してください。
+                                        追加しない場合はキャンセルボタンを押してください。</p>
+      <span id="COURSE_LABEL">科目番号</span>
+      <input id="INPUT_COURSE_ID_TEXT" type="text" placeholder=" GC41203" pattern="[A-Z0-9]{4}\d{3}">
+      <span id="YEAR_LABEL">履修予定年度</span>
+      <input id="INPUT_COURSE_YEAR" type="number" min="2000" max="2099" step="1" placeholder=" 2014"  pattern="20\d{2}">
+      <img id="ADD_SUB_MODAL_CANCEL_BUTTON" src="./img/main_add_sub_modal/ADD_SUB_MODAL_CANCEL_BUTTON_OFF.svg" onclick="closeAddSubModal()"/>
+      <img id="ADD_SUB_MODAL_ADD_BUTTON" src="./img/main_add_sub_modal/ADD_SUB_MODAL_ADD_BUTTON_OFF.svg" onclick="submitAddSubjectData()"/>
+    </div>
+
+    <!-- メイン(履修予定追加結果)モーダル -->
+    <div id="SUB_ADD_RESULT_MODAL_CONTENTS">
+      <img id="ADD_SUB_RESULT_ICON" src=""/>
+      <img id="ADD_SUB_RESULT_MODAL_OK_BUTTON" src="./img/top_error_modal/ERROR_OK_BUTTON_OFF.svg" onclick="closeAddSubResultModal()"/>
+      <p id="RESULT_TITLE"></p>
+      <p id="RESULT_MESSAGE"></p>
+    </div>
 
 </body>
 </html>

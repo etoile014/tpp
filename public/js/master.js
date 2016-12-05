@@ -1,5 +1,6 @@
 var mode = 0; //0:top, 1:main
 var csvFileFlag = 0;
+var affiliationFlag = 0;
 var animated1 = false;
 var animated2 = false;
 var animated3 = false;
@@ -484,7 +485,7 @@ $(window).load(function() {
 });
 
 function jumpMain() {
-    if (csvFileFlag == 1) {
+    if (csvFileFlag == 1 && affiliationFlag == 1) {
         mode = 1;
         $("#HEADER_MENU_INSIDE1, #PAGE_MAIN1").animate({
             opacity: 0,
@@ -685,7 +686,7 @@ function convertJsonText(dataArray, Aff) {
 }
 
 function postData() {
-    if (csvFileFlag == 1) {
+    if (csvFileFlag == 1 && affiliationFlag == 1) {
         $.ajax({
             type: "POST",
             data: JsonText,
@@ -821,6 +822,7 @@ function submitAffiliationData() {
     closeInputModal();
     // ここでサーバーに情報を送る
     convertJsonText(dataArray, AffiliationValue);
+    affiliationFlag = 1;
 }
 
 $(document).ready(function() {
@@ -869,7 +871,7 @@ $(function() {
         setShowSubModalData();
 
         if (!($('#MODAL_BACKGROUND').length)) {
-            $('<div id="MODAL_BACKGROUND"></div>').insertAfter('#PAGE_MAIN');
+            $('<div id="MODAL_BACKGROUND"></div>').insertAfter('#PAGE_MAIN2');
         }
 
         //$("body").append('<div id="MODAL_BACKGROUND"></div>');
@@ -1002,10 +1004,52 @@ function setShowSubModalData(data) {
 
 }
 
+/*トップエラーモーダル*/
+function showTopErrorModal() {
+    if (!($('#MODAL_BACKGROUND').length)) {
+        $('<div id="MODAL_BACKGROUND"></div>').insertAfter('#PAGE_MAIN1');
+    }
+    $("#MODAL_BACKGROUND").fadeIn("1200");
+    $("#TOP_ERROR_MODAL_CONTENTS").center().fadeIn("1500");
 
-/*初回*/
+    $("#MODAL_BACKGROUND,#TOP_ERROR_MODAL_CONTENTS").click(function() {
+        if (!$(this).closest('#TOP_ERROR_MODAL_CONTENTS').length) {
+            $("#TOP_ERROR_MODAL_CONTENTS").center().fadeOut("1000", function() {
+                $('#MODAL_BACKGROUND').remove();
+                initErrorModalText();
+            });
+        }
+    });
+}
+
+function closeTopErrorModal() {
+    $("#TOP_ERROR_MODAL_CONTENTS").center().fadeOut("1000", function() {
+        $('#MODAL_BACKGROUND').remove();
+    });
+    initErrorModalText();
+    if(csvFileFlag==1 && affiliationFlag==0){
+      reloadTop();
+    }
+}
+
+function initErrorModalText(){
+  document.getElementById("ERROR_TITLE").innerHTML = "";
+  document.getElementById("ERROR_MESSAGE").innerHTML = "";
+}
+
+$(function() {
+    $("#TOP_ERROR_MODAL_OK_BUTTON").hover(function() {
+        $(this).attr("src", $(this).attr("src").replace("_OFF", "_ON"));
+    }, function() {
+        $(this).attr('src', $(this).attr('src').replace('_ON', '_OFF'));
+    });
+});
+
+/*初回&エラー処理*/
 $(function() {
     $("#SUBMIT").on('click', function() {
+      if(csvFileFlag==1 && affiliationFlag==1)
+      {
         initDataTable();
         var JsonObject = JSON.parse(JsonText);
         var nest_subject_value = Object.keys(JsonObject).length - 1; //所属ID分を引く。line0から始まる
@@ -1020,6 +1064,20 @@ $(function() {
             }
         }
         drawDataTable();
+      }else if(csvFileFlag==1 && affiliationFlag==0){
+        $("#ERROR_TITLE").append("所属が入力されていません");
+        $("#ERROR_MESSAGE").append("もう一度CSVファイルを入力し、その後ご自身の所属を入力してください。");
+        showTopErrorModal();
+      }else if(csvFileFlag==0 && affiliationFlag==1){
+        $("#ERROR_TITLE").append("csvファイルが入力されていません");
+        $("#ERROR_MESSAGE").append("このボタン上部にあるグレーのボタンを押してTWINSからダウンロードしたCSVファイルアップロードしてください。");
+        showTopErrorModal();
+      }else if(csvFileFlag==0 && affiliationFlag==0){
+        $("#ERROR_TITLE").append("csvファイル・所属が入力されていません");
+        $("#ERROR_MESSAGE").append("このボタン上部にあるグレーのボタンを押してTWINSからダウンロードしたCSVファイルアップロードし、その後の所属入力画面でご自分の所属を入力してください。");
+        showTopErrorModal();
+        //alert("csvファイルがアップロードされていません。\n所属が入力されていません。");
+      }
     });
 });
 
@@ -1082,14 +1140,13 @@ function initDataTable() {
     $("#CREDIT_TABLE").dataTable().fnDestroy();
 }
 
- $('#CREDIT_TABLE tbody').on('click','tr', function(){
-   var data = table.row( this.rowIndex-1 ).data();
-   console.log(data);
- });
-
 function submitShowsubData(){
   var val = $("#CREDIT_TABLE_TBODY td").attr("value");
   var data = val.split("_");
+  var nowSchoolYear = getSchoolYear();
+  if(Number(data[1])>nowSchoolYear){
+    data[1] = nowSchoolYear;//未来のKdBデータは存在しないので最新のものが未来もあると仮定
+  }
   var subjectJson = '{\t' + '\"id\":' + '\"'+data[0]+'\"'+',\t\"year\":' +  '\"'+data[1]+'\"\t}';
   console.log(subjectJson);
   $.ajax({
@@ -1116,7 +1173,7 @@ $(function() {
     $("#SUB_ADD_MODAL_OPEN").click(function() {
         //$("body").append('<div id="MODAL_BACKGROUND"></div>');
         if (!($('#MODAL_BACKGROUND').length)) {
-            $('<div id="MODAL_BACKGROUND"></div>').insertAfter('#FOOTER');
+            $('<div id="MODAL_BACKGROUND"></div>').insertAfter('#PAGE_MAIN2');
         }
 
         $("#MODAL_BACKGROUND").fadeIn("1200");
@@ -1126,10 +1183,186 @@ $(function() {
             if (!$(this).closest('#SUB_ADD_MODAL_CONTENTS').length) {
 
                 $("#SUB_ADD_MODAL_CONTENTS").center().fadeOut("1000", function() {
+                    initAddSubModalText();
                     $('#MODAL_BACKGROUND').remove();
                 })
             }
         });
 
+    });
+});
+
+function closeAddSubModal(frag){
+  $("#SUB_ADD_MODAL_CONTENTS").center().fadeOut("1000", function() {
+      initAddSubModalText();
+      if(frag==null){
+        $('#MODAL_BACKGROUND').remove();
+      }
+  });
+}
+
+$(function() {
+    $("#ADD_SUB_MODAL_CANCEL_BUTTON,#ADD_SUB_MODAL_ADD_BUTTON").hover(function() {
+        $(this).attr("src", $(this).attr("src").replace("_OFF", "_ON"));
+    }, function() {
+        $(this).attr('src', $(this).attr('src').replace('_ON', '_OFF'));
+    });
+});
+
+
+function initAddSubModalText(){
+  document.getElementById("INPUT_COURSE_ID_TEXT").value = "";
+  document.getElementById("INPUT_COURSE_YEAR").value = "";
+}
+
+
+
+function submitAddSubjectData() {
+  var errorMessage = "";
+  var inputCourseID = $("#INPUT_COURSE_ID_TEXT").val();
+  if(inputCourseID.match(/^[A-Z0-9]{4}\d{3}$/))
+  {
+    //console.log("科目ID:" + inputCourseID);
+  }else{
+    errorMessage += "<p>入力された科目IDは適切ではありません。</p>";
+  }
+  var inputCourseYear = $("#INPUT_COURSE_YEAR").val();
+  var sYear = getSchoolYear();
+  //console.log("年度:"+sYear);
+  if(inputCourseYear.match(/^20\d{2}$/) && sYear<=inputCourseYear)
+  {
+    //console.log("履修予定年度:" + inputCourseYear);
+  }else{
+    errorMessage += "<p>入力された履修年度は適切ではありません。</p>";
+  }
+  var removeFlag = 1;
+  closeAddSubModal(removeFlag);
+
+  //エラーがなければサーバーに送信
+  var successMessage="";
+  var creditErrorMessage="";//正確には科目が存在しない、単位キャップに引っかかる、単位の重複の場合のエラー
+  if(errorMessage!=""){
+    showAddSubResultModal(errorMessage,successMessage);
+  }else{
+    //未来のKdBデータはないので最新教科データが適用されるものと考えて、今年度の年を送信(inputCourseYearは後で使う)
+    var subjectJson = '{\t' + '\"id\":' + '\"'+inputCourseID+'\"'+',\t\"year\":' +  '\"'+sYear+'\"\t}';
+    console.log(subjectJson);
+    $.ajax({
+        type: "POST",
+        data: subjectJson,
+        url: "https://tpp.d-io.com/api/search/",
+        contentType: "application/json",
+        success: function(data) {
+            if(data!=""){
+              //科目が存在する
+              data = $.parseJSON(data);
+              console.log(data);
+              //既にに履修済み、履修中か判定
+              if(!(JsonText.match(inputCourseID))){
+                //履修していない
+                //その年の単位キャップを越えていないか確認(現段階では単位キャップは45.0単位固定)
+                if(countMatch(JsonText, inputCourseYear)<=45){
+                  //キャップ内
+                  //登録処理
+                  console.log(JsonText);
+                  var next_line = countMatch(JsonText,'line');//line0から始まるので注意
+                  var tmp = JsonText.substr(0, JsonText.length-2);
+                  tmp += ',\n';
+                  tmp += '\t"line'+next_line+'": {\n';
+                  tmp += '\t\t"classification": "D",\n';
+                  tmp += '\t\t"year": "'+inputCourseYear+'",\n';
+                  tmp += '\t\t"subject": "'+inputCourseID+'",\n';
+                  tmp += '\t\t"name": "'+data.name+'",\n';
+                  tmp += '\t\t"grade": "X",\n';
+                  tmp += '\t\t"credit": "'+data.credit.toFixed(1)+'",\n';
+                  tmp += '\t\t"state": "履修予定"\n';
+                  tmp += '\t}\n'
+                  tmp += '}';
+                  JsonText = tmp;
+                  console.log(JsonText);
+
+                  successMessage += "<p>"+inputCourseYear+"年度に科目番号 "+inputCourseID+" の"+data.name+"を履修予定です</p>";
+                }else{
+                  //キャップ外
+                  creditErrorMessage += "<p>"+inputCourseYear+"年度の履修単位数は既に単位キャップ上限の４５単位に達しています</p>";
+                }
+              }else{
+                //履修している(履修済み||履修中)
+                creditErrorMessage += "<p>科目番号 "+inputCourseID+" の "+data.name+" は既に履修しています。</p>";
+              }
+              errorMessage += creditErrorMessage;
+              showAddSubResultModal(errorMessage,successMessage);
+            }else{
+              //科目が存在しない
+              creditErrorMessage += "<p>科目番号 "+inputCourseID+" の科目は存在しませんでした。</p><p>再度、入力された科目番号が正しいかご確認ください。</p>";
+              errorMessage += creditErrorMessage;
+              showAddSubResultModal(errorMessage,successMessage);
+            }
+        },
+        error: function() {
+            console.log("Error");
+        }
+    });
+  }
+}
+
+function getSchoolYear(){
+  var date = new Date();
+  var year = date.getFullYear();
+  var month = date.getMonth()+1;
+
+  if(4<=month&&month<=12){
+    return year;
+  }else{
+    return year-1;
+  }
+}
+
+function countMatch(text, word) {
+    return (text.match(new RegExp(word, "g")) || []).length;
+}
+
+/*科目追加結果モーダル(シミュレーション)*/
+function showAddSubResultModal(errorMessage,successMessage)
+{
+        $("#MODAL_BACKGROUND").fadeIn("1200");
+        $("#SUB_ADD_RESULT_MODAL_CONTENTS").center().fadeIn("1500");
+        //メッセージ埋め込み
+        if(errorMessage!=""){
+          $("#ADD_SUB_RESULT_ICON").attr("src","./img/top_error_modal/ATTENTION.svg");
+          $("#RESULT_TITLE").text("正しく履修予定科目を追加できませんでした");
+          $("#RESULT_MESSAGE").append(errorMessage);
+        }else{
+          $("#ADD_SUB_RESULT_ICON").attr("src","./img/main_add_sub_modal/SUCCESS.svg");
+          $("#RESULT_TITLE").text("正しく履修予定科目を追加できました");
+          $("#RESULT_MESSAGE").append(successMessage);
+        }
+        $("#MODAL_BACKGROUND,#SUB_ADD_RESULT_MODAL_CONTENTS").click(function() {
+            if (!$(this).closest('#SUB_ADD_RESULT_MODAL_CONTENTS').length) {
+
+                $("#SUB_ADD_RESULT_MODAL_CONTENTS").center().fadeOut("1000", function() {
+                    initAddSubResultMessage();
+                    $('#MODAL_BACKGROUND').remove();
+                })
+            }
+        });
+}
+
+function closeAddSubResultModal(){
+  $("#SUB_ADD_RESULT_MODAL_CONTENTS").center().fadeOut("1000", function() {
+      initAddSubResultMessage()
+      $('#MODAL_BACKGROUND').remove();
+  });
+}
+
+function initAddSubResultMessage(){
+  document.getElementById("RESULT_MESSAGE").innerHTML = "";
+}
+
+$(function() {
+    $("#ADD_SUB_RESULT_MODAL_OK_BUTTON").hover(function() {
+        $(this).attr("src", $(this).attr("src").replace("_OFF", "_ON"));
+    }, function() {
+        $(this).attr('src', $(this).attr('src').replace('_ON', '_OFF'));
     });
 });
