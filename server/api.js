@@ -77,7 +77,9 @@ app.post("/api/search", function(req, res, next){
 	break;
     }
     sleep.sleep(500, function(){
-	var resDataJSON = JSON.stringify(data , null, ' ');
+	data.score = req.body.score;
+	data.state = req.body.state;
+	var resDataJSON = JSON.stringify(data, null, ' ');
 	res.send(resDataJSON);
 	res.end();
 	concole.log("-JSON submitted to host!");
@@ -123,6 +125,8 @@ app.post("/api/csv", function(req, res, next){
 	    });
     });
 
+/*
+>>>>>>> f91b1b7315655ca336768547b876c90b0eece424
     //Analyze
     db.each("SELECT min, max from common_compulsory, department where subject = '総合1' and department.departmentID=common_compulsory.departmentID and department.department_name like '%創成%'", function(err, row) {
 	var x = 0, y = 0;
@@ -137,7 +141,7 @@ app.post("/api/csv", function(req, res, next){
 	    if(x > y) {graduation = 1}else{sogo1 = y}
 	}
     });
-
+*/
     console.log("-analyzed");
 
     sleep.sleep(2000, function(){
