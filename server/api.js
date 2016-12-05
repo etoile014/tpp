@@ -83,8 +83,8 @@ app.post("/api/search", function(req, res, next){
 	concole.log("-JSON submitted to host!");
     });
 });
-	
-	
+
+
 //api post method
 app.post("/api/csv", function(req, res, next){
     //init post function local handler
@@ -96,9 +96,9 @@ app.post("/api/csv", function(req, res, next){
 
     var subjectTemp;
     var gradeTemp;
-    
+
     console.log("I GOT JSON!!");
-    
+
     res.contentType('application/json');
     db.serialize(function () {
 	co(function *() {
@@ -122,7 +122,7 @@ app.post("/api/csv", function(req, res, next){
 	    }
 	    });
     });
-    
+
     //Analyze
     db.each("SELECT min, max from common_compulsory, department where subject = '総合1' and department.departmentID=common_compulsory.departmentID and department.department_name like '%創成%'", function(err, row) {
 	var x = 0, y = 0;
@@ -137,11 +137,11 @@ app.post("/api/csv", function(req, res, next){
 	    if(x > y) {graduation = 1}else{sogo1 = y}
 	}
     });
-    
+
     console.log("-analyzed");
-    
+
     sleep.sleep(2000, function(){
-	var resData = 
+	var resData =
 	    {"REQUIREMENT": {
 		"needGRCourse": 124.5,
 		"getGRCourse": (total[0] + total[1] + total[2] + total[3]),
@@ -171,7 +171,7 @@ app.post("/api/csv", function(req, res, next){
 		 "nowCourse": 2,
 		 "preCourse": 1,
 		 "courseA": 5,
-		 "courseSum": 15 
+		 "courseSum": 15
 	     }],
 	     "GRADE_GPA":{
 		 "countAplus": total[0],
