@@ -6,7 +6,6 @@ $(function(){
 
 });
 
-
 function changeMajor() {
     console.log("hey");
     var depart = $("#DEPART_SELECT").val();
