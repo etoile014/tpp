@@ -50,6 +50,8 @@ app.post("/api/csv", function(req, res, next){
     var semesterTotal = [0,0,0,0,0,0,0];
     var semesterGPA = [0,0,0,0,0,0,0];
     var sogo1 = 0;
+    var sogo2 = 0;
+    var english1 = 0;
     var graduation = 1;      //if there is any problem, this will turns 0.
 
     var subjectTemp;
@@ -88,13 +90,36 @@ app.post("/api/csv", function(req, res, next){
 	    x = row.min;
 	    for (var i=0; eval("req.body.line" + i) != undefined ; i++){
 		var str = eval("req.body.line" + i + ".subject");
-		if( str.match(/1119.+?/) || str.match(/1319.+?/) || str.match(/12.+?/)){//miss
+		if( str.match(/^1119.+?/) || str.match(/^1319.+?/) || str.match(/^12.+?/)){//miss
 		    y++;
 		}
 	    }
 	    if(x > y) {graduation = 1}else{sogo1 = y}
 	}
     });
+    
+    ////////////第一外国語
+     db.each("SELECT min, max from common_compulsory where subject = '第1外国語(英語)' and depart = 621 and enter=2014", function(err, row){
+     	var xmin=row.min;
+     	var xmax=row.max;
+		var classcode1=["/^31A.*2$/","/^31B.*2$/","/^31C.*2$/","/^31E.*2$/","/^31F.*2$/","/^31G.*2$/"];
+		var y = countCredit(classcode1);
+		var classcode2=["313.*2$","314.*2$","315.*2$","316.*2$","317.*2$","313.*2$"];
+		var z = countCredit(classcode2);
+		
+		if(y < 4.5){
+			graduation = 0;
+		}
+		
+		if(y+z < x){
+			graduation = 0;
+			english1=y+z;
+		}
+		else{
+			english1=xmax;
+		}
+	}
+  });
     
     console.log("-analyzed");
     
@@ -193,7 +218,7 @@ function check2015(i, subject, grade, total) {
 	    if(grade == "D"){total[4] += row.credit}
 	    if(grade == "X"){total[5] += row.credit}
 	    if(grade == "P"){total[6] += row.credit}
-	    if(grade == "F"){total[7] += row.credit}
+	    if(grade == "F"){total[7] +s= row.credit}
 	}
     });
 }
@@ -213,4 +238,19 @@ function check2016(i, subject, grade, total) {
 	    if(grade == "F"){total[7] += row.credit}
 	}
     });
+}
+
+function countCredit(classCode){
+	var cnt=0;
+	for (var i=0; eval("req.body.line" + i) != undefined ; i++){
+		var str = eval("req.body.line" + i + ".subject");
+		for(var j=0;j<classCode.length;j++){
+			if(str.match(classCode[j])){
+				courseDB.get('select credit,id from course2014 where id = ?',[str],function (err, row){
+					cnt = cnt + row.credit;
+				}
+			}
+		}
+	}
+	return cnt;
 }
