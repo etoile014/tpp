@@ -758,17 +758,17 @@ svg#RABBIT_GRAPH {
 
 img#OVERRAY {
     position: absolute;
-    top: 14px;
+    /*top: 14px;*/
     left: 400px;
     margin: 0px;
     padding: 0px;
+    /*
     height:296px;
     width:auto;
-    /*
+    */
     top:0;
     width: 250px;
     height: 320px;
-    */
 }
 
 img#SCALE {
@@ -1159,7 +1159,7 @@ div#SHOW_SUB_DETAIL_MODAL_CONTENTS {
     z-index: 10;
     background-color: #ffffff;
 
-    background-image: url(../img/main_show_sub_modal/MODAL_LOGO.svg);
+    background-image: url(../img/main_show_sub_modal/CLASSIFICATION_A.svg);
     background-repeat: no-repeat;
     background-position: 30% 60%;
 
@@ -1272,6 +1272,7 @@ img#SHOW_SUB_DETAIL_MODAL_CLOSE_BUTTON {
 
 img#BUTTON_LABEL {
     margin: 0 25px 0 25px;
+    cursor: pointer;
 }
 
 table.credit-detail-table{
@@ -1616,7 +1617,7 @@ img#ADD_SUB_RESULT_MODAL_OK_BUTTON{
   cursor: pointer;
 }
 
-p#RESULT_TITLE{
+p#ADD_RESULT_TITLE{
   position: relative;
   margin:10px auto;
   top: 70px;
@@ -1625,7 +1626,7 @@ p#RESULT_TITLE{
   text-align: center;
 }
 
-p#RESULT_MESSAGE p{
+p#ADD_RESULT_MESSAGE p{
   position: relative;
   margin: 0 auto;
   top: 70px;
@@ -1634,6 +1635,65 @@ p#RESULT_MESSAGE p{
   font-weight: 500;
   text-align: center;
 }
+
+/*Main 履修予定科目削除結果*/
+div#SUB_DELETE_RESULT_MODAL_CONTENTS{
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  max-width: 400px;
+  max-height: 250px;
+  background-color: #FFFFFF;
+  color: #666666;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  border-color: #bbbbbb;
+  border-width: 1px;
+  border-radius: 10px;
+  z-index: 5;
+}
+
+img#DELETE_SUB_RESULT_ICON{
+  position: absolute;
+  margin:0;
+  top:20px;
+  left:170px;
+  width:50px;
+  height:auto;
+}
+
+img#DELETE_SUB_RESULT_MODAL_OK_BUTTON{
+  position: absolute;
+  margin:0;
+  bottom:-2px;
+  left:-2px;
+  /*width:100%;*/
+  width: 404px;
+  height: auto;
+  cursor: pointer;
+}
+
+p#DELETE_RESULT_TITLE{
+  position: relative;
+  margin:10px auto;
+  top: 70px;
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+}
+
+p#DELETE_RESULT_MESSAGE p{
+  position: relative;
+  margin: 0 auto;
+  top: 70px;
+  padding: 0 45px;
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+}
+
 /*　↑↑↑↑　メインページ　↑↑↑↑　*/
 
 
