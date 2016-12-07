@@ -28,20 +28,64 @@ var server = app.listen(80, function(){
 
 //api get method for testing server
 app.get("/api/csv", function(req, res, next){
-    var temp;
-    var temp2;
-    var charCode;
+    var data;
     res.writeHead(200, {'Content-Type': 'text/html'});
-    courseDB.get('select name as name,teacher from course limit 10', function(err, row) {
-	temp = row.teacher;
-	temp2 = row.name;
-	charCode = jschardet.detect(temp);
-	console.log(temp2 + ": " + temp);
+    courseDB.get('select * from course2016 where id = GC41203',function (err, row){
+	console.log("searching.... " + req.body.id);
+	if (err) {console.log(err)}
+	else {data = row.name}
     });
-    res.write(temp2 + ":" + temp + "//" + charCode);
+    res.write(data);
     res.end();
-    console.log("app.get launch");
+    console.log("app.get launched");
+});
+
+//search api post method
+app.post("/api/search", function(req, res, next){
+    var year;
+    var id;
+    //var name, way, credit, grade, semester, type, place, teacher, summery;
+    var data;
+    switch(req.body.year) {
+    case "2013":
+	courseDB.get('select * from course2013 where id = ?',[req.body.id],function (err, row){
+	    console.log("searching.... " + req.body.id);
+	    if (err) {console.log(err)}
+	    else {data = row}
+	});
+	break;
+    case "2014":
+	courseDB.get('select * from course2014 where id = ?',[req.body.id],function (err, row){
+	    console.log("searching.... " + req.body.id);
+	    if (err) {console.log(err)}
+	    else {data = row}
+	});
+	break;
+    case "2015":
+	courseDB.get('select * from course2015 where id = ?',[req.body.id],function (err, row){
+	    console.log("searching.... " + req.body.id);
+	    if (err) {console.log(err)}
+	    else {data = row}
+	});
+	break;
+    case "2016":
+	courseDB.get('select * from course2016 where id = ?',[req.body.id],function (err, row){
+	    console.log("searching.... " + req.body.id);
+	    if (err) {console.log(err)}
+	    else {data = row}
+	});
+	break;
+    }
+    sleep.sleep(500, function(){
+	data.score = req.body.score;
+	data.state = req.body.state;
+	var resDataJSON = JSON.stringify(data, null, ' ');
+	res.send(resDataJSON);
+	res.end();
+	concole.log("-JSON submitted to host!");
     });
+});
+
 
 //api post method
 app.post("/api/csv", function(req, res, next){
@@ -54,9 +98,9 @@ app.post("/api/csv", function(req, res, next){
 
     var subjectTemp;
     var gradeTemp;
-    
+
     console.log("I GOT JSON!!");
-    
+
     res.contentType('application/json');
     db.serialize(function () {
 	co(function *() {
@@ -80,7 +124,8 @@ app.post("/api/csv", function(req, res, next){
 	    }
 	    });
     });
-    
+
+/*
     //Analyze
     db.each("SELECT min, max from common_compulsory, department where subject = '総合1' and department.departmentID=common_compulsory.departmentID and department.department_name like '%創成%'", function(err, row) {
 	var x = 0, y = 0;
@@ -88,23 +133,23 @@ app.post("/api/csv", function(req, res, next){
 	    x = row.min;
 	    for (var i=0; eval("req.body.line" + i) != undefined ; i++){
 		var str = eval("req.body.line" + i + ".subject");
-		if( str.match(/1119.+?/) || str.match(/1319.+?/) || str.match(/12.+?/)){
+		if( str.match(/1119.+?/) || str.match(/1319.+?/) || str.match(/12.+?/)){//miss
 		    y++;
 		}
 	    }
 	    if(x > y) {graduation = 1}else{sogo1 = y}
 	}
     });
-    
+*/
     console.log("-analyzed");
-    
+
     sleep.sleep(2000, function(){
-	var resData = 
+	var resData =
 	    {"REQUIREMENT": {
 		"needGRCourse": 124.5,
-		"getGRCourse": 68,
-		"nowGRCourse": 20.5,
-		"preGRCourse": 8.5
+		"getGRCourse": (total[0] + total[1] + total[2] + total[3]),
+		"nowGRCourse": (total[5]),
+		"preGRCourse": 0
 	    },
 	     "CREDIT": [{
 		 "course": "Senmon",
@@ -115,8 +160,21 @@ app.post("/api/csv", function(req, res, next){
 		 "courseA": 5,
 		 "courseSum": 15
 	     },{
-		 "course": "sogo1",
-		 "getCourse": sogo1,
+		 "course": "SenmonKiso",
+		 "needCourse": 12,
+		 "getCourse": 3,
+		 "nowCourse": 2,
+		 "preCourse": 1,
+		 "courseA": 5,
+		 "courseSum": 15
+	     },{
+		 "course": "Kiso",
+		 "needCourse": 12,
+		 "getCourse": 3,
+		 "nowCourse": 2,
+		 "preCourse": 1,
+		 "courseA": 5,
+		 "courseSum": 15
 	     }],
 	     "GRADE_GPA":{
 		 "countAplus": total[0],
