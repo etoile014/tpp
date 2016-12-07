@@ -250,19 +250,21 @@ app.post("/api/csv", function(req, res, next){
 		var w, xmin=row.min,xmax=row.max, y, z=0;
 		console.log("体育:"+x);
 
-	//履修データから科目番号21*****,25*****の単位数をyに格納
-	var cla
-	//履修データから科目番号22*****の単位数をzに格納
-	//履修データから科目番号23*****,24*****,26*****,27*****の単位数をwに格納
-	if(x > 0){
-		if(y < 1){
-			graduate=0;
-     	}
-		if(z<1){
-			graduate=0;
-		}
-		if(w<(x-2)){
-			graduate=0;
+		//履修データから科目番号21*****,25*****の単位数をyに格納
+		var classcode1=[/^21/,/^25/];
+		y=countCredit(classcode1);
+		//履修データから科目番号22*****の単位数をzに格納
+		//履修データから科目番号23*****,24*****,26*****,27*****の単位数をwに格納
+		if(x > 0){
+			if(y < 1){
+				graduate=0;
+     		}
+			if(z<1){
+				graduate=0;
+			}
+			if(w<(x-2)){
+				graduate=0;
+     		}
      	}
   //}
 	//履修データから科目番号28*****の単位数をsubject[4]に格納
