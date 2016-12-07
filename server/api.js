@@ -125,7 +125,6 @@ app.post("/api/csv", function(req, res, next){
 	    });
     });
 
-
     //Analyze
 /*
     db.each("SELECT min, max from common_compulsory, department where subject = '総合1' and department.departmentID=common_compulsory.departmentID and department.department_name like '%創成%'", function(err, row) {
@@ -141,7 +140,8 @@ app.post("/api/csv", function(req, res, next){
 	    if(x > y) {graduation = 1}else{sogo1 = y}
 	}
     });
-  */  
+*/
+    
     ////////////第一外国語////////////////////
      db.each("SELECT min, max from common_compulsory where subject = '第1外国語(英語)' and depart = 621 and enter=2014", function(err, row){
      	var xmin=row.min;
@@ -170,85 +170,84 @@ app.post("/api/csv", function(req, res, next){
     	var classcode1=[/^1119/];
     	var y = countCredit(classcode1);
     	if(y == 0){
-    		graduation=0;
+    	    graduation=0;
     	}
-    	
-    }
-    
-    ////////////総合2///////////////
-    db.each("SELECT min, max from common_compulsory where subject = '総合科目2' and depart = 621 and enter = 2014", function(err, row){
-   		var x=0, y=0, z=0, A=0, B=0, C=0;
-   		var Amin, Amax, Bmin, Bmax, Cmin, Cmax, xmin, xmax;
-   		
-		console.log("総合科目2:"+x);
-		}
-    	db.each("SELECT min, max from common_compulsory where subject = '総合科目2-A' and depart = 621 and enter = 2014", function(err, rowA){
-       		Amin = rowA.min;
-       		Amax = rowA.max;
-       		console.log("総合科目2-A 上限:"+Amax+"下限"+Amin);
-    	})
-    	db.each("SELECT min, max from common_compulsory where subject = '総合科目2-B' and depart = 621 and enter = 2014", function(err, rowB){
-        	Bmin = rowB.min;
-			Bmax = rowB.max;
-			console.log("総合科目2-B 上限:"+Bmax+"下限"+Bmin);
-      	})
-    	db.each("SELECT min, max from common_compulsory where subject = '総合科目2-C' and depart = 621 and enter = 2014", function(err, rowC){
-       		Cmin = rowC.min;
-			Cmax = rowC.max;
-			console.log("総合科目2-C 上限:"+Cmax+"下限"+Cmin);
-      	})
-    	//履修データから科目番号1A*****の単位数をAに、1B*****の単位数をBに、1C*****の単位数をCにそれぞれ格納
-   		var classcode1=[/^1A/];
-    	var classcode2=[/^1B/];
-    	var classcode3=[/^1C/];
-    	A=countCredit(classcode1);
-    	B=countCredit(classcode2);
-    	C=countCredit(classcode3);
-    	if(A<Amin){
-    		graduation=0;
-    	}else{
-    		y=min(A,Amax);
-   	 	}
-    	if(B<Bmin){
-    		graduation=0;
-    	}else{
-    		y+=min(B,Bmax);
-    	}
-    	if(C<Cmin){
-    		graduation=0;
-    	}else{
-    		y+=min(C,Cmax);
-    	}
-    	if(y<xmin){
-    		graduation=0;
-    	}else{
-    		subject[1]=min(y,xmax);
-    	}
-	});
+    });
+	 
+	 ////////////総合2///////////////
+	 db.each("SELECT min, max from common_compulsory where subject = '総合科目2' and depart = 621 and enter = 2014", function(err, row){
+   	     var x=0, y=0, z=0, A=0, B=0, C=0;
+   	     var Amin, Amax, Bmin, Bmax, Cmin, Cmax, xmin, xmax;
+   	     
+	     console.log("総合科目2:"+x);
+	     
+    	     db.each("SELECT min, max from common_compulsory where subject = '総合科目2-A' and depart = 621 and enter = 2014", function(err, rowA){
+       		 Amin = rowA.min;
+       		 Amax = rowA.max;
+       		 console.log("総合科目2-A 上限:"+Amax+"下限"+Amin);
+    	     });
+    	     db.each("SELECT min, max from common_compulsory where subject = '総合科目2-B' and depart = 621 and enter = 2014", function(err, rowB){
+        	 Bmin = rowB.min;
+		 Bmax = rowB.max;
+		 console.log("総合科目2-B 上限:"+Bmax+"下限"+Bmin);
+      	     });
+    	     db.each("SELECT min, max from common_compulsory where subject = '総合科目2-C' and depart = 621 and enter = 2014", function(err, rowC){
+       		 Cmin = rowC.min;
+		 Cmax = rowC.max;
+		 console.log("総合科目2-C 上限:"+Cmax+"下限"+Cmin);
+      	     });
+    	     //履修データから科目番号1A*****の単位数をAに、1B*****の単位数をBに、1C*****の単位数をCにそれぞれ格納
+   	     var classcode1=[/^1A/];
+    	     var classcode2=[/^1B/];
+    	     var classcode3=[/^1C/];
+    	     A=countCredit(classcode1);
+    	     B=countCredit(classcode2);
+    	     C=countCredit(classcode3);
+    	     if(A<Amin){
+    		 graduation=0;
+    	     }else{
+    		 y=min(A,Amax);
+   	     }
+    	     if(B<Bmin){
+    		 graduation=0;
+    	     }else{
+    		 y+=min(B,Bmax);
+    	     }
+    	     if(C<Cmin){
+    		 graduation=0;
+    	     }else{
+    		 y+=min(C,Cmax);
+    	     }
+    	     if(y<xmin){
+    		 graduation=0;
+    	     }else{
+    		 subject[1]=min(y,xmax);
+    	     }
+	 });
 
-    console.log("-analyzed");
-
-    sleep.sleep(2000, function(){
-	var resData =
-	    {"REQUIREMENT": {
-		"needGRCourse": 124.5,
-		"getGRCourse": (total[0] + total[1] + total[2] + total[3]),
-		"nowGRCourse": (total[5]),
-		"preGRCourse": 0
-	    },
-	     "CREDIT": [{
-		 "course": "Senmon",
-		 "needCourse": 12,
-		 "getCourse": 3,
-		 "nowCourse": 2,
-		 "preCourse": 1,
-		 "courseA": 5,
-		 "courseSum": 15
-	     },{
-		 "course": "SenmonKiso",
-		 "needCourse": 12,
-		 "getCourse": 3,
-		 "nowCourse": 2,
+	 console.log("-analyzed");
+	 
+	 sleep.sleep(2000, function(){
+	     var resData =
+		 {"REQUIREMENT": {
+		     "needGRCourse": 124.5,
+		     "getGRCourse": (total[0] + total[1] + total[2] + total[3]),
+		     "nowGRCourse": (total[5]),
+		     "preGRCourse": 0
+		 },
+		  "CREDIT": [{
+		      "course": "Senmon",
+		      "needCourse": 12,
+		      "getCourse": 3,
+		      "nowCourse": 2,
+		      "preCourse": 1,
+		      "courseA": 5,
+		      "courseSum": 15
+		  },{
+		      "course": "SenmonKiso",
+		      "needCourse": 12,
+		      "getCourse": 3,
+		      "nowCourse": 2,
 		 "preCourse": 1,
 		 "courseA": 5,
 		 "courseSum": 15
