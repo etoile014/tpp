@@ -409,7 +409,7 @@ function countCredit(classCode){
 			if(str.match(classCode[j])){
 				courseDB.get('select credit,id from course2014 where id = ?',[str],function (err, row){
 					cnt = cnt + row.credit;
-				}
+				});
 			}
 		}
 	}
