@@ -141,17 +141,37 @@ app.post("/api/csv", function(req, res, next){
 	}
     });
 */
-    
+
     ////////////第一外国語////////////////////
     db.each("SELECT min, max from common_compulsory where subject = \'第1外国語(英語)\' and depart = 6201 and enter=2014", function(err, row){
      	var xmin=row.min;
      	var xmax=row.max;
+<<<<<<< HEAD
+		var classcode1=[/^31A.*2$/,/^31B.*2$/,/^31C.*2$/,/^31E.*2$/,/^31F.*2$/,/^31G.*2$/];
+		var y = countCredit(classcode1);
+		var classcode2=[/^313.*2$/,/^4.*2$/,/^315.*2$/,/^316.*2$/,/^317.*2$/,/^313.*2$/];
+		var z = countCredit(classcode2);
+
+		if(y < 4.5){
+			graduation = 0;
+		}
+		if(y+z < x){
+			graduation = 0;
+			subject[7] += y+z;
+		}
+		else{
+			subject[7]=xmax;
+		}
+	});
+
+   ////////////総合1////////////
+=======
 	var classcode1=[/^31A.*2$/,/^31B.*2$/,/^31C.*2$/,/^31E.*2$/,/^31F.*2$/,/^31G.*2$/];
 	var y = countCredit(classcode1, req);
-	
+
 	var classcode2=[/^313.*2$/,/^4.*2$/,/^315.*2$/,/^316.*2$/,/^317.*2$/,/^313.*2$/];
 	var z = countCredit(classcode2, req);
-	
+
 	if(y < 4.5){
 	    graduation = 0;
 	}
@@ -163,7 +183,7 @@ app.post("/api/csv", function(req, res, next){
 	    subject[7]=min(xmax, y+z);
 	}
     });
-    
+
     ////////////総合1////////////
     db.each("SELECT min, max from common_compulsory where subject = '総合科目1' and depart = 6201 and enter = 2014", function(err, row){
     	var xmin=row.min,xmax=row.max;
@@ -180,14 +200,14 @@ app.post("/api/csv", function(req, res, next){
     		subject[7]+=min(xmax,y);
     	}
     });
-	 
+
 	 ////////////総合2///////////////
 	 db.each("SELECT min, max from common_compulsory where subject = 総合科目2 and depart = 621 and enter = 2014", function(err, row){
    	     var x=0, y=0, z=0, A=0, B=0, C=0;
    	     var Amin, Amax, Bmin, Bmax, Cmin, Cmax, xmin, xmax;
-   	     
+
 	     console.log("総合科目2:"+x);
-	     
+
     	db.each("SELECT min, max from common_compulsory where subject = '総合科目2-A' and depart = 621 and enter = 2014", function(err, rowA){
        		Amin = rowA.min;
        		Amax = rowA.max;
@@ -245,7 +265,7 @@ app.post("/api/csv", function(req, res, next){
 			subject[7]+=min(y,xmax);
 		}
 	});
-	
+
 	///////////体育//////////////////
 	db.each("SELECT min, max from common_compulsory where subject = '体育' and depart = 621 and enter = 2014", function(err, row){
 		var w, xmin=row.min,xmax=row.max, y, z=0;
@@ -271,7 +291,7 @@ app.post("/api/csv", function(req, res, next){
 	//履修データから科目番号28*****の単位数をsubject[4]に格納
 	});
 	 console.log("-analyzed");
-	 
+
 	 sleep.sleep(2000, function(){
 	     var resData =
 		 {"REQUIREMENT": {

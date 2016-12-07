@@ -26,7 +26,7 @@ var credit_transition_data = [0, 0, 0, 0, 0, 0];
 var qpa_transition_data = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
 
 //var genre = { "Senmon":"専門科目", "SenmonKiso":"専門基礎科目", "Kiso":"基礎科目" };
-
+var AffiliationID = "";
 
 var gakugun2gakurui = [{
     gakugun: '1',
@@ -473,6 +473,16 @@ var gakurui2senkou = [
     }
 ];
 
+var classificationHash = {
+    "GA10": "B",
+    "GC1": "B",
+    "GC2": "B",
+    "GC3": "A",
+    "GC5": "A",
+    "GC6": "A",
+    "GA40": "A"
+};
+
 $(window).load(function() {
     $("#HEADER_MENU_INSIDE1, #PAGE_MAIN1").css({
         opacity: 1,
@@ -672,6 +682,7 @@ function TwinsPlanningParser(textData) {
 }
 
 function convertJsonText(dataArray, Aff) {
+    AffiliationID = Aff;
     var length = dataArray.length;
     var txt = "{\n";
     txt += '\t\"affiliation\": ' + Aff + ',\n';
@@ -698,6 +709,14 @@ function postData() {
             data: JsonText,
             url: "https://tpp.d-io.com/api/csv",
             contentType: "application/json",
+            statusCode: {
+              502: function() {
+                var title = "502 Bad Gateway";
+                var desc = "Gatewayまたは、プロキシに問題が発生しております。申し訳ございませんが、しばらく待ってから再度接続してください。";
+                setHttpErrorCodeData(title,desc);
+                showTopErrorModal();
+              }
+            },
             success: function(data) {
                 console.log(data);
                 getData(data);
@@ -735,7 +754,7 @@ function getData(data) {
     var countB = data.GRADE_GPA.countB;
     var countC = data.GRADE_GPA.countC;
     var countD = data.GRADE_GPA.countD;
-    var countOther = data.GRADE_GPA.countP+data.GRADE_GPA.countF;
+    var countOther = data.GRADE_GPA.countP + data.GRADE_GPA.countF;
     grade_rate_data = [countAplus, countA, countB, countC, countD, countOther];
     start = data.GRADE_GPA.start;
     credit_transition_data = data.GRADE_GPA.creditTransition;
@@ -861,13 +880,19 @@ $(document).ready(function() {
             if (gakurui2senkou[i].gakurui == str) {
                 num = num + 1;
                 $('#MAJOR_SELECT').append($('<option></option>')
-					  .val(String(str) + ("0" + String(num)).slice(-2))
-					  .text(gakurui2senkou[i].senkou));
+                    .val(String(str) + ("0" + String(num)).slice(-2))
+                    .text(gakurui2senkou[i].senkou));
+
             }
         });
     }
+    /*
     setDepartSelect('1');
     setMajorSelect('11');
+    */
+    //デフォルトを情報メディア創成に
+    setDepartSelect('6');
+    setMajorSelect('62');
 });
 
 /*科目詳細モーダル*/
@@ -1035,7 +1060,7 @@ function deletePreCourse() {
         var keyline = "line" + String(i - 1);
         if (CurrentJsonObject[keyline].subject == deleteSubID) {
             deleteLine = keyline;
-            deleteLineValue = i-1;
+            deleteLineValue = i - 1;
             deleteSubCredit = CurrentJsonObject[keyline].credit;
         }
     }
@@ -1091,11 +1116,17 @@ function deletePreCourse() {
     updateCreditGraph();
 }
 
-function updateSelectOption(){
-  var nowOption = $('[name=credit_pulldown]').val();
-  var nextOption = {"A":"B","B":"C","C":"C_0","C_0":"A","D":"A"};
-  $('[name=credit_pulldown]').val(nextOption[nowOption]).change();
-  $('[name=credit_pulldown]').val(nowOption).change();
+function updateSelectOption() {
+    var nowOption = $('[name=credit_pulldown]').val();
+    var nextOption = {
+        "A": "B",
+        "B": "C",
+        "C": "C_0",
+        "C_0": "A",
+        "D": "A"
+    };
+    $('[name=credit_pulldown]').val(nextOption[nowOption]).change();
+    $('[name=credit_pulldown]').val(nowOption).change();
 }
 
 /*トップエラーモーダル*/
@@ -1124,6 +1155,11 @@ function closeTopErrorModal() {
     if (csvFileFlag == 1 && affiliationFlag == 0) {
         reloadTop();
     }
+}
+
+function setHttpErrorCodeData(title,description){
+    $('#ERROR_TITLE').html(title);
+    $('#ERROR_MESSAGE').html(description);
 }
 
 function initErrorModalText() {
@@ -1185,7 +1221,7 @@ $(function() {
         initDataTable();
 
         var credit_pulldown_val = $('[name=credit_pulldown]').val();
-        changeShowSubModalImage(credit_pulldown_val);//モーダルの背面の透かしを変更
+        changeShowSubModalImage(credit_pulldown_val); //モーダルの背面の透かしを変更
 
         var table = "";
         var JsonObject = JSON.parse(JsonText);
@@ -1366,7 +1402,7 @@ function submitAddSubjectData() {
                             var tmp = JsonText.substr(0, JsonText.length - 2); //末尾削除
                             tmp += ',\n';
                             tmp += '\t"line' + next_line + '": {\n';
-                            tmp += '\t\t"classification": "D",\n';//科目区分判定アルゴリズムより
+                            tmp += '\t\t"classification": "D",\n'; //科目区分判定アルゴリズムより
                             tmp += '\t\t"year": "' + inputCourseYear + '",\n';
                             tmp += '\t\t"subject": "' + inputCourseID + '",\n';
                             tmp += '\t\t"name": "' + data.name + '",\n';
@@ -1390,8 +1426,6 @@ function submitAddSubjectData() {
                             console.log("grade_A_data[courseA(取得単位中のA/A+の数),CourseSum(取得単位の総数)]:" + grade_A_data);
                             updateRequirementGraph();
                             updateCreditGraph();
-
-
 
                             successMessage += "<p>" + inputCourseYear + "年度に科目番号 " + inputCourseID + " の" + data.name + "を履修予定です</p>";
                         } else {
@@ -1593,3 +1627,21 @@ $(function() {
         $(this).attr('src', $(this).attr('src').replace('_ON', '_OFF'));
     });
 });
+
+function JudgeClassification(affID, subID) {
+    var classification = "";
+    if (affID == 6301) {
+        //A,B
+        if (classificationHash[subID.substr(0, 3)] != null) {
+            classification = classificationHash[subID.substr(0, 3)];
+            return classification;
+        } else if (classificationHash[subID.substr(0, 4)] != null) {
+            classification = classificationHash[subID.substr(0, 4)];
+            return classification;
+        } else {
+            return "C";
+        }
+    } else {
+        return "C";
+    }
+}
