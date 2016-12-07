@@ -51,13 +51,178 @@ div#PAGE_MAIN {
 
 div#GR {
 	margin: 0px;
-	padding: 0px;
+	padding: 20px 0px;
 	width: 100%;
 	min-width: 850px;
-	height: 100px;
+	height: auto;
 	background-color: #ffffff;
 	position: relative;
-    text-align: center;
+	text-align: center;
+}
+
+p#MESSAGE {
+	color: #43526A;
+}
+
+p#EXPLAIN {
+	color: #43526A;
+}
+
+div.selectorField {
+	position: relative;
+	margin: auto;
+	padding: 0px;
+	width: 250px;
+	height: 50px;
+}
+
+select.selector  {
+	position: absolute;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	width: 250px;
+	height: 40px;
+	padding: 10px;
+	top: 5px;
+	left: 0px;
+	border-style: solid;
+	border-color: rgba(67, 82, 106, 0.5);
+	border-width: 1px;
+	border-radius: 5px;
+	margin: auto;
+	font-size: 1em;
+	font-weight: bold;
+	color: #43526A;
+	background-color: #E8E8F1;
+}
+
+img.selector-arrow {
+	position: absolute;
+	width: 20px;
+	height: 10px;
+	padding: 15px 0px;
+	top: 5px;
+	left: 210px;
+	opacity: 0.8;
+	z-index: 2;
+}
+
+div.table-frame {
+	margin: 20px auto 60px auto;
+	padding: 5px;
+	width: 750px;
+	border-style: solid;
+	border-color: rgba(67, 82, 106, 0.5);
+	border-width: 1px;
+	border-radius: 5px;
+	background-color: #E8E8F1;
+}
+
+table.input-table {
+	margin: auto;
+	border-collapse: collapse;
+	font-size: 1em;
+	font-weight: bold;
+	color: #43526A;
+}
+
+td.kamoku-title-main {
+	width: 750px;
+	height: 45px;
+}
+
+p.kamoku-title-name {
+	margin: 0 auto;
+	width:750px;
+	height: 40px;
+	font-size: 1.5em;
+	border-style: solid;
+	border-color: rgba(67, 82, 106, 0.5);
+	border-width: 1px;
+	border-radius: 5px;
+	background-color: #f0c1c0;
+}
+
+td.kamoku-title-cell {
+	width: 250px;
+	height: 35px;
+}
+
+p.kamoku-subtitle-name1 {
+	margin: 0 auto;
+	width:245px;
+	height: 30px;
+	font-size: 1.2em;
+	border-style: solid;
+	border-color: rgba(67, 82, 106, 0.5);
+	border-width: 1px;
+	border-radius: 5px;
+	background-color: #b4d989;
+}
+
+p.kamoku-subtitle-name2 {
+	margin: 0 auto;
+	width:245px;
+	height: 30px;
+	font-size: 1.2em;
+	border-style: solid;
+	border-color: rgba(67, 82, 106, 0.5);
+	border-width: 1px;
+	border-radius: 5px;
+	background-color: #e6dd92;
+}
+
+p.kamoku-subtitle-name3 {
+	margin: 0 auto;
+	width:245px;
+	height: 30px;
+	font-size: 1.2em;
+	border-style: solid;
+	border-color: rgba(67, 82, 106, 0.5);
+	border-width: 1px;
+	border-radius: 5px;
+	background-color: #b3ddf2;
+}
+
+td.kamoku-cell {
+	vertical-align: top;
+}
+
+table.list-area {
+	border-collapse: collapse;
+	background-color: #ffffff;
+}
+
+td.action-area {
+	width: 25px;
+}
+
+td.number-area {
+	width: 155px;
+}
+
+td.credit-area {
+	width: 50px;
+}
+
+button#SUBMITTER {
+	width: 250px;
+	height: 40px;
+	padding: 10px;
+	border-style: solid;
+	border-color: rgba(67, 82, 106, 0.5);
+	border-width: 1px;
+	border-radius: 5px;
+	margin: auto;
+	font-size: 1em;
+	font-weight: bold;
+	color: #43526A;
+	background-color: #E8E8F1;
+}
+
+button#SUBMITTER:active {
+	background-color: #c5c5c8;
 }
 
 div#FOOTER {
