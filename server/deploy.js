@@ -92,6 +92,23 @@ app.get("/pm2/list", function(req, res, next){
     });
 });
 
+app.get("/node/start", function(req, res, next){
+    var data;
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    exec('node server/api.js', function(err, stdout, stderr){
+	data = stderr;
+	if(stderr == undefined){
+	    data= stdout;
+	}
+    });
+    sleep.sleep(5000, function(){
+	res.write(data);
+	res.end();
+	console.log(data);
+	console.log("app.get exec node server/api.js");
+    });
+});
+
 app.get("/git/develop", function(req, res, next){
     var data;
     res.writeHead(200, {'Content-Type': 'text/html'});
