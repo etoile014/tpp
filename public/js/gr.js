@@ -315,7 +315,7 @@ function uploadData() {
   txt += '\t"KisoKanren" : {\n';
   txt += '\t\t"need" : [\n';
   txt += makeList("#KAMOKU_CELL_41");
-  txt += '\t\t]\n';
+  txt += '\t\t],\n';
   txt += '\t\t"select" : [\n';
   txt += makeList("#KAMOKU_CELL_42");
   txt += '\t\t],\n';

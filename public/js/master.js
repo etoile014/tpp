@@ -709,6 +709,14 @@ function postData() {
             data: JsonText,
             url: "https://tpp.d-io.com/api/csv",
             contentType: "application/json",
+            statusCode: {
+              502: function() {
+                var title = "502 Bad Gateway";
+                var desc = "Gatewayまたは、プロキシに問題が発生しております。申し訳ございませんが、しばらく待ってから再度接続してください。";
+                setHttpErrorCodeData(title,desc);
+                showTopErrorModal();
+              }
+            },
             success: function(data) {
                 console.log(data);
                 getData(data);
@@ -878,8 +886,13 @@ $(document).ready(function() {
             }
         });
     }
+    /*
     setDepartSelect('1');
     setMajorSelect('11');
+    */
+    //デフォルトを情報メディア創成に
+    setDepartSelect('6');
+    setMajorSelect('62');
 });
 
 /*科目詳細モーダル*/
@@ -1142,6 +1155,11 @@ function closeTopErrorModal() {
     if (csvFileFlag == 1 && affiliationFlag == 0) {
         reloadTop();
     }
+}
+
+function setHttpErrorCodeData(title,description){
+    $('#ERROR_TITLE').html(title);
+    $('#ERROR_MESSAGE').html(description);
 }
 
 function initErrorModalText() {
