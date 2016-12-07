@@ -82,7 +82,7 @@ app.post("/api/search", function(req, res, next){
 	var resDataJSON = JSON.stringify(data, null, ' ');
 	res.send(resDataJSON);
 	res.end();
-	concole.log("-JSON submitted to host!");
+	console.log("-JSON submitted to host!");
     });
 });
 
@@ -143,9 +143,10 @@ app.post("/api/csv", function(req, res, next){
 */
 
     ////////////第一外国語////////////////////
-     db.each("SELECT min, max from common_compulsory where subject = 第1外国語(英語) and depart = 6201 and enter=2014", function(err, row){
+    db.each("SELECT min, max from common_compulsory where subject = \'第1外国語(英語)\' and depart = 6201 and enter=2014", function(err, row){
      	var xmin=row.min;
      	var xmax=row.max;
+<<<<<<< HEAD
 		var classcode1=[/^31A.*2$/,/^31B.*2$/,/^31C.*2$/,/^31E.*2$/,/^31F.*2$/,/^31G.*2$/];
 		var y = countCredit(classcode1);
 		var classcode2=[/^313.*2$/,/^4.*2$/,/^315.*2$/,/^316.*2$/,/^317.*2$/,/^313.*2$/];
@@ -164,11 +165,31 @@ app.post("/api/csv", function(req, res, next){
 	});
 
    ////////////総合1////////////
+=======
+	var classcode1=[/^31A.*2$/,/^31B.*2$/,/^31C.*2$/,/^31E.*2$/,/^31F.*2$/,/^31G.*2$/];
+	var y = countCredit(classcode1, req);
+
+	var classcode2=[/^313.*2$/,/^4.*2$/,/^315.*2$/,/^316.*2$/,/^317.*2$/,/^313.*2$/];
+	var z = countCredit(classcode2, req);
+
+	if(y < 4.5){
+	    graduation = 0;
+	}
+	if(y+z < xmin){
+	    graduation = 0;
+	    subject[7] += y+z;
+	}
+	else{
+	    subject[7]=min(xmax, y+z);
+	}
+    });
+
+    ////////////総合1////////////
     db.each("SELECT min, max from common_compulsory where subject = '総合科目1' and depart = 6201 and enter = 2014", function(err, row){
     	var xmin=row.min,xmax=row.max;
     	var classcode1=[/^11/];
     	var classcode2=[/^13/,/^12/];
-    	var y = countCredit(classcode1);
+    	var y = countCredit(classcode1, req);
     	if(y == 0){
     	    graduation=0;
     	}
@@ -206,9 +227,9 @@ app.post("/api/csv", function(req, res, next){
    	    var classcode1=[/^1A/];
     	var classcode2=[/^1B/];
     	var classcode3=[/^1C/];
-    	A=countCredit(classcode1);
-    	B=countCredit(classcode2);
-    	C=countCredit(classcode3);
+    	     A=countCredit(classcode1, req);
+    	     B=countCredit(classcode2, req);
+    	     C=countCredit(classcode3, req);
     	if(A<Amin){
     		 graduation=0;
     	}else{
@@ -252,7 +273,7 @@ app.post("/api/csv", function(req, res, next){
 
 		//履修データから科目番号21*****,25*****の単位数をyに格納
 		var classcode1=[/^21/,/^25/];
-		y=countCredit(classcode1);
+		y=countCredit(classcode1. req);
 		//履修データから科目番号22*****の単位数をzに格納
 		//履修データから科目番号23*****,24*****,26*****,27*****の単位数をwに格納
 		if(x > 0){
@@ -323,7 +344,8 @@ app.post("/api/csv", function(req, res, next){
 	var resDataJSON = JSON.stringify(resData ,null, ' ');
 	res.send(resDataJSON);
 	res.end();
-	console.log("-JSON submitted to host!");
+	     console.log("-JSON submitted to host!");
+	     console.log(subject[7]);
     });
     //});
 });
@@ -331,6 +353,37 @@ app.post("/api/csv", function(req, res, next){
 /*
 Function List
 */
+
+function getCredit(year, classCode) {
+    var credit;
+    console.log(year);
+    switch(year) {
+    case "2016":
+	courseDB.get('select credit from course2016 where id = ?', [classCode], function(err, row){
+	    credit = row.credit;
+	});
+	break;
+    case "2015":
+	courseDB.get('select credit from course2015 where id = ?', [classCode], function(err, row){
+	    credit = row.credit;
+	});
+	break;
+    case "2014":
+	courseDB.get('select credit from course2014 where id = ?', [classCode], function(err, row){
+	    credit = row.credit;
+	});
+	break;
+    case "2013":
+	courseDB.get('select credit from course2013 where id = ?', [classCode], function(err, row){
+	    credit = row.credit;
+	});
+	break;
+    default:
+	console.log("// hello default!!");
+	break;
+    }
+    return credit;
+}
 
 function check2013(i, subject, grade, total) {
     courseDB.get('select credit,id from course2013 where id = ?',[subject],function (err, row){
@@ -401,19 +454,18 @@ function check2016(i, subject, grade, total) {
     });
 }
 
-function countCredit(classCode){
-	var cnt=0;
-	for (var i=0; eval("req.body.line" + i) != undefined ; i++){
-		var str = eval("req.body.line" + i + ".subject");
-		for(var j=0;j<classCode.length;j++){
-			if(str.match(classCode[j])){
-				courseDB.get('select credit,id from course2014 where id = ?',[str],function (err, row){
-					cnt = cnt + row.credit;
-				});
-			}
-		}
+function countCredit(classCode, req){
+    var cnt;
+    for (var i=0; eval("req.body.line" + i) != undefined ; i++){
+	var str = eval("req.body.line" + i + ".subject");
+	for(var j=0;j<classCode.length;j++){
+	    if(str.match(classCode[j])){
+		cnt += Number(eval("req.body.line" + i + ".credit"));
+		console.log("// "  + cnt + ":" + i);
+	    }
 	}
-	return cnt;
+    }
+    return cnt;
 }
 
 function min(a,b){

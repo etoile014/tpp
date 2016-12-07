@@ -874,6 +874,7 @@ $(document).ready(function() {
                 $('#MAJOR_SELECT').append($('<option></option>')
                     .val(String(str) + ("0" + String(num)).slice(-2))
                     .text(gakurui2senkou[i].senkou));
+
             }
         });
     }
@@ -1609,22 +1610,20 @@ $(function() {
     });
 });
 
-function JudgeClassification(affID,subID){
-  var classification = "";
-  if(affID == 6301){
-	//A,B
-	if(classificationHash[subID.substr(0,3)] != null)
-	{
-		classification = classificationHash[subID.substr(0,3)];
-		return classification;
-	}else if(classificationHash[subID.substr(0,4)] != null)
-	{
-		classification = classificationHash[subID.substr(0,4)];
-		return classification;
-	}else{
-		return "C";
-	}
-  }else{
-	  return "C";
-  }
+function JudgeClassification(affID, subID) {
+    var classification = "";
+    if (affID == 6301) {
+        //A,B
+        if (classificationHash[subID.substr(0, 3)] != null) {
+            classification = classificationHash[subID.substr(0, 3)];
+            return classification;
+        } else if (classificationHash[subID.substr(0, 4)] != null) {
+            classification = classificationHash[subID.substr(0, 4)];
+            return classification;
+        } else {
+            return "C";
+        }
+    } else {
+        return "C";
+    }
 }
