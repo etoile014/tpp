@@ -861,8 +861,8 @@ $(document).ready(function() {
             if (gakurui2senkou[i].gakurui == str) {
                 num = num + 1;
                 $('#MAJOR_SELECT').append($('<option></option>')
-					  .val(String(str) + ("0" + String(num).slice(-2));
-                    .text(gakurui2senkou[i].senkou));
+					  .val(String(str) + ("0" + String(num)).slice(-2))
+					  .text(gakurui2senkou[i].senkou));
             }
         });
     }
