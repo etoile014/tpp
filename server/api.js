@@ -161,8 +161,7 @@ app.post("/api/csv", function(req, res, next){
 		else{
 			subject[7]=xmax;
 		}
-	}
-  });
+	});
   
    ////////////総合1////////////
     db.each("SELECT min, max from common_compulsory where subject = '総合科目1' and depart = 621 and enter = 2014", function(err, row){
