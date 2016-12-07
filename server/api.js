@@ -9,7 +9,7 @@ var co = require('co');
 var sleep = require('sleep-async')();
 
 //connect to sqliteDB
-var sqlite3 = require("sqlite3").ve/;./. rbose();
+var sqlite3 = require("sqlite3").verbose();
 var db = new sqlite3.Database(process.cwd() + '/database/requirements.db');
 var courseDB = new sqlite3.Database(process.cwd() + '/database/kdb.db');
 
