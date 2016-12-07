@@ -268,7 +268,7 @@ app.post("/api/csv", function(req, res, next){
      	}
   //}
 	//履修データから科目番号28*****の単位数をsubject[4]に格納
- });
+	});
 	 console.log("-analyzed");
 	 
 	 sleep.sleep(2000, function(){
@@ -379,7 +379,7 @@ function check2015(i, subject, grade, total) {
 	    if(grade == "D"){total[4] += row.credit}
 	    if(grade == "X"){total[5] += row.credit}
 	    if(grade == "P"){total[6] += row.credit}
-	    if(grade == "F"){total[7] +s= row.credit}
+	    if(grade == "F"){total[7] += row.credit}
 	}
     });
 }
