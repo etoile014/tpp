@@ -1,35 +1,111 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>TPP-GR</title>
-    <link rel="icon" type="image/icon" href="img/FAVICON_32x32.ico" sizes="32x32">
-    <link rel="icon" type="image/icon" href="img/FAVICON_64x64.ico" sizes="64x64">
-    <!-- CSS -->
-    <link href="css/gr.css" rel="stylesheet" type="text/css">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>TPP-GR</title>
+  <link rel="icon" type="image/icon" href="img/FAVICON_32x32.ico" sizes="32x32">
+  <link rel="icon" type="image/icon" href="img/FAVICON_64x64.ico" sizes="64x64">
+  <!-- CSS -->
+  <link href="css/gr.css" rel="stylesheet" type="text/css">
+</head>
+<body onload="loadFaculty()">
+  <header id="PAGE_HEADER" role="banner">
+    <div class="header-logo"><img class="logo" src="img/gr/Top_Link.png"></div>
+  </header>
+  <div id="PAGE_MAIN" role="main">
+    <div id="GR">
+      <h2><p id="MESSAGE">あなたも誰かを"ぴょんぴょん"させてみませんか？</p></h2>
+      <p id="EXPLAIN">必要事項を全て入力して"データ送信"ボタンを押してください。</p>
+      <form>
+        <div class="selectorField">
+          <select class="selector" id="FACULTY_SELECT" onchange="loadDepart()"></select>
+          <img class="selector-arrow" src="./img/gr/Pulldown_Arrow.svg"/>
+        </div>
+        <div class="selectorField">
+          <select class="selector" id="DEPART_SELECT" onchange="loadMajor()"></select>
+          <img class="selector-arrow" src="./img/gr/Pulldown_Arrow.svg"/>
+        </div>
+        <div class="selectorField">
+          <select class="selector" id="MAJOR_SELECT"></select>
+          <img class="selector-arrow" src="./img/gr/Pulldown_Arrow.svg"/>
+        </div>
+      </form>
+      <div class="table-frame">
+        <table border="0" class="input-table">
+          <tr>
+            <td colspan="3" class="kamoku-title-main"><p class="kamoku-title-name">専門科目</p></td>
+          </tr>
+          <tr>
+            <td class="kamoku-title-cell"><p class="kamoku-subtitle-name1">必修科目</p></td>
+            <td class="kamoku-title-cell"><p class="kamoku-subtitle-name2">選択科目</p></td>
+            <td class="kamoku-title-cell"><p class="kamoku-subtitle-name3">自由科目</p></td>
+          </tr>
+          <tr>
+            <td id="KAMOKU_CELL_11" class="kamoku-cell"></td>
+            <td id="KAMOKU_CELL_12" class="kamoku-cell"></td>
+            <td id="KAMOKU_CELL_13" class="kamoku-cell"></td>
+          </tr>
+        </table>
+      </div>
+      <div class="table-frame">
+        <table border="0" class="input-table">
+          <tr>
+            <td colspan="3" class="kamoku-title-main"><p class="kamoku-title-name">専門基礎科目</p></td>
+          </tr>
+          <tr>
+            <td class="kamoku-title-cell"><p class="kamoku-subtitle-name1">必修科目</p></td>
+            <td class="kamoku-title-cell"><p class="kamoku-subtitle-name2">選択科目</p></td>
+            <td class="kamoku-title-cell"><p class="kamoku-subtitle-name3">自由科目</p></td>
+          </tr>
+          <tr>
+            <td id="KAMOKU_CELL_21" class="kamoku-cell"></td>
+            <td id="KAMOKU_CELL_22" class="kamoku-cell"></td>
+            <td id="KAMOKU_CELL_23" class="kamoku-cell"></td>
+          </tr>
+        </table>
+      </div>
+      <div class="table-frame">
+        <table border="0" class="input-table">
+          <tr>
+            <td colspan="3" class="kamoku-title-main"><p class="kamoku-title-name">基礎共通科目</p></td>
+          </tr>
+          <tr>
+            <td class="kamoku-title-cell"><p class="kamoku-subtitle-name1">必修科目</p></td>
+            <td class="kamoku-title-cell"><p class="kamoku-subtitle-name2">選択科目</p></td>
+            <td class="kamoku-title-cell"><p class="kamoku-subtitle-name3">自由科目</p></td>
+          </tr>
+          <tr>
+            <td id="KAMOKU_CELL_31" class="kamoku-cell"></td>
+            <td id="KAMOKU_CELL_32" class="kamoku-cell"></td>
+            <td id="KAMOKU_CELL_33" class="kamoku-cell"></td>
+          </tr>
+        </table>
+      </div>
+      <div class="table-frame">
+        <table border="0" class="input-table">
+          <tr>
+            <td colspan="3" class="kamoku-title-main"><p class="kamoku-title-name">基礎関連科目</p></td>
+          </tr>
+          <tr>
+            <td class="kamoku-title-cell"><p class="kamoku-subtitle-name1">必修科目</p></td>
+            <td class="kamoku-title-cell"><p class="kamoku-subtitle-name2">選択科目</p></td>
+            <td class="kamoku-title-cell"><p class="kamoku-subtitle-name3">自由科目</p></td>
+          </tr>
+          <tr>
+            <td id="KAMOKU_CELL_41" class="kamoku-cell"></td>
+            <td id="KAMOKU_CELL_42" class="kamoku-cell"></td>
+            <td id="KAMOKU_CELL_43" class="kamoku-cell"></td>
+          </tr>
+        </table>
+      </div>
+      <button id="SUBMITTER" onclick="uploadData()">データ送信</button>
+    </div>
+    <div id="FOOTER">
+      <p id="COPYRIGHT">Copyright ©︎2016 TPP</p>
+    </div>
     <!-- Javascript -->
     <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" src="js/gr.js"></script>
-</head>
-<body onload="changeMajor()">
-    <header id="PAGE_HEADER" role="banner">
-        <div class="header-logo"><img class="logo" src="img/gr/Top_Link.png"></div>
-    </header>
-    <div id="PAGE_MAIN" role="main">
-        <div id="GR">
-            <form>
-                <select id="DEPART_SELECT" onchange="changeMajor()">
-                    <option value="0">情報メディア創成学類</option>
-                    <option value="1">情報科学類</option>
-                    <option value="2">知識情報・図書館学類</option>
-                </select><br>
-                <select id="MAJOR_SELECT">
-                </select>
-            </form>
-        </div>
-        <div id="FOOTER">
-            <p id="COPYRIGHT">Copyright ©︎2016 TPP</p>
-        </div>
-    </div>
+  </div>
 </body>
 </html>
