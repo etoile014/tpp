@@ -143,7 +143,7 @@ app.post("/api/csv", function(req, res, next){
 */
     
     ////////////第一外国語////////////////////
-     db.each("SELECT min, max from common_compulsory where subject = '第1外国語(英語)' and depart = 621 and enter=2014", function(err, row){
+     db.each("SELECT min, max from common_compulsory where subject = 第1外国語(英語) and depart = 621 and enter=2014", function(err, row){
      	var xmin=row.min;
      	var xmax=row.max;
 		var classcode1=[/^31A.*2$/,/^31B.*2$/,/^31C.*2$/,/^31E.*2$/,/^31F.*2$/,/^31G.*2$/];
@@ -164,7 +164,7 @@ app.post("/api/csv", function(req, res, next){
 	});
   
    ////////////総合1////////////
-    db.each("SELECT min, max from common_compulsory where subject = '総合科目1' and depart = 621 and enter = 2014", function(err, row){
+    db.each("SELECT min, max from common_compulsory where subject = '総合科目1' and depart = 6201 and enter = 2014", function(err, row){
     	var xmin=row.min,xmax=row.max;
     	var classcode1=[/^11/];
     	var classcode2=[/^13/,/^12/];
@@ -181,7 +181,7 @@ app.post("/api/csv", function(req, res, next){
     });
 	 
 	 ////////////総合2///////////////
-	 db.each("SELECT min, max from common_compulsory where subject = '総合科目2' and depart = 621 and enter = 2014", function(err, row){
+	 db.each("SELECT min, max from common_compulsory where subject = 総合科目2 and depart = 621 and enter = 2014", function(err, row){
    	     var x=0, y=0, z=0, A=0, B=0, C=0;
    	     var Amin, Amax, Bmin, Bmax, Cmin, Cmax, xmin, xmax;
    	     
