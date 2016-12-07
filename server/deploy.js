@@ -22,6 +22,34 @@ var server = app.listen(12000, function(){
 });
 
 //deploy api
+app.get("/pm2/delete", function(req, res, next){
+    var data;
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    exec('pm2 delete api', function(err, stdout, stderr){
+	data = stdout;
+    });
+    sleep.sleep(3000, function(){
+	res.write(data);
+	res.end();
+	console.log(data);
+	console.log("app.get exec pm2 delete api");
+    });
+});
+
+app.get("/pm2/start", function(req, res, next){
+    var data;
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    exec('pm2 start server/api.js', function(err, stdout, stderr){
+	data = stdout;
+    });
+    sleep.sleep(3000, function(){
+	res.write(data);
+	res.end();
+	console.log(data);
+	console.log("app.get exec pm2 start server/api.js");
+    });
+});
+
 app.get("/git/branch", function(req, res, next){
     var data;
     res.writeHead(200, {'Content-Type': 'text/html'});
@@ -36,13 +64,41 @@ app.get("/git/branch", function(req, res, next){
     });
 });
 
-app.get("/git/develop", function(req, res, next){
+app.get("/git/status", function(req, res, next){
     var data;
     res.writeHead(200, {'Content-Type': 'text/html'});
-    exec('git checkout -b develop && git pull origin develop', function(err, stdout, stderr){
+    exec('git status', function(err, stdout, stderr){
 	data = stdout;
     });
     sleep.sleep(2000, function(){
+	res.write(data);
+	res.end();
+	console.log(data);
+	console.log("app.get exec git status");
+    });
+});
+
+app.get("/pm2/list", function(req, res, next){
+    var data;
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    exec('pm2 list', function(err, stdout, stderr){
+	data = stdout;
+    });
+    sleep.sleep(3000, function(){
+	res.write(data);
+	res.end();
+	console.log(data);
+	console.log("app.get exec pm2 list");
+    });
+});
+
+app.get("/git/develop", function(req, res, next){
+    var data;
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    exec('git pull origin develop', function(err, stdout, stderr){
+	data = stdout;
+    });
+    sleep.sleep(5000, function(){
 	res.write(data);
 	res.end();
 	console.log(data);
@@ -56,7 +112,7 @@ app.get("/git/master", function(req, res, next){
     exec('git checkout -b develop && git pull origin develop', function(err, stdout, stderr){
 	data = stdout;
     });
-    sleep.sleep(2000, function(){
+    sleep.sleep(5000, function(){
 	res.write(data);
 	res.end();
 	console.log(data);
