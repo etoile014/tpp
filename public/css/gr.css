@@ -1,4 +1,72 @@
-@import url(https://fonts.googleapis.com/earlyaccess/notosansjapanese.css);
+/*Thin*/
+@font-face {
+    font-family: 'Noto Sans Japanese';
+    src: url('../fonts/NotoSansCJKjp-Thin-Subset.woff') format('woff'),
+    url('../fonts/NotoSansCJKjp-Thin-Subset.woff2') format('woff2'),
+    url('../fonts/NotoSansCJKjp-Thin-Subset.otf') format('opentype');
+    font-style: normal;
+    font-weight: 100;
+}
+
+/*Light*/
+@font-face {
+    font-family: 'Noto Sans Japanese';
+    src: url('../fonts/NotoSansCJKjp-Light-Subset.woff') format('woff'),
+    url('../fonts/NotoSansCJKjp-Light-Subset.woff2') format('woff2'),
+    url('../fonts/NotoSansCJKjp-Light-Subset.otf') format('opentype');
+    font-style: normal;
+    font-weight: 200;
+}
+
+/*DemiLight*/
+@font-face {
+    font-family: 'Noto Sans Japanese';
+    src: url('../fonts/NotoSansCJKjp-DemiLight-Subset.woff') format('woff'),
+    url('../fonts/NotoSansCJKjp-DemiLight-Subset.woff2') format('woff2'),
+    url('../fonts/NotoSansCJKjp-DemiLight-Subset.otf') format('opentype');
+    font-style: normal;
+    font-weight: 300;
+}
+
+/*Regular*/
+@font-face {
+    font-family: 'Noto Sans Japanese';
+    src: url('../fonts/NotoSansCJKjp-Regular-Subset.woff') format('woff'),
+    url('../fonts/NotoSansCJKjp-Regular-Subset.woff2') format('woff2'),
+    url('../fonts/NotoSansCJKjp-Regular-Subset.otf') format('opentype');
+    font-style: normal;
+    font-weight: 400;
+}
+
+/*Medium*/
+@font-face {
+    font-family: 'Noto Sans Japanese';
+    src: url('../fonts/NotoSansCJKjp-Medium-Subset.woff') format('woff'),
+    url('../fonts/NotoSansCJKjp-Medium-Subset.woff2') format('woff2'),
+    url('../fonts/NotoSansCJKjp-Medium-Subset.otf') format('opentype');
+    font-style: normal;
+    font-weight: 500;
+}
+
+/*Bold*/
+@font-face {
+    font-family: 'Noto Sans Japanese';
+    src: url('../fonts/NotoSansCJKjp-Bold-Subset.woff') format('woff'),
+    url('../fonts/NotoSansCJKjp-Bold-Subset.woff2') format('woff2'),
+    url('../fonts/NotoSansCJKjp-Bold-Subset.otf') format('opentype');
+    font-style: normal;
+    font-weight: 700;
+}
+
+/*Black*/
+@font-face {
+    font-family: 'Noto Sans Japanese';
+    src: url('../fonts/NotoSansCJKjp-Black-Subset.woff') format('woff'),
+    url('../fonts/NotoSansCJKjp-Black-Subset.woff2') format('woff2'),
+    url('../fonts/NotoSansCJKjp-Black-Subset.otf') format('opentype');
+    font-style: normal;
+    font-weight: 900;
+}
 
 html, body{
 	margin: 0px;
@@ -83,7 +151,7 @@ select.selector  {
 	appearance: none;
 	width: 250px;
 	height: 40px;
-	padding: 10px;
+	padding: 8px;
 	top: 5px;
 	left: 0px;
 	border-style: solid;
