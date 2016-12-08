@@ -267,15 +267,15 @@ td.action-area {
 }
 
 td.number-area {
-	width: 120px;
+	width: 110px;
 }
 
 input[type=text] {
-  width:115px;
+  width:105px;
 }
 
 td.credit-area {
-	width: 120px;
+	width: 130px;
 }
 
 button#SUBMITTER {
