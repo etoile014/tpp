@@ -478,6 +478,7 @@ var classificationHash = {
     "GC1": "B",
     "GC2": "B",
     "GC3": "A",
+    "GC4": "A",
     "GC5": "A",
     "GC6": "A",
     "GA40": "A"
@@ -1630,13 +1631,15 @@ $(function() {
 
 function JudgeClassification(affID, subID) {
     var classification = "";
-    if (affID == 6301) {
+    if (affID == "6301") {
         //A,B
         if (classificationHash[subID.substr(0, 3)] != null) {
             classification = classificationHash[subID.substr(0, 3)];
+            console.log(subID);
             return classification;
         } else if (classificationHash[subID.substr(0, 4)] != null) {
             classification = classificationHash[subID.substr(0, 4)];
+            console.log(subID);
             return classification;
         } else {
             return "C";
