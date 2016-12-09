@@ -1,6 +1,6 @@
-function drawGPATransition(id,start,dataset) {
+function drawGPATransition(id,dataset) {
 
-    var margin = {top: 20, right: 50, bottom: 40, left: 50};
+    var margin = {top: 20, right: 50, bottom: 50, left: 50};
     var width = 320 - margin.left - margin.right;
     var height = 200 - margin.top - margin.bottom;
 
@@ -16,10 +16,7 @@ function drawGPATransition(id,start,dataset) {
     .scale(xScale)
     .orient("bottom")
     .tickFormat(function(d,i){
-        if( i%2 == 0 ){
-            return (start+i/2)+"/spring";
-        }
-        return start+(i-1)/2+"/autumn";
+		return dataset[i]["semester"];
     })
     .innerTickSize(-height)
     .outerTickSize(0)
@@ -35,7 +32,7 @@ function drawGPATransition(id,start,dataset) {
 
     var line = d3.svg.line()
     .x(function(d,i) { return xScale(i); })
-    .y(function(d) { return yScale(d); });
+    .y(function(d) { return yScale(d["GPA"]); });
 
     var svg = d3.select(id)
     .attr("width", width + margin.left + margin.right)
@@ -49,14 +46,15 @@ function drawGPATransition(id,start,dataset) {
     .call(xAxis)
     .selectAll("text")
     .attr("font-size", "8px")
-    .attr("transform","rotate(-30)")
-    .attr("dy",20);
+    .attr("transform","rotate(-20)")
+    .attr("dy",10);
 
     svg.append("g")
     .attr("class", "y axis")
     .call(yAxis)
     .selectAll("text")
     .attr("font-size", "8px")
+    .attr("transform","rotate(1)");
 
     svg.selectAll("line")
     .attr("stroke", "#000000")
@@ -68,7 +66,14 @@ function drawGPATransition(id,start,dataset) {
     .attr("fill", "none")
     .attr("stroke", "#96d946")
     .attr("stroke-width", "2px")
-    .attr("d", line);
+    .attr("d", line)
+    ///////アニメーション部分
+    .attr("opacity",0)
+    .transition()   // トランジション開始
+    .duration(1000)
+    .attr("opacity",1)
+    ////////////////////////
+    ;
 
     svg.append("g")
     .selectAll("circle")
@@ -77,6 +82,36 @@ function drawGPATransition(id,start,dataset) {
     .append("circle")
     .attr("r",3)
     .attr("cx",function(d,i){return xScale(i);})
-    .attr("cy",function(d){return yScale(d);})
-    .attr("fill",'#96d946');
+    .attr("cy",function(d){return yScale(d["GPA"]);})
+    .attr("fill",'#96d946')
+    ///////アニメーション部分
+    .attr("opacity",0)
+    .transition()   // トランジション開始
+    .duration(1000)
+    .attr("opacity",1)
+    ////////////////////////;
+
+    var textArr=["GPA"];
+    var colorArr=["#96d946"];
+
+    var svg1 = d3.select(id);
+    svg1.selectAll("rect")
+       .data(colorArr)
+       .enter()
+       .append("rect")
+       .attr("fill",function(d,i){ return d})
+       .attr("x",150)
+       .attr("y",185)
+       .attr("width",15)
+       .attr("height",15);
+    svg1.append("g")
+    	.selectAll("text")
+    	.data(textArr)
+    	.enter()
+    	.append("text")
+    	.attr("x",170)
+    	.attr("y",195)
+    	.text(function(d){return d;})
+    	.attr("font-size","12px")
+    	.attr("transform","rotate(1)");
 }
