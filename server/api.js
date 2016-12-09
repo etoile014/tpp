@@ -144,7 +144,8 @@ app.post("/api/csv", function(req, res, next) {
             }
         });
     });
-
+	
+	checkClass(req,getCourse,nowCourse);
     //Analyze
     /*
         db.each("SELECT min, max from common_compulsory, department where subject = '総合1' and department.departmentID=common_compulsory.departmentID and department.department_name like '%創成%'", function(err, row) {
@@ -311,27 +312,36 @@ var resData = {
         "preGRCourse": 0
     },
     "CREDIT": [{
-        "course": "Senmon",
+        "course": "A",
         "needCourse": 12,
-        "getCourse": 3,
-        "nowCourse": 2,
-        "preCourse": 1,
+        "getCourse": getCourse[0],
+        "nowCourse": nowCourese[0],
+        "preCourse": 0,
         "courseA": 5,
         "courseSum": 15
     }, {
-        "course": "SenmonKiso",
+        "course": "B",
         "needCourse": 12,
-        "getCourse": 3,
-        "nowCourse": 2,
-        "preCourse": 1,
+		"getCourse": getCourse[1],
+        "nowCourse": nowCourese[1],
+        "preCourse": 0,
         "courseA": 5,
         "courseSum": 15
     }, {
-        "course": "Kiso",
+        "course": "C",
         "needCourse": 12,
-        "getCourse": 3,
-        "nowCourse": 2,
-        "preCourse": 1,
+        "getCourse": getCourse[2],
+        "nowCourse": nowCourese[2],
+        "preCourse": 0,
+        "courseA": 5,
+        "courseSum": 15
+    },
+    {
+        "course": "C_0",
+        "needCourse": 12,
+		"getCourse": getCourse[3],
+        "nowCourse": nowCourese[3],
+        "preCourse": 0,
         "courseA": 5,
         "courseSum": 15
     }],
@@ -557,20 +567,40 @@ function min(a, b) {
     }
 }
 
-function checkClass(req){
+function checkClass(req,nowCorse,getCourse){
 	
 	for (var i=0; eval("req.body.line" + i) != undefined ; i++){
 		if(eval("req.body.line" + i + ".classification")=="A"){
-			
+			if(eval("req.body.line" + i + ".grade") == "X"){
+				nowCourse[0]+=eval("req.body.line" + i + ".credit");
+			}
+			else if(eval("req.body.line" + i + ".grade") != "D" && eval("req.body.line" + i + ".grade") != "F"){
+				getCourse[0]+=eval("req.body.line" + i + ".credit");
+			}
 		}
 		else if(eval("req.body.line" + i + ".classification")=="B"){
-		
+			if(eval("req.body.line" + i + ".grade") == "X"){
+				nowCourse[1]+=eval("req.body.line" + i + ".credit");
+			}
+			else if(eval("req.body.line" + i + ".grade") != "D" && eval("req.body.line" + i + ".grade") != "F"){
+				getCourse[1]+=eval("req.body.line" + i + ".credit");
+			}
 		}
 		else if(eval("req.body.line" + i + ".classification")=="C"){
-		
+			if(eval("req.body.line" + i + ".grade") == "X"){
+				nowCourse[2]+=eval("req.body.line" + i + ".credit");
+			}
+			else if(eval("req.body.line" + i + ".grade") != "D" && eval("req.body.line" + i + ".grade") != "F"){
+				getCourse[2]+=eval("req.body.line" + i + ".credit");
+			}
 		}
 		else if(eval("req.body.line" + i + ".classification")=="C_0"){
-		
+			if(eval("req.body.line" + i + ".grade") == "X"){
+				nowCourse[3]+=eval("req.body.line" + i + ".credit");
+			}
+			else if(eval("req.body.line" + i + ".grade") != "D" && eval("req.body.line" + i + ".grade") != "F"){
+				getCourse[3]+=eval("req.body.line" + i + ".credit");
+			}
 		}
 	}
 }
