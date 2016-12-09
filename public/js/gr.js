@@ -426,15 +426,31 @@ function getData(num) {
       setDefaultSelector("#KAMOKU_CELL_42", data.KisoKanren.select);
       setDefaultSelector("#KAMOKU_CELL_43", data.KisoKanren.free);
     });
+  } else {
+    resetDefaultSelector("#KAMOKU_CELL_11");
+    resetDefaultSelector("#KAMOKU_CELL_12");
+    resetDefaultSelector("#KAMOKU_CELL_13");
+    resetDefaultSelector("#KAMOKU_CELL_21");
+    resetDefaultSelector("#KAMOKU_CELL_22");
+    resetDefaultSelector("#KAMOKU_CELL_23");
+    resetDefaultSelector("#KAMOKU_CELL_31");
+    resetDefaultSelector("#KAMOKU_CELL_32");
+    resetDefaultSelector("#KAMOKU_CELL_33");
+    resetDefaultSelector("#KAMOKU_CELL_41");
+    resetDefaultSelector("#KAMOKU_CELL_42");
+    resetDefaultSelector("#KAMOKU_CELL_43");
+  }
+}
+
+function resetDefaultSelector(name) {
+  var len = $(name).find("tr").length;
+  for (var i=0; i<len-2; i++) {
+    $(name).find("tr:nth-child(2)").remove();
   }
 }
 
 //それぞれの科目区分のリストを作る
 function setDefaultSelector(name, data) {
-  var len = $(name).find("tr").length;
-  for (var i=0; i<len-2; i++) {
-    $(name).find("tr:nth-child(2)").remove();
-  }
   var obj = $(name).find("tr:last");
   for (var i=0; i<data.length; i++) {
     var kamokuNumber = data[i].row.join("<br>");
