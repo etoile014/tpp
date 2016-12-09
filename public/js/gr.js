@@ -183,7 +183,8 @@ var majorList = {
 var creditList = ["0.0","0.5","1.0","1.5","2.0","2.5","3.0","4.0","4.5","5.0","6.0","7.0","7.5","8.0","9.0","10.0","11.0","15.0","26.0","27.0","31.0","37.0"];
 
 function loadFirst() {
-  getData();
+  loadFaculty();
+  //getData();
 }
 
 $(function() {
@@ -304,6 +305,13 @@ function loadMajor() {
     }
   });
   $("#MAJOR_SELECT").append($option);
+  loadList();
+}
+
+function loadList() {
+  console.log("poyo");
+  var id = parseInt($("#MAJOR_SELECT").val());
+  getData(id);
 }
 
 function uploadData() {
@@ -402,15 +410,9 @@ function postData(JsonText) {
 }
 
 //ローカルのJSONデータからデフォルト値を貰ってくる
-function getData() {
-  $.getJSON("js/gr.json" , function(data) {
-    $.when(
-      loadFaculty(),
-      $("#FACULTY_SELECT").val(Math.floor(data.id/1000)),
-      loadDepart(),
-      $("#DEPART_SELECT").val(Math.floor(data.id/100)),
-      loadMajor()
-    ).done(function(){
+function getData(num) {
+  if (num==6201) {
+    $.getJSON("js/gr.json" , function(data) {
       setDefaultSelector("#KAMOKU_CELL_11", data.Senmon.need);
       setDefaultSelector("#KAMOKU_CELL_12", data.Senmon.select);
       setDefaultSelector("#KAMOKU_CELL_13", data.Senmon.free);
@@ -424,13 +426,16 @@ function getData() {
       setDefaultSelector("#KAMOKU_CELL_42", data.KisoKanren.select);
       setDefaultSelector("#KAMOKU_CELL_43", data.KisoKanren.free);
     });
-  });
+  }
 }
 
 //それぞれの科目区分のリストを作る
 function setDefaultSelector(name, data) {
+  var len = $(name).find("tr").length;
+  for (var i=0; i<len-2; i++) {
+    $(name).find("tr:nth-child(2)").remove();
+  }
   var obj = $(name).find("tr:last");
-  //間に入っているやつを消す作業をしてから (未実装)
   for (var i=0; i<data.length; i++) {
     var kamokuNumber = data[i].row.join("<br>");
     var credit1 = data[i].min;
