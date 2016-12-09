@@ -18,6 +18,16 @@
       <p id="EXPLAIN">必要事項を全て入力して"データ送信"ボタンを押してください。</p>
       <form>
         <div class="selectorField">
+          <select class="selector" id="ENTER_SELECT">
+            <option value="2013">2013年入学</option>
+            <option value="2014">2014年入学</option>
+            <option value="2015">2015年入学</option>
+            <option value="2016">2016年入学</option>
+            <option value="2017">2017年入学</option>
+          </select>
+          <img class="selector-arrow" src="./img/gr/Pulldown_Arrow.svg"/>
+        </div>
+        <div class="selectorField">
           <select class="selector" id="FACULTY_SELECT" onchange="loadDepart()"></select>
           <img class="selector-arrow" src="./img/gr/Pulldown_Arrow.svg"/>
         </div>
@@ -85,6 +95,23 @@
         <table border="0" class="input-table">
           <tr>
             <td colspan="3" class="kamoku-title-main"><p class="kamoku-title-name">基礎関連科目</p></td>
+          </tr>
+          <tr>
+            <td class="kamoku-title-cell"><p class="kamoku-subtitle-name1">必修科目</p></td>
+            <td class="kamoku-title-cell"><p class="kamoku-subtitle-name2">選択科目</p></td>
+            <td class="kamoku-title-cell"><p class="kamoku-subtitle-name3">自由科目</p></td>
+          </tr>
+          <tr>
+            <td id="KAMOKU_CELL_41" class="kamoku-cell"></td>
+            <td id="KAMOKU_CELL_42" class="kamoku-cell"></td>
+            <td id="KAMOKU_CELL_43" class="kamoku-cell"></td>
+          </tr>
+        </table>
+      </div>
+      <div class="table-frame">
+        <table border="0" class="input-table">
+          <tr>
+            <td colspan="3" class="kamoku-title-main"><p class="kamoku-title-name">合計</p></td>
           </tr>
           <tr>
             <td class="kamoku-title-cell"><p class="kamoku-subtitle-name1">必修科目</p></td>
