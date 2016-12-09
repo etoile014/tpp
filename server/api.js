@@ -145,7 +145,7 @@ app.post("/api/csv", function(req, res, next) {
             }
         });
     });
-	
+
 	checkClass(req,getCourse,nowCourse);
     //Analyze
     /*
@@ -310,7 +310,7 @@ db.each("SELECT min, max from common_compulsory where subject = '体育' and dep
 		y=countCredit(classcode,req);
 		subject[7]+=min(xmax,y);
 	});
-	
+
 	////////第二外国語//////////////////////////////////
 	db.each("SELECT min, max from common_compulsory where subject = '第2外国語' and depart = 6201 and enter = 2014", function(err, row){
 		var xmin=row.min,xmax=row.max,y,z,lang=[0,0,0,0,0,0,0,0];
@@ -323,7 +323,7 @@ db.each("SELECT min, max from common_compulsory where subject = '体育' and dep
 		var classcode7=[/^38A.*2$/,/^38B.*2$/,/^38C.*2$/,/^38E.*2$/,/^389.*2$/,/^383.*2$/];
 		var classcode8=[/^39.*2$/];
 		var classcode9=[/^324.*2$/,/^334.*2$/,/^344.*2$/,/^354.*2$/,/^364.*2$/,/^374.*2$/,/^384.*2$/];
-		
+
 		lang[0]=countCredit(classcode1,req);
 		lang[1]=countCredit(classcode2,req);
 		lang[2]=countCredit(classcode3,req);
@@ -617,7 +617,7 @@ function checkClass(req,nowCorse,getCourse,rateA){
 					tmpA += eval("req.body.line" + i + ".credit");
 				}
 			}
-			
+
 		}
 		else if(eval("req.body.line" + i + ".classification")=="B"){
 			if(eval("req.body.line" + i + ".grade") == "X"){
@@ -680,7 +680,7 @@ function checkTransition(req,semesterGPA,semesterTotal,admissionYear){
 			semesterTotal[2*(eval("req.body.line" + i + ".year")-admissionYear)+1] += eval("req.body.line" + i + ".credit");
 		}
 	}
-	
+
 	var cnt=0;
 	while(true){
 		if(semesterTotal[cnt] == 0){

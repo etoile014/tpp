@@ -14,6 +14,7 @@ var rabbit_data = [0.0, 0.0, 0.0, 0.0, 0.0];
 // getCredit用
 var course = "";
 var get_credit_data = [0.0, 0.0, 0.0, 0.0, 0.0];
+
 //GradeA&A+
 var grade_A_data = [0.0, 0.0];
 //GradeRate
@@ -21,9 +22,29 @@ var grade_rate_data = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
 //折れ線グラフ
 var start = 0;
 //CreditTransition
-var credit_transition_data = [0, 0, 0, 0, 0, 0];
+//var credit_transition_data = [0, 0, 0, 0, 0, 0];
+var credit_transition_data = [
+      {"semester":"2013/spring","credit":27},
+      {"semester":"2013/autumn","credit":22},
+      {"semester":"2014/spring","credit":30},
+      {"semester":"2014/autumn","credit":21},
+      {"semester":"2015/spring","credit":26},
+      {"semester":"2015/autumn","credit":15}
+    ];
+
 //GPATransition
-var qpa_transition_data = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
+//var qpa_transition_data = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
+//detaset サンプル
+var qpa_transition_data = [
+      {"semester":"2013/spring","GPA":2.7},
+      {"semester":"2013/autumn","GPA":2.2},
+      {"semester":"2014/spring","GPA":3.0},
+      {"semester":"2014/autumn","GPA":2.1},
+      {"semester":"2015/spring","GPA":2.6},
+      {"semester":"2015/autumn","GPA":1.5}
+    ];
+
+
 
 //var genre = { "Senmon":"専門科目", "SenmonKiso":"専門基礎科目", "Kiso":"基礎科目" };
 var AffiliationID = "";
@@ -697,7 +718,7 @@ function convertJsonText(dataArray, Aff) {
         txt += '\t\t\"grade\": \"' + dataArray[i][4] + '\",\n';
         txt += '\t\t\"credit\": \"' + dataArray[i][5] + ',\n';
         txt += '\t\t\"state\": \"' + dataArray[i][6] + '\",\n';
-        txt += '\t\t\"semister\": \"' + dataArray[i][7] + '\"\n';
+        txt += '\t\t\"semesster\": \"' + dataArray[i][7] + '\"\n';
         txt += '\t}' + ((i < length - 1) ? ',' : '') + '\n';
     }
     txt += '}';
@@ -759,9 +780,9 @@ function getData(data) {
     var countD = data.GRADE_GPA.countD;
     var countOther = data.GRADE_GPA.countP + data.GRADE_GPA.countF;
     grade_rate_data = [countAplus, countA, countB, countC, countD, countOther];
-    start = data.GRADE_GPA.start;
-    credit_transition_data = data.GRADE_GPA.creditTransition;
-    qpa_transition_data = data.GRADE_GPA.gpaTransition;
+    //start = data.GRADE_GPA.start;
+    //credit_transition_data = data.GRADE_GPA.creditTransition;
+    //qpa_transition_data = data.GRADE_GPA.gpaTransition;
 
     jumpMain();
 }
@@ -800,8 +821,8 @@ $(function() {
         if (mode == 1 && animated3 == false) {
             animated3 = true;
             drawGradeRate("#GRADE_RATE", grade_rate_data);
-            drawCreditTransition("#CREDIT_TRANSITION", start, credit_transition_data);
-            drawGPATransition("#GPA_TRANSITION", start, qpa_transition_data);
+            drawCreditTransition("#CREDIT_TRANSITION", credit_transition_data);
+            drawGPATransition("#GPA_TRANSITION", qpa_transition_data);
 
             $("#CREDIT_APLUS").text(grade_rate_data[0].toFixed(1));
             $("#CREDIT_A").text(grade_rate_data[1].toFixed(1));
