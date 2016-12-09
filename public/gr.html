@@ -8,7 +8,7 @@
   <!-- CSS -->
   <link href="css/gr.css" rel="stylesheet" type="text/css">
 </head>
-<body onload="loadFaculty()">
+<body onload="loadFirst()">
   <header id="PAGE_HEADER" role="banner">
     <div class="header-logo"><img class="logo" src="img/gr/Top_Link.png"></div>
   </header>
@@ -26,7 +26,7 @@
           <img class="selector-arrow" src="./img/gr/Pulldown_Arrow.svg"/>
         </div>
         <div class="selectorField">
-          <select class="selector" id="MAJOR_SELECT"></select>
+          <select class="selector" id="MAJOR_SELECT" onchange="loadList()"></select>
           <img class="selector-arrow" src="./img/gr/Pulldown_Arrow.svg"/>
         </div>
       </form>

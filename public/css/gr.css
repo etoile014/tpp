@@ -179,7 +179,7 @@ img.selector-arrow {
 div.table-frame {
 	margin: 20px auto 60px auto;
 	padding: 5px;
-	width: 755px;
+	width: 837px;
 	border-style: solid;
 	border-color: rgba(67, 82, 106, 0.5);
 	border-width: 1px;
@@ -196,13 +196,13 @@ table.input-table {
 }
 
 td.kamoku-title-main {
-	width: 750px;
+	width: 835px;
 	height: 45px;
 }
 
 p.kamoku-title-name {
 	margin: 0 auto;
-	width:750px;
+	width:832px;
 	height: 40px;
 	font-size: 1.5em;
 	border-style: solid;
@@ -213,13 +213,13 @@ p.kamoku-title-name {
 }
 
 td.kamoku-title-cell {
-	width: 250px;
+	width: 275px;
 	height: 35px;
 }
 
 p.kamoku-subtitle-name1 {
 	margin: 0 auto;
-	width:245px;
+	width:275px;
 	height: 30px;
 	font-size: 1.2em;
 	border-style: solid;
@@ -231,7 +231,7 @@ p.kamoku-subtitle-name1 {
 
 p.kamoku-subtitle-name2 {
 	margin: 0 auto;
-	width:245px;
+	width:275px;
 	height: 30px;
 	font-size: 1.2em;
 	border-style: solid;
@@ -243,7 +243,7 @@ p.kamoku-subtitle-name2 {
 
 p.kamoku-subtitle-name3 {
 	margin: 0 auto;
-	width:245px;
+	width:275px;
 	height: 30px;
 	font-size: 1.2em;
 	border-style: solid;
@@ -267,11 +267,15 @@ td.action-area {
 }
 
 td.number-area {
-	width: 155px;
+	width: 110px;
+}
+
+input[type=text] {
+  width:105px;
 }
 
 td.credit-area {
-	width: 50px;
+	width: 130px;
 }
 
 button#SUBMITTER {

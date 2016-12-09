@@ -180,17 +180,19 @@ var majorList = {
   9114 : "建築デザイン"
 };
 
-var creditList = ["0.5","1.0","1.5","2.0","2.5","3.0","4.0","4.5","5.0","6.0","7.0","7.5","8.0","9.0","10.0","11.0","15.0","26.0","27.0","31.0","37.0"];
+var creditList = ["0.0","0.5","1.0","1.5","2.0","2.5","3.0","4.0","4.5","5.0","6.0","7.0","7.5","8.0","9.0","10.0","11.0","15.0","26.0","27.0","31.0","37.0"];
+
+function loadFirst() {
+  loadFaculty();
+  //getData();
+}
 
 $(function() {
   for (var k=1; k<5; k++) {
     for (var j=1; j<4; j++) {
-      var $creditSelector = $("<select></select>");
-      for (var i=0; i<creditList.length; i++) {
-        var $str = "<option value='" + creditList[i] + "'></option>";
-        $creditSelector.append($($str).text(creditList[i]));
-      }
       var name = "#KAMOKU_CELL_" + k + j;
+      var $creditSelector1 = makeCreditSelector();
+      var $creditSelector2 = makeCreditSelector();
       $(name).append(
         $("<table border='1' class='list-area'>").append(
           $("<tr></tr>")
@@ -201,29 +203,64 @@ $(function() {
           $("<tr></tr>")
           .append($("<td class='action-area'></td>").append($("<button class='add-button'>＋</button>")))
           .append($("<td class='number-area'></td>").append($("<input type='text'>")))
-          .append($("<td class='credit-area'></td>").append($creditSelector))
+          .append(
+            $("<td class='credit-area'></td>")
+            .append("<span>min / max</span>")
+            .append($creditSelector1)
+            .append($creditSelector2)
+          )
         )
       );
     }
   }
-  $(document).on("click", ".add-button", function(){
+  $(document).on("click", ".add-button", function() {
     var number = $(this).parent().parent().find("input").val();
-    var credit = $(this).parent().parent().find("select").val();
-    if (number.match(/^[0-9A-Z]{7}$/)) {
+    number = halfString(number);
+    var credit1 = $(this).parent().parent().find("select:nth-child(2)").val();
+    var credit2 = $(this).parent().parent().find("select:nth-child(3)").val();
+    var credit = credit1==credit2?credit1:(credit1+"〜"+credit2);
+    if (number.match(/^([0-9A-Z_]{7},)*[0-9A-Z_]{7}$/)) {
       var obj = $(this).parent().parent();
+      var kamokuNumber = number.split(",").join("<br>");
       obj.before(
         $("<tr></tr>")
         .append($("<td class='action-area'></td>").append($("<button class='remove-button'>ー</button>")))
-        .append($("<td class='number-area'></td>").text(number))
-        .append($("<td class='credit-area'></td>").text(credit))
+        .append($("<td class='number-area'></td>").html(kamokuNumber))
+        .append($("<td class='credit-area'></td>").append(credit))
       );
     }
   });
-  $(document).on("click", ".remove-button", function(){
+  $(document).on("click", ".remove-button", function() {
     var obj = $(this).parent().parent();
     obj.remove();
   });
 });
+
+function makeCreditSelector() {
+  var $creditSelector = $("<select></select>");
+  for (var i=0; i<creditList.length; i++) {
+    var $str = "<option value='" + creditList[i] + "'></option>";
+    $creditSelector.append($($str).text(creditList[i]));
+  }
+  return $creditSelector;
+}
+
+function halfString(val) {
+  var halfstr = "";
+  val.toUpperCase().replace("、", ",").split("").forEach(function(str) {
+    halfstr += str.replace(/[Ａ-Ｚ０-９]/, function(s) {
+      return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
+    });
+  });
+  var halfstrs = halfstr.split(",");
+  halfstrs.forEach(function(str, index, ar) {
+    if (7-str.length > 0) {
+      ar[index] += Array(8-str.length).join("X");
+    }
+  });
+  halfstr = halfstrs.join(",");
+  return halfstr;
+}
 
 function loadFaculty() {
   $("#FACULTY_SELECT").append($option);
@@ -268,13 +305,20 @@ function loadMajor() {
     }
   });
   $("#MAJOR_SELECT").append($option);
+  loadList();
+}
+
+function loadList() {
+  console.log("poyo");
+  var id = parseInt($("#MAJOR_SELECT").val());
+  getData(id);
 }
 
 function uploadData() {
   var id = $("#MAJOR_SELECT").val();
   //開始
   var txt = "{\n";
-  txt += '\t"id : "' + id + ",\n";
+  txt += '\t"id" : ' + id + ",\n";
   //専門
   txt += '\t"Senmon" : {\n';
   txt += '\t\t"need" : [\n';
@@ -329,13 +373,21 @@ function uploadData() {
   alert(txt);
 }
 
+//アップロード用の行を生成する
 function makeList(name) {
   var txt = "";
   var length = $(name).find("tr").length;
   for (var i=2; i<length; i++) {
-    var number = $(name).find("tr:nth-child("+i+")").children("td:nth-child(2)").text();
+    var number = $(name).find("tr:nth-child("+i+")").children("td:nth-child(2)").html();
+    number = number.split("<br>").join('","');
+    txt += '\t\t\t{ "row" : ["'+number+'"], ';
     var credit = $(name).find("tr:nth-child("+i+")").children("td:nth-child(3)").text();
-    txt += '\t\t\t{ "'+number+'" : '+credit+' }'+(i<length-1?',\n':'\n');
+    if (credit.match(/〜/)) {
+      var credits = credit.split("〜");
+      txt += '"min" : '+credits[0]+', "max" : '+credits[1]+' }'+(i<length-1?',\n':'\n');
+    } else {
+      txt += '"min" : '+credit+', "max" : '+credit+' }'+(i<length-1?',\n':'\n');
+    }
   }
   return txt;
 }
@@ -355,6 +407,63 @@ function postData(JsonText) {
     }
   });
   return false;
+}
+
+//ローカルのJSONデータからデフォルト値を貰ってくる
+function getData(num) {
+  if (num==6201) {
+    $.getJSON("js/gr.json" , function(data) {
+      setDefaultSelector("#KAMOKU_CELL_11", data.Senmon.need);
+      setDefaultSelector("#KAMOKU_CELL_12", data.Senmon.select);
+      setDefaultSelector("#KAMOKU_CELL_13", data.Senmon.free);
+      setDefaultSelector("#KAMOKU_CELL_21", data.SenmonKiso.need);
+      setDefaultSelector("#KAMOKU_CELL_22", data.SenmonKiso.select);
+      setDefaultSelector("#KAMOKU_CELL_23", data.SenmonKiso.free);
+      setDefaultSelector("#KAMOKU_CELL_31", data.KisoKyoutsuu.need);
+      setDefaultSelector("#KAMOKU_CELL_32", data.KisoKyoutsuu.select);
+      setDefaultSelector("#KAMOKU_CELL_33", data.KisoKyoutsuu.free);
+      setDefaultSelector("#KAMOKU_CELL_41", data.KisoKanren.need);
+      setDefaultSelector("#KAMOKU_CELL_42", data.KisoKanren.select);
+      setDefaultSelector("#KAMOKU_CELL_43", data.KisoKanren.free);
+    });
+  } else {
+    resetDefaultSelector("#KAMOKU_CELL_11");
+    resetDefaultSelector("#KAMOKU_CELL_12");
+    resetDefaultSelector("#KAMOKU_CELL_13");
+    resetDefaultSelector("#KAMOKU_CELL_21");
+    resetDefaultSelector("#KAMOKU_CELL_22");
+    resetDefaultSelector("#KAMOKU_CELL_23");
+    resetDefaultSelector("#KAMOKU_CELL_31");
+    resetDefaultSelector("#KAMOKU_CELL_32");
+    resetDefaultSelector("#KAMOKU_CELL_33");
+    resetDefaultSelector("#KAMOKU_CELL_41");
+    resetDefaultSelector("#KAMOKU_CELL_42");
+    resetDefaultSelector("#KAMOKU_CELL_43");
+  }
+}
+
+function resetDefaultSelector(name) {
+  var len = $(name).find("tr").length;
+  for (var i=0; i<len-2; i++) {
+    $(name).find("tr:nth-child(2)").remove();
+  }
+}
+
+//それぞれの科目区分のリストを作る
+function setDefaultSelector(name, data) {
+  var obj = $(name).find("tr:last");
+  for (var i=0; i<data.length; i++) {
+    var kamokuNumber = data[i].row.join("<br>");
+    var credit1 = data[i].min;
+    var credit2 = data[i].max;
+    var credit = credit1==credit2?credit1.toFixed(1):(credit1.toFixed(1)+"〜"+credit2.toFixed(1));
+    obj.before(
+      $("<tr></tr>")
+      .append($("<td class='action-area'></td>").append($("<button class='remove-button'>ー</button>")))
+      .append($("<td class='number-area'></td>").html(kamokuNumber))
+      .append($("<td class='credit-area'></td>").append(credit))
+    );
+  }
 }
 
 function checkObj(obj) {
