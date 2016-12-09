@@ -111,6 +111,7 @@ app.post("/api/csv", function(req, res, next) {
     var semesterTotal = [0,0,0,0,0,0,0];
     var semesterGPA = [0,0,0,0,0,0,0];
     var subject = [0,0,0,0,0,0,0,0,0,0,0,0];
+    var gpa = [0,0,0,0,0,0,0];
     var getCource=[0,0,0,0];
 	var nowCourse=[0,0,0,0];
     var graduation = 1;      //if there is any problem, this will turns 0.
@@ -301,6 +302,40 @@ db.each("SELECT min, max from common_compulsory where subject = '体育' and dep
     //}
     //履修データから科目番号28*****の単位数をsubject[4]に格納
 });
+
+////////国語//////////////////////////////////////
+	db.each("SELECT min, max from common_compulsory where subject = '国語' and depart = 6201 and enter = 2014", function(err, row){
+		var xmin=row.min,xmax=row.max,y;
+		var classcode=[/^5/];
+		y=countCredit(classcode,req);
+		subject[7]+=min(xmax,y);
+	});
+	
+	////////第二外国語//////////////////////////////////
+	db.each("SELECT min, max from common_compulsory where subject = '第2外国語' and depart = 6201 and enter = 2014", function(err, row){
+		var xmin=row.min,xmax=row.max,y,z,lang=[0,0,0,0,0,0,0,0];
+		var classcode1=[/^32A.*2$/,/^32B.*2$/,/^32C.*2$/,/^32E.*2$/,/^329.*2$/,/^323.*2$/];
+		var classcode2=[/^33A.*2$/,/^33B.*2$/,/^33C.*2$/,/^33E.*2$/,/^339.*2$/,/^333.*2$/];
+		var classcode3=[/^34A.*2$/,/^34B.*2$/,/^34C.*2$/,/^34E.*2$/,/^349.*2$/,/^343.*2$/];
+		var classcode4=[/^35A.*2$/,/^35B.*2$/,/^35C.*2$/,/^35E.*2$/,/^359.*2$/,/^353.*2$/];
+		var classcode5=[/^36A.*2$/,/^36B.*2$/,/^36C.*2$/,/^36E.*2$/,/^369.*2$/,/^363.*2$/];
+		var classcode6=[/^37A.*2$/,/^37B.*2$/,/^37C.*2$/,/^37E.*2$/,/^379.*2$/,/^373.*2$/];
+		var classcode7=[/^38A.*2$/,/^38B.*2$/,/^38C.*2$/,/^38E.*2$/,/^389.*2$/,/^383.*2$/];
+		var classcode8=[/^39.*2$/];
+		var classcode9=[/^324.*2$/,/^334.*2$/,/^344.*2$/,/^354.*2$/,/^364.*2$/,/^374.*2$/,/^384.*2$/];
+		
+		lang[0]=countCredit(classcode1,req);
+		lang[1]=countCredit(classcode2,req);
+		lang[2]=countCredit(classcode3,req);
+		lang[3]=countCredit(classcode4,req);
+		lang[4]=countCredit(classcode5,req);
+		lang[5]=countCredit(classcode6,req);
+		lang[6]=countCredit(classcode7,req);
+		lang[7]=countCredit(classcode8,req);
+		z=countCredit(classcode,req);
+		y=max(lang);
+		subject[7]+=min(y,xmax);
+	});
 console.log("-analyzed");
 
 sleep.sleep(2000, function() {
@@ -551,7 +586,8 @@ function countCredit(classCode, req) {
         var str = eval("req.body.line" + i + ".subject");
         for (var j = 0; j < classCode.length; j++) {
             if (str.match(classCode[j])) {
-                cnt += Number(eval("req.body.line" + i + ".credit"));
+            	var tmp=eval("req.body.line" + i + ".credit");
+                cnt += Number(tmp);
                 console.log("// " + cnt + ":" + i);
             }
         }
@@ -567,8 +603,9 @@ function min(a, b) {
     }
 }
 
-function checkClass(req,nowCorse,getCourse){
-	
+///////////////科目区分ごとの分類
+function checkClass(req,nowCorse,getCourse,rateA){
+	var tmpA=0,tmpB=0,tmpC=0,tmpC0=0;
 	for (var i=0; eval("req.body.line" + i) != undefined ; i++){
 		if(eval("req.body.line" + i + ".classification")=="A"){
 			if(eval("req.body.line" + i + ".grade") == "X"){
@@ -576,7 +613,11 @@ function checkClass(req,nowCorse,getCourse){
 			}
 			else if(eval("req.body.line" + i + ".grade") != "D" && eval("req.body.line" + i + ".grade") != "F"){
 				getCourse[0]+=eval("req.body.line" + i + ".credit");
+				if(eval("req.body.line" + i + ".grade") == "A" || eval("req.body.line" + i + ".grade") == "A+"){
+					tmpA += eval("req.body.line" + i + ".credit");
+				}
 			}
+			
 		}
 		else if(eval("req.body.line" + i + ".classification")=="B"){
 			if(eval("req.body.line" + i + ".grade") == "X"){
@@ -584,6 +625,9 @@ function checkClass(req,nowCorse,getCourse){
 			}
 			else if(eval("req.body.line" + i + ".grade") != "D" && eval("req.body.line" + i + ".grade") != "F"){
 				getCourse[1]+=eval("req.body.line" + i + ".credit");
+				if(eval("req.body.line" + i + ".grade") == "A" || eval("req.body.line" + i + ".grade") == "A+"){
+					tmpB += eval("req.body.line" + i + ".credit");
+				}
 			}
 		}
 		else if(eval("req.body.line" + i + ".classification")=="C"){
@@ -592,6 +636,9 @@ function checkClass(req,nowCorse,getCourse){
 			}
 			else if(eval("req.body.line" + i + ".grade") != "D" && eval("req.body.line" + i + ".grade") != "F"){
 				getCourse[2]+=eval("req.body.line" + i + ".credit");
+				if(eval("req.body.line" + i + ".grade") == "A" || eval("req.body.line" + i + ".grade") == "A+"){
+					tmpC += eval("req.body.line" + i + ".credit");
+				}
 			}
 		}
 		else if(eval("req.body.line" + i + ".classification")=="C_0"){
@@ -600,7 +647,65 @@ function checkClass(req,nowCorse,getCourse){
 			}
 			else if(eval("req.body.line" + i + ".grade") != "D" && eval("req.body.line" + i + ".grade") != "F"){
 				getCourse[3]+=eval("req.body.line" + i + ".credit");
+				if(eval("req.body.line" + i + ".grade") == "A" || eval("req.body.line" + i + ".grade") == "A+"){
+					tmpC0 += eval("req.body.line" + i + ".credit");
+				}
 			}
 		}
+	}
+	rateA[0]=tmpA;
+	rateA[1]=tmpB;
+	rateA[2]=tmpC;
+	rateA[3]=tmpD;
+}
+
+/////////////履修開始年度////////////
+function getAdomissionYear(req){
+	var year=3000;
+	for (var i=0; eval("req.body.line" + i) != undefined ; i++){
+		if(year > eval("req.body.line" + i + ".year"))year = eval("req.body.line" + i + ".year");
+	}
+	return year;
+}
+
+/////////////修得単位とGPAの推移を計算
+function checkTransition(req,semesterGPA,semesterTotal,admissionYear){
+	for (var i=0; eval("req.body.line" + i) != undefined ; i++){
+		if(eval("req.body.line" + i + ".semester") == "春"){
+			semesterGPA[2*(eval("req.body.line" + i + ".year")-admissionYear)] += culcGPA(req,i);
+			semesterTotal[2*(eval("req.body.line" + i + ".year")-admissionYear)] += eval("req.body.line" + i + ".credit");
+		}
+		else if(eval("req.body.line" + i + ".semester") == "秋"){
+			semesterGPA[2*(eval("req.body.line" + i + ".year")-admissionYear)+1] += culcGPA(req,i);
+			semesterTotal[2*(eval("req.body.line" + i + ".year")-admissionYear)+1] += eval("req.body.line" + i + ".credit");
+		}
+	}
+	
+	var cnt=0;
+	while(true){
+		if(semesterTotal[cnt] == 0){
+			break;
+		}
+		semesterGPA[cnt] = semesterGPA[cnt]/semesterTotal[cnt];
+	}
+}
+
+function culcGPA(req,i){
+	switch (eval("req.body.line" + i + ".grade")){
+				case "A+":
+					return eval("req.body.line" + i + ".credit")*4.3;
+					break;
+				case "A":
+					return eval("req.body.line" + i + ".credit")*4.0;
+					break;
+				case "B":
+					return eval("req.body.line" + i + ".credit")*3.0;
+					break;
+				case "C":
+					return eval("req.body.line" + i + ".credit")*2.0;
+					break;
+				default:
+					return 0;
+					break;
 	}
 }
