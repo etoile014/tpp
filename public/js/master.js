@@ -677,6 +677,7 @@ function TwinsPlanningParser(textData) {
             dataArray[count][4] = (row[6] != "") ? row[6] : "X"; //成績
             dataArray[count][5] = row[7]; //単位数
             dataArray[count][6] = (row[6] != "") ? "履修済み" : "履修中"; //状態
+            dataArray[count][7] = row[2]; //春/秋
             count += 1;
         }
     }
@@ -695,7 +696,8 @@ function convertJsonText(dataArray, Aff) {
         txt += '\t\t\"name\": \"' + dataArray[i][3] + '\",\n';
         txt += '\t\t\"grade\": \"' + dataArray[i][4] + '\",\n';
         txt += '\t\t\"credit\": \"' + dataArray[i][5] + ',\n';
-        txt += '\t\t\"state\": \"' + dataArray[i][6] + '\"\n';
+        txt += '\t\t\"state\": \"' + dataArray[i][6] + '\",\n';
+        txt += '\t\t\"semister\": \"' + dataArray[i][7] + '\"\n';
         txt += '\t}' + ((i < length - 1) ? ',' : '') + '\n';
     }
     txt += '}';
