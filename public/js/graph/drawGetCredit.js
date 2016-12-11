@@ -1,6 +1,6 @@
-function drawGetCredit(id, dataset) {
-    var rate = ((dataset[1]/(dataset[0]>0?dataset[0]:1))*100);
-    var path_data = [dataset[1],dataset[2],dataset[3],dataset[4]];
+function drawGetCredit(id, dataset,ary_id) {
+    var rate = ((dataset[ary_id][1]/(dataset[ary_id][0]>0?dataset[ary_id][0]:1))*100);
+    var path_data = [dataset[ary_id][1],dataset[ary_id][2],dataset[ary_id][3],dataset[ary_id][4]];
 
     // 表示サイズを設定
     var width = 400;//変更
@@ -37,16 +37,20 @@ function drawGetCredit(id, dataset) {
 
     // テキスト
     var labelArr = [0, 1, 2, 3, 4];
-    var texts = svg.selectAll("text")
+    var texts = svg.selectAll("text.hoge")
     .data(labelArr);
+
+    var credit_text = "("+dataset[ary_id][1].toFixed(1)+"/"+dataset[ary_id][0].toFixed(1)+"単位)";
+    var rate_text = rate.toFixed(1)+"％";
 
     texts.enter().append("text")
     .attr("transform",  "translate(" + width / 2 + "," + height / 2 + ")")
-    .text(rate.toFixed(1)+"％")
+    .text(rate_text)
     .attr("dy","0")
     .attr("dx","-60")
     .attr("fill","#464646")
     .attr("font-size","40px")
+    .attr("id","RATE_TEXT")
     .attr("class","rate")
     texts.enter().append("text")
     .attr("transform",  "translate(" + width / 2 + "," + height / 2 + ")")
@@ -59,9 +63,10 @@ function drawGetCredit(id, dataset) {
     .attr("stroke-width",0.1);
     texts.enter().append("text")
     .attr("transform",  "translate(" + width / 2 + "," + height / 2 + ")")
-    .text("("+dataset[1].toFixed(1)+"/"+dataset[0].toFixed(1)+"単位)")
+    .text(credit_text)
     .attr("dy","20")
     .attr("dx","-30")
+    .attr("id","CREDIT_TEXT")
     .attr("class","under_rate")
     .attr("fill","#464646")
     .attr("font-size","10px")

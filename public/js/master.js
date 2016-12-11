@@ -13,36 +13,77 @@ var JsonText = "";
 var rabbit_data = [0.0, 0.0, 0.0, 0.0, 0.0];
 // getCredit用
 var course = "";
-var get_credit_data = [0.0, 0.0, 0.0, 0.0, 0.0];
+//var get_credit_data = [0.0, 0.0, 0.0, 0.0, 0.0];
+var get_credit_data = [
+    [0.0, 0.0, 0.0, 0.0, 0.0],
+    [0.0, 0.0, 0.0, 0.0, 0.0],
+    [0.0, 0.0, 0.0, 0.0, 0.0],
+    [0.0, 0.0, 0.0, 0.0, 0.0]
+];
+
+var CourseToNumHash = {
+    "A": 0,
+    "B": 1,
+    "C": 2,
+    "C_0": 3
+};
 
 //GradeA&A+
-var grade_A_data = [0.0, 0.0];
+//var grade_A_data = [0.0, 0.0];
+var grade_A_data = [
+    [0.0, 0.0],
+    [0.0, 0.0],
+    [0.0, 0.0],
+    [0.0, 0.0]
+];
 //GradeRate
 var grade_rate_data = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
 //折れ線グラフ
 var start = 0;
 //CreditTransition
 //var credit_transition_data = [0, 0, 0, 0, 0, 0];
-var credit_transition_data = [
-      {"semester":"","credit":0.0},
-      {"semester":"","credit":0.0},
-      {"semester":"","credit":0.0},
-      {"semester":"","credit":0.0},
-      {"semester":"","credit":0.0},
-      {"semester":"","credit":0.0}
-    ];
+var credit_transition_data = [{
+    "semester": "",
+    "credit": 0.0
+}, {
+    "semester": "",
+    "credit": 0.0
+}, {
+    "semester": "",
+    "credit": 0.0
+}, {
+    "semester": "",
+    "credit": 0.0
+}, {
+    "semester": "",
+    "credit": 0.0
+}, {
+    "semester": "",
+    "credit": 0.0
+}];
 
 //GPATransition
 //var qpa_transition_data = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
 //detaset サンプル
-var qpa_transition_data = [
-      {"semester":"","GPA":0.0},
-      {"semester":"","GPA":0.0},
-      {"semester":"","GPA":0.0},
-      {"semester":"","GPA":0.0},
-      {"semester":"","GPA":0.0},
-      {"semester":"","GPA":0.0}
-    ];
+var qpa_transition_data = [{
+    "semester": "",
+    "GPA": 0.0
+}, {
+    "semester": "",
+    "GPA": 0.0
+}, {
+    "semester": "",
+    "GPA": 0.0
+}, {
+    "semester": "",
+    "GPA": 0.0
+}, {
+    "semester": "",
+    "GPA": 0.0
+}, {
+    "semester": "",
+    "GPA": 0.0
+}];
 
 
 
@@ -734,20 +775,18 @@ function postData() {
             url: "https://tpp.d-io.com/api/csv",
             contentType: "application/json",
             statusCode: {
-              502: function()
-              {
-                var title = "502 Bad Gateway";
-                var desc = "Gatewayまたは、プロキシに問題が発生しております。申し訳ございませんが、しばらく待ってから再度接続してください。";
-                setHttpErrorCodeData(title,desc);
-                showTopErrorModal();
-              },
-              500: function()
-              {
-                var title = "500 Internal Server Error";
-                var desc = "サーバー側の設定やソフトウェアの問題が起きています。申し訳ございませんが、しばらく待ってから再度接続してください。";
-                setHttpErrorCodeData(title,desc);
-                showTopErrorModal();
-              }
+                502: function() {
+                    var title = "502 Bad Gateway";
+                    var desc = "Gatewayまたは、プロキシに問題が発生しております。申し訳ございませんが、しばらく待ってから再度接続してください。";
+                    setHttpErrorCodeData(title, desc);
+                    showTopErrorModal();
+                },
+                500: function() {
+                    var title = "500 Internal Server Error";
+                    var desc = "サーバー側の設定やソフトウェアの問題が起きています。申し訳ございませんが、しばらく待ってから再度接続してください。";
+                    setHttpErrorCodeData(title, desc);
+                    showTopErrorModal();
+                }
             },
             success: function(data) {
                 console.log(data);
@@ -771,15 +810,6 @@ function getData(data) {
     restGRCourse = restGRCourse > 0 ? restGRCourse : 0.0;
     rabbit_data = [needGRCourse, getGRCourse, nowGRCourse, preGRCourse, restGRCourse];
 
-    var needCourse = data.CREDIT[0].needCourse;
-    var getCourse = data.CREDIT[0].getCourse;
-    var nowCourse = data.CREDIT[0].nowCourse;
-    var preCourse = data.CREDIT[0].preCourse;
-    var courseA = data.CREDIT[0].courseA;
-    var courseSum = data.CREDIT[0].courseSum;
-    var otherCourse = (needCourse - (getCourse + nowCourse + preCourse));
-    get_credit_data = [needCourse, getCourse, nowCourse, preCourse, otherCourse];
-    grade_A_data = [courseA, courseSum];
 
     var countAplus = data.GRADE_GPA.countAplus;
     var countA = data.GRADE_GPA.countA;
@@ -792,6 +822,25 @@ function getData(data) {
     credit_transition_data = data.GRADE_GPA.creditTransition;
     qpa_transition_data = data.GRADE_GPA.gpaTransition;
 
+    for (var i = 0; i < 4; i++) {
+        grade_A_data[i][0] = data.CREDIT[i].courseA;
+        grade_A_data[i][1] = data.CREDIT[i].courseSum;
+        get_credit_data[i][0] = data.CREDIT[i].needCourse;
+        get_credit_data[i][1] = data.CREDIT[i].getCourse;
+        get_credit_data[i][2] = data.CREDIT[i].nowCourse;
+        get_credit_data[i][3] = data.CREDIT[i].preCourse;
+        var countOther = data.CREDIT[i].needCourse - (data.CREDIT[i].getCourse + data.CREDIT[i].nowCourse + data.CREDIT[i].preCourse);
+        if (countOther < 0) {
+            get_credit_data[i][4] = 0.0;
+        } else {
+            get_credit_data[i][4] = countOther;
+        }
+    }
+    /*
+    console.log("get_credit_data:"+get_credit_data);
+    console.log("grade_A_data:"+grade_A_data);
+    console.log("get_credit_data:"+get_credit_data);
+    */
     jumpMain();
 }
 
@@ -817,10 +866,11 @@ $(function() {
 
     //第二ブロック
     $("#CREDIT_GRAPH").on("inview", function() {
+        nowOption = $('[name=credit_pulldown]').val();
         if (mode == 1 && animated2 == false) {
             animated2 = true;
-            drawGetCredit("#GET_CREDIT_GRAPH", get_credit_data);
-            drawGradeA("#GRADE_A_GRAPH", grade_A_data);
+            drawGetCredit("#GET_CREDIT_GRAPH", get_credit_data, CourseToNumHash[nowOption]);
+            drawGradeA("#GRADE_A_GRAPH", grade_A_data, CourseToNumHash[nowOption]);
         }
     });
 
@@ -1087,12 +1137,14 @@ function deletePreCourse() {
     var deleteLineValue = "";
     var updateLineObject = "";
     var deleteSubCredit = "";
+    var deleteSubClass = "";
 
     for (var i = 1; i < JsonTextLine; i++) {
         var keyline = "line" + String(i - 1);
         if (CurrentJsonObject[keyline].subject == deleteSubID) {
             deleteLine = keyline;
             deleteLineValue = i - 1;
+            deleteSubClass = CurrentJsonObject[keyline].classification;
             deleteSubCredit = CurrentJsonObject[keyline].credit;
         }
     }
@@ -1142,10 +1194,12 @@ function deletePreCourse() {
     JsonText = newJsonText;
     updateSelectOption();
     updateRabbitDataDelete(deleteSubCredit);
-    updateGetCreditDataDelete(deleteSubCredit);
+    updateGetCreditDataDelete(deleteSubClass, deleteSubCredit);
     closeShowSubModal();
+
     updateRequirementGraph();
     updateCreditGraph();
+
 }
 
 function updateSelectOption() {
@@ -1189,7 +1243,7 @@ function closeTopErrorModal() {
     }
 }
 
-function setHttpErrorCodeData(title,description){
+function setHttpErrorCodeData(title, description) {
     $('#ERROR_TITLE').html(title);
     $('#ERROR_MESSAGE').html(description);
 }
@@ -1266,6 +1320,7 @@ $(function() {
             }
         }
         drawDataTable();
+        updateCreditGraph();
     });
 });
 
@@ -1389,7 +1444,7 @@ function initAddSubModalText() {
 function submitAddSubjectData() {
     var errorMessage = "";
     var inputCourseID = $("#INPUT_COURSE_ID_TEXT").val();
-    if (inputCourseID.match(/^[A-Z0-9]{4}\d{3}$/)) {
+    if (inputCourseID.match(/^[A-Z0-9]{7}$/)) {
         //console.log("科目ID:" + inputCourseID);
     } else {
         errorMessage += "<p>入力された科目IDは適切ではありません。</p>";
@@ -1414,50 +1469,52 @@ function submitAddSubjectData() {
         //未来のKdBデータはないので最新教科データが適用されるものと考えて、今年度の年を送信(inputCourseYearは後で使う)
         var subjectJson = '{\t' + '\"id\":' + '\"' + inputCourseID + '\"' + ',\t\"year\":' + '\"' + sYear + '\"\t}';
         $.ajax({
-            type: "POST",
-            data: subjectJson,
-            url: "https://tpp.d-io.com/api/search/",
-            contentType: "application/json",
-            success: function(data) {
-                if (data != "") {
-                    //科目が存在する
-                    data = $.parseJSON(data);
-                    console.log(data);
-                    //既にに履修済み、履修中か判定
-                    if (!(JsonText.match(inputCourseID))) {
-                        //履修していない
-                        //その年の単位キャップを越えていないか確認(現段階では単位キャップは45.0単位固定)
-                        if (countMatch(JsonText, inputCourseYear) <= 45) {
-                            //キャップ内
-                            //登録処理
-                            var next_line = countMatch(JsonText, 'line'); //line0から始まるので注意
-                            var tmp = JsonText.substr(0, JsonText.length - 2); //末尾削除
-                            tmp += ',\n';
-                            tmp += '\t"line' + next_line + '": {\n';
-                            tmp += '\t\t"classification": "D",\n'; //科目区分判定アルゴリズムより
-                            tmp += '\t\t"year": "' + inputCourseYear + '",\n';
-                            tmp += '\t\t"subject": "' + inputCourseID + '",\n';
-                            tmp += '\t\t"name": "' + data.name + '",\n';
-                            tmp += '\t\t"grade": "X",\n';
-                            tmp += '\t\t"credit": "' + data.credit.toFixed(1) + '",\n';
-                            tmp += '\t\t"state": "履修予定"\n';
-                            tmp += '\t}\n'
-                            tmp += '}';
-                            JsonText = tmp;
-                            updateSelectOption();
-                            //console.log(JsonText);
+                type: "POST",
+                data: subjectJson,
+                url: "https://tpp.d-io.com/api/search/",
+                contentType: "application/json",
+                success: function(data) {
+                    if (data != "") {
+                        //科目が存在する
+                        data = $.parseJSON(data);
+                        console.log(data);
+                        //既にに履修済み、履修中か判定
+                        if (!(JsonText.match(inputCourseID))) {
 
-                            //履修予定科目追加によるデータセット更新&最描画
-                            console.log("rabbit_data:" + rabbit_data);
-                            console.log("get_credit_data:" + get_credit_data);
-                            console.log("grade_A_data:" + grade_A_data);
-                            updateRabbitDataAdd(data.credit);
-                            updateGetCreditDataAdd(data.credit);
-                            console.log("rabbit_data[needGRCourse,getGRCourse,nowGRCourse,preGRCourse,restGRCourse]:" + rabbit_data);
-                            console.log("get_credit_data[needCourse,GetCourse,nowCourse,preCourse,otherCourse]:" + get_credit_data);
-                            console.log("grade_A_data[courseA(取得単位中のA/A+の数),CourseSum(取得単位の総数)]:" + grade_A_data);
-                            updateRequirementGraph();
-                            updateCreditGraph();
+                            var class_val = JudgeClassification(AffiliationID, inputCourseID);
+                            //console.log(class_val);
+                            //履修していない
+                            //その年の単位キャップを越えていないか確認(現段階では単位キャップは45.0単位固定)
+                            if (countMatch(JsonText, inputCourseYear) <= 45) {
+                                //キャップ内
+                                //登録処理
+
+                                var next_line = countMatch(JsonText, 'line'); //line0から始まるので注意
+                                var tmp = JsonText.substr(0, JsonText.length - 2); //末尾削除
+                                tmp += ',\n';
+                                tmp += '\t"line' + next_line + '": {\n';
+                                tmp += '\t\t"classification": "' + class_val + '",\n'; //科目区分判定アルゴリズムより
+                                tmp += '\t\t"year": "' + inputCourseYear + '",\n';
+                                tmp += '\t\t"subject": "' + inputCourseID + '",\n';
+                                tmp += '\t\t"name": "' + data.name + '",\n';
+                                tmp += '\t\t"grade": "X",\n';
+                                tmp += '\t\t"credit": "' + data.credit.toFixed(1) + '",\n';
+                                tmp += '\t\t"state": "履修予定"\n';
+                                tmp += '\t}\n'
+                                tmp += '}';
+                                JsonText = tmp;
+                                updateSelectOption();
+                                //console.log(JsonText);
+
+                                //履修予定科目追加によるデータセット更新&最描画
+                                var d1 = updateRabbitDataAdd(data.credit);
+                                var d2 = updateGetCreditDataAdd(class_val, data.credit);
+                                $.when(d1,d2)
+                                    .done(function() {
+                                        updateRequirementGraph();
+                                        updateCreditGraph();
+
+                                });
 
                             successMessage += "<p>" + inputCourseYear + "年度に科目番号 " + inputCourseID + " の" + data.name + "を履修予定です</p>";
                         } else {
@@ -1481,7 +1538,7 @@ function submitAddSubjectData() {
                 console.log("Error");
             }
         });
-    }
+}
 }
 
 function getSchoolYear() {
@@ -1510,14 +1567,15 @@ function updateRabbitDataAdd(newPreCourseData) {
     rabbit_data = [needGRCourse, getGRCourse, nowGRCourse, preGRCourse, restGRCourse];
 }
 
-function updateGetCreditDataAdd(newPreCourseData) {
-    var needCourse = get_credit_data[0];
-    var getCourse = get_credit_data[1];
-    var nowCourse = get_credit_data[2];
-    var preCourse = get_credit_data[3] + newPreCourseData;
+function updateGetCreditDataAdd(classification, newPreCourseData) {
+    var class_val = CourseToNumHash[classification];
+    var needCourse = get_credit_data[class_val][0];
+    var getCourse = get_credit_data[class_val][1];
+    var nowCourse = get_credit_data[class_val][2];
+    var preCourse = get_credit_data[class_val][3] + newPreCourseData;
     var otherCourse = (needCourse - (getCourse + nowCourse + preCourse));
     otherCourse = otherCourse > 0 ? otherCourse : 0.0;
-    get_credit_data = [needCourse, getCourse, nowCourse, preCourse, otherCourse];
+    get_credit_data[class_val] = [needCourse, getCourse, nowCourse, preCourse, otherCourse];
 }
 
 function updateRabbitDataDelete(newPreCourseData) {
@@ -1530,14 +1588,15 @@ function updateRabbitDataDelete(newPreCourseData) {
     rabbit_data = [needGRCourse, getGRCourse, nowGRCourse, preGRCourse, restGRCourse];
 }
 
-function updateGetCreditDataDelete(newPreCourseData) {
-    var needCourse = get_credit_data[0];
-    var getCourse = get_credit_data[1];
-    var nowCourse = get_credit_data[2];
-    var preCourse = get_credit_data[3] - newPreCourseData;
+function updateGetCreditDataDelete(classification, newPreCourseData) {
+    var class_val = CourseToNumHash[classification];
+    var needCourse = get_credit_data[class_val][0];
+    var getCourse = get_credit_data[class_val][1];
+    var nowCourse = get_credit_data[class_val][2];
+    var preCourse = get_credit_data[class_val][3] - newPreCourseData;
     var otherCourse = (needCourse - (getCourse + nowCourse + preCourse));
     otherCourse = otherCourse > 0 ? otherCourse : 0.0;
-    get_credit_data = [needCourse, getCourse, nowCourse, preCourse, otherCourse];
+    get_credit_data[class_val] = [needCourse, getCourse, nowCourse, preCourse, otherCourse];
 }
 
 function updateRequirementGraph() {
@@ -1561,12 +1620,19 @@ function updateRequirementGraph() {
 }
 
 function updateCreditGraph() {
+    $('#GET_CREDIT_GRAPH').remove();
+    $('#GRADE_A_GRAPH').remove();
+    $('#CREDIT_GRAPH').prepend('<svg id="GRADE_A_GRAPH"></svg>');
+    $('#CREDIT_GRAPH').prepend('<svg id="GET_CREDIT_GRAPH"></svg>');
+
+    nowOption = $('[name=credit_pulldown]').val();
     animated2 = false;
     //$("#CREDIT_GRAPH").on("inview", function() {
     if (mode == 1 && animated2 == false) {
         animated2 = true;
-        drawGetCredit("#GET_CREDIT_GRAPH", get_credit_data);
-        drawGradeA("#GRADE_A_GRAPH", grade_A_data);
+
+        drawGetCredit("#GET_CREDIT_GRAPH", get_credit_data, CourseToNumHash[nowOption]);
+        drawGradeA("#GRADE_A_GRAPH", grade_A_data, CourseToNumHash[nowOption]);
     }
     //  });
 }
@@ -1662,15 +1728,15 @@ $(function() {
 
 function JudgeClassification(affID, subID) {
     var classification = "";
-    if (affID == "6301") {
+    if (affID == "6201") {
         //A,B
         if (classificationHash[subID.substr(0, 3)] != null) {
             classification = classificationHash[subID.substr(0, 3)];
-            console.log(subID);
+            //console.log(subID);
             return classification;
         } else if (classificationHash[subID.substr(0, 4)] != null) {
             classification = classificationHash[subID.substr(0, 4)];
-            console.log(subID);
+            //console.log(subID);
             return classification;
         } else {
             return "C";

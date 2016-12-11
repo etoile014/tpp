@@ -124,7 +124,7 @@ app.post("/api/csv", function(req, res, next) {
     var admissionYear;
 
     admissionYear = getAdmissionYear(req);
-    
+
     var subjectTemp;
     var gradeTemp;
 
@@ -162,13 +162,13 @@ app.post("/api/csv", function(req, res, next) {
     db.each("SELECT min, max from common_compulsory where subject = \'第1外国語(英語)\' and depart = 6201 and enter=2014", function(err, row){
      	var xmin=row.min;
      	var xmax=row.max;
-	
+
 	var classcode1=[/^31A.*2$/,/^31B.*2$/,/^31C.*2$/,/^31E.*2$/,/^31F.*2$/,/^31G.*2$/];
 	var y = countCredit(classcode1, req);
-	
+
 	var classcode2=[/^313.*2$/,/^4.*2$/,/^315.*2$/,/^316.*2$/,/^317.*2$/,/^313.*2$/];
 	var z = countCredit(classcode2, req);
-	
+
 	if(y < 4.5){
 	    graduation = 0;
 	}
@@ -180,7 +180,7 @@ app.post("/api/csv", function(req, res, next) {
 	    subject[7]=min(xmax, y+z);
 	}
     });
-    
+
     ////////////総合1////////////
     db.each("SELECT min, max from common_compulsory where subject = '総合科目1' and depart = 6201 and enter = 2014", function(err, row) {
 	var xmin = row.min,
@@ -197,7 +197,7 @@ app.post("/api/csv", function(req, res, next) {
             subject[7] += min(xmax, y);
 	}
     });
-    
+
     ////////////総合2///////////////
     db.each("SELECT min, max from common_compulsory where subject = 総合科目2 and depart = 621 and enter = 2014", function(err, row) {
 	var x = 0,
@@ -207,9 +207,9 @@ app.post("/api/csv", function(req, res, next) {
             B = 0,
             C = 0;
 	var Amin, Amax, Bmin, Bmax, Cmin, Cmax, xmin, xmax;
-	
+
 	console.log("総合科目2:" + x);
-	
+
 	db.each("SELECT min, max from common_compulsory where subject = '総合科目2-A' and depart = 621 and enter = 2014", function(err, rowA) {
             Amin = rowA.min;
             Amax = rowA.max;
@@ -254,7 +254,7 @@ app.post("/api/csv", function(req, res, next) {
             subject[7] += min(y, xmax);
 	}
     });
-    
+
     db.each("SELECT min, max from common_compulsory where subject = '総合科目3' and depart = 621 and enter = 2014", function(err, row) {
 	var xmin = row.min,
             xmax = row.max,
@@ -269,14 +269,14 @@ app.post("/api/csv", function(req, res, next) {
             subject[7] += min(y, xmax);
 	}
     });
-    
+
     ///////////体育//////////////////
     db.each("SELECT min, max from common_compulsory where subject = '体育' and depart = 621 and enter = 2014", function(err, row) {
 	var w, xmin = row.min,
             xmax = row.max,
             y, z = 0;
 	console.log("体育:" + x);
-	
+
 	//履修データから科目番号21*****,25*****の単位数をyに格納
 	var classcode1 = [/^21/, /^25/];
 	y = countCredit(classcode1.req);
@@ -296,7 +296,7 @@ app.post("/api/csv", function(req, res, next) {
 	//}
 	//履修データから科目番号28*****の単位数をsubject[4]に格納
     });
-    
+
     ////////国語//////////////////////////////////////
     db.each("SELECT min, max from common_compulsory where subject = '国語' and depart = 6201 and enter = 2014", function(err, row){
 	var xmin=row.min,xmax=row.max,y;
@@ -304,7 +304,7 @@ app.post("/api/csv", function(req, res, next) {
 	y=countCredit(classcode,req);
 	subject[7]+=min(xmax,y);
     });
-    
+
     ////////第二外国語//////////////////////////////////
     db.each("SELECT min, max from common_compulsory where subject = '第2外国語' and depart = 6201 and enter = 2014", function(err, row){
 	var xmin=row.min,xmax=row.max,y,z,lang=[0,0,0,0,0,0,0,0];
@@ -317,7 +317,7 @@ app.post("/api/csv", function(req, res, next) {
 	var classcode7=[/^38A.*2$/,/^38B.*2$/,/^38C.*2$/,/^38E.*2$/,/^389.*2$/,/^383.*2$/];
 	var classcode8=[/^39.*2$/];
 	var classcode9=[/^324.*2$/,/^334.*2$/,/^344.*2$/,/^354.*2$/,/^364.*2$/,/^374.*2$/,/^384.*2$/];
-	
+
 	lang[0]=countCredit(classcode1,req);
 	lang[1]=countCredit(classcode2,req);
 	lang[2]=countCredit(classcode3,req);
@@ -331,7 +331,7 @@ app.post("/api/csv", function(req, res, next) {
 	subject[7]+=min(y,xmax);
     });
     console.log("-analyzed");
-    
+
     sleep.sleep(2000, function() {
 	console.log("///" + getCourse + "---" +  nowCourse);
 	var resData = {
@@ -627,7 +627,7 @@ function checkClass(req,nowCourse,getCourse,rateA){
 		    tmpA += parseFloat(eval("req.body.line" + i + ".credit"));
 		}
 	    }
-	    
+
 	}
 	else if(eval("req.body.line" + i + ".classification")=="B"){
 	    if(eval("req.body.line" + i + ".grade") == "X"){
@@ -692,7 +692,7 @@ function checkTransition(req,semesterGPA,semesterTotal,admissionYear){
 	    semesterTotal[2*(eval("req.body.line" + i + ".year")-admissionYear)+1] += parseFloat(eval("req.body.line" + i + ".credit"));
 	}
     }
-    
+
     for (var i=0; i < 6; i++) {
 	console.log("///// " + i + "---" + semesterGPA[i] + " --- " + semesterTotal[i]);
 	if(semesterTotal[i] == 0){
