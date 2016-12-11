@@ -382,19 +382,19 @@ app.post("/api/csv", function(req, res, next) {
 		"start": "2014",
 		"creditTransition": [
 		    {"semester": admissionYear + "/spring", "credit": semesterTotal[0]},
-		    {"semester": admissionYear + "/spring", "credit": semesterTotal[1]},
+		    {"semester": admissionYear + "/autumn", "credit": semesterTotal[1]},
 		    {"semester": (Number(admissionYear) + 1) + "/spring", "credit": semesterTotal[2]},
-		    {"semester": (Number(admissionYear) + 1) + "/spring", "credit": semesterTotal[3]},
+		    {"semester": (Number(admissionYear) + 1) + "/autumn", "credit": semesterTotal[3]},
 		    {"semester": (Number(admissionYear) + 2) + "/spring", "credit": semesterTotal[4]},
-		    {"semester": (Number(admissionYear) + 2) + "/spring", "credit": semesterTotal[5]}
+		    {"semester": (Number(admissionYear) + 2) + "/autumn", "credit": semesterTotal[5]}
 		],
 		"gpaTransition": [
 		    {"semester": admissionYear + "/spring", "GPA": semesterGPA[0]},
-		    {"semester": admissionYear + "/spring", "GPA": semesterGPA[1]},
+		    {"semester": admissionYear + "/autumn", "GPA": semesterGPA[1]},
 		    {"semester": (Number(admissionYear) + 1) + "/spring", "GPA": semesterGPA[2]},
-		    {"semester": (Number(admissionYear) + 1) + "/spring", "GPA": semesterGPA[3]},
+		    {"semester": (Number(admissionYear) + 1) + "/autumn", "GPA": semesterGPA[3]},
 		    {"semester": (Number(admissionYear) + 2) + "/spring", "GPA": semesterGPA[4]},
-		    {"semester": (Number(admissionYear) + 2) + "/spring", "GPA": semesterGPA[5]}
+		    {"semester": (Number(admissionYear) + 2) + "/autumn", "GPA": semesterGPA[5]}
 		]
 	    }
 	};
