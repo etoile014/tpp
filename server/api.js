@@ -49,7 +49,6 @@ app.get("/api/csv", function(req, res, next) {
 app.post("/api/search", function(req, res, next) {
     var year;
     var id;
-    //var name, way, credit, grade, semester, type, place, teacher, summery;
     var data;
     switch (req.body.year) {
         case "2013":
@@ -123,7 +122,7 @@ app.post("/api/csv", function(req, res, next) {
     var subjectTemp;
     var gradeTemp;
 
-    console.log("I GOT JSON!!");
+    console.log("I GOT POST!!");
 
     res.contentType('application/json');
     db.serialize(function() {
@@ -328,6 +327,7 @@ app.post("/api/csv", function(req, res, next) {
     console.log("-analyzed");
     
     sleep.sleep(2000, function() {
+	console.log("///" + getCourse + "---" +  nowCourse);
 	var resData = {
 	    "REQUIREMENT": {
 		"needGRCourse": 124.5,
@@ -337,36 +337,36 @@ app.post("/api/csv", function(req, res, next) {
 	    },
 	    "CREDIT": [{
 		"course": "A",
-		"needCourse": 12,
+		"needCourse": 42,
 		"getCourse": getCourse[0],
 		"nowCourse": nowCourse[0],
 		"preCourse": 0,
-		"courseA": 5,
-		"courseSum": 15
+		"courseA": rateA[0],
+		"courseSum": getCourse[0]
 	    }, {
 		"course": "B",
-		"needCourse": 12,
+		"needCourse": 58,
 		"getCourse": getCourse[1],
 		"nowCourse": nowCourse[1],
 		"preCourse": 0,
-		"courseA": 5,
-		"courseSum": 15
+		"courseA": rateA[1],
+		"courseSum": getCourse[1]
 	    }, {
 		"course": "C",
-		"needCourse": 12,
+		"needCourse": 15.5,
 		"getCourse": getCourse[2],
 		"nowCourse": nowCourse[2],
 		"preCourse": 0,
-		"courseA": 5,
-		"courseSum": 15
+		"courseA": rateA[2],
+		"courseSum": getCourse[2]
 	    },{
 		"course": "C_0",
-		"needCourse": 12,
+		"needCourse": 0,
 		"getCourse": getCourse[3],
 		"nowCourse": nowCourse[3],
 		"preCourse": 0,
-		"courseA": 5,
-		"courseSum": 15
+		"courseA": rateA[3],
+		"courseSum": getCourse[3]
 	    }],
 	    "GRADE_GPA": {
 		"countAplus": total[0],
@@ -611,46 +611,46 @@ function checkClass(req,nowCourse,getCourse,rateA){
     for (var i=0; eval("req.body.line" + i) != undefined ; i++){
 	if(eval("req.body.line" + i + ".classification")=="A"){
 	    if(eval("req.body.line" + i + ".grade") == "X"){
-		nowCourse[0]+=eval("req.body.line" + i + ".credit");
+		nowCourse[0] += parseFloat(eval("req.body.line" + i + ".credit"));
 	    }
 	    else if(eval("req.body.line" + i + ".grade") != "D" && eval("req.body.line" + i + ".grade") != "F"){
-		getCourse[0]+=eval("req.body.line" + i + ".credit");
+		getCourse[0] += parseFloat(eval("req.body.line" + i + ".credit"));
 		if(eval("req.body.line" + i + ".grade") == "A" || eval("req.body.line" + i + ".grade") == "A+"){
-		    tmpA += eval("req.body.line" + i + ".credit");
+		    tmpA += parseFloat(eval("req.body.line" + i + ".credit"));
 		}
 	    }
 	    
 	}
 	else if(eval("req.body.line" + i + ".classification")=="B"){
 	    if(eval("req.body.line" + i + ".grade") == "X"){
-		nowCourse[1]+=eval("req.body.line" + i + ".credit");
+		nowCourse[1] += parseFloat(eval("req.body.line" + i + ".credit"));
 	    }
 	    else if(eval("req.body.line" + i + ".grade") != "D" && eval("req.body.line" + i + ".grade") != "F"){
-		getCourse[1]+=eval("req.body.line" + i + ".credit");
+		getCourse[1] += parseFloat(eval("req.body.line" + i + ".credit"));
 		if(eval("req.body.line" + i + ".grade") == "A" || eval("req.body.line" + i + ".grade") == "A+"){
-		    tmpB += eval("req.body.line" + i + ".credit");
+		    tmpB += parseFloat(eval("req.body.line" + i + ".credit"));
 		}
 	    }
 	}
 	else if(eval("req.body.line" + i + ".classification")=="C"){
 	    if(eval("req.body.line" + i + ".grade") == "X"){
-		nowCourse[2]+=eval("req.body.line" + i + ".credit");
+		nowCourse[2] += parseFloat(eval("req.body.line" + i + ".credit"));
 	    }
 	    else if(eval("req.body.line" + i + ".grade") != "D" && eval("req.body.line" + i + ".grade") != "F"){
-		getCourse[2]+=eval("req.body.line" + i + ".credit");
+		getCourse[2] += parseFloat(eval("req.body.line" + i + ".credit"));
 		if(eval("req.body.line" + i + ".grade") == "A" || eval("req.body.line" + i + ".grade") == "A+"){
-		    tmpC += eval("req.body.line" + i + ".credit");
+		    tmpC += parseFloat(eval("req.body.line" + i + ".credit"));
 		}
 	    }
 	}
 	else if(eval("req.body.line" + i + ".classification")=="C_0"){
 	    if(eval("req.body.line" + i + ".grade") == "X"){
-		nowCourse[3]+=eval("req.body.line" + i + ".credit");
+		nowCourse[3] += parseFloat(eval("req.body.line" + i + ".credit"));
 	    }
 	    else if(eval("req.body.line" + i + ".grade") != "D" && eval("req.body.line" + i + ".grade") != "F"){
-		getCourse[3]+=eval("req.body.line" + i + ".credit");
+		getCourse[3] += parseFloat(eval("req.body.line" + i + ".credit"));
 		if(eval("req.body.line" + i + ".grade") == "A" || eval("req.body.line" + i + ".grade") == "A+"){
-		    tmpD += eval("req.body.line" + i + ".credit");
+		    tmpD += parseFloat(eval("req.body.line" + i + ".credit"));
 		}
 	    }
 	}
