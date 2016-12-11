@@ -7,6 +7,7 @@ var jschardet = require('jschardet');
 //backend
 var co = require('co');
 var sleep = require('sleep-async')();
+var morgan = require('morgan');
 
 //connect to sqliteDB
 var sqlite3 = require("sqlite3").verbose();
@@ -20,6 +21,11 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
+
+//access log
+var fs = require('fs');
+var stream = fs.createWriteStream(process.cwd() + '/server/log.txt', { flags: 'a' });
+app.use(morgan({ stream: stream }));
 
 //Server for lisning socket.
 var server = app.listen(80, function() {
@@ -49,7 +55,6 @@ app.get("/api/csv", function(req, res, next) {
 app.post("/api/search", function(req, res, next) {
     var year;
     var id;
-    //var name, way, credit, grade, semester, type, place, teacher, summery;
     var data;
     switch (req.body.year) {
         case "2013":
@@ -107,7 +112,6 @@ app.post("/api/search", function(req, res, next) {
 //api post method
 app.post("/api/csv", function(req, res, next) {
     //init post function local handler
-
     var total = [0,0,0,0,0,0,0,0,0,0,0];//a+,a,b,c,d,x,p,f
     var semesterTotal = [0,0,0,0,0,0,0];
     var semesterGPA = [0,0,0,0,0,0,0];
@@ -117,11 +121,14 @@ app.post("/api/csv", function(req, res, next) {
     var nowCourse=[0,0,0,0];
     var rateA=[0,0,0,0];
     var graduation = 1;      //if there is any problem, this will turns 0.
+    var admissionYear;
+
+    admissionYear = getAdmissionYear(req);
 
     var subjectTemp;
     var gradeTemp;
 
-    console.log("I GOT JSON!!");
+    console.log("I GOT POST!!");
 
     res.contentType('application/json');
     db.serialize(function() {
@@ -146,12 +153,10 @@ app.post("/api/csv", function(req, res, next) {
             }
         });
     });
-
     sleep.sleep(1200, function(){
-	checkClass(req,getCourse,nowCourse, rateA);
-	checkTransition(req,semesterGPA,semesterTotal,getAdmissionYear);
+	checkClass(req,nowCourse,getCourse, rateA);
+	checkTransition(req,semesterGPA,semesterTotal, admissionYear);
     });
-
     //Analyze
     ////////////第一外国語////////////////////
     db.each("SELECT min, max from common_compulsory where subject = \'第1外国語(英語)\' and depart = 6201 and enter=2014", function(err, row){
@@ -201,7 +206,6 @@ app.post("/api/csv", function(req, res, next) {
             A = 0,
             B = 0,
             C = 0;
-
 	var Amin, Amax, Bmin, Bmax, Cmin, Cmax, xmin, xmax;
 
 	console.log("総合科目2:" + x);
@@ -329,6 +333,7 @@ app.post("/api/csv", function(req, res, next) {
     console.log("-analyzed");
 
     sleep.sleep(2000, function() {
+	console.log("///" + getCourse + "---" +  nowCourse);
 	var resData = {
 	    "REQUIREMENT": {
 		"needGRCourse": 124.5,
@@ -338,36 +343,36 @@ app.post("/api/csv", function(req, res, next) {
 	    },
 	    "CREDIT": [{
 		"course": "A",
-		"needCourse": 12,
+		"needCourse": 42,
 		"getCourse": getCourse[0],
 		"nowCourse": nowCourse[0],
 		"preCourse": 0,
-		"courseA": 5,
-		"courseSum": 15
+		"courseA": rateA[0],
+		"courseSum": getCourse[0]
 	    }, {
 		"course": "B",
-		"needCourse": 12,
+		"needCourse": 58,
 		"getCourse": getCourse[1],
 		"nowCourse": nowCourse[1],
 		"preCourse": 0,
-		"courseA": 5,
-		"courseSum": 15
+		"courseA": rateA[1],
+		"courseSum": getCourse[1]
 	    }, {
 		"course": "C",
-		"needCourse": 12,
+		"needCourse": 15.5,
 		"getCourse": getCourse[2],
 		"nowCourse": nowCourse[2],
 		"preCourse": 0,
-		"courseA": 5,
-		"courseSum": 15
+		"courseA": rateA[2],
+		"courseSum": getCourse[2]
 	    },{
 		"course": "C_0",
-		"needCourse": 12,
+		"needCourse": 0,
 		"getCourse": getCourse[3],
 		"nowCourse": nowCourse[3],
 		"preCourse": 0,
-		"courseA": 5,
-		"courseSum": 15
+		"courseA": rateA[3],
+		"courseSum": getCourse[3]
 	    }],
 	    "GRADE_GPA": {
 		"countAplus": total[0],
@@ -382,20 +387,20 @@ app.post("/api/csv", function(req, res, next) {
 		"completed": (total[0] + total[1] + total[2] + total[3] + total[6]),
 		"start": "2014",
 		"creditTransition": [
-		    {"semester": "2013/spring", "credit": semesterTotal[0]},
-		    {"semester": "2013/autumn", "credit": semesterTotal[1]},
-		    {"semester": "2014/spring", "credit": semesterTotal[2]},
-		    {"semester": "2014/autumn", "credit": semesterTotal[3]},
-		    {"semester": "2015/spring", "credit": semesterTotal[4]},
-		    {"semester": "2015/autumn", "credit": semesterTotal[5]}
+		    {"semester": admissionYear + "/spring", "credit": semesterTotal[0]},
+		    {"semester": admissionYear + "/autumn", "credit": semesterTotal[1]},
+		    {"semester": (Number(admissionYear) + 1) + "/spring", "credit": semesterTotal[2]},
+		    {"semester": (Number(admissionYear) + 1) + "/autumn", "credit": semesterTotal[3]},
+		    {"semester": (Number(admissionYear) + 2) + "/spring", "credit": semesterTotal[4]},
+		    {"semester": (Number(admissionYear) + 2) + "/autumn", "credit": semesterTotal[5]}
 		],
 		"gpaTransition": [
-		    {"semester": "2013/spring", "GPA": semesterGPA[0]},
-		    {"semester": "2013/spring", "GPA": semesterGPA[1]},
-		    {"semester": "2013/spring", "GPA": semesterGPA[2]},
-		    {"semester": "2013/spring", "GPA": semesterGPA[3]},
-		    {"semester": "2013/spring", "GPA": semesterGPA[4]},
-		    {"semester": "2013/spring", "GPA": semesterGPA[5]}
+		    {"semester": admissionYear + "/spring", "GPA": semesterGPA[0]},
+		    {"semester": admissionYear + "/autumn", "GPA": semesterGPA[1]},
+		    {"semester": (Number(admissionYear) + 1) + "/spring", "GPA": semesterGPA[2]},
+		    {"semester": (Number(admissionYear) + 1) + "/autumn", "GPA": semesterGPA[3]},
+		    {"semester": (Number(admissionYear) + 2) + "/spring", "GPA": semesterGPA[4]},
+		    {"semester": (Number(admissionYear) + 2) + "/autumn", "GPA": semesterGPA[5]}
 		]
 	    }
 	};
@@ -448,8 +453,8 @@ function check2013(i, subject, grade, total) {
         if (err) {
             console.log(err)
         } else {
-            console.log(row);
-            console.log("2013  " + i + ":" + grade);
+            //console.log(row);
+            //console.log("2013  " + i + ":" + grade);
             if (grade == "A+") {
                 total[0] += row.credit
             }
@@ -483,8 +488,8 @@ function check2014(i, subject, grade, total) {
         if (err) {
             console.log(err)
         } else {
-            console.log(row);
-            console.log("2014  " + i + ":" + grade);
+            //console.log(row);
+            //console.log("2014  " + i + ":" + grade);
             if (grade == "A+") {
                 total[0] += row.credit
             }
@@ -518,8 +523,8 @@ function check2015(i, subject, grade, total) {
         if (err) {
             console.log(err)
         } else {
-            console.log(row);
-            console.log("2015  " + i + ":" + grade);
+            //console.log(row);
+            //console.log("2015  " + i + ":" + grade);
             if (grade == "A+") {
                 total[0] += row.credit
             }
@@ -553,8 +558,8 @@ function check2016(i, subject, grade, total) {
         if (err) {
             console.log(err)
         } else {
-            console.log(row);
-            console.log("2016  " + i + ":" + grade);
+            //console.log(row);
+            //console.log("2016  " + i + ":" + grade);
             if (grade == "A+") {
                 total[0] += row.credit
             }
@@ -589,7 +594,7 @@ function countCredit(classCode, req) {
         var str = eval("req.body.line" + i + ".subject");
         for (var j = 0; j < classCode.length; j++) {
             if (str.match(classCode[j])) {
-                var tmp = eval("req.body.line" + i + ".credit");
+            	var tmp=eval("req.body.line" + i + ".credit");
                 cnt += Number(tmp);
                 console.log("// " + cnt + ":" + i);
             }
@@ -608,106 +613,111 @@ function min(a, b) {
 
 ///////////////科目区分ごとの分類
 function checkClass(req,nowCourse,getCourse,rateA){
-	var tmpA=0,tmpB=0,tmpC=0,tmpD=0;
-	for (var i=0; eval("req.body.line" + i) != undefined ; i++){
-		if(eval("req.body.line" + i + ".classification")=="A"){
-			if(eval("req.body.line" + i + ".grade") == "X"){
-				nowCourse[0]+=eval("req.body.line" + i + ".credit");
-			}
-			else if(eval("req.body.line" + i + ".grade") != "D" && eval("req.body.line" + i + ".grade") != "F"){
-				getCourse[0]+=eval("req.body.line" + i + ".credit");
-				if(eval("req.body.line" + i + ".grade") == "A" || eval("req.body.line" + i + ".grade") == "A+"){
-				    tmpA += eval("req.body.line" + i + ".credit");
-				}
-			}
+    var tmpA=0,tmpB=0,tmpC=0,tmpD=0;
+    for (var i=0; eval("req.body.line" + i) != undefined ; i++){
+	if(eval("req.body.line" + i + ".classification")=="A"){
+	    if(eval("req.body.line" + i + ".grade") == "X"){
+		nowCourse[0] += parseFloat(eval("req.body.line" + i + ".credit"));
+		console.log("///" + i + "--" + nowCourse[0] + "---" + eval("req.body.line" + i + ".grade") + " :X--A");
+	    }
+	    else if(eval("req.body.line" + i + ".grade") != "D" && eval("req.body.line" + i + ".grade") != "F"){
+		getCourse[0] += parseFloat(eval("req.body.line" + i + ".credit"));
+		console.log("///" + i + "--" + getCourse[0] + "---" + eval("req.body.line" + i + ".grade") + " :DFx--A");
+		if(eval("req.body.line" + i + ".grade") == "A" || eval("req.body.line" + i + ".grade") == "A+"){
+		    tmpA += parseFloat(eval("req.body.line" + i + ".credit"));
+		}
+	    }
 
-		}
-		else if(eval("req.body.line" + i + ".classification")=="B"){
-			if(eval("req.body.line" + i + ".grade") == "X"){
-				nowCourse[1]+=eval("req.body.line" + i + ".credit");
-			}
-			else if(eval("req.body.line" + i + ".grade") != "D" && eval("req.body.line" + i + ".grade") != "F"){
-				getCourse[1]+=eval("req.body.line" + i + ".credit");
-				if(eval("req.body.line" + i + ".grade") == "A" || eval("req.body.line" + i + ".grade") == "A+"){
-					tmpB += eval("req.body.line" + i + ".credit");
-				}
-			}
-		}
-		else if(eval("req.body.line" + i + ".classification")=="C"){
-			if(eval("req.body.line" + i + ".grade") == "X"){
-				nowCourse[2]+=eval("req.body.line" + i + ".credit");
-			}
-			else if(eval("req.body.line" + i + ".grade") != "D" && eval("req.body.line" + i + ".grade") != "F"){
-				getCourse[2]+=eval("req.body.line" + i + ".credit");
-				if(eval("req.body.line" + i + ".grade") == "A" || eval("req.body.line" + i + ".grade") == "A+"){
-					tmpC += eval("req.body.line" + i + ".credit");
-				}
-			}
-		}
-		else if(eval("req.body.line" + i + ".classification")=="C_0"){
-			if(eval("req.body.line" + i + ".grade") == "X"){
-				nowCourse[3]+=eval("req.body.line" + i + ".credit");
-			}
-			else if(eval("req.body.line" + i + ".grade") != "D" && eval("req.body.line" + i + ".grade") != "F"){
-				getCourse[3]+=eval("req.body.line" + i + ".credit");
-				if(eval("req.body.line" + i + ".grade") == "A" || eval("req.body.line" + i + ".grade") == "A+"){
-					tmpD += eval("req.body.line" + i + ".credit");
-				}
-			}
-		}
 	}
-	rateA[0]=tmpA;
-	rateA[1]=tmpB;
-	rateA[2]=tmpC;
-	rateA[3]=tmpD;
+	else if(eval("req.body.line" + i + ".classification")=="B"){
+	    if(eval("req.body.line" + i + ".grade") == "X"){
+		nowCourse[1] += parseFloat(eval("req.body.line" + i + ".credit"));
+		console.log("///" + i + "--" + nowCourse[1] + "---" + eval("req.body.line" + i + ".grade") + " :X--B");
+	    }
+	    else if(eval("req.body.line" + i + ".grade") != "D" && eval("req.body.line" + i + ".grade") != "F"){
+		getCourse[1] += parseFloat(eval("req.body.line" + i + ".credit"));
+		console.log("///" + i + "--" + getCourse[1] + "---" + eval("req.body.line" + i + ".grade") + " :DFx--B");
+		if(eval("req.body.line" + i + ".grade") == "A" || eval("req.body.line" + i + ".grade") == "A+"){
+		    tmpB += parseFloat(eval("req.body.line" + i + ".credit"));
+		}
+	    }
+	}
+	else if(eval("req.body.line" + i + ".classification")=="C"){
+	    if(eval("req.body.line" + i + ".grade") == "X"){
+		nowCourse[2] += parseFloat(eval("req.body.line" + i + ".credit"));
+	    }
+	    else if(eval("req.body.line" + i + ".grade") != "D" && eval("req.body.line" + i + ".grade") != "F"){
+		getCourse[2] += parseFloat(eval("req.body.line" + i + ".credit"));
+		if(eval("req.body.line" + i + ".grade") == "A" || eval("req.body.line" + i + ".grade") == "A+"){
+		    tmpC += parseFloat(eval("req.body.line" + i + ".credit"));
+		}
+	    }
+	}
+	else if(eval("req.body.line" + i + ".classification")=="C_0"){
+	    if(eval("req.body.line" + i + ".grade") == "X"){
+		nowCourse[3] += parseFloat(eval("req.body.line" + i + ".credit"));
+	    }
+	    else if(eval("req.body.line" + i + ".grade") != "D" && eval("req.body.line" + i + ".grade") != "F"){
+		getCourse[3] += parseFloat(eval("req.body.line" + i + ".credit"));
+		if(eval("req.body.line" + i + ".grade") == "A" || eval("req.body.line" + i + ".grade") == "A+"){
+		    tmpD += parseFloat(eval("req.body.line" + i + ".credit"));
+		}
+	    }
+	}
+    }
+    rateA[0]=tmpA;
+    rateA[1]=tmpB;
+    rateA[2]=tmpC;
+    rateA[3]=tmpD;
 }
 
 /////////////履修開始年度////////////
 function getAdmissionYear(req){
-	var year=3000;
-	for (var i=0; eval("req.body.line" + i) != undefined ; i++){
-		if(year > eval("req.body.line" + i + ".year"))year = eval("req.body.line" + i + ".year");
-	}
-	return year;
+    var year=3000;
+    for (var i=0; eval("req.body.line" + i) != undefined ; i++){
+	if(year > eval("req.body.line" + i + ".year"))year = eval("req.body.line" + i + ".year");
+    }
+    return year;
 }
 
 /////////////修得単位とGPAの推移を計算
-function checkTransition(req, semesterGPA, semesterTotal, admissionYear) {
-    for (var i = 0; eval("req.body.line" + i) != undefined; i++) {
-        if (eval("req.body.line" + i + ".semester") == "春") {
-            semesterGPA[2 * (eval("req.body.line" + i + ".year") - admissionYear)] += culcGPA(req, i);
-            semesterTotal[2 * (eval("req.body.line" + i + ".year") - admissionYear)] += eval("req.body.line" + i + ".credit");
-        } else if (eval("req.body.line" + i + ".semester") == "秋") {
-            semesterGPA[2 * (eval("req.body.line" + i + ".year") - admissionYear) + 1] += culcGPA(req, i);
-            semesterTotal[2 * (eval("req.body.line" + i + ".year") - admissionYear) + 1] += eval("req.body.line" + i + ".credit");
-        }
+function checkTransition(req,semesterGPA,semesterTotal,admissionYear){
+    for (var i=0; eval("req.body.line" + i) != undefined ; i++){
+	if(eval("req.body.line" + i + ".semester") == "春"){
+	    semesterGPA[2*(eval("req.body.line" + i + ".year")-admissionYear)] += parseFloat(culcGPA(req,i));
+	    semesterTotal[2*(eval("req.body.line" + i + ".year")-admissionYear)] += parseFloat(eval("req.body.line" + i + ".credit"));
+	}
+	else if(eval("req.body.line" + i + ".semester") == "秋"){
+	    semesterGPA[2*(eval("req.body.line" + i + ".year")-admissionYear)+1] += parseFloat(culcGPA(req,i));
+	    semesterTotal[2*(eval("req.body.line" + i + ".year")-admissionYear)+1] += parseFloat(eval("req.body.line" + i + ".credit"));
+	}
     }
 
-    var cnt = 0;
-    while (true) {
-        if (semesterTotal[cnt] == 0) {
-            break;
-        }
-        semesterGPA[cnt] = semesterGPA[cnt] / semesterTotal[cnt];
+    for (var i=0; i < 6; i++) {
+	console.log("///// " + i + "---" + semesterGPA[i] + " --- " + semesterTotal[i]);
+	if(semesterTotal[i] == 0){
+	    break;
+	}
+	semesterGPA[i] = semesterGPA[i] / semesterTotal[i];
     }
 }
 
-function culcGPA(req, i) {
-    switch (eval("req.body.line" + i + ".grade")) {
-        case "A+":
-            return eval("req.body.line" + i + ".credit") * 4.3;
-            break;
-        case "A":
-            return eval("req.body.line" + i + ".credit") * 4.0;
-            break;
-        case "B":
-            return eval("req.body.line" + i + ".credit") * 3.0;
-            break;
-        case "C":
-            return eval("req.body.line" + i + ".credit") * 2.0;
-            break;
-        default:
-            return 0;
-            break;
+function culcGPA(req,i){
+    switch (eval("req.body.line" + i + ".grade")){
+    case "A+":
+	return eval("req.body.line" + i + ".credit")*4.3;
+	break;
+    case "A":
+	return eval("req.body.line" + i + ".credit")*4.0;
+	break;
+    case "B":
+	return eval("req.body.line" + i + ".credit")*3.0;
+	break;
+    case "C":
+	return eval("req.body.line" + i + ".credit")*2.0;
+	break;
+    default:
+	return 0;
+	break;
     }
 }
