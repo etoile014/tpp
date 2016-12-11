@@ -7,6 +7,7 @@ var jschardet = require('jschardet');
 //backend
 var co = require('co');
 var sleep = require('sleep-async')();
+var morgan = require('morgan');
 
 //connect to sqliteDB
 var sqlite3 = require("sqlite3").verbose();
@@ -20,6 +21,11 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
+
+//access log
+var fs = require('fs');
+var stream = fs.createWriteStream(process.cwd() + '/server/log.txt', { flags: 'a' });
+app.use(morgan({ stream: stream }));
 
 //Server for lisning socket.
 var server = app.listen(80, function() {
