@@ -24,24 +24,24 @@ var start = 0;
 //CreditTransition
 //var credit_transition_data = [0, 0, 0, 0, 0, 0];
 var credit_transition_data = [
-      {"semester":"2013/spring","credit":27},
-      {"semester":"2013/autumn","credit":22},
-      {"semester":"2014/spring","credit":30},
-      {"semester":"2014/autumn","credit":21},
-      {"semester":"2015/spring","credit":26},
-      {"semester":"2015/autumn","credit":15}
+      {"semester":"","credit":0.0},
+      {"semester":"","credit":0.0},
+      {"semester":"","credit":0.0},
+      {"semester":"","credit":0.0},
+      {"semester":"","credit":0.0},
+      {"semester":"","credit":0.0}
     ];
 
 //GPATransition
 //var qpa_transition_data = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
 //detaset サンプル
 var qpa_transition_data = [
-      {"semester":"2013/spring","GPA":2.7},
-      {"semester":"2013/autumn","GPA":2.2},
-      {"semester":"2014/spring","GPA":3.0},
-      {"semester":"2014/autumn","GPA":2.1},
-      {"semester":"2015/spring","GPA":2.6},
-      {"semester":"2015/autumn","GPA":1.5}
+      {"semester":"","GPA":0.0},
+      {"semester":"","GPA":0.0},
+      {"semester":"","GPA":0.0},
+      {"semester":"","GPA":0.0},
+      {"semester":"","GPA":0.0},
+      {"semester":"","GPA":0.0}
     ];
 
 
@@ -734,9 +734,17 @@ function postData() {
             url: "https://tpp.d-io.com/api/csv",
             contentType: "application/json",
             statusCode: {
-              502: function() {
+              502: function()
+              {
                 var title = "502 Bad Gateway";
                 var desc = "Gatewayまたは、プロキシに問題が発生しております。申し訳ございませんが、しばらく待ってから再度接続してください。";
+                setHttpErrorCodeData(title,desc);
+                showTopErrorModal();
+              },
+              500: function()
+              {
+                var title = "500 Internal Server Error";
+                var desc = "サーバー側の設定やソフトウェアの問題が起きています。申し訳ございませんが、しばらく待ってから再度接続してください。";
                 setHttpErrorCodeData(title,desc);
                 showTopErrorModal();
               }
@@ -781,8 +789,8 @@ function getData(data) {
     var countOther = data.GRADE_GPA.countP + data.GRADE_GPA.countF;
     grade_rate_data = [countAplus, countA, countB, countC, countD, countOther];
     //start = data.GRADE_GPA.start;
-    //credit_transition_data = data.GRADE_GPA.creditTransition;
-    //qpa_transition_data = data.GRADE_GPA.gpaTransition;
+    credit_transition_data = data.GRADE_GPA.creditTransition;
+    qpa_transition_data = data.GRADE_GPA.gpaTransition;
 
     jumpMain();
 }
