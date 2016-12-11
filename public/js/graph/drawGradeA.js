@@ -1,6 +1,6 @@
-function drawGradeA(id, dataset) {
-    var rate = ((dataset[0]/(dataset[1]>0?dataset[1]:1))*100);
-    var path_data = [dataset[0], (dataset[1]-dataset[0])];
+function drawGradeA(id, dataset,ary_id) {
+    var rate = ((dataset[ary_id][0]/(dataset[ary_id][1]>0?dataset[ary_id][1]:1))*100);
+    var path_data = [dataset[ary_id][0], (dataset[ary_id][1]-dataset[ary_id][0])];
 
     // 表示サイズを設定
     var width = 400;//変更
@@ -59,7 +59,7 @@ function drawGradeA(id, dataset) {
     .attr("stroke-width",0.1);
     texts.enter().append("text")
     .attr("transform",  "translate(" + width / 2 + "," + height / 2 + ")")
-    .text("("+dataset[0].toFixed(1)+"/"+dataset[1].toFixed(1)+"単位)")
+    .text("("+dataset[ary_id][0].toFixed(1)+"/"+dataset[ary_id][1].toFixed(1)+"単位)")
     .attr("dy","20")
     .attr("dx","-30")
     .attr("class","under_rate")
