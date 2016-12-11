@@ -148,7 +148,7 @@ app.post("/api/csv", function(req, res, next) {
         });
     });
     sleep.sleep(1200, function(){
-	checkClass(req,getCourse,nowCourse, rateA);
+	checkClass(req,nowCourse,getCourse, rateA);
 	checkTransition(req,semesterGPA,semesterTotal, admissionYear);
     });
     //Analyze
@@ -447,8 +447,8 @@ function check2013(i, subject, grade, total) {
         if (err) {
             console.log(err)
         } else {
-            console.log(row);
-            console.log("2013  " + i + ":" + grade);
+            //console.log(row);
+            //console.log("2013  " + i + ":" + grade);
             if (grade == "A+") {
                 total[0] += row.credit
             }
@@ -482,8 +482,8 @@ function check2014(i, subject, grade, total) {
         if (err) {
             console.log(err)
         } else {
-            console.log(row);
-            console.log("2014  " + i + ":" + grade);
+            //console.log(row);
+            //console.log("2014  " + i + ":" + grade);
             if (grade == "A+") {
                 total[0] += row.credit
             }
@@ -517,8 +517,8 @@ function check2015(i, subject, grade, total) {
         if (err) {
             console.log(err)
         } else {
-            console.log(row);
-            console.log("2015  " + i + ":" + grade);
+            //console.log(row);
+            //console.log("2015  " + i + ":" + grade);
             if (grade == "A+") {
                 total[0] += row.credit
             }
@@ -552,8 +552,8 @@ function check2016(i, subject, grade, total) {
         if (err) {
             console.log(err)
         } else {
-            console.log(row);
-            console.log("2016  " + i + ":" + grade);
+            //console.log(row);
+            //console.log("2016  " + i + ":" + grade);
             if (grade == "A+") {
                 total[0] += row.credit
             }
@@ -612,9 +612,11 @@ function checkClass(req,nowCourse,getCourse,rateA){
 	if(eval("req.body.line" + i + ".classification")=="A"){
 	    if(eval("req.body.line" + i + ".grade") == "X"){
 		nowCourse[0] += parseFloat(eval("req.body.line" + i + ".credit"));
+		console.log("///" + i + "--" + nowCourse[0] + "---" + eval("req.body.line" + i + ".grade") + " :X--A");
 	    }
 	    else if(eval("req.body.line" + i + ".grade") != "D" && eval("req.body.line" + i + ".grade") != "F"){
 		getCourse[0] += parseFloat(eval("req.body.line" + i + ".credit"));
+		console.log("///" + i + "--" + getCourse[0] + "---" + eval("req.body.line" + i + ".grade") + " :DFx--A");
 		if(eval("req.body.line" + i + ".grade") == "A" || eval("req.body.line" + i + ".grade") == "A+"){
 		    tmpA += parseFloat(eval("req.body.line" + i + ".credit"));
 		}
@@ -624,9 +626,11 @@ function checkClass(req,nowCourse,getCourse,rateA){
 	else if(eval("req.body.line" + i + ".classification")=="B"){
 	    if(eval("req.body.line" + i + ".grade") == "X"){
 		nowCourse[1] += parseFloat(eval("req.body.line" + i + ".credit"));
+		console.log("///" + i + "--" + nowCourse[1] + "---" + eval("req.body.line" + i + ".grade") + " :X--B");
 	    }
 	    else if(eval("req.body.line" + i + ".grade") != "D" && eval("req.body.line" + i + ".grade") != "F"){
 		getCourse[1] += parseFloat(eval("req.body.line" + i + ".credit"));
+		console.log("///" + i + "--" + getCourse[1] + "---" + eval("req.body.line" + i + ".grade") + " :DFx--B");
 		if(eval("req.body.line" + i + ".grade") == "A" || eval("req.body.line" + i + ".grade") == "A+"){
 		    tmpB += parseFloat(eval("req.body.line" + i + ".credit"));
 		}
