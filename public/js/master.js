@@ -718,7 +718,7 @@ function convertJsonText(dataArray, Aff) {
         txt += '\t\t\"grade\": \"' + dataArray[i][4] + '\",\n';
         txt += '\t\t\"credit\": \"' + dataArray[i][5] + ',\n';
         txt += '\t\t\"state\": \"' + dataArray[i][6] + '\",\n';
-        txt += '\t\t\"semesster\": \"' + dataArray[i][7] + '\"\n';
+        txt += '\t\t\"semester\": \"' + dataArray[i][7] + '\"\n';
         txt += '\t}' + ((i < length - 1) ? ',' : '') + '\n';
     }
     txt += '}';

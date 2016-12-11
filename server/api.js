@@ -148,7 +148,7 @@ app.post("/api/csv", function(req, res, next) {
     });
     sleep.sleep(1200, function(){
 	checkClass(req,getCourse,nowCourse, rateA);
-	checkTransition(req,semesterGPA,semesterTotal,getAdmissionYear);
+	checkTransition(req,semesterGPA,semesterTotal,getAdmissionYear(req));
     });
     //Analyze
     ////////////第一外国語////////////////////
@@ -672,21 +672,21 @@ function getAdmissionYear(req){
 function checkTransition(req,semesterGPA,semesterTotal,admissionYear){
     for (var i=0; eval("req.body.line" + i) != undefined ; i++){
 	if(eval("req.body.line" + i + ".semester") == "春"){
-	    semesterGPA[2*(eval("req.body.line" + i + ".year")-admissionYear)] += culcGPA(req,i);
-	    semesterTotal[2*(eval("req.body.line" + i + ".year")-admissionYear)] += eval("req.body.line" + i + ".credit");
+	    semesterGPA[2*(eval("req.body.line" + i + ".year")-admissionYear)] += parseFloat(culcGPA(req,i));
+	    semesterTotal[2*(eval("req.body.line" + i + ".year")-admissionYear)] += parseFloat(eval("req.body.line" + i + ".credit"));
 	}
 	else if(eval("req.body.line" + i + ".semester") == "秋"){
-	    semesterGPA[2*(eval("req.body.line" + i + ".year")-admissionYear)+1] += culcGPA(req,i);
-	    semesterTotal[2*(eval("req.body.line" + i + ".year")-admissionYear)+1] += eval("req.body.line" + i + ".credit");
+	    semesterGPA[2*(eval("req.body.line" + i + ".year")-admissionYear)+1] += parseFloat(culcGPA(req,i));
+	    semesterTotal[2*(eval("req.body.line" + i + ".year")-admissionYear)+1] += parseFloat(eval("req.body.line" + i + ".credit"));
 	}
     }
     
-    var cnt=0;
-    while(true){
-	if(semesterTotal[cnt] == 0){
+    for (var i=0; i < 6; i++) {
+	console.log("///// " + i + "---" + semesterGPA[i] + " --- " + semesterTotal[i]);
+	if(semesterTotal[i] == 0){
 	    break;
 	}
-	semesterGPA[cnt] = semesterGPA[cnt]/semesterTotal[cnt];
+	semesterGPA[i] = semesterGPA[i] / semesterTotal[i];
     }
 }
 
