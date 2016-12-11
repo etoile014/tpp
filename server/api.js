@@ -112,10 +112,11 @@ app.post("/api/csv", function(req, res, next) {
     var semesterGPA = [0,0,0,0,0,0,0];
     var subject = [0,0,0,0,0,0,0,0,0,0,0,0];
     var gpa = [0,0,0,0,0,0,0];
-    var getCource=[0,0,0,0];
-	var nowCourse=[0,0,0,0];
+    var getCourse=[0,0,0,0];
+    var nowCourse=[0,0,0,0];
+    var rateA=[0,0,0,0];
     var graduation = 1;      //if there is any problem, this will turns 0.
-
+    
 
     var subjectTemp;
     var gradeTemp;
@@ -146,7 +147,7 @@ app.post("/api/csv", function(req, res, next) {
         });
     });
 
-	checkClass(req,getCourse,nowCourse);
+    checkClass(req,getCourse,nowCourse, rateA);
     //Analyze
     /*
         db.each("SELECT min, max from common_compulsory, department where subject = '総合1' and department.departmentID=common_compulsory.departmentID and department.department_name like '%創成%'", function(err, row) {
@@ -350,15 +351,15 @@ var resData = {
         "course": "A",
         "needCourse": 12,
         "getCourse": getCourse[0],
-        "nowCourse": nowCourese[0],
+        "nowCourse": nowCourse[0],
         "preCourse": 0,
         "courseA": 5,
         "courseSum": 15
     }, {
         "course": "B",
         "needCourse": 12,
-		"getCourse": getCourse[1],
-        "nowCourse": nowCourese[1],
+	"getCourse": getCourse[1],
+        "nowCourse": nowCourse[1],
         "preCourse": 0,
         "courseA": 5,
         "courseSum": 15
@@ -366,7 +367,7 @@ var resData = {
         "course": "C",
         "needCourse": 12,
         "getCourse": getCourse[2],
-        "nowCourse": nowCourese[2],
+        "nowCourse": nowCourse[2],
         "preCourse": 0,
         "courseA": 5,
         "courseSum": 15
@@ -374,8 +375,8 @@ var resData = {
     {
         "course": "C_0",
         "needCourse": 12,
-		"getCourse": getCourse[3],
-        "nowCourse": nowCourese[3],
+	"getCourse": getCourse[3],
+        "nowCourse": nowCourse[3],
         "preCourse": 0,
         "courseA": 5,
         "courseSum": 15
@@ -604,8 +605,8 @@ function min(a, b) {
 }
 
 ///////////////科目区分ごとの分類
-function checkClass(req,nowCorse,getCourse,rateA){
-	var tmpA=0,tmpB=0,tmpC=0,tmpC0=0;
+function checkClass(req,nowCourse,getCourse,rateA){
+	var tmpA=0,tmpB=0,tmpC=0,tmpD=0;
 	for (var i=0; eval("req.body.line" + i) != undefined ; i++){
 		if(eval("req.body.line" + i + ".classification")=="A"){
 			if(eval("req.body.line" + i + ".grade") == "X"){
@@ -614,7 +615,7 @@ function checkClass(req,nowCorse,getCourse,rateA){
 			else if(eval("req.body.line" + i + ".grade") != "D" && eval("req.body.line" + i + ".grade") != "F"){
 				getCourse[0]+=eval("req.body.line" + i + ".credit");
 				if(eval("req.body.line" + i + ".grade") == "A" || eval("req.body.line" + i + ".grade") == "A+"){
-					tmpA += eval("req.body.line" + i + ".credit");
+				    tmpA += eval("req.body.line" + i + ".credit");
 				}
 			}
 
@@ -648,7 +649,7 @@ function checkClass(req,nowCorse,getCourse,rateA){
 			else if(eval("req.body.line" + i + ".grade") != "D" && eval("req.body.line" + i + ".grade") != "F"){
 				getCourse[3]+=eval("req.body.line" + i + ".credit");
 				if(eval("req.body.line" + i + ".grade") == "A" || eval("req.body.line" + i + ".grade") == "A+"){
-					tmpC0 += eval("req.body.line" + i + ".credit");
+					tmpD += eval("req.body.line" + i + ".credit");
 				}
 			}
 		}
