@@ -605,107 +605,107 @@ function min(a, b) {
 
 ///////////////科目区分ごとの分類
 function checkClass(req,nowCourse,getCourse,rateA){
-	var tmpA=0,tmpB=0,tmpC=0,tmpD=0;
-	for (var i=0; eval("req.body.line" + i) != undefined ; i++){
-		if(eval("req.body.line" + i + ".classification")=="A"){
-			if(eval("req.body.line" + i + ".grade") == "X"){
-				nowCourse[0]+=eval("req.body.line" + i + ".credit");
-			}
-			else if(eval("req.body.line" + i + ".grade") != "D" && eval("req.body.line" + i + ".grade") != "F"){
-				getCourse[0]+=eval("req.body.line" + i + ".credit");
-				if(eval("req.body.line" + i + ".grade") == "A" || eval("req.body.line" + i + ".grade") == "A+"){
-				    tmpA += eval("req.body.line" + i + ".credit");
-				}
-			}
-
+    var tmpA=0,tmpB=0,tmpC=0,tmpD=0;
+    for (var i=0; eval("req.body.line" + i) != undefined ; i++){
+	if(eval("req.body.line" + i + ".classification")=="A"){
+	    if(eval("req.body.line" + i + ".grade") == "X"){
+		nowCourse[0]+=eval("req.body.line" + i + ".credit");
+	    }
+	    else if(eval("req.body.line" + i + ".grade") != "D" && eval("req.body.line" + i + ".grade") != "F"){
+		getCourse[0]+=eval("req.body.line" + i + ".credit");
+		if(eval("req.body.line" + i + ".grade") == "A" || eval("req.body.line" + i + ".grade") == "A+"){
+		    tmpA += eval("req.body.line" + i + ".credit");
 		}
-		else if(eval("req.body.line" + i + ".classification")=="B"){
-			if(eval("req.body.line" + i + ".grade") == "X"){
-				nowCourse[1]+=eval("req.body.line" + i + ".credit");
-			}
-			else if(eval("req.body.line" + i + ".grade") != "D" && eval("req.body.line" + i + ".grade") != "F"){
-				getCourse[1]+=eval("req.body.line" + i + ".credit");
-				if(eval("req.body.line" + i + ".grade") == "A" || eval("req.body.line" + i + ".grade") == "A+"){
-					tmpB += eval("req.body.line" + i + ".credit");
-				}
-			}
-		}
-		else if(eval("req.body.line" + i + ".classification")=="C"){
-			if(eval("req.body.line" + i + ".grade") == "X"){
-				nowCourse[2]+=eval("req.body.line" + i + ".credit");
-			}
-			else if(eval("req.body.line" + i + ".grade") != "D" && eval("req.body.line" + i + ".grade") != "F"){
-				getCourse[2]+=eval("req.body.line" + i + ".credit");
-				if(eval("req.body.line" + i + ".grade") == "A" || eval("req.body.line" + i + ".grade") == "A+"){
-					tmpC += eval("req.body.line" + i + ".credit");
-				}
-			}
-		}
-		else if(eval("req.body.line" + i + ".classification")=="C_0"){
-			if(eval("req.body.line" + i + ".grade") == "X"){
-				nowCourse[3]+=eval("req.body.line" + i + ".credit");
-			}
-			else if(eval("req.body.line" + i + ".grade") != "D" && eval("req.body.line" + i + ".grade") != "F"){
-				getCourse[3]+=eval("req.body.line" + i + ".credit");
-				if(eval("req.body.line" + i + ".grade") == "A" || eval("req.body.line" + i + ".grade") == "A+"){
-					tmpD += eval("req.body.line" + i + ".credit");
-				}
-			}
-		}
+	    }
+	    
 	}
-	rateA[0]=tmpA;
-	rateA[1]=tmpB;
-	rateA[2]=tmpC;
-	rateA[3]=tmpD;
+	else if(eval("req.body.line" + i + ".classification")=="B"){
+	    if(eval("req.body.line" + i + ".grade") == "X"){
+		nowCourse[1]+=eval("req.body.line" + i + ".credit");
+	    }
+	    else if(eval("req.body.line" + i + ".grade") != "D" && eval("req.body.line" + i + ".grade") != "F"){
+		getCourse[1]+=eval("req.body.line" + i + ".credit");
+		if(eval("req.body.line" + i + ".grade") == "A" || eval("req.body.line" + i + ".grade") == "A+"){
+		    tmpB += eval("req.body.line" + i + ".credit");
+		}
+	    }
+	}
+	else if(eval("req.body.line" + i + ".classification")=="C"){
+	    if(eval("req.body.line" + i + ".grade") == "X"){
+		nowCourse[2]+=eval("req.body.line" + i + ".credit");
+	    }
+	    else if(eval("req.body.line" + i + ".grade") != "D" && eval("req.body.line" + i + ".grade") != "F"){
+		getCourse[2]+=eval("req.body.line" + i + ".credit");
+		if(eval("req.body.line" + i + ".grade") == "A" || eval("req.body.line" + i + ".grade") == "A+"){
+		    tmpC += eval("req.body.line" + i + ".credit");
+		}
+	    }
+	}
+	else if(eval("req.body.line" + i + ".classification")=="C_0"){
+	    if(eval("req.body.line" + i + ".grade") == "X"){
+		nowCourse[3]+=eval("req.body.line" + i + ".credit");
+	    }
+	    else if(eval("req.body.line" + i + ".grade") != "D" && eval("req.body.line" + i + ".grade") != "F"){
+		getCourse[3]+=eval("req.body.line" + i + ".credit");
+		if(eval("req.body.line" + i + ".grade") == "A" || eval("req.body.line" + i + ".grade") == "A+"){
+		    tmpD += eval("req.body.line" + i + ".credit");
+		}
+	    }
+	}
+    }
+    rateA[0]=tmpA;
+    rateA[1]=tmpB;
+    rateA[2]=tmpC;
+    rateA[3]=tmpD;
 }
 
 /////////////履修開始年度////////////
 function getAdmissionYear(req){
-	var year=3000;
-	for (var i=0; eval("req.body.line" + i) != undefined ; i++){
-		if(year > eval("req.body.line" + i + ".year"))year = eval("req.body.line" + i + ".year");
-	}
-	return year;
+    var year=3000;
+    for (var i=0; eval("req.body.line" + i) != undefined ; i++){
+	if(year > eval("req.body.line" + i + ".year"))year = eval("req.body.line" + i + ".year");
+    }
+    return year;
 }
 
 /////////////修得単位とGPAの推移を計算
 function checkTransition(req,semesterGPA,semesterTotal,admissionYear){
-	for (var i=0; eval("req.body.line" + i) != undefined ; i++){
-		if(eval("req.body.line" + i + ".semester") == "春"){
-			semesterGPA[2*(eval("req.body.line" + i + ".year")-admissionYear)] += culcGPA(req,i);
-			semesterTotal[2*(eval("req.body.line" + i + ".year")-admissionYear)] += eval("req.body.line" + i + ".credit");
-		}
-		else if(eval("req.body.line" + i + ".semester") == "秋"){
-			semesterGPA[2*(eval("req.body.line" + i + ".year")-admissionYear)+1] += culcGPA(req,i);
-			semesterTotal[2*(eval("req.body.line" + i + ".year")-admissionYear)+1] += eval("req.body.line" + i + ".credit");
-		}
+    for (var i=0; eval("req.body.line" + i) != undefined ; i++){
+	if(eval("req.body.line" + i + ".semester") == "春"){
+	    semesterGPA[2*(eval("req.body.line" + i + ".year")-admissionYear)] += culcGPA(req,i);
+	    semesterTotal[2*(eval("req.body.line" + i + ".year")-admissionYear)] += eval("req.body.line" + i + ".credit");
 	}
-
-	var cnt=0;
-	while(true){
-		if(semesterTotal[cnt] == 0){
-			break;
-		}
-		semesterGPA[cnt] = semesterGPA[cnt]/semesterTotal[cnt];
+	else if(eval("req.body.line" + i + ".semester") == "秋"){
+	    semesterGPA[2*(eval("req.body.line" + i + ".year")-admissionYear)+1] += culcGPA(req,i);
+	    semesterTotal[2*(eval("req.body.line" + i + ".year")-admissionYear)+1] += eval("req.body.line" + i + ".credit");
 	}
+    }
+    
+    var cnt=0;
+    while(true){
+	if(semesterTotal[cnt] == 0){
+	    break;
+	}
+	semesterGPA[cnt] = semesterGPA[cnt]/semesterTotal[cnt];
+    }
 }
 
 function culcGPA(req,i){
-	switch (eval("req.body.line" + i + ".grade")){
-				case "A+":
-					return eval("req.body.line" + i + ".credit")*4.3;
-					break;
-				case "A":
-					return eval("req.body.line" + i + ".credit")*4.0;
-					break;
-				case "B":
-					return eval("req.body.line" + i + ".credit")*3.0;
-					break;
-				case "C":
-					return eval("req.body.line" + i + ".credit")*2.0;
-					break;
-				default:
-					return 0;
-					break;
-	}
+    switch (eval("req.body.line" + i + ".grade")){
+    case "A+":
+	return eval("req.body.line" + i + ".credit")*4.3;
+	break;
+    case "A":
+	return eval("req.body.line" + i + ".credit")*4.0;
+	break;
+    case "B":
+	return eval("req.body.line" + i + ".credit")*3.0;
+	break;
+    case "C":
+	return eval("req.body.line" + i + ".credit")*2.0;
+	break;
+    default:
+	return 0;
+	break;
+    }
 }
