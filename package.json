@@ -5,7 +5,7 @@
     "author": "Yuki Koyama <je6hbc@d-io.com>",
     "main": "server.js",
     "scripts": {
-	"start": "node server/http.js && node server/api.js"
+	"start": "node server/api.js"
     },
     "dependencies": {
 	"node":"latest",
@@ -13,6 +13,8 @@
 	"ejs": "latest",
 	"body-parser": "latest",
 	"pm2": "latest",
-	"sqlite3": "latest"
+	"sqlite3": "latest",
+	"sleep-async": "latest,"
+	"morgan": "latest"
     }
 }
