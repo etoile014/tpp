@@ -2,6 +2,7 @@ function drawGetCredit(id, dataset,ary_id) {
     var rate = ((dataset[ary_id][1]/(dataset[ary_id][0]>0?dataset[ary_id][0]:1))*100);
     var path_data = [dataset[ary_id][1],dataset[ary_id][2],dataset[ary_id][3],dataset[ary_id][4]];
 
+
     // 表示サイズを設定
     var width = 400;//変更
     var height = 350;//変更
