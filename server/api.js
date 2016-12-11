@@ -116,8 +116,10 @@ app.post("/api/csv", function(req, res, next) {
     var nowCourse=[0,0,0,0];
     var rateA=[0,0,0,0];
     var graduation = 1;      //if there is any problem, this will turns 0.
-    
+    var admissionYear;
 
+    admissionYear = getAdmissionYear(req);
+    
     var subjectTemp;
     var gradeTemp;
 
@@ -148,7 +150,7 @@ app.post("/api/csv", function(req, res, next) {
     });
     sleep.sleep(1200, function(){
 	checkClass(req,getCourse,nowCourse, rateA);
-	checkTransition(req,semesterGPA,semesterTotal,getAdmissionYear(req));
+	checkTransition(req,semesterGPA,semesterTotal, admissionYear);
     });
     //Analyze
     ////////////第一外国語////////////////////
@@ -379,20 +381,20 @@ app.post("/api/csv", function(req, res, next) {
 		"completed": (total[0] + total[1] + total[2] + total[3] + total[6]),
 		"start": "2014",
 		"creditTransition": [
-		    {"semester": "2013/spring", "credit": semesterTotal[0]},
-		    {"semester": "2013/autumn", "credit": semesterTotal[1]},
-		    {"semester": "2014/spring", "credit": semesterTotal[2]},
-		    {"semester": "2014/autumn", "credit": semesterTotal[3]},
-		    {"semester": "2015/spring", "credit": semesterTotal[4]},
-		    {"semester": "2015/autumn", "credit": semesterTotal[5]}
+		    {"semester": admissionYear + "/spring", "credit": semesterTotal[0]},
+		    {"semester": admissionYear + "/spring", "credit": semesterTotal[1]},
+		    {"semester": (Number(admissionYear) + 1) + "/spring", "credit": semesterTotal[2]},
+		    {"semester": (Number(admissionYear) + 1) + "/spring", "credit": semesterTotal[3]},
+		    {"semester": (Number(admissionYear) + 2) + "/spring", "credit": semesterTotal[4]},
+		    {"semester": (Number(admissionYear) + 2) + "/spring", "credit": semesterTotal[5]}
 		],
 		"gpaTransition": [
-		    {"semester": "2013/spring", "GPA": semesterGPA[0]},
-		    {"semester": "2013/spring", "GPA": semesterGPA[1]},
-		    {"semester": "2013/spring", "GPA": semesterGPA[2]},
-		    {"semester": "2013/spring", "GPA": semesterGPA[3]},
-		    {"semester": "2013/spring", "GPA": semesterGPA[4]},
-		    {"semester": "2013/spring", "GPA": semesterGPA[5]}
+		    {"semester": admissionYear + "/spring", "GPA": semesterGPA[0]},
+		    {"semester": admissionYear + "/spring", "GPA": semesterGPA[1]},
+		    {"semester": (Number(admissionYear) + 1) + "/spring", "GPA": semesterGPA[2]},
+		    {"semester": (Number(admissionYear) + 1) + "/spring", "GPA": semesterGPA[3]},
+		    {"semester": (Number(admissionYear) + 2) + "/spring", "GPA": semesterGPA[4]},
+		    {"semester": (Number(admissionYear) + 2) + "/spring", "GPA": semesterGPA[5]}
 		]
 	    }
 	};
