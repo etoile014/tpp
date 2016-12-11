@@ -146,8 +146,10 @@ app.post("/api/csv", function(req, res, next) {
             }
         });
     });
-
-    checkClass(req,getCourse,nowCourse, rateA);
+    sleep.sleep(1200, function(){
+	checkClass(req,getCourse,nowCourse, rateA);
+	checkTransition(req,semesterGPA,semesterTotal,getAdmissionYear);
+    });
     //Analyze
     /*
         db.each("SELECT min, max from common_compulsory, department where subject = '総合1' and department.departmentID=common_compulsory.departmentID and department.department_name like '%創成%'", function(err, row) {
@@ -393,8 +395,22 @@ var resData = {
         "countOther": (total[5] + total[6] + total[7]),
         "completed": (total[0] + total[1] + total[2] + total[3] + total[6]),
         "start": "2014",
-        "creditTransition": [2, 3, 4, 5, 6, 7],
-        "gpaTransition": [3, 2, 3, 4, 3, 3]
+        "creditTransition": [
+	    {"semester": "2013/spring", "credit": semesterTotal[0]},
+	    {"semester": "2013/autumn", "credit": semesterTotal[1]},
+	    {"semester": "2014/spring", "credit": semesterTotal[2]},
+	    {"semester": "2014/autumn", "credit": semesterTotal[3]},
+	    {"semester": "2015/spring", "credit": semesterTotal[4]},
+	    {"semester": "2015/autumn", "credit": semesterTotal[5]}
+	],
+        "gpaTransition": [
+	    {"semester": "2013/spring", "GPA": semesterGPA[0]},
+	    {"semester": "2013/spring", "GPA": semesterGPA[1]},
+	    {"semester": "2013/spring", "GPA": semesterGPA[2]},
+	    {"semester": "2013/spring", "GPA": semesterGPA[3]},
+	    {"semester": "2013/spring", "GPA": semesterGPA[4]},
+	    {"semester": "2013/spring", "GPA": semesterGPA[5]}
+	]
     }
 };
 var resDataJSON = JSON.stringify(resData, null, ' ');
@@ -661,7 +677,7 @@ function checkClass(req,nowCourse,getCourse,rateA){
 }
 
 /////////////履修開始年度////////////
-function getAdomissionYear(req){
+function getAdmissionYear(req){
 	var year=3000;
 	for (var i=0; eval("req.body.line" + i) != undefined ; i++){
 		if(year > eval("req.body.line" + i + ".year"))year = eval("req.body.line" + i + ".year");
