@@ -3,9 +3,9 @@ function drawCreditTransition(id,dataset) {
     var width = 320 - margin.left - margin.right;
     var height = 200 - margin.top - margin.bottom;
 
-	var dataset1 = [dataset[0]["Credit"]];
+	var dataset1 = [dataset[0]["credit"]];
 	for(var i=1;i<dataset.length;i++){
-		dataset1.push(dataset1[i-1]+dataset[i]["Credit"]);
+		dataset1.push(dataset1[i-1]+dataset[i]["credit"]);
 	}
 	///////////////軸設定///////////////////////////
     var xScale = d3.scale.linear()
@@ -95,7 +95,7 @@ function drawCreditTransition(id,dataset) {
     .append("circle")
     .attr("r",3)
     .attr("cx",function(d,i){return xScale(i);})
-    .attr("cy",function(d){return yScale(d["Credit"]);})
+    .attr("cy",function(d){return yScale(d["credit"]);})
     .attr("fill",'#96d946')
     ///////アニメーション部分
     .attr("opacity",0)
