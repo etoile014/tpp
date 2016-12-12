@@ -628,7 +628,6 @@ function postData(JsonText) {
 //小山氏必見2
 function requireData(id, year) {
   var JsonText = '{\n\t"id" : '+id+',\n\t"year" : '+year+'\n}';
-  console.log(JsonText);
   $.ajax({
     type: "POST",
     data: JsonText,
@@ -636,7 +635,7 @@ function requireData(id, year) {
     contentType: "application/json",
     success: function(data) {
       console.log(data);
-      getData();
+      getData(data);
     },
     error: function() {
       console.log("Error");
