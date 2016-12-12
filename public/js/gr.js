@@ -299,11 +299,20 @@ $(function() {
     var credit = credit1==credit2?credit1:(credit1+"〜"+credit2);
     if (id==3 || number.match(/^([0-9A-Z_]{7},)*[0-9A-Z_]{7}$/)) {
       var obj = $(this).parent().parent();
-      var kamokuNumber = number.split(",").join("<br>");
+      var data = number.split(",");
+      var tdn = $("<td class='number-area'></td>");
+      if (id==3) {
+        tdn.append($("<span class='subject-number'></span>").html(data));
+      } else {
+        for (var i=0; i<data.length; i++) {
+          tdn.append($("<span class='subject-number'></span>").html(data[i]));
+          if (i<data.length-1) tdn.append($("<br>"));
+        }
+      }
       obj.before(
         $("<tr></tr>")
         .append($("<td class='action-area'></td>").append($("<button class='remove-button'>ー</button>")))
-        .append($("<td class='number-area'></td>").html(kamokuNumber))
+        .append(tdn)
         .append($("<td class='credit-area'></td>").append(credit))
       );
     }
@@ -311,6 +320,11 @@ $(function() {
   $(document).on("click", ".remove-button", function() {
     var obj = $(this).parent().parent();
     obj.remove();
+  });
+  $(document).on("click", ".subject-number", function() {
+    var number = $(this).text();
+    var year = $("#ENTER_SELECT").val();
+    searchNameFromNumber(number, year, $(this));
   });
   $(document).on("change", ".normal-select", function() {
     var obj = $(this).parent().parent();
@@ -645,6 +659,28 @@ function requireData(id, year) {
   return false;
 }
 
+<<<<<<< HEAD
+=======
+function searchNameFromNumber(number, year, obj) {
+  var JsonText = '{\n\t"id" : "'+number+'",\n\t"year" : "'+year+'"\n}';
+  $.ajax({
+      type: "POST",
+      data: JsonText,
+      url: "https://tpp.d-io.com/api/search/",
+      contentType: "application/json",
+      success: function(data) {
+          data = $.parseJSON(data);
+          console.log(data.name);
+          obj.attr("title", data.name);
+      },
+      error: function() {
+          console.log("Error");
+          obj.attr("title", "該当なし");
+      }
+  });
+}
+
+>>>>>>> 7d88b12227f293a01e21cf96404572d457bda613
 //ローカルのJSONデータからデフォルト値を貰ってくる
 function getData(data) {
   setDefaultSelector(11, data.Senmon.need);
@@ -689,14 +725,26 @@ function setDefaultSelector(id, data) {
   resetDefaultSelector(id);
   var obj = $("#KAMOKU_CELL_"+id).find("tr:last");
   for (var i=0; i<data.length-1; i++) {
+<<<<<<< HEAD
     var kamokuNumber = (Math.floor(id/10)==3)? kisoNameConverter(data[i].row) : data[i].row.join("<br>");
+=======
+    var tdn = $("<td class='number-area'></td>");
+    if (Math.floor(id/10)==3) {
+      tdn.append($("<span class='subject-number'></span>").html(kisoNameConverter(data[i].row)));
+    } else {
+      for (var j=0; j<data[i].row.length; j++) {
+        tdn.append($("<span class='subject-number'></span>").html(data[i].row[j]));
+        if (j<data[i].row.length-1) tdn.append($("<br>"));
+      }
+    }
+>>>>>>> 7d88b12227f293a01e21cf96404572d457bda613
     var credit1 = data[i].min;
     var credit2 = data[i].max;
     var credit = credit1==credit2?credit1.toFixed(1):(credit1.toFixed(1)+"〜"+credit2.toFixed(1));
     obj.prev("tr").before(
       $("<tr></tr>")
       .append($("<td class='action-area'></td>").append($("<button class='remove-button'>ー</button>")))
-      .append($("<td class='number-area'></td>").html(kamokuNumber))
+      .append(tdn)
       .append($("<td class='credit-area'></td>").append(credit))
     );
   }
