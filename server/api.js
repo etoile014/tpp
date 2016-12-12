@@ -9,6 +9,7 @@ var fs = require('fs');
 var co = require('co');
 var sleep = require('sleep-async')();
 var morgan = require('morgan');
+var exec = require('child_process').exec;
 
 //connect to sqliteDB
 var sqlite3 = require("sqlite3").verbose();
@@ -53,6 +54,11 @@ app.get("/api/csv", function(req, res, next) {
 
 //maintainance api
 app.post("/api/gr", function(req, res, next) {
+    var url;
+    var readurl = fs.createReadStream(process.cwd() + '/server/url.txt');
+    readurl.on('data', function (data) {
+	url = data.toString();
+    });
     var temp;
     res.contentType('application/json');
     var read = fs.createReadStream(process.cwd() + '/public/js/tmp/' + req.body.id + '_' + req.body.year + '.json');
@@ -62,6 +68,15 @@ app.post("/api/gr", function(req, res, next) {
 	//console.log(data.toString());
     });
     sleep.sleep(500, function() {
+	/*slack post*/
+	var command = 'curl -X POST --data-urlencode \'payload={\"channel\"\: \"#log\",\"username\"\: \"webhookbot\", \"text\"\: \"maintainance api launched\", \"icon_emoji\"\: \"\:ghost\:\"}\' ' + url;
+	exec(command, function(err, stdout, stderr){
+	    if(stderr != undefined){
+		console.log(stderr);
+	    }
+	    console.log("//post at//" + command + "//" + url);
+	});
+	/*send to host*/
 	res.send(temp);
 	res.end();
 	console.log("maintainance api launched");
