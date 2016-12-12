@@ -1,0 +1,104 @@
+{
+	"year" : 2013,
+	"id" : 6201,
+	"Senmon" : {
+		"need" : [
+			{ "row" : ["GC48808"], "min" : 3.0, "max" : 3.0, "id" : 000000000 },
+			{ "row" : ["GC48908"], "min" : 3.0, "max" : 3.0, "id" : 000000000 },
+			{ "row" : ["GC41103"], "min" : 3.0, "max" : 3.0, "id" : 000000000 },
+			{ "row" : ["GC41203"], "min" : 3.0, "max" : 3.0, "id" : 000000000 },
+			{ "row" : ["ALL_SUM"], "min" : 12.0, "max" : 12.0, "id" : "000000000" }
+		],
+		"select" : [
+			{ "row" : ["GC5XXXX"], "min" : 30.0, "max" : 30.0, "id" : 000000000 },
+			{ "row" : ["ALL_SUM"], "min" : 30.0, "max" : 30.0, "id" : "000000000" }
+		],
+		"free" : [
+			{ "row" : ["GC5XXXX","GC6XXXX"], "min" : 0.0, "max" : 9.0, "id" : 000000000 },
+			{ "row" : ["ALL_SUM"], "min" : 0.0, "max" : 9.0, "id" : "000000000" }
+		]
+	},
+	"SenmonKiso" : {
+		"need" : [
+			{ "row" : ["GC10122"], "min" : 1.0, "max" : 1.0, "id" : 000000000 },
+			{ "row" : ["GC12101"], "min" : 1.0, "max" : 1.0, "id" : 000000000 },
+			{ "row" : ["GC12103"], "min" : 1.0, "max" : 1.0, "id" : 000000000 },
+			{ "row" : ["GC11101"], "min" : 2.0, "max" : 2.0, "id" : 000000000 },
+			{ "row" : ["GC11201"], "min" : 2.0, "max" : 2.0, "id" : 000000000 },
+			{ "row" : ["GC11301"], "min" : 2.0, "max" : 2.0, "id" : 000000000 },
+			{ "row" : ["GC11401"], "min" : 2.0, "max" : 2.0, "id" : 000000000 },
+			{ "row" : ["GC11501"], "min" : 2.0, "max" : 2.0, "id" : 000000000 },
+			{ "row" : ["GC11601"], "min" : 2.0, "max" : 2.0, "id" : 000000000 },
+			{ "row" : ["GC13101"], "min" : 2.0, "max" : 2.0, "id" : 000000000 },
+			{ "row" : ["GC12501"], "min" : 0.5, "max" : 0.5, "id" : 000000000 },
+			{ "row" : ["GC12503"], "min" : 0.5, "max" : 0.5, "id" : 000000000 },
+			{ "row" : ["GC12601"], "min" : 0.5, "max" : 0.5, "id" : 000000000 },
+			{ "row" : ["GC12603"], "min" : 0.5, "max" : 0.5, "id" : 000000000 },
+			{ "row" : ["GC12301"], "min" : 1.0, "max" : 1.0, "id" : 000000000 },
+			{ "row" : ["GC12303"], "min" : 1.0, "max" : 1.0, "id" : 000000000 },
+			{ "row" : ["GC12401"], "min" : 2.0, "max" : 2.0, "id" : 000000000 },
+			{ "row" : ["GC12403"], "min" : 1.0, "max" : 1.0, "id" : 000000000 },
+			{ "row" : ["GC15101"], "min" : 2.0, "max" : 2.0, "id" : 000000000 },
+			{ "row" : ["GC15201"], "min" : 2.0, "max" : 2.0, "id" : 000000000 },
+			{ "row" : ["GC13201"], "min" : 2.0, "max" : 2.0, "id" : 000000000 },
+			{ "row" : ["GC14301"], "min" : 2.0, "max" : 2.0, "id" : 000000000 },
+			{ "row" : ["GC14401"], "min" : 2.0, "max" : 2.0, "id" : 000000000 },
+			{ "row" : ["GC16101"], "min" : 2.0, "max" : 2.0, "id" : 000000000 },
+			{ "row" : ["ALL_SUM"], "min" : 36.0, "max" : 36.0, "id" : "000000000" }
+		],
+		"select" : [
+			{ "row" : ["GC2XXXX","GA1XXXX"], "min" : 22.0, "max" : 22.0, "id" : 000000000 },
+			{ "row" : ["ALL_SUM"], "min" : 22.0, "max" : 22.0, "id" : "000000000" }
+		],
+		"free" : [
+			{ "row" : ["GC2XXXX","GC3XXXX","GA1XXXX"], "min" : 0.0, "max" : 9.0, "id" : 000000000 },
+			{ "row" : ["ALL_SUM"], "min" : 0.0, "max" : 9.0, "id" : "000000000" }
+		]
+	},
+	"KisoKyoutsuu" : {
+		"need" : [
+			{ "row" : ["undefined"], "min" : 2.0, "max" : 2.0, "id" : undefined },
+			{ "row" : ["undefined"], "min" : 5.0, "max" : 5.0, "id" : undefined },
+			{ "row" : ["undefined"], "min" : 1.0, "max" : 1.0, "id" : undefined },
+			{ "row" : ["undefined"], "min" : 2.0, "max" : 2.0, "id" : undefined },
+			{ "row" : ["undefined"], "min" : 5.5, "max" : 5.5, "id" : undefined },
+			{ "row" : ["undefined"], "min" : 0.0, "max" : 0.0, "id" : undefined },
+			{ "row" : ["ALL_SUM"], "min" : 15.5, "max" : 15.5, "id" : "000000000" }
+		],
+		"select" : [
+			{ "row" : ["undefined"], "min" : 0.0, "max" : 0.0, "id" : undefined },
+			{ "row" : ["undefined"], "min" : 0.0, "max" : 0.0, "id" : undefined },
+			{ "row" : ["undefined"], "min" : 0.0, "max" : 0.0, "id" : undefined },
+			{ "row" : ["undefined"], "min" : 0.0, "max" : 0.0, "id" : undefined },
+			{ "row" : ["undefined"], "min" : 0.0, "max" : 0.0, "id" : undefined },
+			{ "row" : ["undefined"], "min" : 0.0, "max" : 0.0, "id" : undefined },
+			{ "row" : ["ALL_SUM"], "min" : 0.0, "max" : 0.0, "id" : "000000000" }
+		],
+		"free" : [
+			{ "row" : ["undefined"], "min" : 0.0, "max" : 0.0, "id" : undefined },
+			{ "row" : ["undefined"], "min" : 0.0, "max" : 0.0, "id" : undefined },
+			{ "row" : ["undefined"], "min" : 0.0, "max" : 0.0, "id" : undefined },
+			{ "row" : ["undefined"], "min" : 0.0, "max" : 0.0, "id" : undefined },
+			{ "row" : ["undefined"], "min" : 0.0, "max" : 0.0, "id" : undefined },
+			{ "row" : ["undefined"], "min" : 0.0, "max" : 0.0, "id" : undefined },
+			{ "row" : ["undefined"], "min" : 0.0, "max" : 0.0, "id" : undefined },
+			{ "row" : ["ALL_SUM"], "min" : 0.0, "max" : 9.0, "id" : "000000000" }
+		]
+	},
+	"KisoKanren" : {
+		"need" : [
+			{ "row" : ["ALL_SUM"], "min" : 0.0, "max" : 0.0, "id" : "000000000" }
+		],
+		"select" : [
+			{ "row" : ["ALL_SUM"], "min" : 0.0, "max" : 0.0, "id" : "000000000" }
+		],
+		"free" : [
+			{ "row" : ["ALL_SUM"], "min" : 0.0, "max" : 9.0, "id" : "000000000" }
+		]
+	},
+	"Sum" : {
+		"need" : { "min" : 63.5, "max" : 63.5 },
+		"select" : { "min" : 52.0, "max" : 52.0 },
+		"free" : { "min" : 0.0, "max" : 9.0 }
+	}
+}
