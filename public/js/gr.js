@@ -659,8 +659,6 @@ function requireData(id, year) {
   return false;
 }
 
-<<<<<<< HEAD
-=======
 function searchNameFromNumber(number, year, obj) {
   var JsonText = '{\n\t"id" : "'+number+'",\n\t"year" : "'+year+'"\n}';
   $.ajax({
@@ -680,7 +678,6 @@ function searchNameFromNumber(number, year, obj) {
   });
 }
 
->>>>>>> 7d88b12227f293a01e21cf96404572d457bda613
 //ローカルのJSONデータからデフォルト値を貰ってくる
 function getData(data) {
   setDefaultSelector(11, data.Senmon.need);
@@ -725,9 +722,7 @@ function setDefaultSelector(id, data) {
   resetDefaultSelector(id);
   var obj = $("#KAMOKU_CELL_"+id).find("tr:last");
   for (var i=0; i<data.length-1; i++) {
-<<<<<<< HEAD
-    var kamokuNumber = (Math.floor(id/10)==3)? kisoNameConverter(data[i].row) : data[i].row.join("<br>");
-=======
+    //var kamokuNumber = (Math.floor(id/10)==3)? kisoNameConverter(data[i].row) : data[i].row.join("<br>");
     var tdn = $("<td class='number-area'></td>");
     if (Math.floor(id/10)==3) {
       tdn.append($("<span class='subject-number'></span>").html(kisoNameConverter(data[i].row)));
@@ -737,7 +732,6 @@ function setDefaultSelector(id, data) {
         if (j<data[i].row.length-1) tdn.append($("<br>"));
       }
     }
->>>>>>> 7d88b12227f293a01e21cf96404572d457bda613
     var credit1 = data[i].min;
     var credit2 = data[i].max;
     var credit = credit1==credit2?credit1.toFixed(1):(credit1.toFixed(1)+"〜"+credit2.toFixed(1));
