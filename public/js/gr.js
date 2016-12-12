@@ -181,42 +181,45 @@ var majorList = {
 };
 
 var creditList = [];
-for (var i=0; i<40; i++) {
-    creditList.push(i.toFixed(1), (i+0.5).toFixed(1));
+for (var i=0; i<=40; i++) {
+  creditList.push(i.toFixed(1), (i+0.5).toFixed(1));
+}
+var creditListLarge = [];
+for (var i=0; i<=100; i++) {
+  creditListLarge.push(i.toFixed(1), (i+0.5).toFixed(1));
 }
 
 var kisoKyoutsuuList = [
-  { "value" : "SOUGOU", "name" : "総合", "id" : 100000000 },
-  { "value" : "SOUGOU1", "name" : "総合I", "id" : 111000000 },
-  { "value" : "SOUGOU2", "name" : "総合II", "id" : 010000000 },
-  { "value" : "SOUGOU2A", "name" : "総合II-A", "id" : 010000000 },
-  { "value" : "SOUGOU2B", "name" : "総合II-B", "id" : 010000000 },
-  { "value" : "SOUGOU2C", "name" : "総合II-C", "id" : 010000000 },
-  { "value" : "SOUGOU3", "name" : "総合III", "id" : 001000000 },
-  { "value" : "SPORTS", "name" : "体育", "id" : 000100000 },
-  { "value" : "FOREIGN", "name" : "外国語", "id" : 000011000 },
-  { "value" : "FOREIGN1", "name" : "第一外国語", "id" : 000010000 },
-  { "value" : "FOREIGN2", "name" : "第二外国語", "id" : 000001000 },
-  { "value" : "JAPANESE", "name" : "国語", "id" : 000000010 },
-  { "value" : "ARTS", "name" : "芸術", "id" : 000000001 },
-  { "value" : "INFO", "name" : "情報", "id" : 000000100 },
-  { "value" : "ALL", "name" : "全共通", "id" : 111111111 },
-  { "value" : "ALL_KLIS", "name" : "全共通(知識)", "id" : 111111011 }
+  { "value" : "SOUGOU", "name" : "総合", "id" : "100000000" },
+  { "value" : "SOUGOU1", "name" : "総合I", "id" : "111000000" },
+  { "value" : "SOUGOU2", "name" : "総合II", "id" : "010000000" },
+  { "value" : "SOUGOU2A", "name" : "総合II-A", "id" : "010000000" },
+  { "value" : "SOUGOU2B", "name" : "総合II-B", "id" : "010000000" },
+  { "value" : "SOUGOU2C", "name" : "総合II-C", "id" : "010000000" },
+  { "value" : "SOUGOU3", "name" : "総合III", "id" : "001000000" },
+  { "value" : "SPORTS", "name" : "体育", "id" : "000100000" },
+  { "value" : "FOREIGN", "name" : "外国語", "id" : "000011000" },
+  { "value" : "FOREIGN1", "name" : "第一外国語", "id" : "000010000" },
+  { "value" : "FOREIGN2", "name" : "第二外国語", "id" : "000001000" },
+  { "value" : "JAPANESE", "name" : "国語", "id" : "000000010" },
+  { "value" : "ARTS", "name" : "芸術", "id" : "000000001" },
+  { "value" : "INFO", "name" : "情報", "id" : "000000100" },
+  { "value" : "ALL", "name" : "全共通", "id" : "111111111" },
+  { "value" : "ALL_KLIS", "name" : "全共通(知識)", "id" : "111111011" }
 ];
 
 function loadFirst() {
   loadFaculty();
-  //getData();
 }
 
 $(function() {
   for (var k=1; k<5; k++) {
     for (var j=1; j<4; j++) {
       var name = "#KAMOKU_CELL_" + k + j;
-      var $creditSelector1 = makeCreditSelector();
-      var $creditSelector2 = makeCreditSelector();
-      var $creditSelector3 = makeCreditSelector();
-      var $creditSelector4 = makeCreditSelector();
+      var $creditSelector1 = makeCreditSelector(0);
+      var $creditSelector2 = makeCreditSelector(0);
+      var $creditSelector3 = makeCreditSelector(1);
+      var $creditSelector4 = makeCreditSelector(1);
       $(name).append(
         $("<table border='1' class='list-area'>").append(
           $("<tr></tr>")
@@ -227,11 +230,11 @@ $(function() {
           $("<tr></tr>")
           .append($("<td class='action-area'></td>").append($("<button class='add-button'>＋</button>")))
           .append($("<td class='number-area'></td>").append(function(){
-              if (k==3) {
-                return makeKisoKyoutsuuSelector();
-              } else {
-                return $("<input type='text'>");
-              }
+            if (k==3) {
+              return makeKisoKyoutsuuSelector();
+            } else {
+              return $("<input type='text'>");
+            }
           }).append(function(){
             if (k==3) {
               return $("<img class='mini-selector-arrow3' src='./img/gr/Pulldown_Arrow.svg'>");
@@ -263,6 +266,29 @@ $(function() {
       );
     }
   }
+  for (var i=1; i<4; i++) {
+    var name = "#KAMOKU_CELL_5" + i;
+    var $creditSelector1 = makeCreditSelector(2);
+    var $creditSelector2 = makeCreditSelector(2);
+    $(name).append(
+      $("<table border='1' class='list-area'>").append(
+        $("<tr></tr>")
+        .append($("<td class='action-area'></td>").append($("<button class='all-sum-button'>計</button>")))
+        .append($("<td class='number-area'></td>").text("0.0"))
+        .append(
+          $("<td class='credit-area'></td>")
+          .append("<span>min / max</span>")
+          .append($creditSelector1)
+          .append($("<img class='mini-selector-arrow1' src='./img/gr/Pulldown_Arrow.svg'>"))
+          .append($creditSelector2)
+          .append($("<img class='mini-selector-arrow2' src='./img/gr/Pulldown_Arrow.svg'>"))
+        )
+      )
+    );
+  }
+  $(document).on("change", "#MAJOR_SELECT", function() {
+    loadList();
+  });
   $(document).on("click", ".add-button", function() {
     var id = $(this).parent().parent().parent().parent().parent().attr("id");
     id = Math.floor(parseInt(id.replace("KAMOKU_CELL_", ""))/10);
@@ -286,12 +312,69 @@ $(function() {
     var obj = $(this).parent().parent();
     obj.remove();
   });
-  $(document).on("click", ".sum-button", function() {
+  $(document).on("change", ".normal-select", function() {
     var obj = $(this).parent().parent();
     var credit1 = obj.find("select:nth-child(2)").val();
     var credit2 = obj.find("select:nth-child(4)").val();
+    if (parseFloat(credit1) > parseFloat(credit2)) {
+      var tmp = credit1;
+      credit1 = credit2;
+      credit2 = tmp;
+      obj.find("select:nth-child(2)").val(credit1);
+      obj.find("select:nth-child(4)").val(credit2);
+    }
+    var credit = credit1==credit2?credit1:(credit1+"〜"+credit2);
+  });
+  $(document).on("click", ".sum-button", function() {
+    var obj = $(this).parent().parent().parent();
+    var count = obj.find("tr").length;
+    var credit1 = 0;
+    var credit2 = 0;
+    for (var i=2; i<count-1; i++) {
+      var str = obj.find(("tr:nth-child("+i+")")).find(".credit-area").text();
+      if (str.match(/〜/)) {
+        var c = str.split("〜");
+        credit1 += parseFloat(c[0]);
+        credit2 += parseFloat(c[1]);
+      } else {
+        credit1 += parseFloat(str);
+        credit2 += parseFloat(str);
+      }
+    }
+    var credit = credit1==credit2?credit1.toFixed(1):(credit1.toFixed(1)+"〜"+credit2.toFixed(1));
+    obj.find("tr:last").find(".number-area").text(credit);
+    obj.find("tr:last").find("select:nth-child(2)").val(credit1.toFixed(1));
+    obj.find("tr:last").find("select:nth-child(4)").val(credit2.toFixed(1));
+  });
+  $(document).on("change", ".sum-select", function() {
+    var obj = $(this).parent().parent();
+    var credit1 = obj.find("select:nth-child(2)").val();
+    var credit2 = obj.find("select:nth-child(4)").val();
+    if (parseFloat(credit1) > parseFloat(credit2)) {
+      var tmp = credit1;
+      credit1 = credit2;
+      credit2 = tmp;
+      obj.find("select:nth-child(2)").val(credit1);
+      obj.find("select:nth-child(4)").val(credit2);
+    }
     var credit = credit1==credit2?credit1:(credit1+"〜"+credit2);
     obj.find(".number-area").text(credit);
+  });
+  $(document).on("click", ".all-sum-button", function() {
+    var obj = $(this).parent().parent();
+    var id = obj.parent().parent().parent().attr("id");
+    id = parseInt(id.replace("KAMOKU_CELL_", ""))%10;
+    var credit1 = 0;
+    var credit2 = 0;
+    for (var i=1; i<5; i++) {
+      var obj_ = $(("#KAMOKU_CELL_" + i + id)).find("tr:last").find(".credit-area");
+      credit1 += parseFloat(obj_.find("select:nth-child(2)").val());
+      credit2 += parseFloat(obj_.find("select:nth-child(4)").val());
+    }
+    var credit = credit1==credit2?credit1.toFixed(1):(credit1.toFixed(1)+"〜"+credit2.toFixed(1));
+    obj.find(".number-area").text(credit);
+    obj.find(".credit-area").find("select:nth-child(2)").val(credit1.toFixed(1));
+    obj.find(".credit-area").find("select:nth-child(4)").val(credit2.toFixed(1));
   });
 });
 
@@ -309,7 +392,7 @@ function kisoIdConverter(str) {
   } else {
     for (key in kisoKyoutsuuList) {
       if (kisoKyoutsuuList[key].value == str) {
-        return kisoKyoutsuuList[key].id;
+        return '"'+kisoKyoutsuuList[key].id+'"';
       }
     }
   }
@@ -323,11 +406,20 @@ function kisoValueConverter(str) {
   }
 }
 
-function makeCreditSelector() {
-  var $creditSelector = $("<select></select>");
-  for (var i=0; i<creditList.length; i++) {
-    var $str = '<option value="' + creditList[i] + '"></option>';
-    $creditSelector.append($($str).text(creditList[i]));
+function makeCreditSelector(key) {
+  var tag = "";
+  var cList = [];
+  if (key==0) {
+    tag = "<select class='normal-select'></select>";
+    cList = creditList.concat();
+  } else {
+    tag = "<select class='sum-select'></select>";
+    cList = creditListLarge.concat();
+  }
+  var $creditSelector = $(tag);
+  for (var i=0; i<cList.length; i++) {
+    var $str = '<option value="' + cList[i] + '"></option>';
+    $creditSelector.append($($str).text(cList[i]));
   }
   return $creditSelector;
 }
@@ -343,7 +435,7 @@ function makeKisoKyoutsuuSelector() {
 
 function halfString(val) {
   var halfstr = "";
-  val.toUpperCase().replace("、", ",").split("").forEach(function(str) {
+  val.toUpperCase().replace("、", ",").replace(/\s+/g, "").split("").forEach(function(str) {
     halfstr += str.replace(/[Ａ-Ｚ０-９]/, function(s) {
       return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
     });
@@ -405,15 +497,19 @@ function loadMajor() {
 }
 
 function loadList() {
-  console.log("poyo");
   var id = parseInt($("#MAJOR_SELECT").val());
-  getData(id);
+  var year = parseInt($("#ENTER_SELECT").val());
+  if (id==6201 || id==6101) {
+    requireData(id, year);
+  }
 }
 
 function uploadData() {
   var id = $("#MAJOR_SELECT").val();
+  var year = $("#ENTER_SELECT").val();
   //開始
   var txt = "{\n";
+  txt += '\t"year" : ' + year + ",\n";
   txt += '\t"id" : ' + id + ",\n";
   //専門
   txt += '\t"Senmon" : {\n';
@@ -462,11 +558,17 @@ function uploadData() {
   txt += '\t\t"free" : [\n';
   txt += makeList(43);
   txt += '\t\t]\n';
+  txt += '\t},\n';
+  //合計
+  txt += '\t"Sum" : {\n';
+  txt += '\t\t"need" : { '+makeSumList(1)+' },\n';
+  txt += '\t\t"select" : { '+makeSumList(2)+' },\n';
+  txt += '\t\t"free" : { '+makeSumList(3)+' }\n';
   txt += '\t}\n';
   //終了
   txt += '}';
   postData(txt);
-  alert(txt);
+  // alert(txt);
 }
 
 //アップロード用の行を生成する
@@ -485,7 +587,7 @@ function makeList(id) {
     } else {
       txt += '"min" : '+credit+', "max" : '+credit+', ';
     }
-    txt += '"id" : '+(id_==3 ? kisoIdConverter(number) : "000000000");
+    txt += '"id" : '+(id_==3 ? kisoIdConverter(number) : '"000000000"');
     txt += ' },\n';
   }
   txt += '\t\t\t{ "row" : ["ALL_SUM"], ';
@@ -496,6 +598,13 @@ function makeList(id) {
   } else {
     txt += '"min" : '+credit+', "max" : '+credit+', "id" : "000000000" }\n';
   }
+  return txt;
+}
+
+function makeSumList(id) {
+  var min = $("#KAMOKU_CELL_5"+id).find("tr:last").find("select:nth-child(2)").val();
+  var max = $("#KAMOKU_CELL_5"+id).find("tr:last").find("select:nth-child(4)").val();
+  var txt = '"min" : '+min+', "max" : '+max;
   return txt;
 }
 
@@ -516,35 +625,63 @@ function postData(JsonText) {
   return false;
 }
 
-//ローカルのJSONデータからデフォルト値を貰ってくる
-function getData(num) {
-  if (num==6201) {
-    $.getJSON("js/gr.json" , function(data) {
-      setDefaultSelector(11, data.Senmon.need);
-      setDefaultSelector(12, data.Senmon.select);
-      setDefaultSelector(13, data.Senmon.free);
-      setDefaultSelector(21, data.SenmonKiso.need);
-      setDefaultSelector(22, data.SenmonKiso.select);
-      setDefaultSelector(23, data.SenmonKiso.free);
-      setDefaultSelector(31, data.KisoKyoutsuu.need);
-      setDefaultSelector(32, data.KisoKyoutsuu.select);
-      setDefaultSelector(33, data.KisoKyoutsuu.free);
-      setDefaultSelector(41, data.KisoKanren.need);
-      setDefaultSelector(42, data.KisoKanren.select);
-      setDefaultSelector(43, data.KisoKanren.free);
-    });
-  } else {
-    for (var i=0; i<12; i++) {
-      resetDefaultSelector((Math.floor(i/3)+1)*10+(i%3+1));
+//小山氏必見2
+function requireData(id, year) {
+  var JsonText = '{\n\t"id" : '+id+',\n\t"year" : '+year+'\n}';
+  $.ajax({
+    type: "POST",
+    data: JsonText,
+    url: "https://tpp.d-io.com/api/gr",
+    contentType: "application/json",
+    success: function(data) {
+      console.log(data);
+      getData(data);
+    },
+    error: function() {
+      console.log("Error");
+      missGetData();
     }
+  });
+  return false;
+}
+
+//ローカルのJSONデータからデフォルト値を貰ってくる
+function getData(data) {
+  setDefaultSelector(11, data.Senmon.need);
+  setDefaultSelector(12, data.Senmon.select);
+  setDefaultSelector(13, data.Senmon.free);
+  setDefaultSelector(21, data.SenmonKiso.need);
+  setDefaultSelector(22, data.SenmonKiso.select);
+  setDefaultSelector(23, data.SenmonKiso.free);
+  setDefaultSelector(31, data.KisoKyoutsuu.need);
+  setDefaultSelector(32, data.KisoKyoutsuu.select);
+  setDefaultSelector(33, data.KisoKyoutsuu.free);
+  setDefaultSelector(41, data.KisoKanren.need);
+  setDefaultSelector(42, data.KisoKanren.select);
+  setDefaultSelector(43, data.KisoKanren.free);
+  setDefaultSumSelector(51, data.Sum.need);
+  setDefaultSumSelector(52, data.Sum.select);
+  setDefaultSumSelector(53, data.Sum.free);
+}
+
+function missGetData() {
+  for (var i=0; i<12; i++) {
+    resetDefaultSelector((Math.floor(i/3)+1)*10+(i%3+1));
+  }
+  for (var i=1; i<4; i++) {
+    resetDefaultSumSelector(50+i);
   }
 }
 
 function resetDefaultSelector(id) {
   var len = $("#KAMOKU_CELL_"+id).find("tr").length;
   for (var i=0; i<len-3; i++) {
-    $(name).find("tr:nth-child(2)").remove();
+    $("#KAMOKU_CELL_"+id).find("tr:nth-child(2)").remove();
   }
+  var obj = $("#KAMOKU_CELL_"+id).find("tr:last");
+  obj.children(".number-area").text("0.0");
+  obj.children(".credit-area").children("select:nth-child(2)").val("0.0");
+  obj.children(".credit-area").children("select:nth-child(4)").val("0.0");
 }
 
 //それぞれの科目区分のリストを作る
@@ -552,7 +689,7 @@ function setDefaultSelector(id, data) {
   resetDefaultSelector(id);
   var obj = $("#KAMOKU_CELL_"+id).find("tr:last");
   for (var i=0; i<data.length-1; i++) {
-    var kamokuNumber = data[i].row.join("<br>");
+    var kamokuNumber = (Math.floor(id/10)==3)? kisoNameConverter(data[i].row) : data[i].row.join("<br>");
     var credit1 = data[i].min;
     var credit2 = data[i].max;
     var credit = credit1==credit2?credit1.toFixed(1):(credit1.toFixed(1)+"〜"+credit2.toFixed(1));
@@ -565,6 +702,23 @@ function setDefaultSelector(id, data) {
   }
   var credit1 = data[data.length-1].min;
   var credit2 = data[data.length-1].max;
+  var credit = credit1==credit2?credit1.toFixed(1):(credit1.toFixed(1)+"〜"+credit2.toFixed(1));
+  obj.children(".number-area").text(credit);
+  obj.children(".credit-area").children("select:nth-child(2)").val(credit1.toFixed(1));
+  obj.children(".credit-area").children("select:nth-child(4)").val(credit2.toFixed(1));
+}
+
+function resetDefaultSumSelector(id) {
+  var obj = $("#KAMOKU_CELL_"+id).find("tr");
+  obj.children(".number-area").text("0.0");
+  obj.children(".credit-area").children("select:nth-child(2)").val("0.0");
+  obj.children(".credit-area").children("select:nth-child(4)").val("0.0");
+}
+
+function setDefaultSumSelector(id, data) {
+  var obj = $("#KAMOKU_CELL_"+id).find("tr");
+  var credit1 = data.min;
+  var credit2 = data.max;
   var credit = credit1==credit2?credit1.toFixed(1):(credit1.toFixed(1)+"〜"+credit2.toFixed(1));
   obj.children(".number-area").text(credit);
   obj.children(".credit-area").children("select:nth-child(2)").val(credit1.toFixed(1));
