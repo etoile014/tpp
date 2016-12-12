@@ -5,9 +5,11 @@ var app = express();
 var jschardet = require('jschardet');
 
 //backend
+var fs = require('fs');
 var co = require('co');
 var sleep = require('sleep-async')();
 var morgan = require('morgan');
+var exec = require('child_process').exec;
 
 //connect to sqliteDB
 var sqlite3 = require("sqlite3").verbose();
@@ -23,7 +25,6 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 //access log
-var fs = require('fs');
 var stream = fs.createWriteStream(process.cwd() + '/server/log.txt', { flags: 'a' });
 app.use(morgan({ stream: stream }));
 
@@ -49,6 +50,37 @@ app.get("/api/csv", function(req, res, next) {
     res.write(data);
     res.end();
     console.log("app.get launched");
+});
+
+//maintainance api
+app.post("/api/gr", function(req, res, next) {
+    var url;
+    var readurl = fs.createReadStream(process.cwd() + '/server/url.txt');
+    readurl.on('data', function (data) {
+	url = data.toString();
+    });
+    var temp;
+    res.contentType('application/json');
+    var read = fs.createReadStream(process.cwd() + '/public/js/tmp/' + req.body.id + '_' + req.body.year + '.json');
+    console.log("///--" + req.body.id + "---" + req.body.year + "--maybe");
+    read.on('data', function (data) {
+	temp = data;
+	//console.log(data.toString());
+    });
+    sleep.sleep(500, function() {
+	/*slack post*/
+	var command = 'curl -X POST --data-urlencode \'payload={\"channel\"\: \"#log\",\"username\"\: \"webhookbot\", \"text\"\: \"maintainance api launched\", \"icon_emoji\"\: \"\:ghost\:\"}\' ' + url;
+	exec(command, function(err, stdout, stderr){
+	    if(stderr != undefined){
+		console.log(stderr);
+	    }
+	    console.log("//post at//" + command + "//" + url);
+	});
+	/*send to host*/
+	res.send(temp);
+	res.end();
+	console.log("maintainance api launched");
+    });
 });
 
 //search api post method
