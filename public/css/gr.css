@@ -347,7 +347,7 @@ img.mini-selector-arrow3 {
   z-index: 2;
 }
 
-.add-button, .remove-button, .sum-button {
+.add-button, .remove-button, .sum-button, .all-sum-button {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -364,7 +364,7 @@ img.mini-selector-arrow3 {
   color: #43526A;
   background-color: #E8E8F1;
 }
-.add-button:active, .remove-button:active, .sum-button:active {
+.add-button:active, .remove-button:active, .sum-button:active, .all-sum-button:active {
   background-color: #c5c5c8;
 }
 

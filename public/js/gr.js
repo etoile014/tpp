@@ -181,8 +181,12 @@ var majorList = {
 };
 
 var creditList = [];
-for (var i=0; i<40; i++) {
-    creditList.push(i.toFixed(1), (i+0.5).toFixed(1));
+for (var i=0; i<=40; i++) {
+  creditList.push(i.toFixed(1), (i+0.5).toFixed(1));
+}
+var creditListLarge = [];
+for (var i=0; i<=100; i++) {
+  creditListLarge.push(i.toFixed(1), (i+0.5).toFixed(1));
 }
 
 var kisoKyoutsuuList = [
@@ -206,17 +210,17 @@ var kisoKyoutsuuList = [
 
 function loadFirst() {
   loadFaculty();
-  //getData();
+  // getData(6201);
 }
 
 $(function() {
   for (var k=1; k<5; k++) {
     for (var j=1; j<4; j++) {
       var name = "#KAMOKU_CELL_" + k + j;
-      var $creditSelector1 = makeCreditSelector();
-      var $creditSelector2 = makeCreditSelector();
-      var $creditSelector3 = makeCreditSelector();
-      var $creditSelector4 = makeCreditSelector();
+      var $creditSelector1 = makeCreditSelector(0);
+      var $creditSelector2 = makeCreditSelector(0);
+      var $creditSelector3 = makeCreditSelector(1);
+      var $creditSelector4 = makeCreditSelector(1);
       $(name).append(
         $("<table border='1' class='list-area'>").append(
           $("<tr></tr>")
@@ -227,11 +231,11 @@ $(function() {
           $("<tr></tr>")
           .append($("<td class='action-area'></td>").append($("<button class='add-button'>＋</button>")))
           .append($("<td class='number-area'></td>").append(function(){
-              if (k==3) {
-                return makeKisoKyoutsuuSelector();
-              } else {
-                return $("<input type='text'>");
-              }
+            if (k==3) {
+              return makeKisoKyoutsuuSelector();
+            } else {
+              return $("<input type='text'>");
+            }
           }).append(function(){
             if (k==3) {
               return $("<img class='mini-selector-arrow3' src='./img/gr/Pulldown_Arrow.svg'>");
@@ -263,6 +267,26 @@ $(function() {
       );
     }
   }
+  for (var i=1; i<4; i++) {
+    var name = "#KAMOKU_CELL_5" + i;
+    var $creditSelector1 = makeCreditSelector(2);
+    var $creditSelector2 = makeCreditSelector(2);
+    $(name).append(
+      $("<table border='1' class='list-area'>").append(
+        $("<tr></tr>")
+        .append($("<td class='action-area'></td>").append($("<button class='all-sum-button'>計</button>")))
+        .append($("<td class='number-area'></td>").text("0.0"))
+        .append(
+          $("<td class='credit-area'></td>")
+          .append("<span>min / max</span>")
+          .append($creditSelector1)
+          .append($("<img class='mini-selector-arrow1' src='./img/gr/Pulldown_Arrow.svg'>"))
+          .append($creditSelector2)
+          .append($("<img class='mini-selector-arrow2' src='./img/gr/Pulldown_Arrow.svg'>"))
+        )
+      )
+    );
+  }
   $(document).on("click", ".add-button", function() {
     var id = $(this).parent().parent().parent().parent().parent().attr("id");
     id = Math.floor(parseInt(id.replace("KAMOKU_CELL_", ""))/10);
@@ -286,12 +310,70 @@ $(function() {
     var obj = $(this).parent().parent();
     obj.remove();
   });
-  $(document).on("click", ".sum-button", function() {
+  $(document).on("change", ".normal-select", function() {
     var obj = $(this).parent().parent();
     var credit1 = obj.find("select:nth-child(2)").val();
     var credit2 = obj.find("select:nth-child(4)").val();
+    if (parseFloat(credit1) > parseFloat(credit2)) {
+      var tmp = credit1;
+      credit1 = credit2;
+      credit2 = tmp;
+      obj.find("select:nth-child(2)").val(credit1);
+      obj.find("select:nth-child(4)").val(credit2);
+    }
+    var credit = credit1==credit2?credit1:(credit1+"〜"+credit2);
+  });
+  $(document).on("click", ".sum-button", function() {
+    var obj = $(this).parent().parent().parent();
+    var count = obj.find("tr").length;
+    var credit1 = 0;
+    var credit2 = 0;
+    for (var i=2; i<count-1; i++) {
+      var str = obj.find(("tr:nth-child("+i+")")).find(".credit-area").text();
+      if (str.match(/〜/)) {
+        var c = str.split("〜");
+        credit1 += parseFloat(c[0]);
+        credit2 += parseFloat(c[1]);
+      } else {
+        credit1 += parseFloat(str);
+        credit2 += parseFloat(str);
+      }
+    }
+    var credit = credit1==credit2?credit1.toFixed(1):(credit1.toFixed(1)+"〜"+credit2.toFixed(1));
+    obj.find("tr:last").find(".number-area").text(credit);
+    obj.find("tr:last").find("select:nth-child(2)").val(credit1.toFixed(1));
+    obj.find("tr:last").find("select:nth-child(4)").val(credit2.toFixed(1));
+  });
+  $(document).on("change", ".sum-select", function() {
+    var obj = $(this).parent().parent();
+    var credit1 = obj.find("select:nth-child(2)").val();
+    var credit2 = obj.find("select:nth-child(4)").val();
+    if (parseFloat(credit1) > parseFloat(credit2)) {
+      var tmp = credit1;
+      credit1 = credit2;
+      credit2 = tmp;
+      obj.find("select:nth-child(2)").val(credit1);
+      obj.find("select:nth-child(4)").val(credit2);
+    }
     var credit = credit1==credit2?credit1:(credit1+"〜"+credit2);
     obj.find(".number-area").text(credit);
+  });
+  $(document).on("click", ".all-sum-button", function() {
+    var obj = $(this).parent().parent();
+    var id = obj.parent().parent().parent().attr("id");
+    id = parseInt(id.replace("KAMOKU_CELL_", ""))%10;
+    var credit1 = 0;
+    var credit2 = 0;
+    for (var i=1; i<5; i++) {
+      var obj_ = $(("#KAMOKU_CELL_" + i + id)).find("tr:last").find(".credit-area");
+      credit1 += parseFloat(obj_.find("select:nth-child(2)").val());
+      credit2 += parseFloat(obj_.find("select:nth-child(4)").val());
+    }
+    var credit = credit1==credit2?credit1.toFixed(1):(credit1.toFixed(1)+"〜"+credit2.toFixed(1));
+    obj.find(".number-area").text(credit);
+    console.log(credit1.toFixed(1));
+    obj.find(".credit-area").find("select:nth-child(2)").val(credit1.toFixed(1));
+    obj.find(".credit-area").find("select:nth-child(4)").val(credit2.toFixed(1));
   });
 });
 
@@ -323,11 +405,20 @@ function kisoValueConverter(str) {
   }
 }
 
-function makeCreditSelector() {
-  var $creditSelector = $("<select></select>");
-  for (var i=0; i<creditList.length; i++) {
-    var $str = '<option value="' + creditList[i] + '"></option>';
-    $creditSelector.append($($str).text(creditList[i]));
+function makeCreditSelector(key) {
+  var tag = "";
+  var cList = [];
+  if (key==0) {
+    tag = "<select class='normal-select'></select>";
+    cList = creditList.concat();
+  } else {
+    tag = "<select class='sum-select'></select>";
+    cList = creditListLarge.concat();
+  }
+  var $creditSelector = $(tag);
+  for (var i=0; i<cList.length; i++) {
+    var $str = '<option value="' + cList[i] + '"></option>';
+    $creditSelector.append($($str).text(cList[i]));
   }
   return $creditSelector;
 }
@@ -405,15 +496,16 @@ function loadMajor() {
 }
 
 function loadList() {
-  console.log("poyo");
   var id = parseInt($("#MAJOR_SELECT").val());
   getData(id);
 }
 
 function uploadData() {
   var id = $("#MAJOR_SELECT").val();
+  var year = $("#ENTER_SELECT").val();
   //開始
   var txt = "{\n";
+  txt += '\t"year" : ' + year + ",\n";
   txt += '\t"id" : ' + id + ",\n";
   //専門
   txt += '\t"Senmon" : {\n';
@@ -462,6 +554,12 @@ function uploadData() {
   txt += '\t\t"free" : [\n';
   txt += makeList(43);
   txt += '\t\t]\n';
+  txt += '\t},\n';
+  //合計
+  txt += '\t"Sum" : {\n';
+  txt += '\t\t"need" : { '+makeSumList(1)+' },\n';
+  txt += '\t\t"select" : { '+makeSumList(2)+' },\n';
+  txt += '\t\t"free" : { '+makeSumList(3)+' }\n';
   txt += '\t}\n';
   //終了
   txt += '}';
@@ -496,6 +594,13 @@ function makeList(id) {
   } else {
     txt += '"min" : '+credit+', "max" : '+credit+', "id" : "000000000" }\n';
   }
+  return txt;
+}
+
+function makeSumList(id) {
+  var min = $("#KAMOKU_CELL_5"+id).find("tr:last").find("select:nth-child(2)").val();
+  var max = $("#KAMOKU_CELL_5"+id).find("tr:last").find("select:nth-child(4)").val();
+  var txt = '"min" : '+min+', "max" : '+max;
   return txt;
 }
 
@@ -570,6 +675,7 @@ function setDefaultSelector(id, data) {
   obj.children(".credit-area").children("select:nth-child(2)").val(credit1.toFixed(1));
   obj.children(".credit-area").children("select:nth-child(4)").val(credit2.toFixed(1));
 }
+
 
 function checkObj(obj) {
   console.log(Object.prototype.toString.call(obj));
