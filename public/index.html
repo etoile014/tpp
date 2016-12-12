@@ -108,13 +108,38 @@
             <img id="ABOUT_USAGE_STEPS" src="img/top/Step.png">
         </div>
         <div id="QA">
-            <img id="QA_BACK" src="img/top/QA.png">
-            <img id="QA_FAQ" src="img/top/FAQ.png">
+              <img id="QA_BACK" src="img/top/QA.png">
+              <img id="QA_FAQ" src="img/top/FAQ.png">
+                <span id="QA_LIST">
+                    Ｑ.成績の入ったCSVファイルをインターネット上にアップロードしても大丈夫ですか？<br>
+                    Ａ.httpsで全ての通信のSSL暗号化を行っており、かつ成績データは本サーバーには保存していません。
+                    万全を期していますが、本サービスを使用して起きたいかなる損害も補償しかねます。
+                    <br>
+                    <br>
+                    Ｑ.自分の成績が表示できない、または正しく表示されません。どうしたらいいですか？<br>
+                    Ａ.CSVファイルの名前や中身を変更していませんか。本アプリケーションでは、CSVファイルの中身を表示しているため、
+                    使用するCSVファイルを<a href="https://twins.tsukuba.ac.jp/campusweb/" target="_blank">Twins</a>の「履修/科目区分参照・変更」から成績CSVをダウンロードしているか確認してください。
+                    <br>
+                    <br>
+                    Ｑ.このアプリケーションを使えば必ず卒業できますか？<br>
+                    Ａ.卒業の支援をするアプリケーションなので、あくまで参考としてご利用ください。
+                </span>
         </div>
         <div id="UPDATE_INFO">
             <img id="UPDATE_INFO_BACK" src="img/top/Update_Info.png">
             <img id="UPDATE_INFO_UPDATE" src="img/top/Update.png">
+              <span id="UPDATE_LIST">
+                  12月12日<br>
+                  ①メインのグラフが全て実データで可動<br>
+                  ②トップテキスト追加
+              </span>
             <img id="UPDATE_INFO_INFO" src="img/top/Info.png">
+              <span id="INFO_LIST">
+                本アプリケーションは<a href="https://github.com/tpp-enpit2/tpp/tree/develop" target="_blank">Github</a>を利用してTPPを開発しています<br>
+                筑波大学所属の学生ではない方は、<a href="./gakusei_123456789.csv" download="gakusei_123456789.csv">こちら</a>
+                のサンプルCSVダウンロードして使ってください<br>
+                ※使用ブラウザによって文字化けする場合がありますが、そのままご利用ください
+              </span>
         </div>
         <div id="FOOTER">
             <p id="COPYRIGHT">Copyright ©︎2016 TPP</p>
@@ -185,7 +210,7 @@
         <div id="CREDIT">
             <p id="CREDIT_TITLE">Your Credits Detail</p>
             <p id="CREDIT_SUBTITLE">
-                <text>単位詳細を見たいものを５種類の科目区分から選ぼう</text><br>
+                <text>単位詳細を見たいものを４種類の科目区分から選ぼう</text><br>
                 <text>卒業までに必要な単位数や今までに取得した単位を確認できます</text><br>
                 <text>これから履修予定の科目を入力して卒業シミュレーションも！</text>
             </p>
@@ -194,7 +219,6 @@
                 <option value="B">専門基礎科目</option>
                 <option value="C">基礎科目</option>
                 <option value="C_0">基礎科目(GPA対象外)</option>
-                <option value="D">履修予定科目</option>
             </select>
             <img id="CREDIT_PULLDOWN_ARROW" src="./img/main/CREDIT_PULLDOWN_ARROW.svg" />
             <div id="CREDIT_BOX">

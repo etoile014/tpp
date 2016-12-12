@@ -1209,7 +1209,6 @@ function updateSelectOption() {
         "B": "C",
         "C": "C_0",
         "C_0": "A",
-        "D": "A"
     };
     $('[name=credit_pulldown]').val(nextOption[nowOption]).change();
     $('[name=credit_pulldown]').val(nowOption).change();
@@ -1469,50 +1468,50 @@ function submitAddSubjectData() {
         //未来のKdBデータはないので最新教科データが適用されるものと考えて、今年度の年を送信(inputCourseYearは後で使う)
         var subjectJson = '{\t' + '\"id\":' + '\"' + inputCourseID + '\"' + ',\t\"year\":' + '\"' + sYear + '\"\t}';
         $.ajax({
-                type: "POST",
-                data: subjectJson,
-                url: "https://tpp.d-io.com/api/search/",
-                contentType: "application/json",
-                success: function(data) {
-                    if (data != "") {
-                        //科目が存在する
-                        data = $.parseJSON(data);
-                        console.log(data);
-                        //既にに履修済み、履修中か判定
-                        if (!(JsonText.match(inputCourseID))) {
+            type: "POST",
+            data: subjectJson,
+            url: "https://tpp.d-io.com/api/search/",
+            contentType: "application/json",
+            success: function(data) {
+                if (data != "") {
+                    //科目が存在する
+                    data = $.parseJSON(data);
+                    console.log(data);
+                    //既にに履修済み、履修中か判定
+                    if (!(JsonText.match(inputCourseID))) {
 
-                            var class_val = JudgeClassification(AffiliationID, inputCourseID);
-                            //console.log(class_val);
-                            //履修していない
-                            //その年の単位キャップを越えていないか確認(現段階では単位キャップは45.0単位固定)
-                            if (countMatch(JsonText, inputCourseYear) <= 45) {
-                                //キャップ内
-                                //登録処理
+                        var class_val = JudgeClassification(AffiliationID, inputCourseID);
+                        //console.log(class_val);
+                        //履修していない
+                        //その年の単位キャップを越えていないか確認(現段階では単位キャップは45.0単位固定)
+                        if (countMatch(JsonText, inputCourseYear) <= 45) {
+                            //キャップ内
+                            //登録処理
 
-                                var next_line = countMatch(JsonText, 'line'); //line0から始まるので注意
-                                var tmp = JsonText.substr(0, JsonText.length - 2); //末尾削除
-                                tmp += ',\n';
-                                tmp += '\t"line' + next_line + '": {\n';
-                                tmp += '\t\t"classification": "' + class_val + '",\n'; //科目区分判定アルゴリズムより
-                                tmp += '\t\t"year": "' + inputCourseYear + '",\n';
-                                tmp += '\t\t"subject": "' + inputCourseID + '",\n';
-                                tmp += '\t\t"name": "' + data.name + '",\n';
-                                tmp += '\t\t"grade": "X",\n';
-                                tmp += '\t\t"credit": "' + data.credit.toFixed(1) + '",\n';
-                                tmp += '\t\t"state": "履修予定"\n';
-                                tmp += '\t}\n'
-                                tmp += '}';
-                                JsonText = tmp;
-                                updateSelectOption();
-                                //console.log(JsonText);
+                            var next_line = countMatch(JsonText, 'line'); //line0から始まるので注意
+                            var tmp = JsonText.substr(0, JsonText.length - 2); //末尾削除
+                            tmp += ',\n';
+                            tmp += '\t"line' + next_line + '": {\n';
+                            tmp += '\t\t"classification": "' + class_val + '",\n'; //科目区分判定アルゴリズムより
+                            tmp += '\t\t"year": "' + inputCourseYear + '",\n';
+                            tmp += '\t\t"subject": "' + inputCourseID + '",\n';
+                            tmp += '\t\t"name": "' + data.name + '",\n';
+                            tmp += '\t\t"grade": "X",\n';
+                            tmp += '\t\t"credit": "' + data.credit.toFixed(1) + '",\n';
+                            tmp += '\t\t"state": "履修予定"\n';
+                            tmp += '\t}\n'
+                            tmp += '}';
+                            JsonText = tmp;
+                            updateSelectOption();
+                            //console.log(JsonText);
 
-                                //履修予定科目追加によるデータセット更新&最描画
-                                var d1 = updateRabbitDataAdd(data.credit);
-                                var d2 = updateGetCreditDataAdd(class_val, data.credit);
-                                $.when(d1,d2)
-                                    .done(function() {
-                                        updateRequirementGraph();
-                                        updateCreditGraph();
+                            //履修予定科目追加によるデータセット更新&最描画
+                            var d1 = updateRabbitDataAdd(data.credit);
+                            var d2 = updateGetCreditDataAdd(class_val, data.credit);
+                            $.when(d1, d2)
+                                .done(function() {
+                                    updateRequirementGraph();
+                                    updateCreditGraph();
 
                                 });
 
@@ -1538,7 +1537,7 @@ function submitAddSubjectData() {
                 console.log("Error");
             }
         });
-}
+    }
 }
 
 function getSchoolYear() {

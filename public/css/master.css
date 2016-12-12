@@ -382,9 +382,11 @@ div#QA {
     height: auto;
     background-color: #F1ADB7;
     position: relative;
+    font-weight: 300;
 }
 
 img#QA_BACK {
+    position: relative;
     margin: 0px;
     width: 100%;
     min-width: 850px;
@@ -404,6 +406,27 @@ img#QA_FAQ {
     z-index: 1;
 }
 
+
+div#QA span{
+  position: absolute;
+  text-align: left;
+  padding:0 150px;
+  color: #ffffff;
+  z-index: 1;
+  letter-spacing: 2px;
+}
+
+span#QA_LIST{
+  display: block;
+  top: 20%;
+}
+
+#QA a{
+  color: #ffffff;
+  text-decoration: none;
+  border-bottom: 1px #ffffff dotted;
+}
+
 div#UPDATE_INFO {
     margin: 0px;
     padding: 0px;
@@ -412,6 +435,32 @@ div#UPDATE_INFO {
     height: auto;
     background-color: #FFFFFF;
     position: relative;
+    font-weight: 300;
+}
+
+div#UPDATE_INFO span{
+  position: absolute;
+  text-align: left;
+  padding:0 150px;
+  color: #363636;
+  z-index: 1;
+  letter-spacing: 2px;
+}
+
+span#UPDATE_LIST{
+  display: block;
+  top: 15%;
+}
+
+span#INFO_LIST{
+  display: block;
+  top: 60%;
+}
+
+#UPDATE_INFO a{
+  color: #363636;
+  text-decoration: none;
+  border-bottom: 1px #363636 dotted;
 }
 
 img#UPDATE_INFO_BACK {
