@@ -287,6 +287,9 @@ $(function() {
       )
     );
   }
+  $(document).on("change", "#MAJOR_SELECT", function() {
+    loadList();
+  });
   $(document).on("click", ".add-button", function() {
     var id = $(this).parent().parent().parent().parent().parent().attr("id");
     id = Math.floor(parseInt(id.replace("KAMOKU_CELL_", ""))/10);
@@ -433,7 +436,7 @@ function makeKisoKyoutsuuSelector() {
 
 function halfString(val) {
   var halfstr = "";
-  val.toUpperCase().replace("、", ",").split("").forEach(function(str) {
+  val.toUpperCase().replace("、", ",").replace(/\s+/g, "").split("").forEach(function(str) {
     halfstr += str.replace(/[Ａ-Ｚ０-９]/, function(s) {
       return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
     });
@@ -563,7 +566,7 @@ function uploadData() {
   //終了
   txt += '}';
   postData(txt);
-  alert(txt);
+  // alert(txt);
 }
 
 //アップロード用の行を生成する
@@ -573,9 +576,7 @@ function makeList(id) {
   var length = $("#KAMOKU_CELL_"+id).find("tr").length;
   for (var i=2; i<length-1; i++) {
     var number = $("#KAMOKU_CELL_"+id).find("tr:nth-child("+i+")").children("td:nth-child(2)").html();
-    if(id_==3) console.log("html: "+number);
     number = (id_==3 ? kisoValueConverter(number) : number.split("<br>").join('","'));
-    if(id_==3) console.log(number);
     txt += '\t\t\t{ "row" : ["'+number+'"], ';
     var credit = $("#KAMOKU_CELL_"+id).find("tr:nth-child("+i+")").children("td:nth-child(3)").text();
     if (credit.match(/〜/)) {
@@ -646,14 +647,21 @@ function getData(num) {
     for (var i=0; i<12; i++) {
       resetDefaultSelector((Math.floor(i/3)+1)*10+(i%3+1));
     }
+    for (var i=1; i<4; i++) {
+      resetDefaultSumSelector(50+i);
+    }
   }
 }
 
 function resetDefaultSelector(id) {
   var len = $("#KAMOKU_CELL_"+id).find("tr").length;
   for (var i=0; i<len-3; i++) {
-    $(name).find("tr:nth-child(2)").remove();
+    $("#KAMOKU_CELL_"+id).find("tr:nth-child(2)").remove();
   }
+  var obj = $("#KAMOKU_CELL_"+id).find("tr:last");
+  obj.children(".number-area").text("0.0");
+  obj.children(".credit-area").children("select:nth-child(2)").val("0.0");
+  obj.children(".credit-area").children("select:nth-child(4)").val("0.0");
 }
 
 //それぞれの科目区分のリストを作る
@@ -678,6 +686,13 @@ function setDefaultSelector(id, data) {
   obj.children(".number-area").text(credit);
   obj.children(".credit-area").children("select:nth-child(2)").val(credit1.toFixed(1));
   obj.children(".credit-area").children("select:nth-child(4)").val(credit2.toFixed(1));
+}
+
+function resetDefaultSumSelector(id) {
+  var obj = $("#KAMOKU_CELL_"+id).find("tr");
+  obj.children(".number-area").text("0.0");
+  obj.children(".credit-area").children("select:nth-child(2)").val("0.0");
+  obj.children(".credit-area").children("select:nth-child(4)").val("0.0");
 }
 
 function setDefaultSumSelector(id, data) {
