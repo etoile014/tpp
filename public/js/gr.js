@@ -210,7 +210,6 @@ var kisoKyoutsuuList = [
 
 function loadFirst() {
   loadFaculty();
-  // getData(6201);
 }
 
 $(function() {
@@ -499,7 +498,10 @@ function loadMajor() {
 
 function loadList() {
   var id = parseInt($("#MAJOR_SELECT").val());
-  getData(id);
+  var year = parseInt($("#ENTER_SELECT").val());
+  if (id==6201 || id==6101) {
+    requireData(id, year);
+  }
 }
 
 function uploadData() {
@@ -623,33 +625,52 @@ function postData(JsonText) {
   return false;
 }
 
+//小山氏必見2
+function requireData(id, year) {
+  var JsonText = '{\n\t"id" : '+id+',\n\t"year" : '+year+'\n}';
+  console.log(JsonText);
+  $.ajax({
+    type: "POST",
+    data: JsonText,
+    url: "https://tpp.d-io.com/api/gr",
+    contentType: "application/json",
+    success: function(data) {
+      console.log(data);
+      getData();
+    },
+    error: function() {
+      console.log("Error");
+      missGetData();
+    }
+  });
+  return false;
+}
+
 //ローカルのJSONデータからデフォルト値を貰ってくる
-function getData(num) {
-  if (num==6201) {
-    $.getJSON("js/gr.json" , function(data) {
-      setDefaultSelector(11, data.Senmon.need);
-      setDefaultSelector(12, data.Senmon.select);
-      setDefaultSelector(13, data.Senmon.free);
-      setDefaultSelector(21, data.SenmonKiso.need);
-      setDefaultSelector(22, data.SenmonKiso.select);
-      setDefaultSelector(23, data.SenmonKiso.free);
-      setDefaultSelector(31, data.KisoKyoutsuu.need);
-      setDefaultSelector(32, data.KisoKyoutsuu.select);
-      setDefaultSelector(33, data.KisoKyoutsuu.free);
-      setDefaultSelector(41, data.KisoKanren.need);
-      setDefaultSelector(42, data.KisoKanren.select);
-      setDefaultSelector(43, data.KisoKanren.free);
-      setDefaultSumSelector(51, data.Sum.need);
-      setDefaultSumSelector(52, data.Sum.select);
-      setDefaultSumSelector(53, data.Sum.free);
-    });
-  } else {
-    for (var i=0; i<12; i++) {
-      resetDefaultSelector((Math.floor(i/3)+1)*10+(i%3+1));
-    }
-    for (var i=1; i<4; i++) {
-      resetDefaultSumSelector(50+i);
-    }
+function getData(data) {
+  setDefaultSelector(11, data.Senmon.need);
+  setDefaultSelector(12, data.Senmon.select);
+  setDefaultSelector(13, data.Senmon.free);
+  setDefaultSelector(21, data.SenmonKiso.need);
+  setDefaultSelector(22, data.SenmonKiso.select);
+  setDefaultSelector(23, data.SenmonKiso.free);
+  setDefaultSelector(31, data.KisoKyoutsuu.need);
+  setDefaultSelector(32, data.KisoKyoutsuu.select);
+  setDefaultSelector(33, data.KisoKyoutsuu.free);
+  setDefaultSelector(41, data.KisoKanren.need);
+  setDefaultSelector(42, data.KisoKanren.select);
+  setDefaultSelector(43, data.KisoKanren.free);
+  setDefaultSumSelector(51, data.Sum.need);
+  setDefaultSumSelector(52, data.Sum.select);
+  setDefaultSumSelector(53, data.Sum.free);
+}
+
+function missGetData() {
+  for (var i=0; i<12; i++) {
+    resetDefaultSelector((Math.floor(i/3)+1)*10+(i%3+1));
+  }
+  for (var i=1; i<4; i++) {
+    resetDefaultSumSelector(50+i);
   }
 }
 
