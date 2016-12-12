@@ -5,6 +5,7 @@ var app = express();
 var jschardet = require('jschardet');
 
 //backend
+var fs = require('fs');
 var co = require('co');
 var sleep = require('sleep-async')();
 var morgan = require('morgan');
@@ -23,7 +24,6 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 //access log
-var fs = require('fs');
 var stream = fs.createWriteStream(process.cwd() + '/server/log.txt', { flags: 'a' });
 app.use(morgan({ stream: stream }));
 
@@ -49,6 +49,23 @@ app.get("/api/csv", function(req, res, next) {
     res.write(data);
     res.end();
     console.log("app.get launched");
+});
+
+//maintainance api
+app.post("/api/gr", function(req, res, next) {
+    var temp;
+    res.contentType('application/json');
+    var read = fs.createReadStream(process.cwd() + '/public/js/tmp/' + req.body.id + '_' + req.body.year + '.json');
+    console.log("///--" + req.body.id + "---" + req.body.year + "--maybe");
+    read.on('data', function (data) {
+	temp = data;
+	//console.log(data.toString());
+    });
+    sleep.sleep(500, function() {
+	res.send(temp);
+	res.end();
+	console.log("maintainance api launched");
+    });
 });
 
 //search api post method
