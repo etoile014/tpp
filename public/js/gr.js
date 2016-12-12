@@ -190,22 +190,22 @@ for (var i=0; i<=100; i++) {
 }
 
 var kisoKyoutsuuList = [
-  { "value" : "SOUGOU", "name" : "総合", "id" : 100000000 },
-  { "value" : "SOUGOU1", "name" : "総合I", "id" : 111000000 },
-  { "value" : "SOUGOU2", "name" : "総合II", "id" : 010000000 },
-  { "value" : "SOUGOU2A", "name" : "総合II-A", "id" : 010000000 },
-  { "value" : "SOUGOU2B", "name" : "総合II-B", "id" : 010000000 },
-  { "value" : "SOUGOU2C", "name" : "総合II-C", "id" : 010000000 },
-  { "value" : "SOUGOU3", "name" : "総合III", "id" : 001000000 },
-  { "value" : "SPORTS", "name" : "体育", "id" : 000100000 },
-  { "value" : "FOREIGN", "name" : "外国語", "id" : 000011000 },
-  { "value" : "FOREIGN1", "name" : "第一外国語", "id" : 000010000 },
-  { "value" : "FOREIGN2", "name" : "第二外国語", "id" : 000001000 },
-  { "value" : "JAPANESE", "name" : "国語", "id" : 000000010 },
-  { "value" : "ARTS", "name" : "芸術", "id" : 000000001 },
-  { "value" : "INFO", "name" : "情報", "id" : 000000100 },
-  { "value" : "ALL", "name" : "全共通", "id" : 111111111 },
-  { "value" : "ALL_KLIS", "name" : "全共通(知識)", "id" : 111111011 }
+  { "value" : "SOUGOU", "name" : "総合", "id" : "100000000" },
+  { "value" : "SOUGOU1", "name" : "総合I", "id" : "111000000" },
+  { "value" : "SOUGOU2", "name" : "総合II", "id" : "010000000" },
+  { "value" : "SOUGOU2A", "name" : "総合II-A", "id" : "010000000" },
+  { "value" : "SOUGOU2B", "name" : "総合II-B", "id" : "010000000" },
+  { "value" : "SOUGOU2C", "name" : "総合II-C", "id" : "010000000" },
+  { "value" : "SOUGOU3", "name" : "総合III", "id" : "001000000" },
+  { "value" : "SPORTS", "name" : "体育", "id" : "000100000" },
+  { "value" : "FOREIGN", "name" : "外国語", "id" : "000011000" },
+  { "value" : "FOREIGN1", "name" : "第一外国語", "id" : "000010000" },
+  { "value" : "FOREIGN2", "name" : "第二外国語", "id" : "000001000" },
+  { "value" : "JAPANESE", "name" : "国語", "id" : "000000010" },
+  { "value" : "ARTS", "name" : "芸術", "id" : "000000001" },
+  { "value" : "INFO", "name" : "情報", "id" : "000000100" },
+  { "value" : "ALL", "name" : "全共通", "id" : "111111111" },
+  { "value" : "ALL_KLIS", "name" : "全共通(知識)", "id" : "111111011" }
 ];
 
 function loadFirst() {
@@ -371,7 +371,6 @@ $(function() {
     }
     var credit = credit1==credit2?credit1.toFixed(1):(credit1.toFixed(1)+"〜"+credit2.toFixed(1));
     obj.find(".number-area").text(credit);
-    console.log(credit1.toFixed(1));
     obj.find(".credit-area").find("select:nth-child(2)").val(credit1.toFixed(1));
     obj.find(".credit-area").find("select:nth-child(4)").val(credit2.toFixed(1));
   });
@@ -391,7 +390,7 @@ function kisoIdConverter(str) {
   } else {
     for (key in kisoKyoutsuuList) {
       if (kisoKyoutsuuList[key].value == str) {
-        return kisoKyoutsuuList[key].id;
+        return '"'+kisoKyoutsuuList[key].id+'"';
       }
     }
   }
@@ -574,7 +573,9 @@ function makeList(id) {
   var length = $("#KAMOKU_CELL_"+id).find("tr").length;
   for (var i=2; i<length-1; i++) {
     var number = $("#KAMOKU_CELL_"+id).find("tr:nth-child("+i+")").children("td:nth-child(2)").html();
+    if(id_==3) console.log("html: "+number);
     number = (id_==3 ? kisoValueConverter(number) : number.split("<br>").join('","'));
+    if(id_==3) console.log(number);
     txt += '\t\t\t{ "row" : ["'+number+'"], ';
     var credit = $("#KAMOKU_CELL_"+id).find("tr:nth-child("+i+")").children("td:nth-child(3)").text();
     if (credit.match(/〜/)) {
@@ -583,7 +584,7 @@ function makeList(id) {
     } else {
       txt += '"min" : '+credit+', "max" : '+credit+', ';
     }
-    txt += '"id" : '+(id_==3 ? kisoIdConverter(number) : "000000000");
+    txt += '"id" : '+(id_==3 ? kisoIdConverter(number) : '"000000000"');
     txt += ' },\n';
   }
   txt += '\t\t\t{ "row" : ["ALL_SUM"], ';
@@ -637,6 +638,9 @@ function getData(num) {
       setDefaultSelector(41, data.KisoKanren.need);
       setDefaultSelector(42, data.KisoKanren.select);
       setDefaultSelector(43, data.KisoKanren.free);
+      setDefaultSumSelector(51, data.Sum.need);
+      setDefaultSumSelector(52, data.Sum.select);
+      setDefaultSumSelector(53, data.Sum.free);
     });
   } else {
     for (var i=0; i<12; i++) {
@@ -657,7 +661,7 @@ function setDefaultSelector(id, data) {
   resetDefaultSelector(id);
   var obj = $("#KAMOKU_CELL_"+id).find("tr:last");
   for (var i=0; i<data.length-1; i++) {
-    var kamokuNumber = data[i].row.join("<br>");
+    var kamokuNumber = (Math.floor(id/10)==3)? kisoNameConverter(data[i].row) : data[i].row.join("<br>");
     var credit1 = data[i].min;
     var credit2 = data[i].max;
     var credit = credit1==credit2?credit1.toFixed(1):(credit1.toFixed(1)+"〜"+credit2.toFixed(1));
@@ -676,6 +680,15 @@ function setDefaultSelector(id, data) {
   obj.children(".credit-area").children("select:nth-child(4)").val(credit2.toFixed(1));
 }
 
+function setDefaultSumSelector(id, data) {
+  var obj = $("#KAMOKU_CELL_"+id).find("tr");
+  var credit1 = data.min;
+  var credit2 = data.max;
+  var credit = credit1==credit2?credit1.toFixed(1):(credit1.toFixed(1)+"〜"+credit2.toFixed(1));
+  obj.children(".number-area").text(credit);
+  obj.children(".credit-area").children("select:nth-child(2)").val(credit1.toFixed(1));
+  obj.children(".credit-area").children("select:nth-child(4)").val(credit2.toFixed(1));
+}
 
 function checkObj(obj) {
   console.log(Object.prototype.toString.call(obj));
