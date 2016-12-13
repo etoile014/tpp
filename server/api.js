@@ -18,7 +18,7 @@ var db = new sqlite3.Database(process.cwd() + '/database/requirements.db');
 var courseDB = new sqlite3.Database(process.cwd() + '/database/kdb.db');
 
 app.set('views', process.cwd() + '/views');
-var ejsEngine = require('ejs');
+//var ejsEngine = require('ejs');
 
 app.use(bodyParser.urlencoded({
     extended: true
