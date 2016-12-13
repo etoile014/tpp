@@ -571,7 +571,7 @@ function uploadData() {
   //終了
   txt += '}';
   postData(txt);
-  alert(txt);
+  // alert(txt);
 }
 
 //アップロード用の行を生成する
