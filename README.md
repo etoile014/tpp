@@ -2,7 +2,7 @@
 * Docker Container `node`(official)
 (no dockerfile included)
 * nginx server
-(https reverse proxy required)
+(ssl encryption required)
 
 # Language
 ## Frontend
@@ -24,23 +24,23 @@ Team TpP from enpit2 program, University of Tsukuba.
 # Dependencies(npm)
 * node
 * express
-* pm2
 * body-parser
 * sqlite3
 * co
 * sleep-async
 * jschardet
+* async
 
 # Usage
 ## temp or debug
 `$ npm install`
 `$ npm start server/api.js`
-## production
+## production(use pm2 in my case)
 `$ npm install`
 `$ pm2 start server/api.js`
 
 # deploy including env
-`docker run -it -d -p 5000:80 -p 5002:12000 -v /home/*****/:/share/ node`
+`docker run -it -d -p _host_port:80 -p _host_port:12000 -v /home/*****/:/share/ node`
 
 # Security
 Required CSV file contains important personal information.
