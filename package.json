@@ -3,7 +3,7 @@
     "version": "0.0.1",
     "description": "for twins",
     "author": "Yuki Koyama <je6hbc@d-io.com>",
-    "main": "server.js",
+    "main": "server/api.js",
     "scripts": {
 	"start": "node server/api.js"
     },
@@ -11,6 +11,7 @@
 	"node":"latest",
 	"express": "latest",
 	"ejs": "latest",
+	"async": "latest",
 	"body-parser": "latest",
 	"pm2": "latest",
 	"sqlite3": "latest",
