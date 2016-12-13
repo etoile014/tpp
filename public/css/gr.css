@@ -163,17 +163,10 @@ select.selector  {
   font-weight: bold;
   color: #43526A;
   background-color: #E8E8F1;
-}
-
-img.selector-arrow {
-  position: absolute;
-  width: 20px;
-  height: 10px;
-  padding: 15px 0px;
-  top: 5px;
-  left: 210px;
-  opacity: 0.8;
-  z-index: 2;
+  background-image: url(../img/gr/Pulldown_Arrow.svg);
+  background-repeat: no-repeat;
+  background-position: 210px 13px;
+  background-size: 20px 10px;
 }
 
 div.table-frame {
@@ -297,6 +290,10 @@ td.credit-area select {
   font-weight: bold;
   color: #43526A;
   background-color: #E8E8F1;
+  background-image: url(../img/gr/Pulldown_Arrow.svg);
+  background-repeat: no-repeat;
+  background-position: 37px 5px;
+  background-size: 8px 6px;
 }
 
 select.kiso-selector {
@@ -315,36 +312,10 @@ select.kiso-selector {
   font-weight: bold;
   color: #43526A;
   background-color: #E8E8F1;
-}
-
-img.mini-selector-arrow1 {
-  position: absolute;
-  width: 8px;
-  height: 6px;
-  top: 35px;
-  left: 48px;
-  opacity: 0.8;
-  z-index: 2;
-}
-
-img.mini-selector-arrow2 {
-  position: absolute;
-  width: 8px;
-  height: 6px;
-  top: 35px;
-  left: 107px;
-  opacity: 0.8;
-  z-index: 2;
-}
-
-img.mini-selector-arrow3 {
-  position: absolute;
-  width: 9px;
-  height: 7px;
-  top: 23px;
-  left: 90px;
-  opacity: 0.8;
-  z-index: 2;
+  background-image: url(../img/gr/Pulldown_Arrow.svg);
+  background-repeat: no-repeat;
+  background-position: 85px 5px;
+  background-size: 9px 7px;
 }
 
 .add-button, .remove-button, .sum-button, .all-sum-button {
