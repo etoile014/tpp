@@ -7,6 +7,7 @@ var jschardet = require('jschardet');
 //backend
 var fs = require('fs');
 var co = require('co');
+var async = require('async');
 var sleep = require('sleep-async')();
 var morgan = require('morgan');
 var exec = require('child_process').exec;
@@ -61,28 +62,127 @@ app.post("/api/gr", function(req, res, next) {
     });
     var temp;
     res.contentType('application/json');
-    var read = fs.createReadStream(process.cwd() + '/public/js/tmp/' + req.body.id + '_' + req.body.year + '.json');
-    console.log("///--" + req.body.id + "---" + req.body.year + "--maybe");
-    read.on('data', function (data) {
-	temp = data;
-	//console.log(data.toString());
-    });
-    sleep.sleep(500, function() {
-	/*slack post*/
-	var command = 'curl -X POST --data-urlencode \'payload={\"channel\"\: \"#log\",\"username\"\: \"webhookbot\", \"text\"\: \"maintainance api launched\", \"icon_emoji\"\: \"\:ghost\:\"}\' ' + url;
-	exec(command, function(err, stdout, stderr){
-	    if(stderr != undefined){
-		console.log(stderr);
-	    }
-	    console.log("//post at//" + command + "//" + url);
-	});
-	/*send to host*/
-	res.send(temp);
-	res.end();
-	console.log("maintainance api launched");
-    });
+    async.waterfall([
+	function(callback) {
+	    var read = fs.createReadStream(process.cwd() + '/public/js/tmp/' + req.body.id + '_' + req.body.year + '.json');
+	    console.log("///--" + req.body.id + "---" + req.body.year + "--maybe");
+	    read.on('data', function (data) {
+		temp = data;
+		//console.log(data.toString());
+		callback(null);
+	    });
+	},
+	function(callback) {
+	    /*slack post*/
+	    var command = 'curl -X POST --data-urlencode \'payload={\"channel\"\: \"#log\",\"username\"\: \"webhookbot\", \"text\"\: \"maintainance api launched\", \"icon_emoji\"\: \"\:ghost\:\"}\' ' + url;
+	    exec(command, function(err, stdout, stderr){
+		if(stderr != undefined){
+		    console.log(stderr);
+		}
+		console.log("//post at//" + command + "//" + url);
+		callback(null);
+	    });
+	},
+	function(callback) {
+	    /*send to host*/
+	    res.send(temp);
+	    res.end();
+	    console.log("maintainance api launched");
+	    callback(null);
+	}
+    ]);
 });
 
+//search by name
+app.post("/api/name_search", function(req, res, next) {
+    var i = 0;
+    var data = {sum:0};
+    async.waterfall([
+	function(callback) {
+	    switch (req.body.year) {
+	    case "2013":
+		courseDB.each('select * from course2013 where name like ?', [req.body.name], function(err, row) {
+		    console.log("searching by name.... " + req.body.name);
+		    if (err) {
+			console.log(err);
+		    } else {
+			data[i] = row;
+			i++;
+		    }
+		},
+			      function(){
+				  callback(null);
+			      });
+		break;
+	    case "2014":
+		courseDB.each('select * from course2014 where name like ?', [req.body.name], function(err, row) {
+		    console.log("searching by name.... " + req.body.name);
+		    if (err) {
+			console.log(err);
+		    } else {
+			data[i] = row;
+			i++;
+		    }
+		},
+			      function(){
+				  callback(null);
+			      });
+		break;
+	    case "2015":
+		courseDB.each('select * from course2015 where name like ?', [req.body.name], function(err, row) {
+		    console.log("searching by name.... " + req.body.name);
+		    if (err) {
+			console.log(err);
+		    } else {
+			data[i] = row;
+			i++;
+		    }
+		},
+			      function(){
+				  callback(null);
+			      });
+		break;
+	    case "2016":
+		courseDB.each('select * from course2016 where name like ?', [req.body.name], function(err, row) {
+		    console.log("searching by name.... " + req.body.name);
+		    if (err) {
+			console.log(err);
+		    } else {
+			console.log("///" + row);
+			data[i] = row;
+			i++;
+		    }
+		},
+			      function(){
+				  callback(null);
+			      });
+		break;
+	    default:
+		courseDB.each('select * from course2016 where name like ?', [req.body.name], function(err, row) {
+		    console.log("searching by name.... " + req.body.name);
+		    if (err) {
+			console.log(err);
+		    } else {
+			data[i] = row;
+			i++;
+		    }
+		},
+			      function(){
+				  callback(null);
+			      });
+		break;
+	    }
+	},
+	function() {
+	    data.score = req.body.score;
+	    data.state = req.body.state;
+	    var resDataJSON = JSON.stringify(data, null, ' ');
+	    res.send(resDataJSON);
+	    res.end();
+	    console.log("-JSON submitted to host!");
+	}]);
+});
+    
 //search api post method
 app.post("/api/search", function(req, res, next) {
     var year;
