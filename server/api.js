@@ -188,56 +188,63 @@ app.post("/api/search", function(req, res, next) {
     var year;
     var id;
     var data;
-    switch (req.body.year) {
-        case "2013":
-            courseDB.get('select * from course2013 where id = ?', [req.body.id], function(err, row) {
-                console.log("searching.... " + req.body.id);
-                if (err) {
-                    console.log(err)
-                } else {
-                    data = row
-                }
-            });
-            break;
-        case "2014":
-            courseDB.get('select * from course2014 where id = ?', [req.body.id], function(err, row) {
-                console.log("searching.... " + req.body.id);
-                if (err) {
-                    console.log(err)
-                } else {
-                    data = row
-                }
-            });
-            break;
-        case "2015":
-            courseDB.get('select * from course2015 where id = ?', [req.body.id], function(err, row) {
-                console.log("searching.... " + req.body.id);
-                if (err) {
-                    console.log(err)
-                } else {
-                    data = row
-                }
-            });
-            break;
-        case "2016":
-            courseDB.get('select * from course2016 where id = ?', [req.body.id], function(err, row) {
-                console.log("searching.... " + req.body.id);
-                if (err) {
-                    console.log(err)
-                } else {
-                    data = row
-                }
-            });
-            break;
-    }
-    sleep.sleep(500, function() {
-        data.score = req.body.score;
-        data.state = req.body.state;
-        var resDataJSON = JSON.stringify(data, null, ' ');
-        res.send(resDataJSON);
-        res.end();
-        console.log("-JSON submitted to host!");
-    });
+    async.waterfall([
+	function(callback) {
+	    switch (req.body.year) {
+            case "2013":
+		courseDB.get('select * from course2013 where id = ?', [req.body.id], function(err, row) {
+                    console.log("searching.... " + req.body.id);
+                    if (err) {
+			console.log(err)
+                    } else {
+			data = row;
+			callback(null);
+                    }
+		});
+		break;
+            case "2014":
+		courseDB.get('select * from course2014 where id = ?', [req.body.id], function(err, row) {
+                    console.log("searching.... " + req.body.id);
+                    if (err) {
+			console.log(err)
+                    } else {
+			data = row;
+			callback(null);
+                    }
+		});
+		break;
+            case "2015":
+		courseDB.get('select * from course2015 where id = ?', [req.body.id], function(err, row) {
+                    console.log("searching.... " + req.body.id);
+                    if (err) {
+			console.log(err)
+                    } else {
+			data = row;
+			callback(null);
+                    }
+		});
+		break;
+            case "2016":
+		courseDB.get('select * from course2016 where id = ?', [req.body.id], function(err, row) {
+                    console.log("searching.... " + req.body.id);
+                    if (err) {
+			console.log(err)
+                    } else {
+			data = row;
+			callback(null);
+                    }
+		});
+		break;
+	    }
+	},
+	function(callback) {
+            data.score = req.body.score;
+            data.state = req.body.state;
+            var resDataJSON = JSON.stringify(data, null, ' ');
+            res.send(resDataJSON);
+            res.end();
+            console.log("-JSON submitted to host!");
+	}]);
 });
 
 
