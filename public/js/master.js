@@ -720,8 +720,8 @@ function handleFileUpload(file) {
 
 function TwinsPlanningParser(textData) {
     textData = textData.trim();
-    var data = textData.split("\r\n");
-    var Line = data[1].split("\r");
+    var Line = textData.replace(/\r\n/g, "\n").replace(/\r/g, "\n").split("\n");
+    Line.splice(0, 1);
     var linage = Line.length;
     dataArray = new Array();
     var count = 0;
@@ -764,7 +764,7 @@ function convertJsonText(dataArray, Aff) {
     }
     txt += '}';
     JsonText = txt;
-    //alert(txt);
+    alert(txt);
 }
 
 function postData() {
