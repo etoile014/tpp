@@ -64,17 +64,17 @@ app.post("/api/gr", function(req, res, next) {
     res.contentType('application/json');
     async.waterfall([
 	function(callback) {
+	    //read from sample file
 	    var read = fs.createReadStream(process.cwd() + '/public/js/tmp/' + req.body.id + '_' + req.body.year + '.json');
 	    console.log("///--" + req.body.id + "---" + req.body.year + "--maybe");
 	    read.on('data', function (data) {
 		temp = data;
-		//console.log(data.toString());
 		callback(null);
 	    });
 	},
 	function(callback) {
 	    /*slack post*/
-	    var command = 'curl -X POST --data-urlencode \'payload={\"channel\"\: \"#log\",\"username\"\: \"webhookbot\", \"text\"\: \"maintainance api launched\", \"icon_emoji\"\: \"\:ghost\:\"}\' ' + url;
+	    var command = 'curl -X POST --data-urlencode \'payload={\"channel\"\: \"#log\",\"username\"\: \"webhookbot\", \"text\"\: \"maintainance api launched at ' + req.body.id + ' in ' + req.body.year + '\", \"icon_emoji\"\: \"\:ghost\:\"}\' ' + url;
 	    exec(command, function(err, stdout, stderr){
 		if(stderr != undefined){
 		    console.log(stderr);
