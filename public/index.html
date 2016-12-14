@@ -40,50 +40,60 @@
         </div>
         <div class="header-menu">
             <div id="HEADER_MENU_INSIDE1">
-                <div class="menu-interval"><p class="onbar"></p><span>|</span></div>
+                <div class="menu-interval">
+                    <p class="onbar"></p><span>|</span></div>
                 <div class="menu-item">
                     <p class="onbar"></p><a href="#TOP">トップ</a>
                     <p class="underbar"></p>
                 </div>
-                <div class="menu-interval"><p class="onbar"></p><span>|</span></div>
+                <div class="menu-interval">
+                    <p class="onbar"></p><span>|</span></div>
                 <div class="menu-item">
                     <p class="onbar"></p><a href="#ABOUT_USAGE">概要・使い方</a>
                     <p class="underbar"></p>
                 </div>
-                <div class="menu-interval"><p class="onbar"></p><span>|</span></div>
+                <div class="menu-interval">
+                    <p class="onbar"></p><span>|</span></div>
                 <div class="menu-item">
                     <p class="onbar"></p><a href="#QA">よくある質問</a>
                     <p class="underbar"></p>
                 </div>
-                <div class="menu-interval"><p class="onbar"></p><span>|</span></div>
+                <div class="menu-interval">
+                    <p class="onbar"></p><span>|</span></div>
                 <div class="menu-item">
                     <p class="onbar"></p><a href="#UPDATE_INFO">更新・お知らせ</a>
                     <p class="underbar"></p>
                 </div>
-                <div class="menu-interval"><p class="onbar"></p><span>|</span></div>
+                <div class="menu-interval">
+                    <p class="onbar"></p><span>|</span></div>
             </div>
             <div id="HEADER_MENU_INSIDE2">
-                <div class="menu-interval"><p class="onbar"></p><span>|</span></div>
+                <div class="menu-interval">
+                    <p class="onbar"></p><span>|</span></div>
                 <div class="menu-item">
                     <p class="onbar"></p><a href="#REQUIREMENT">卒業要件</a>
                     <p class="underbar"></p>
                 </div>
-                <div class="menu-interval"><p class="onbar"></p><span>|</span></div>
+                <div class="menu-interval">
+                    <p class="onbar"></p><span>|</span></div>
                 <div class="menu-item">
                     <p class="onbar"></p><a href="#CREDIT">単位詳細</a>
                     <p class="underbar"></p>
                 </div>
-                <div class="menu-interval"><p class="onbar"></p><span>|</span></div>
+                <div class="menu-interval">
+                    <p class="onbar"></p><span>|</span></div>
                 <div class="menu-item">
                     <p class="onbar"></p><a href="#GRADE_GPA">成績・ GPA</a>
                     <p class="underbar"></p>
                 </div>
-                <div class="menu-interval"><p class="onbar"></p><span>|</span></div>
+                <div class="menu-interval">
+                    <p class="onbar"></p><span>|</span></div>
                 <div class="menu-item">
                     <p class="onbar"></p><a href="#SCHEDULE">時間割</a>
                     <p class="underbar"></p>
                 </div>
-                <div class="menu-interval"><p class="onbar"></p><span>|</span></div>
+                <div class="menu-interval">
+                    <p class="onbar"></p><span>|</span></div>
             </div>
         </div>
     </header>
@@ -108,9 +118,9 @@
             <img id="ABOUT_USAGE_STEPS" src="img/top/Step.png">
         </div>
         <div id="QA">
-              <img id="QA_BACK" src="img/top/QA.png">
-              <img id="QA_FAQ" src="img/top/FAQ.png">
-                <span id="QA_LIST">
+            <img id="QA_BACK" src="img/top/QA.png">
+            <img id="QA_FAQ" src="img/top/FAQ.png">
+            <span id="QA_LIST">
                     Ｑ.成績の入ったCSVファイルをインターネット上にアップロードしても大丈夫ですか？<br>
                     Ａ.httpsで全ての通信のSSL暗号化を行っており、かつ成績データは本サーバーには保存していません。
                     万全を期していますが、本サービスを使用して起きたいかなる損害も補償しかねます。
@@ -128,16 +138,16 @@
         <div id="UPDATE_INFO">
             <img id="UPDATE_INFO_BACK" src="img/top/Update_Info.png">
             <img id="UPDATE_INFO_UPDATE" src="img/top/Update.png">
-              <span id="UPDATE_LIST">
+            <span id="UPDATE_LIST">
                   12月12日<br>
                   ①メインのグラフが全て実データで可動<br>
                   ②トップテキスト追加
               </span>
             <img id="UPDATE_INFO_INFO" src="img/top/Info.png">
-              <span id="INFO_LIST">
+            <span id="INFO_LIST">
                 本アプリケーションは<a href="https://github.com/tpp-enpit2/tpp/tree/develop" target="_blank">Github</a>を利用して開発しています<br>
                 筑波大学所属の学生ではない方は、<a href="./gakusei_123456789.csv" download="gakusei_123456789.csv">こちら</a>
-                のサンプルCSVダウンロードして使ってください<br>
+                のサンプルCSVをダウンロードして使ってください<br>
                 ※使用ブラウザによって文字化けする場合がありますが、そのままご利用ください
               </span>
         </div>
@@ -220,7 +230,6 @@
                 <option value="C">基礎科目</option>
                 <option value="C_0">基礎科目(GPA対象外)</option>
             </select>
-            <img id="CREDIT_PULLDOWN_ARROW" src="./img/main/CREDIT_PULLDOWN_ARROW.svg" />
             <div id="CREDIT_BOX">
                 <div id="CREDIT_GRAPH">
                     <svg id="GET_CREDIT_GRAPH"></svg>
@@ -237,7 +246,7 @@
                         </tr>
                     </thead>
                     <tbody id="CREDIT_TABLE_TBODY">
-                  </tbody>
+                    </tbody>
                 </table>
                 <div id="SUB_ADD_MODAL_OPEN">追加</div>
 
@@ -321,29 +330,26 @@
             <option value="8">体育専門学群</option>
             <option value="9">芸術専門学群</option>
         </select>
-        <img id="FACULTY_LABEL_ARROW" src="./img/top_input_modal/PULLDOWN_ARROW.svg"/>
         <select id="DEPART_SELECT" class="input-affiliation-pulldown"></select>
-        <img id="DEPART_LABEL_ARROW" src="./img/top_input_modal/PULLDOWN_ARROW.svg"/>
         <select id="MAJOR_SELECT" class="input-affiliation-pulldown"></select>
-        <img id="MAJOR_LABEL_ARROW" src="./img/top_input_modal/PULLDOWN_ARROW.svg"/>
-        <img id="INPUT_MODAL_CONTENTS_BUTTON" src="./img/top_input_modal/INPUT_MODAL_BOTTOM.png"/>
-        <img id="INPUT_MODAL_CANCEL_BUTTON" src="./img/top_input_modal/CANCEL_BUTTON_OFF.png" onclick="closeInputModal()"/>
-        <img id="INPUT_MODAL_OK_BUTTON" src="./img/top_input_modal/OK_BUTTON_OFF.png" onclick="submitAffiliationData()"/>
+        <img id="INPUT_MODAL_CONTENTS_BUTTON" src="./img/top_input_modal/INPUT_MODAL_BOTTOM.png" />
+        <img id="INPUT_MODAL_CANCEL_BUTTON" src="./img/top_input_modal/CANCEL_BUTTON_OFF.png" onclick="closeInputModal()" />
+        <img id="INPUT_MODAL_OK_BUTTON" src="./img/top_input_modal/OK_BUTTON_OFF.png" onclick="submitAffiliationData()" />
     </div>
 
     <!-- トップ(エラー)モーダル -->
     <div id="TOP_ERROR_MODAL_CONTENTS">
-      <img id="TOP_ERROR_MODAL_ATTENTION_ICON" src="./img/top_error_modal/ATTENTION.svg"/>
-      <img id="TOP_ERROR_MODAL_OK_BUTTON" src="./img/top_error_modal/ERROR_OK_BUTTON_OFF.svg" onclick="closeTopErrorModal()"/>
-      <p id="ERROR_TITLE"></p>
-      <p id="ERROR_MESSAGE"></p>
+        <img id="TOP_ERROR_MODAL_ATTENTION_ICON" src="./img/top_error_modal/ATTENTION.svg" />
+        <img id="TOP_ERROR_MODAL_OK_BUTTON" src="./img/top_error_modal/ERROR_OK_BUTTON_OFF.svg" onclick="closeTopErrorModal()" />
+        <p id="ERROR_TITLE"></p>
+        <p id="ERROR_MESSAGE"></p>
     </div>
 
     <!-- メイン(科目詳細)モーダル -->
     <div id="SHOW_SUB_DETAIL_MODAL_CONTENTS">
         <img id="SHOW_SUB_DETAIL_MODAL_CLOSE_BUTTON" src="./img/main_show_sub_modal/CLOSE_MODAL.svg" onclick="closeShowSubModal()" />
         <div id="ID_NAME_LABEL" class="text-center"></div>
-        <hr class="show-sub-detail-modal"/>
+        <hr class="show-sub-detail-modal" />
         <div class="text-left">
             <div id="CREDIT_VALUE_LABEL"></div>
             <div id="SCHOOL_GRADE_LABEL"></div>
@@ -368,34 +374,37 @@
 
     <!-- メイン(科目追加)モーダル -->
     <div id="SUB_ADD_MODAL_CONTENTS">
-      <img id="ADD_SUB_MODAL_CLOSE_BUTTON" src="./img/main_show_sub_modal/CLOSE_MODAL.svg" onclick="closeAddSubModal()" />
-      <p id="SUB_ADD_MODAL_TITLE">履修予定科目追加</p>
-      <hr class="add-sub-modal">
-      <p id="SUB_ADD_MODAL_DESCRIPTION">履修予定に追加し、卒業までの取得単位をシミュレーションしたい科目を追加します。
-                                        該当科目の科目番号と履修予定年度を入力し、追加ボタンを押してください。
-                                        追加しない場合はキャンセルボタンを押してください。</p>
-      <span id="COURSE_LABEL">科目番号</span>
-      <input id="INPUT_COURSE_ID_TEXT" type="text" placeholder=" GC41203" pattern="[A-Z0-9]{4}\d{3}">
-      <span id="YEAR_LABEL">履修予定年度</span>
-      <input id="INPUT_COURSE_YEAR" type="number" min="2000" max="2099" step="1" placeholder=" 2014"  pattern="20\d{2}">
-      <img id="ADD_SUB_MODAL_CANCEL_BUTTON" src="./img/main_add_sub_modal/ADD_SUB_MODAL_CANCEL_BUTTON_OFF.svg" onclick="closeAddSubModal()"/>
-      <img id="ADD_SUB_MODAL_ADD_BUTTON" src="./img/main_add_sub_modal/ADD_SUB_MODAL_ADD_BUTTON_OFF.svg" onclick="submitAddSubjectData()"/>
+        <img id="ADD_SUB_MODAL_CLOSE_BUTTON" src="./img/main_show_sub_modal/CLOSE_MODAL.svg" onclick="closeAddSubModal()" />
+        <p id="SUB_ADD_MODAL_TITLE">履修予定科目追加</p>
+        <hr class="add-sub-modal">
+        <p id="SUB_ADD_MODAL_DESCRIPTION">履修予定に追加し、卒業までの取得単位をシミュレーションしたい科目を追加します。 該当科目の科目番号と履修予定年度を入力し、追加ボタンを押してください。 追加しない場合はキャンセルボタンを押してください。
+        </p>
+        <span id="COURSE_LABEL">科目番号</span>
+        <span id="YEAR_LABEL">履修予定年度</span>
+        <form>
+            <input id="INPUT_COURSE_ID_TEXT" type="text" placeholder=" GC41203" pattern="[A-Z0-9]{4}\d{3}">
+            <input id="INPUT_COURSE_YEAR" type="number">
+        </form>
+        <img id="ADD_SUB_MODAL_CANCEL_BUTTON" src="./img/main_add_sub_modal/ADD_SUB_MODAL_CANCEL_BUTTON_OFF.svg" onclick="closeAddSubModal()" />
+        <img id="ADD_SUB_MODAL_ADD_BUTTON" src="./img/main_add_sub_modal/ADD_SUB_MODAL_ADD_BUTTON_OFF.svg" onclick="submitAddSubjectData()" />
+
     </div>
 
     <!-- メイン(履修予定追加結果)モーダル -->
     <div id="SUB_ADD_RESULT_MODAL_CONTENTS">
-      <img id="ADD_SUB_RESULT_ICON" src=""/>
-      <img id="ADD_SUB_RESULT_MODAL_OK_BUTTON" src="./img/top_error_modal/ERROR_OK_BUTTON_OFF.svg" onclick="closeAddSubResultModal()"/>
-      <p id="ADD_RESULT_TITLE"></p>
-      <p id="ADD_RESULT_MESSAGE"></p>
+        <img id="ADD_SUB_RESULT_ICON" src="" />
+        <img id="ADD_SUB_RESULT_MODAL_OK_BUTTON" src="./img/top_error_modal/ERROR_OK_BUTTON_OFF.svg" onclick="closeAddSubResultModal()" />
+        <p id="ADD_RESULT_TITLE"></p>
+        <p id="ADD_RESULT_MESSAGE"></p>
     </div>
 
     <!-- メイン(履修予定削除結果)モーダル -->
     <div id="SUB_DELETE_RESULT_MODAL_CONTENTS">
-      <img id="DELETE_RESULT_ICON" src=""/>
-      <img id="DELETE_RESULT_MODAL_OK_BUTTON" src="./img/top_error_modal/ERROR_OK_BUTTON_OFF.svg" onclick="closeAddSubResultModal()"/>
-      <p id="DELETE_RESULT_TITLE"></p>
-      <p id="DELETE_RESULT_MESSAGE"></p>
+        <img id="DELETE_RESULT_ICON" src="" />
+        <img id="DELETE_RESULT_MODAL_OK_BUTTON" src="./img/top_error_modal/ERROR_OK_BUTTON_OFF.svg" onclick="closeAddSubResultModal()" />
+        <p id="DELETE_RESULT_TITLE"></p>
+        <p id="DELETE_RESULT_MESSAGE"></p>
     </div>
 </body>
+
 </html>
