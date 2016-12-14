@@ -8,18 +8,18 @@
   <!-- CSS -->
   <link href="css/gr.css" rel="stylesheet" type="text/css">
 </head>
-<body onload="loadFirst()">
+<body onload="loadFaculty()">
   <header id="PAGE_HEADER" role="banner">
     <div class="header-logo"><img class="logo" src="img/gr/Top_Link.png"></div>
   </header>
   <div id="PAGE_MAIN" role="main">
     <div id="GR">
       <h2><p id="MESSAGE">あなたも誰かを"ぴょんぴょん"させてみませんか？</p></h2>
-      <p id="EXPLAIN">必要事項を全て入力して"データ送信"ボタンを押してください。</p>
+      <p id="EXPLAIN">卒業に必要な要件を全て入力して"データ送信"ボタンを押してください。</p>
+      <p id="EXPLAIN2">※現在情報学群の三学類のみデフォルトの卒業要件が用意してあります。</p>
       <form>
         <div class="selectorField">
           <select class="selector" id="ENTER_SELECT">
-            <option value="2013">2013年入学</option>
             <option value="2014">2014年入学</option>
             <option value="2015">2015年入学</option>
             <option value="2016">2016年入学</option>
@@ -36,6 +36,27 @@
           <select class="selector" id="MAJOR_SELECT" onchange="loadList()"></select>
         </div>
       </form>
+      <div id="SEARCH">
+        <span>科目名から科目番号を検索</span>
+        <form onsubmit="searchNumber(); return false;">
+          <select id="SEARCH_SELECT">
+            <option value="2014">2014年度</option>
+            <option value="2015">2015年度</option>
+            <option value="2016">2016年度</option>
+            <option value="2017">2017年度</option>
+          </select>
+          <input type="text" placeholder="科目名" id="SEARCH_AREA">
+          <input type="submit" value="検索">
+        </form>
+        <table border="1" class="search-table">
+          <tr>
+            <td class="name">科目名</td>
+            <td class="number">科目番号</td>
+            <td class="semester">学期</td>
+            <td class="teacher">担当教員</td>
+          </tr>
+        </table>
+      </div>
       <div class="table-frame">
         <table border="0" class="input-table">
           <tr>

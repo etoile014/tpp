@@ -136,6 +136,10 @@ p#EXPLAIN {
   color: #43526A;
 }
 
+p#EXPLAIN2 {
+  color: #c10808;
+}
+
 div.selectorField {
   position: relative;
   margin: auto;
@@ -167,6 +171,47 @@ select.selector  {
   background-repeat: no-repeat;
   background-position: 210px 13px;
   background-size: 20px 10px;
+}
+
+div#SEARCH {
+  margin: 20px auto;
+  width: 837px;
+  font-weight: bold;
+  color: #43526A;
+  border-style: solid;
+  border-color: rgba(67, 82, 106, 0.5);
+  border-width: 1px;
+  border-radius: 5px;
+  background-color: #E8E8F1;
+}
+
+table.search-table {
+  margin: 5px auto;
+  border-collapse: collapse;
+  font-size: 1em;
+  background-color: #ffffff;
+}
+
+td.name {
+  width: 300px;
+}
+
+td.number {
+  width: 150px;
+}
+
+td.semester {
+  width: 80px;
+}
+
+td.teacher {
+  width: 250px;
+  word-wrap: break-word;
+}
+
+span.teacher-name {
+  width: 100px;
+  white-space: nowrap;
 }
 
 div.table-frame {
