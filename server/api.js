@@ -256,6 +256,8 @@ app.post("/api/search", function(req, res, next) {
 //main api post method
 app.post("/api/csv", function(req, res, next) {
     //init post function local handler
+    var resData;
+    var resDataJSON;
     var total = [0,0,0,0,0,0,0,0,0,0,0];//a+,a,b,c,d,x,p,f
     var semesterTotal = [0,0,0,0,0,0,0];
     var semesterGPA = [0,0,0,0,0,0,0];
@@ -269,54 +271,31 @@ app.post("/api/csv", function(req, res, next) {
     admissionYear = getAdmissionYear(req);
     var subjectTemp;
     var gradeTemp;
-
+    var csvColumn;
+    console.log("I GOT POST!!");
     async.waterfall([
 	function(callback) {
-	    console.log("I GOT POST!!");
-	    res.contentType('application/json');
-	    callback(null);
+	    for(var i = 0; i < 1000; i++){
+		if(req.body["line" + i] == undefined){
+		    csvColumn = i;
+		    callback(null);
+		}
+	    }
 	},
 	function(callback) {
 	    db.serialize(function() {
 		//co(function*() {
 		//for (var i = 0; eval("req.body.line" + i) != undefined; i++) {
-		var i = [0,1,2,3,4,5,6,7,8,9,10];
+		var i = [0];
+		for(j = 0; j < csvColumn; j++){
+		    i.push(j);
+		}
+		//console.log("//" + i);
 		async.each(i, function(i, callback) {
 		    subjectTemp = eval("req.body.line" + i + ".subject");
 		    gradeTemp = eval("req.body.line" + i + ".grade");
-		    courseDB.get('select credit,id from course' + eval("req.body.line" + i + ".year") + ' where id = ?', [subjectTemp], function(err, row) {
-			if (err) {
-			    console.log(err)
-			} else {
-			    console.log(row);
-			    console.log("2016  " + i + ":" + gradeTemp);
-			    if (gradeTemp == "A+") {
-				total[0] += row.credit
-			    }
-			    if (gradeTemp == "A") {
-				total[1] += row.credit
-			    }
-			    if (gradeTemp == "B") {
-				total[2] += row.credit
-			    }
-			    if (gradeTemp == "C") {
-				total[3] += row.credit
-			    }
-			    if (gradeTemp == "D") {
-				total[4] += row.credit
-			    }
-			    if (gradeTemp == "X") {
-				total[5] += row.credit
-			    }
-			    if (gradeTemp == "P") {
-				total[6] += row.credit
-			    }
-			    if (gradeTemp == "F") {
-				total[7] += row.credit
-			    }
-			    callback(null);
-			}
-		    });
+		    yearTemp = eval("req.body.line" + i + ".year");
+		    calcCredit(i, gradeTemp, subjectTemp, total, yearTemp, callback);
 		});
 		callback(null);
             });
@@ -385,7 +364,7 @@ app.post("/api/csv", function(req, res, next) {
 		    C = 0;
 		var Amin, Amax, Bmin, Bmax, Cmin, Cmax, xmin, xmax;
 		
-		console.log("総合科目2:" + x);
+		//console.log("総合科目2:" + x);
 		
 		db.each("SELECT min, max from common_compulsory where subject = '総合科目2-A' and depart = 621 and enter = 2014", function(err, rowA) {
 		    Amin = rowA.min;
@@ -400,7 +379,7 @@ app.post("/api/csv", function(req, res, next) {
 		db.each("SELECT min, max from common_compulsory where subject = '総合科目2-C' and depart = 621 and enter = 2014", function(err, rowC) {
 		    Cmin = rowC.min;
 		    Cmax = rowC.max;
-		    console.log("総合科目2-C 上限:" + Cmax + "下限" + Cmin);
+		    //console.log("総合科目2-C 上限:" + Cmax + "下限" + Cmin);
 		});
 		
 		
@@ -440,7 +419,7 @@ app.post("/api/csv", function(req, res, next) {
 		var xmin = row.min,
 		    xmax = row.max,
 		    y = 0;
-		console.log("総合科目3:" + x);
+		//console.log("総合科目3:" + x);
 		//履修データから科目番号1D*****,1E*****,1F*****,1G*****の単位数をyにプラス
 		var classcode = [/^1D/, /^1E/, /^1F/, /^1G/];
 		if (xmin > y) {
@@ -458,7 +437,7 @@ app.post("/api/csv", function(req, res, next) {
 		var w, xmin = row.min,
 		    xmax = row.max,
 		    y, z = 0;
-		console.log("体育:" + x);
+		//console.log("体育:" + x);
 		
 		//履修データから科目番号21*****,25*****の単位数をyに格納
 		var classcode1 = [/^21/, /^25/];
@@ -521,8 +500,8 @@ app.post("/api/csv", function(req, res, next) {
 	},
 	function(callback) {
 	    console.log("-analyzed");
-	    console.log("///" + getCourse + "---" +  nowCourse);
-	    var resData = {
+	    //console.log("///" + getCourse + "---" +  nowCourse);
+	    resData = {
 		"REQUIREMENT": {
 		    "needGRCourse": 124.5,
 		    "getGRCourse": (total[0] + total[1] + total[2] + total[3]),
@@ -592,12 +571,22 @@ app.post("/api/csv", function(req, res, next) {
 		    ]
 		}
 	    };
-	    var resDataJSON = JSON.stringify(resData, null, ' ');
-	    res.send(resDataJSON);
+	    callback(null);
+	},
+	function(callback) {
+	    //res.contentType('application/json');
+	    resDataJSON = JSON.stringify(resData, null, ' ');
+	    callback(null);
+	},
+	function(callback) {
+	    console.log("//////////////////" + resDataJSON);
+	    res.write(resDataJSON);
 	    res.end();
 	    console.log("-JSON submitted to host!");
 	    console.log(subject[7]);
-	}]);
+	    callback(null);
+	}],function(err, arg1, arg2){
+	});
 });
 	 
 /*
@@ -907,4 +896,48 @@ function culcGPA(req,i){
 	return 0;
 	break;
     }
+}
+
+function calcCredit(i, gradeTemp, subjectTemp, total, year, callback) {
+    courseDB.get('select credit,id from course' + year + ' where id = ?', [subjectTemp], function(err, row) {
+	if (err) {
+	    console.log(err)
+	} else {
+	    //console.log(row);
+	    //console.log("2016  " + i + ":" + gradeTemp);
+	    if (gradeTemp == "A+") {
+		total[0] += row.credit;
+		callback(null);
+	    }
+	    if (gradeTemp == "A") {
+		total[1] += row.credit;
+		callback(null);
+	    }
+	    if (gradeTemp == "B") {
+		total[2] += row.credit;
+		callback(null);
+	    }
+	    if (gradeTemp == "C") {
+		total[3] += row.credit;
+		callback(null);
+	    }
+	    if (gradeTemp == "D") {
+		total[4] += row.credit;
+		callback(null);
+	    }
+	    if (gradeTemp == "X") {
+		total[5] += row.credit;
+		callback(null);
+	    }
+	    if (gradeTemp == "P") {
+		total[6] += row.credit;
+		callback(null);
+	    }
+	    if (gradeTemp == "F") {
+		total[7] += row.credit;
+		callback(null);
+	    }
+	}
+	
+    });
 }
