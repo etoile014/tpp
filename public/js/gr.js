@@ -208,10 +208,6 @@ var kisoKyoutsuuList = [
   { "value" : "ALL_KLIS", "name" : "全共通(知識)", "id" : "111111011" }
 ];
 
-function loadFirst() {
-  loadFaculty();
-}
-
 $(function() {
   for (var k=1; k<5; k++) {
     for (var j=1; j<4; j++) {
@@ -632,6 +628,7 @@ function postData(JsonText) {
 //小山氏必見2
 function requireData(id, year) {
   var JsonText = '{\n\t"id" : '+id+',\n\t"year" : '+year+'\n}';
+  console.log("require : "+JsonText);
   $.ajax({
     type: "POST",
     data: JsonText,
@@ -651,6 +648,7 @@ function requireData(id, year) {
 
 function searchNameFromNumber(number, year, obj) {
   var JsonText = '{\n\t"id" : "'+number+'",\n\t"year" : "'+year+'"\n}';
+    console.log("search : "+JsonText);
   $.ajax({
     type: "POST",
     data: JsonText,
@@ -757,6 +755,59 @@ function setDefaultSumSelector(id, data) {
   obj.children(".credit-area").children("select:nth-child(3)").val(credit2.toFixed(1));
 }
 
+function searchNumber() {
+  var year = $("#SEARCH_SELECT").val();
+  var name = $("#SEARCH_AREA").val();
+  if (name != "") {
+    var JsonText = '{\n\t"year" : "'+year+'",\n\t"name" : "%'+name+'%"\n}';
+    console.log("number : "+JsonText);
+    $.ajax({
+      type: "POST",
+      data: JsonText,
+      url: "https://tpp.d-io.com/api/name_search/",
+      contentType: "application/json",
+      success: function(data) {
+        console.log(data);
+        data = $.parseJSON(data);
+        while($(".search-table").find("tr").length > 1){
+          $(".search-table").find("tr:last").remove();
+        }
+        var i=0;
+        while(data[i]){
+          var name = data[i].name;
+          if (name.length>17) {
+            name = name.substr(0, 17) + "...";
+          }
+          var teachers = data[i].teacher.split(",");
+          for (var j=0; j<teachers.length; j++) {
+            teachers[j] = '<span class="teacher-name">' + teachers[j] + "</span>";
+          }
+          var teachar = teachers.join(", ");
+          $(".search-table").append(
+            $("<tr></tr>")
+            .append($('<td class="name"></td>').text(name))
+            .append($('<td class="number"></td>').text(data[i].id))
+            .append($('<td class="semester"></td>').text(data[i].semester))
+            .append($('<td class="teacher"></td>').html(teachar))
+          );
+          i+=1;
+        }
+      },
+      error: function() {
+        console.log("Error");
+      }
+    });
+  } else {
+    while($(".search-table").find("tr").length > 1){
+      $(".search-table").find("tr:last").remove();
+    }
+  }
+}
+
 function checkObj(obj) {
   console.log(Object.prototype.toString.call(obj));
+}
+
+function bytes2(str) {
+  return(encodeURIComponent(str).replace(/%../g,"x").length);
 }
