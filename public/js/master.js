@@ -764,7 +764,7 @@ function convertJsonText(dataArray, Aff) {
     }
     txt += '}';
     JsonText = txt;
-    alert(txt);
+    //alert(txt);
 }
 
 function postData() {
@@ -1438,11 +1438,40 @@ function initAddSubModalText() {
     document.getElementById("INPUT_COURSE_YEAR").value = "";
 }
 
+$(document).ready(function() {
+    $('#INPUT_COURSE_YEAR').attr({
+        "max": 2099,
+        "min": getSchoolYear(),
+        "step": 1,
+        "placeholder": "2014",
+        "pattern": "20\d{2}"
+    });
+});
 
+function formattingCourseID(inputCourseID) {
+    var halfstr = "";
+    inputCourseID.toLowerCase().replace(/\s+/g, "");
+    inputCourseID.toUpperCase().replace(/\s+/g, "").split("").forEach(function(str) {
+        halfstr += str.replace(/[Ａ-Ｚ０-９]/, function(s) {});
+    });
+    return halfstr;
+}
+
+/*
+$('#INPUT_COURSE_YEAR').on("keydown", function(e) {
+  console.log(e.keyCode);
+  if(e.keyCode === 13) {
+		$('#ADD_SUB_MODAL_ADD_BUTTON').trigger("click");
+	}
+});
+*/
 
 function submitAddSubjectData() {
     var errorMessage = "";
     var inputCourseID = $("#INPUT_COURSE_ID_TEXT").val();
+    //console.log("元の科目番号文字列:" + inputCourseID);
+    inputCourseID = formattingCourseID(inputCourseID);
+    //console.log("formattingCourseIDで変換した科目番号文字列:" + inputCourseID);
     if (inputCourseID.match(/^[A-Z0-9]{7}$/)) {
         //console.log("科目ID:" + inputCourseID);
     } else {
