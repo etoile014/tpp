@@ -97,12 +97,12 @@ app.post("/api/gr", function(req, res, next) {
 app.post("/api/name_search", function(req, res, next) {
     var i = 0;
     var data = {sum:0};
+    console.log("searching by name.... " + req.body.name);
     async.waterfall([
 	function(callback) {
 	    switch (req.body.year) {
 	    case "2013":
-		courseDB.each('select * from course2013 where name like ?', [req.body.name], function(err, row) {
-		    console.log("searching by name.... " + req.body.name);
+		courseDB.each('select * from course2013 where name like ? limit 100', [req.body.name], function(err, row) {
 		    if (err) {
 			console.log(err);
 		    } else {
@@ -117,7 +117,6 @@ app.post("/api/name_search", function(req, res, next) {
 		break;
 	    case "2014":
 		courseDB.each('select * from course2014 where name like ?', [req.body.name], function(err, row) {
-		    console.log("searching by name.... " + req.body.name);
 		    if (err) {
 			console.log(err);
 		    } else {
@@ -132,7 +131,6 @@ app.post("/api/name_search", function(req, res, next) {
 		break;
 	    case "2015":
 		courseDB.each('select * from course2015 where name like ?', [req.body.name], function(err, row) {
-		    console.log("searching by name.... " + req.body.name);
 		    if (err) {
 			console.log(err);
 		    } else {
@@ -147,11 +145,10 @@ app.post("/api/name_search", function(req, res, next) {
 		break;
 	    case "2016":
 		courseDB.each('select * from course2016 where name like ?', [req.body.name], function(err, row) {
-		    console.log("searching by name.... " + req.body.name);
 		    if (err) {
 			console.log(err);
 		    } else {
-			console.log("///" + row);
+			//console.log("///" + row);
 			data[i] = row;
 			i++;
 			data.sum++;
@@ -163,7 +160,6 @@ app.post("/api/name_search", function(req, res, next) {
 		break;
 	    default:
 		courseDB.each('select * from course2016 where name like ?', [req.body.name], function(err, row) {
-		    console.log("searching by name.... " + req.body.name);
 		    if (err) {
 			console.log(err);
 		    } else {
