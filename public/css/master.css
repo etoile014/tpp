@@ -541,6 +541,10 @@ select.input-affiliation-pulldown {
     color: #43526A;
     background-color: #E8E8F1;
     text-indent: 0.8em;
+    background-image: url(../img/top_input_modal/PULLDOWN_ARROW.svg);
+    background-repeat: no-repeat;
+    background-position: 210px 15px;
+    background-size: 20px 10px;
 }
 @-moz-document url-prefix() {
     select.input_affiliation_pulldown {
@@ -554,49 +558,16 @@ select#FACULTY_SELECT {
     margin: 10 0 10 0;
 }
 
-img#FACULTY_LABEL_ARROW {
-    position: absolute;
-    width: 20px;
-    height: 10px;
-    left: 260px;
-    top: 225px;
-    padding: 15px 0 15px 0;
-    z-index: 15;
-    opacity: 0.8;
-}
-
 select#DEPART_SELECT {
     position: relative;
     top: 40px;
     margin: 10 0 10 0;
 }
 
-img#DEPART_LABEL_ARROW {
-    position: absolute;
-    width: 20px;
-    height: 10px;
-    left: 260px;
-    top: 285px;
-    padding: 15px 0 15px 0;
-    z-index: 15;
-    opacity: 0.8;
-}
-
 select#MAJOR_SELECT {
     position: relative;
     top: 60px;
     margin: 10 0 10 0;
-}
-
-img#MAJOR_LABEL_ARROW {
-    position: absolute;
-    width: 20px;
-    height: 10px;
-    left: 260px;
-    top: 345px;
-    padding: 15px 0 15px 0;
-    z-index: 15;
-    opacity: 0.8;
 }
 
 img#INPUT_MODAL_CONTENTS_BUTTON {
@@ -950,6 +921,10 @@ select#CREDIT_PULLDOWN {
     text-align:left;
     text-indent: 1.5em;
     background-color: #ffffff;
+    background-image: url(../img/main/CREDIT_PULLDOWN_ARROW.svg);
+    background-repeat: no-repeat;
+    background-position: 180px 12px;
+    background-size: 20px 10px;
 }
 
 /*firefoxは挙動が異なるのでtext-indentを上書き*/
@@ -957,17 +932,6 @@ select#CREDIT_PULLDOWN {
     select#CREDIT_PULLDOWN {
         text-indent: 0.5em;
     }
-}
-
-img#CREDIT_PULLDOWN_ARROW {
-    position: relative;
-    width: 20px;
-    height: 10px;
-    left: 80px;
-    padding:12.5px 0 12.5px 0;
-    top: 150px;
-    z-index: 2;
-    opacity: 0.8;
 }
 
 div#CREDIT_BOX {
