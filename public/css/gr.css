@@ -201,6 +201,10 @@ td.number {
   width: 150px;
 }
 
+td.number-txt:hover {
+  background-color: #dadada;
+}
+
 td.credit {
   width: 50px;
 }
