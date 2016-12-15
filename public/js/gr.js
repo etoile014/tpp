@@ -315,11 +315,7 @@ $(function() {
     var credit1 = obj.find("select:nth-child(2)").val();
     var credit2 = obj.find("select:nth-child(3)").val();
     if (parseFloat(credit1) > parseFloat(credit2)) {
-      var tmp = credit1;
-      credit1 = credit2;
-      credit2 = tmp;
-      obj.find("select:nth-child(2)").val(credit1);
-      obj.find("select:nth-child(3)").val(credit2);
+      obj.find("select:nth-child(3)").val(credit1);
     }
   });
   $(document).on("click", ".sum-button", function() {
@@ -348,11 +344,8 @@ $(function() {
     var credit1 = obj.find("select:nth-child(2)").val();
     var credit2 = obj.find("select:nth-child(3)").val();
     if (parseFloat(credit1) > parseFloat(credit2)) {
-      var tmp = credit1;
-      credit1 = credit2;
-      credit2 = tmp;
-      obj.find("select:nth-child(2)").val(credit1);
-      obj.find("select:nth-child(3)").val(credit2);
+      credit2 = credit1;
+      obj.find("select:nth-child(3)").val(credit1);
     }
     var credit = credit1==credit2?credit1:(credit1+"〜"+credit2);
     obj.find(".number-area").text(credit);
@@ -377,6 +370,7 @@ $(function() {
     var txt = $("#PATTERN").text();
     if (txt == "") {
       $("#PATTERN").text($(this).text());
+      $(this).css("color", "#c10808");
     } else {
       var txts = txt.split(",");
       var flag = -1;
@@ -387,8 +381,10 @@ $(function() {
       }
       if (flag < 0) {
         txts.push($(this).text());
+        $(this).css("color", "#c10808");
       } else {
         txts.splice(flag, 1);
+        $(this).css("color", "#43526A");
       }
       txt = txts.join(",");
       $("#PATTERN").text(txt);
