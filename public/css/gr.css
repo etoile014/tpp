@@ -175,6 +175,7 @@ select.selector  {
 
 div#SEARCH {
   margin: 20px auto;
+  padding: 5px;
   width: 837px;
   font-weight: bold;
   color: #43526A;
@@ -200,6 +201,10 @@ td.number {
   width: 150px;
 }
 
+td.credit {
+  width: 50px;
+}
+
 td.semester {
   width: 80px;
 }
@@ -207,6 +212,10 @@ td.semester {
 td.teacher {
   width: 250px;
   word-wrap: break-word;
+}
+
+span#PATTERN {
+  display: none;
 }
 
 span.teacher-name {

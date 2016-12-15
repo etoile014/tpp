@@ -373,6 +373,31 @@ $(function() {
     obj.find(".credit-area").find("select:nth-child(2)").val(credit1.toFixed(1));
     obj.find(".credit-area").find("select:nth-child(3)").val(credit2.toFixed(1));
   });
+  $(document).on("click", ".number-txt", function() {
+    var txt = $("#PATTERN").text();
+    if (txt == "") {
+      $("#PATTERN").text($(this).text());
+    } else {
+      var txts = txt.split(",");
+      var flag = -1;
+      for (var i=0; i<txts.length; i++) {
+        if (txts[i] == $(this).text()) {
+          flag = i;
+        }
+      }
+      if (flag < 0) {
+        txts.push($(this).text());
+      } else {
+        txts.splice(flag, 1);
+      }
+      txt = txts.join(",");
+      $("#PATTERN").text(txt);
+    }
+    txt = $("#PATTERN").text();
+    for (var i=0; i<12; i++) {
+      $("#KAMOKU_CELL_"+((Math.floor(i/3)+1)*10+(i%3+1))).find("input").val(txt);
+    }
+  });
 });
 
 function kisoNameConverter(str) {
@@ -758,6 +783,10 @@ function setDefaultSumSelector(id, data) {
 function searchNumber() {
   var year = $("#SEARCH_SELECT").val();
   var name = $("#SEARCH_AREA").val();
+  $("#PATTERN").text("");
+  for (var i=0; i<12; i++) {
+    $("#KAMOKU_CELL_"+((Math.floor(i/3)+1)*10+(i%3+1))).find("input").val("");
+  }
   if (name != "") {
     var JsonText = '{\n\t"year" : "'+year+'",\n\t"name" : "%'+name+'%"\n}';
     console.log("number : "+JsonText);
@@ -786,12 +815,14 @@ function searchNumber() {
           $(".search-table").append(
             $("<tr></tr>")
             .append($('<td class="name"></td>').text(name))
-            .append($('<td class="number"></td>').text(data[i].id))
+            .append($('<td class="number number-txt"></td>').text(data[i].id))
+            .append($('<td></td>').text(data[i].credit.toFixed(1)))
             .append($('<td class="semester"></td>').text(data[i].semester))
             .append($('<td class="teacher"></td>').html(teachar))
           );
           i+=1;
         }
+        $("#HIT").text(i+"件ヒット");
       },
       error: function() {
         console.log("Error");
@@ -801,6 +832,7 @@ function searchNumber() {
     while($(".search-table").find("tr").length > 1){
       $(".search-table").find("tr:last").remove();
     }
+    $("#HIT").text("");
   }
 }
 
