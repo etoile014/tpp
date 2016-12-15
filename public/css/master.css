@@ -410,7 +410,7 @@ img#QA_FAQ {
 div#QA span{
   position: absolute;
   text-align: left;
-  padding:0 150px;
+  padding:0 200px;
   color: #ffffff;
   z-index: 1;
   letter-spacing: 2px;
@@ -441,7 +441,7 @@ div#UPDATE_INFO {
 div#UPDATE_INFO span{
   position: absolute;
   text-align: left;
-  padding:0 150px;
+  padding:0 200px;
   color: #363636;
   z-index: 1;
   letter-spacing: 2px;
@@ -1150,6 +1150,14 @@ div#SCHEDULE_BOX {
     background-color: #FFFFFF;
 }
 
+img#UNDER_CONSTRUCTION {
+  position: absolute;
+  margin: auto;
+  left: 0px;
+  width: 850px;
+  height: 640px;
+  z-index: 2;
+}
 
 /*科目詳細表示モーダル*/
 div#SHOW_SUB_DETAIL_MODAL_OPEN{

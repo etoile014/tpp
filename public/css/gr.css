@@ -426,8 +426,10 @@ div#FOOTER {
 }
 
 p#COPYRIGHT {
+  padding: 14px 0 6px 0;
   margin: auto;
+  text-align: center;
   width: 300px;
   color: #FFFFFF;
-  font-size: 25px;
+  font-size: 15px;
 }

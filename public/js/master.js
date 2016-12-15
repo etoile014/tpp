@@ -606,13 +606,28 @@ function fileNameResize() {
     }
 }
 
+function textResize() {
+    var w = $(window).width();
+    if (w < 850) {
+        $('#QA,#UPDATE_INFO').css({
+            "font-size": "12px"
+        });
+    }else{
+      $('#QA,#UPDATE_INFO').css({
+          "font-size": "1.41vw"
+      });
+    }
+}
+
 $(function() {
     //ファイルネームのリサイズ
     $(window).on("load", function() {
         fileNameResize();
+        textResize();
     });
     $(window).resize(function() {
         fileNameResize();
+        textResize();
     });
 
     //ページスクロール遷移
