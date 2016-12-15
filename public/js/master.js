@@ -28,6 +28,13 @@ var CourseToNumHash = {
     "C_0": 3
 };
 
+var CourseToNameHash = {
+    "A": "専門科目",
+    "B": "専門基礎科目",
+    "C": "基礎科目",
+    "C_0": "基礎科目(GPA対象外)"
+}
+
 //GradeA&A+
 //var grade_A_data = [0.0, 0.0];
 var grade_A_data = [
@@ -63,9 +70,9 @@ var credit_transition_data = [{
 }];
 
 //GPATransition
-//var qpa_transition_data = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
+//var gpa_transition_data = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
 //detaset サンプル
-var qpa_transition_data = [{
+var gpa_transition_data = [{
     "semester": "",
     "GPA": 0.0
 }, {
@@ -764,7 +771,7 @@ function convertJsonText(dataArray, Aff) {
     }
     txt += '}';
     JsonText = txt;
-    alert(txt);
+    //alert(txt);
 }
 
 function postData() {
@@ -818,9 +825,33 @@ function getData(data) {
     var countD = data.GRADE_GPA.countD;
     var countOther = data.GRADE_GPA.countP + data.GRADE_GPA.countF;
     grade_rate_data = [countAplus, countA, countB, countC, countD, countOther];
-    //start = data.GRADE_GPA.start;
+
+    //gpaTransitionとcreditTransitionは成績が出ている科目のみ扱う(履修中のものを取り除く)
+    var tmp_gpa = data.GRADE_GPA.gpaTransition;
+    var delete_line = "";
+    var len = tmp_gpa.length;
+    var delete_semester = "";
+    for (var i = 0; i < len; i++) {
+        if (tmp_gpa[i].GPA == 0 && i == (len - 1)) {
+            delete_semester = tmp_gpa[i].semester;
+        }
+    }
+    if (delete_semester != "") {
+        data.GRADE_GPA.creditTransition.some(function(v, i) {
+            if (v.semester == delete_semester) {
+                data.GRADE_GPA.creditTransition.splice(i, 1);
+            }
+        });
+
+        data.GRADE_GPA.gpaTransition.some(function(v, i) {
+            if (v.semester == delete_semester) {
+                data.GRADE_GPA.gpaTransition.splice(i, 1);
+            }
+        });
+    }
+
     credit_transition_data = data.GRADE_GPA.creditTransition;
-    qpa_transition_data = data.GRADE_GPA.gpaTransition;
+    gpa_transition_data = data.GRADE_GPA.gpaTransition;
 
     for (var i = 0; i < 4; i++) {
         grade_A_data[i][0] = data.CREDIT[i].courseA;
@@ -836,11 +867,6 @@ function getData(data) {
             get_credit_data[i][4] = countOther;
         }
     }
-    /*
-    console.log("get_credit_data:"+get_credit_data);
-    console.log("grade_A_data:"+grade_A_data);
-    console.log("get_credit_data:"+get_credit_data);
-    */
     jumpMain();
 }
 
@@ -880,7 +906,7 @@ $(function() {
             animated3 = true;
             drawGradeRate("#GRADE_RATE", grade_rate_data);
             drawCreditTransition("#CREDIT_TRANSITION", credit_transition_data);
-            drawGPATransition("#GPA_TRANSITION", qpa_transition_data);
+            drawGPATransition("#GPA_TRANSITION", gpa_transition_data);
 
             $("#CREDIT_APLUS").text(grade_rate_data[0].toFixed(1));
             $("#CREDIT_A").text(grade_rate_data[1].toFixed(1));
@@ -968,13 +994,14 @@ $(document).ready(function() {
             }
         });
     }
-    /*
     setDepartSelect('1');
     setMajorSelect('11');
-    */
+
+    /*
     //デフォルトを情報メディア創成に
     setDepartSelect('6');
     setMajorSelect('62');
+    */
 });
 
 /*科目詳細モーダル*/
@@ -1457,14 +1484,6 @@ function formattingCourseID(inputCourseID) {
     return halfstr;
 }
 
-/*
-$('#INPUT_COURSE_YEAR').on("keydown", function(e) {
-  console.log(e.keyCode);
-  if(e.keyCode === 13) {
-		$('#ADD_SUB_MODAL_ADD_BUTTON').trigger("click");
-	}
-});
-*/
 
 function submitAddSubjectData() {
     var errorMessage = "";
@@ -1544,7 +1563,7 @@ function submitAddSubjectData() {
 
                                 });
 
-                            successMessage += "<p>" + inputCourseYear + "年度に科目番号 " + inputCourseID + " の" + data.name + "を履修予定です</p>";
+                            successMessage += "<p>" + inputCourseYear + "年度に科目番号 " + inputCourseID + " の" + data.name + " (" + CourseToNameHash[class_val] + ") " + "を履修予定です</p>";
                         } else {
                             //キャップ外
                             creditErrorMessage += "<p>" + inputCourseYear + "年度の履修単位数は既に単位キャップ上限の４５単位に達しています</p>";
